@@ -1,0 +1,58 @@
+{
+    "os_target": "windows",
+    "config": {
+        "windows": {
+            "prerequisites": [
+                "git",
+                "cmake",
+                "vcpkg",
+                "rustc",
+                "cargo"
+            ],
+            "toolchain": "vcpkg",
+            "packages": [
+                {
+                    "library": "fmt",
+                    "triplet": "x64-windows"
+                },
+                {
+                    "library": "spdlog",
+                    "triplet": "x64-windows"
+                },
+                {
+                    "library": "glad[gl-api-46,loader,extensions]",
+                    "triplet": "x64-windows"
+                },
+                {
+                    "library": "glfw3",
+                    "triplet": "x64-windows"
+                },
+                {
+                    "library": "imgui[docking-experimental,glfw-binding,opengl3-binding]",
+                    "triplet": "x64-windows"
+                },
+                {
+                    "library": "glm",
+                    "triplet": "x64-windows"
+                },
+                {
+                    "library": "stb",
+                    "triplet": "x64-windows"
+                }
+            ],
+            "post_install": [
+                "vcpkg_integrate_install"
+            ]
+        },
+        "linux": {
+            "dependencies": [],
+            "toolchain": "",
+            "instructions": []
+        },
+        "macos": {
+            "tools": [],
+            "toolchain": "",
+            "setup_steps": []
+        }
+    }
+}
