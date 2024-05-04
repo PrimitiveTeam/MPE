@@ -1,0 +1,3 @@
+[submodule "CPM"]
+	path = CPM
+	url = git@github.com:Durengo/CPM.git
