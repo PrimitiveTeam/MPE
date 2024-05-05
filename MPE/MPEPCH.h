@@ -1,5 +1,10 @@
 #pragma once
 
+/**
+ * @file MPEPCH.h
+ * @brief Precompiled header file for the MPE engine.
+ */
+
 #ifdef MPE_PLATFORM_WINDOWS
 #include <Windows.h>
 #endif
