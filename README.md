@@ -19,6 +19,11 @@ Small Game/Rendering Engine made from scratch in C++
 | :---: | :---------------: | :---------------: |
 | __X__ | NOT SUPPORTED YET | NOT SUPPORTED YET |
 
+### Supported IDE
+
+1. VScode integration
+2. (In Progress) Visual Studio
+
 ### Hardware
 
 1. [OpenGL](https://www.opengl.org/) 4.6 compatible GPU

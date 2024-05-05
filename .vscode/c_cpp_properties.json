@@ -1,0 +1,26 @@
+{
+  "configurations": [
+    {
+      "name": "Win32",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "${vcpkgRoot}/x64-windows/include",
+        "${vcpkgRoot}/x64-windows-static/include"
+      ],
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE",
+        "MPE_PLATFORM_WINDOWS",
+        "MPE_STATIC_LIBRARY",
+        "MPE_ENABLE_ASSERTS"
+      ],
+      "windowsSdkVersion": "10.0.22000.0",
+      "compilerPath": "cl.exe",
+      "cStandard": "c23",
+      "cppStandard": "c++23",
+      "intelliSenseMode": "windows-msvc-x64"
+    }
+  ],
+  "version": 4
+}
