@@ -1,0 +1,179 @@
+\doxysection{D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Core/\+\_\+\+CORE.h File Reference}
+\hypertarget{___c_o_r_e_8h}{}\label{___c_o_r_e_8h}\index{D:/WORK/GIT/MPE/MPE/Core/\_CORE.h@{D:/WORK/GIT/MPE/MPE/Core/\_CORE.h}}
+
+
+The Mere Primitive Engine (\doxylink{namespace_m_p_e}{MPE}) namespace.  
+
+
+{\ttfamily \#include $<$memory$>$}\newline
+Include dependency graph for \+\_\+\+CORE.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{___c_o_r_e_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{___c_o_r_e_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_m_p_e}{MPE}}
+\begin{DoxyCompactList}\small\item\em The Mere Primitive Engine (\doxylink{namespace_m_p_e}{MPE}) namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{___c_o_r_e_8h_a5df9f011bff68aea0780cd6401f9ff57}{MPE\+\_\+\+ASSERT}}(x, ...)
+\begin{DoxyCompactList}\small\item\em Assertion macro for the \doxylink{namespace_m_p_e}{MPE} engine. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{___c_o_r_e_8h_a9bd63e3538fa657a2292f49c04123514}{MPE\+\_\+\+CORE\+\_\+\+ASSERT}}(x, ...)
+\begin{DoxyCompactList}\small\item\em Assertion macro for the \doxylink{namespace_m_p_e}{MPE} engine. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{___c_o_r_e_8h_ad27cc17b25bb93134368d5eb21126eae}{BIT}}(x)~(1 $<$$<$ x)
+\begin{DoxyCompactList}\small\item\em Bit shift macro for event enums. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{___c_o_r_e_8h_a7c24d29ca7e58d73d6fc40dbb3bf1313}{OPENGL\+\_\+\+SHADER\+\_\+\+TYPE\+\_\+\+AMOUNT}}~2
+\begin{DoxyCompactList}\small\item\em Amount of shader types in Open\+GL. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{___c_o_r_e_8h_a9d633604382288b771eae6171988932a}{MPE\+\_\+\+BIND\+\_\+\+EVENT\+\_\+\+FUNCTION}}(func)~std\+::bind(\&func, this, std\+::placeholders\+::\+\_\+1)
+\begin{DoxyCompactList}\small\item\em Binding macro for event functions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\using \mbox{\hyperlink{namespace_m_p_e_a85382a54818003754dc5f6952119ae4e}{MPE\+::\+SCOPE}} = std\+::unique\+\_\+ptr$<$T$>$
+\begin{DoxyCompactList}\small\item\em Alias template for std\+::unique\+\_\+ptr to manage the lifecycle of individual objects. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\using \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{MPE\+::\+REF}} = std\+::shared\+\_\+ptr$<$T$>$
+\begin{DoxyCompactList}\small\item\em Alias template for std\+::shared\+\_\+ptr to manage shared ownership of objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T , typename... Args$>$ }\\constexpr \mbox{\hyperlink{namespace_m_p_e_a85382a54818003754dc5f6952119ae4e}{SCOPE}}$<$ T $>$ \mbox{\hyperlink{namespace_m_p_e_a0d1b68927cc22d1e2e34575293475a83}{MPE\+::\+NEWSCOPE}} (Args \&\&...args)
+\begin{DoxyCompactList}\small\item\em Factory function to create a SCOPE smart pointer instance. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename... Args$>$ }\\constexpr \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ T $>$ \mbox{\hyperlink{namespace_m_p_e_a0875b39f498dcacf432d472b46928290}{MPE\+::\+NEWREF}} (Args \&\&...args)
+\begin{DoxyCompactList}\small\item\em Factory function to create a REF smart pointer instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The Mere Primitive Engine (\doxylink{namespace_m_p_e}{MPE}) namespace. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Sebastian Termen
+\end{DoxyAuthor}
+Main header file for the \doxylink{namespace_m_p_e}{MPE} engine.
+
+This file contains the main header file for the \doxylink{namespace_m_p_e}{MPE} engine. It includes all the necessary headers and defines the main macros for the engine. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{___c_o_r_e_8h_ad27cc17b25bb93134368d5eb21126eae}\label{___c_o_r_e_8h_ad27cc17b25bb93134368d5eb21126eae} 
+\index{\_CORE.h@{\_CORE.h}!BIT@{BIT}}
+\index{BIT@{BIT}!\_CORE.h@{\_CORE.h}}
+\doxysubsubsection{\texorpdfstring{BIT}{BIT}}
+{\footnotesize\ttfamily \#define BIT(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~(1 $<$$<$ x)}
+
+
+
+Bit shift macro for event enums. 
+
+This macro is used to shift a bit to the left by x amount. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The amount to shift the bit. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+This macro is used in the Event class. 
+\end{DoxyNote}
+\Hypertarget{___c_o_r_e_8h_a5df9f011bff68aea0780cd6401f9ff57}\label{___c_o_r_e_8h_a5df9f011bff68aea0780cd6401f9ff57} 
+\index{\_CORE.h@{\_CORE.h}!MPE\_ASSERT@{MPE\_ASSERT}}
+\index{MPE\_ASSERT@{MPE\_ASSERT}!\_CORE.h@{\_CORE.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_ASSERT}{MPE\_ASSERT}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+ASSERT(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Assertion macro for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+This macro is used to assert a condition and log an error message if the condition is false. for Windows we use \+\_\+\+\_\+debugbreak() from MSVC intrinsics (intrin.\+h) to break into the debugger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The condition to assert. \\
+\hline
+{\em ...} & The error message to log if the condition is false. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+This macro is only available in debug builds. 
+\end{DoxyNote}
+\Hypertarget{___c_o_r_e_8h_a9d633604382288b771eae6171988932a}\label{___c_o_r_e_8h_a9d633604382288b771eae6171988932a} 
+\index{\_CORE.h@{\_CORE.h}!MPE\_BIND\_EVENT\_FUNCTION@{MPE\_BIND\_EVENT\_FUNCTION}}
+\index{MPE\_BIND\_EVENT\_FUNCTION@{MPE\_BIND\_EVENT\_FUNCTION}!\_CORE.h@{\_CORE.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_BIND\_EVENT\_FUNCTION}{MPE\_BIND\_EVENT\_FUNCTION}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+BIND\+\_\+\+EVENT\+\_\+\+FUNCTION(\begin{DoxyParamCaption}\item[{}]{func }\end{DoxyParamCaption})~std\+::bind(\&func, this, std\+::placeholders\+::\+\_\+1)}
+
+
+
+Binding macro for event functions. 
+
+This macro is used to bind an event function to a class instance. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em func} & The event function to bind. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+This macro is used in the Event class. 
+\end{DoxyNote}
+\Hypertarget{___c_o_r_e_8h_a9bd63e3538fa657a2292f49c04123514}\label{___c_o_r_e_8h_a9bd63e3538fa657a2292f49c04123514} 
+\index{\_CORE.h@{\_CORE.h}!MPE\_CORE\_ASSERT@{MPE\_CORE\_ASSERT}}
+\index{MPE\_CORE\_ASSERT@{MPE\_CORE\_ASSERT}!\_CORE.h@{\_CORE.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_CORE\_ASSERT}{MPE\_CORE\_ASSERT}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+CORE\+\_\+\+ASSERT(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Assertion macro for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+This macro is used to assert a condition and log an error message if the condition is false. for Windows we use \+\_\+\+\_\+debugbreak() from MSVC intrinsics (intrin.\+h) to break into the debugger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The condition to assert. \\
+\hline
+{\em ...} & The error message to log if the condition is false. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+This macro is persistent in all builds. 
+\end{DoxyNote}
+\Hypertarget{___c_o_r_e_8h_a7c24d29ca7e58d73d6fc40dbb3bf1313}\label{___c_o_r_e_8h_a7c24d29ca7e58d73d6fc40dbb3bf1313} 
+\index{\_CORE.h@{\_CORE.h}!OPENGL\_SHADER\_TYPE\_AMOUNT@{OPENGL\_SHADER\_TYPE\_AMOUNT}}
+\index{OPENGL\_SHADER\_TYPE\_AMOUNT@{OPENGL\_SHADER\_TYPE\_AMOUNT}!\_CORE.h@{\_CORE.h}}
+\doxysubsubsection{\texorpdfstring{OPENGL\_SHADER\_TYPE\_AMOUNT}{OPENGL\_SHADER\_TYPE\_AMOUNT}}
+{\footnotesize\ttfamily \#define OPENGL\+\_\+\+SHADER\+\_\+\+TYPE\+\_\+\+AMOUNT~2}
+
+
+
+Amount of shader types in Open\+GL. 
+
+This macro is used to define the amount of shader types in Open\+GL. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyNote}{Note}
+This macro is used in the Open\+GLShader class. 
+\end{DoxyNote}

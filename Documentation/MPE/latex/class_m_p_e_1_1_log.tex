@@ -1,0 +1,133 @@
+\doxysection{MPE\+::Log Class Reference}
+\hypertarget{class_m_p_e_1_1_log}{}\label{class_m_p_e_1_1_log}\index{MPE::Log@{MPE::Log}}
+
+
+Main logging system for the engine.  
+
+
+
+
+{\ttfamily \#include $<$Log.\+h$>$}
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_m_p_e_1_1_log_af33520c32f686c46bcb3dddc077d59ef}{Init}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the logging system. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \& \mbox{\hyperlink{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}{Get\+Core\+Logger}} ()
+\begin{DoxyCompactList}\small\item\em Gets the core logger. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \& \mbox{\hyperlink{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}{Get\+Client\+Logger}} ()
+\begin{DoxyCompactList}\small\item\em Gets the client logger. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \mbox{\hyperlink{class_m_p_e_1_1_log_a576962ee20658b81054296cb760e7300}{Core\+Logger}}
+\begin{DoxyCompactList}\small\item\em The core logger. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \mbox{\hyperlink{class_m_p_e_1_1_log_ab96a3bab6a694a431bf6e1bde36b158c}{Client\+Logger}}
+\begin{DoxyCompactList}\small\item\em The client logger. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main logging system for the engine. 
+
+This file contains the main logging system for the engine. It uses the spdlog library for logging. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Sebastian Termen 
+\end{DoxyAuthor}
+\begin{DoxySeeAlso}{See also}
+\href{https://github.com/gabime/spdlog}{\texttt{ https\+://github.\+com/gabime/spdlog}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}\label{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5} 
+\index{MPE::Log@{MPE::Log}!GetClientLogger@{GetClientLogger}}
+\index{GetClientLogger@{GetClientLogger}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{GetClientLogger()}{GetClientLogger()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \& MPE\+::\+Log\+::\+Get\+Client\+Logger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Gets the client logger. 
+
+This function returns the client logger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyReturn}{Returns}
+The client logger. 
+\end{DoxyReturn}
+\Hypertarget{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}\label{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba} 
+\index{MPE::Log@{MPE::Log}!GetCoreLogger@{GetCoreLogger}}
+\index{GetCoreLogger@{GetCoreLogger}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{GetCoreLogger()}{GetCoreLogger()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \& MPE\+::\+Log\+::\+Get\+Core\+Logger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Gets the core logger. 
+
+This function returns the core logger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyReturn}{Returns}
+The core logger. 
+\end{DoxyReturn}
+\Hypertarget{class_m_p_e_1_1_log_af33520c32f686c46bcb3dddc077d59ef}\label{class_m_p_e_1_1_log_af33520c32f686c46bcb3dddc077d59ef} 
+\index{MPE::Log@{MPE::Log}!Init@{Init}}
+\index{Init@{Init}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void MPE\+::\+Log\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Initializes the logging system. 
+
+This function initializes the logging system for the engine. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyNote}{Note}
+This function should be called at the start of the engine. 
+\end{DoxyNote}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_m_p_e_1_1_log_ab96a3bab6a694a431bf6e1bde36b158c}\label{class_m_p_e_1_1_log_ab96a3bab6a694a431bf6e1bde36b158c} 
+\index{MPE::Log@{MPE::Log}!ClientLogger@{ClientLogger}}
+\index{ClientLogger@{ClientLogger}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{ClientLogger}{ClientLogger}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ MPE\+::\+Log\+::\+Client\+Logger\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+The client logger. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}{Get\+Client\+Logger()} 
+\end{DoxySeeAlso}
+\Hypertarget{class_m_p_e_1_1_log_a576962ee20658b81054296cb760e7300}\label{class_m_p_e_1_1_log_a576962ee20658b81054296cb760e7300} 
+\index{MPE::Log@{MPE::Log}!CoreLogger@{CoreLogger}}
+\index{CoreLogger@{CoreLogger}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{CoreLogger}{CoreLogger}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ MPE\+::\+Log\+::\+Core\+Logger\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+The core logger. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}{Get\+Core\+Logger()} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Core/\mbox{\hyperlink{_log_8h}{Log.\+h}}\item 
+D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Core/\mbox{\hyperlink{_log_8cpp}{Log.\+cpp}}\end{DoxyCompactItemize}

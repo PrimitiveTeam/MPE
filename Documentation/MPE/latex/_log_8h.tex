@@ -1,0 +1,276 @@
+\doxysection{D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Core/\+Log.h File Reference}
+\hypertarget{_log_8h}{}\label{_log_8h}\index{D:/WORK/GIT/MPE/MPE/Core/Log.h@{D:/WORK/GIT/MPE/MPE/Core/Log.h}}
+
+
+Main logging system for the engine.  
+
+
+{\ttfamily \#include "{}MPE/\+Core/\+\_\+\+CORE.\+h"{}}\newline
+{\ttfamily \#include "{}spdlog/spdlog.\+h"{}}\newline
+Include dependency graph for Log.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{_log_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_log_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_m_p_e_1_1_log}{MPE\+::\+Log}}
+\begin{DoxyCompactList}\small\item\em Main logging system for the engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_m_p_e}{MPE}}
+\begin{DoxyCompactList}\small\item\em The Mere Primitive Engine (\doxylink{namespace_m_p_e}{MPE}) namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_log_8h_af6d174e12bff5c3bf9d5612693ceef91}{MPE\+\_\+\+CORE\+\_\+\+ERROR}}(...)~\mbox{\hyperlink{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}{\+::\+MPE\+::\+Log\+::\+Get\+Core\+Logger}}()-\/$>$error(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Error logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_log_8h_a122ba813fa13682bcb12d196cd19d9ef}{MPE\+\_\+\+CORE\+\_\+\+WARN}}(...)~\mbox{\hyperlink{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}{\+::\+MPE\+::\+Log\+::\+Get\+Core\+Logger}}()-\/$>$warn(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Warning logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_log_8h_ad367ecd4d78bd34529ae56be40553043}{MPE\+\_\+\+CORE\+\_\+\+INFO}}(...)~\mbox{\hyperlink{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}{\+::\+MPE\+::\+Log\+::\+Get\+Core\+Logger}}()-\/$>$info(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Information logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_log_8h_aba014a28d3849a890e0cb7a695da1b9e}{MPE\+\_\+\+CORE\+\_\+\+TRACE}}(...)~\mbox{\hyperlink{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}{\+::\+MPE\+::\+Log\+::\+Get\+Core\+Logger}}()-\/$>$trace(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Trace logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_log_8h_a9411c4a0a151cb6b9065a636711dcb6a}{MPE\+\_\+\+CORE\+\_\+\+FATAL}}(...)~\mbox{\hyperlink{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}{\+::\+MPE\+::\+Log\+::\+Get\+Core\+Logger}}()-\/$>$fatal(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Fatal logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_log_8h_a1c4df2c094a6be00eeb8a1089a1a114f}{MPE\+\_\+\+ERROR}}(...)~\mbox{\hyperlink{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}{\+::\+MPE\+::\+Log\+::\+Get\+Client\+Logger}}()-\/$>$error(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Error logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_log_8h_aef142492e60452a0b7718c427ad8eb16}{MPE\+\_\+\+WARN}}(...)~\mbox{\hyperlink{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}{\+::\+MPE\+::\+Log\+::\+Get\+Client\+Logger}}()-\/$>$warn(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Warning logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_log_8h_ad9c7616dc5c0c62ee0d668e866b5dcb3}{MPE\+\_\+\+INFO}}(...)~\mbox{\hyperlink{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}{\+::\+MPE\+::\+Log\+::\+Get\+Client\+Logger}}()-\/$>$info(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Information logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_log_8h_ad6c4d32fa397d48e48a1bb9ea55fa811}{MPE\+\_\+\+TRACE}}(...)~\mbox{\hyperlink{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}{\+::\+MPE\+::\+Log\+::\+Get\+Client\+Logger}}()-\/$>$trace(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Trace logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_log_8h_a0ffa6bfa05d8812a913dcd165d0bef59}{MPE\+\_\+\+FATAL}}(...)~\mbox{\hyperlink{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}{\+::\+MPE\+::\+Log\+::\+Get\+Client\+Logger}}()-\/$>$fatal(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Fatal logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main logging system for the engine. 
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_log_8h_af6d174e12bff5c3bf9d5612693ceef91}\label{_log_8h_af6d174e12bff5c3bf9d5612693ceef91} 
+\index{Log.h@{Log.h}!MPE\_CORE\_ERROR@{MPE\_CORE\_ERROR}}
+\index{MPE\_CORE\_ERROR@{MPE\_CORE\_ERROR}!Log.h@{Log.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_CORE\_ERROR}{MPE\_CORE\_ERROR}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+CORE\+\_\+\+ERROR(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}{\+::\+MPE\+::\+Log\+::\+Get\+Core\+Logger}}()-\/$>$error(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+
+
+Error logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+This macro is used to log an error message to the core logger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em ...} & The error message to log. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+Get\+Core\+Logger() 
+\end{DoxySeeAlso}
+\Hypertarget{_log_8h_a9411c4a0a151cb6b9065a636711dcb6a}\label{_log_8h_a9411c4a0a151cb6b9065a636711dcb6a} 
+\index{Log.h@{Log.h}!MPE\_CORE\_FATAL@{MPE\_CORE\_FATAL}}
+\index{MPE\_CORE\_FATAL@{MPE\_CORE\_FATAL}!Log.h@{Log.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_CORE\_FATAL}{MPE\_CORE\_FATAL}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+CORE\+\_\+\+FATAL(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}{\+::\+MPE\+::\+Log\+::\+Get\+Core\+Logger}}()-\/$>$fatal(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+
+
+Fatal logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+This macro is used to log a fatal message to the core logger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em ...} & The fatal message to log. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+Get\+Core\+Logger() 
+\end{DoxySeeAlso}
+\Hypertarget{_log_8h_ad367ecd4d78bd34529ae56be40553043}\label{_log_8h_ad367ecd4d78bd34529ae56be40553043} 
+\index{Log.h@{Log.h}!MPE\_CORE\_INFO@{MPE\_CORE\_INFO}}
+\index{MPE\_CORE\_INFO@{MPE\_CORE\_INFO}!Log.h@{Log.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_CORE\_INFO}{MPE\_CORE\_INFO}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+CORE\+\_\+\+INFO(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}{\+::\+MPE\+::\+Log\+::\+Get\+Core\+Logger}}()-\/$>$info(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+
+
+Information logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+This macro is used to log an information message to the core logger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em ...} & The information message to log. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+Get\+Core\+Logger() 
+\end{DoxySeeAlso}
+\Hypertarget{_log_8h_aba014a28d3849a890e0cb7a695da1b9e}\label{_log_8h_aba014a28d3849a890e0cb7a695da1b9e} 
+\index{Log.h@{Log.h}!MPE\_CORE\_TRACE@{MPE\_CORE\_TRACE}}
+\index{MPE\_CORE\_TRACE@{MPE\_CORE\_TRACE}!Log.h@{Log.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_CORE\_TRACE}{MPE\_CORE\_TRACE}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+CORE\+\_\+\+TRACE(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}{\+::\+MPE\+::\+Log\+::\+Get\+Core\+Logger}}()-\/$>$trace(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+
+
+Trace logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+This macro is used to log a trace message to the core logger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em ...} & The trace message to log. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+Get\+Core\+Logger() 
+\end{DoxySeeAlso}
+\Hypertarget{_log_8h_a122ba813fa13682bcb12d196cd19d9ef}\label{_log_8h_a122ba813fa13682bcb12d196cd19d9ef} 
+\index{Log.h@{Log.h}!MPE\_CORE\_WARN@{MPE\_CORE\_WARN}}
+\index{MPE\_CORE\_WARN@{MPE\_CORE\_WARN}!Log.h@{Log.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_CORE\_WARN}{MPE\_CORE\_WARN}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+CORE\+\_\+\+WARN(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}{\+::\+MPE\+::\+Log\+::\+Get\+Core\+Logger}}()-\/$>$warn(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+
+
+Warning logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+This macro is used to log a warning message to the core logger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em ...} & The warning message to log. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+Get\+Core\+Logger() 
+\end{DoxySeeAlso}
+\Hypertarget{_log_8h_a1c4df2c094a6be00eeb8a1089a1a114f}\label{_log_8h_a1c4df2c094a6be00eeb8a1089a1a114f} 
+\index{Log.h@{Log.h}!MPE\_ERROR@{MPE\_ERROR}}
+\index{MPE\_ERROR@{MPE\_ERROR}!Log.h@{Log.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_ERROR}{MPE\_ERROR}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+ERROR(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}{\+::\+MPE\+::\+Log\+::\+Get\+Client\+Logger}}()-\/$>$error(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+
+
+Error logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+This macro is used to log an error message to the client logger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em ...} & The error message to log. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+Get\+Client\+Logger() 
+\end{DoxySeeAlso}
+\Hypertarget{_log_8h_a0ffa6bfa05d8812a913dcd165d0bef59}\label{_log_8h_a0ffa6bfa05d8812a913dcd165d0bef59} 
+\index{Log.h@{Log.h}!MPE\_FATAL@{MPE\_FATAL}}
+\index{MPE\_FATAL@{MPE\_FATAL}!Log.h@{Log.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_FATAL}{MPE\_FATAL}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+FATAL(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}{\+::\+MPE\+::\+Log\+::\+Get\+Client\+Logger}}()-\/$>$fatal(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+
+
+Fatal logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+This macro is used to log a fatal message to the client logger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em ...} & The fatal message to log. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+Get\+Client\+Logger() 
+\end{DoxySeeAlso}
+\Hypertarget{_log_8h_ad9c7616dc5c0c62ee0d668e866b5dcb3}\label{_log_8h_ad9c7616dc5c0c62ee0d668e866b5dcb3} 
+\index{Log.h@{Log.h}!MPE\_INFO@{MPE\_INFO}}
+\index{MPE\_INFO@{MPE\_INFO}!Log.h@{Log.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_INFO}{MPE\_INFO}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+INFO(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}{\+::\+MPE\+::\+Log\+::\+Get\+Client\+Logger}}()-\/$>$info(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+
+
+Information logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+This macro is used to log an information message to the client logger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em ...} & The information message to log. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+Get\+Client\+Logger() 
+\end{DoxySeeAlso}
+\Hypertarget{_log_8h_ad6c4d32fa397d48e48a1bb9ea55fa811}\label{_log_8h_ad6c4d32fa397d48e48a1bb9ea55fa811} 
+\index{Log.h@{Log.h}!MPE\_TRACE@{MPE\_TRACE}}
+\index{MPE\_TRACE@{MPE\_TRACE}!Log.h@{Log.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_TRACE}{MPE\_TRACE}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+TRACE(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}{\+::\+MPE\+::\+Log\+::\+Get\+Client\+Logger}}()-\/$>$trace(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+
+
+Trace logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+This macro is used to log a trace message to the client logger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em ...} & The trace message to log. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+Get\+Client\+Logger() 
+\end{DoxySeeAlso}
+\Hypertarget{_log_8h_aef142492e60452a0b7718c427ad8eb16}\label{_log_8h_aef142492e60452a0b7718c427ad8eb16} 
+\index{Log.h@{Log.h}!MPE\_WARN@{MPE\_WARN}}
+\index{MPE\_WARN@{MPE\_WARN}!Log.h@{Log.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_WARN}{MPE\_WARN}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+WARN(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}{\+::\+MPE\+::\+Log\+::\+Get\+Client\+Logger}}()-\/$>$warn(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+
+
+Warning logging macro for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+This macro is used to log a warning message to the client logger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em ...} & The warning message to log. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+Get\+Client\+Logger() 
+\end{DoxySeeAlso}

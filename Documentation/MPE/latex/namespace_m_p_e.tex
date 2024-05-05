@@ -1,0 +1,123 @@
+\doxysection{MPE Namespace Reference}
+\hypertarget{namespace_m_p_e}{}\label{namespace_m_p_e}\index{MPE@{MPE}}
+
+
+The Mere Primitive Engine (\doxylink{namespace_m_p_e}{MPE}) namespace.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}}
+\begin{DoxyCompactList}\small\item\em Main logging system for the engine. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_m_p_e_1_1_test}{Test}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\using \mbox{\hyperlink{namespace_m_p_e_a85382a54818003754dc5f6952119ae4e}{SCOPE}} = std\+::unique\+\_\+ptr$<$T$>$
+\begin{DoxyCompactList}\small\item\em Alias template for std\+::unique\+\_\+ptr to manage the lifecycle of individual objects. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\using \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}} = std\+::shared\+\_\+ptr$<$T$>$
+\begin{DoxyCompactList}\small\item\em Alias template for std\+::shared\+\_\+ptr to manage shared ownership of objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T , typename... Args$>$ }\\constexpr \mbox{\hyperlink{namespace_m_p_e_a85382a54818003754dc5f6952119ae4e}{SCOPE}}$<$ T $>$ \mbox{\hyperlink{namespace_m_p_e_a0d1b68927cc22d1e2e34575293475a83}{NEWSCOPE}} (Args \&\&...args)
+\begin{DoxyCompactList}\small\item\em Factory function to create a SCOPE smart pointer instance. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename... Args$>$ }\\constexpr \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ T $>$ \mbox{\hyperlink{namespace_m_p_e_a0875b39f498dcacf432d472b46928290}{NEWREF}} (Args \&\&...args)
+\begin{DoxyCompactList}\small\item\em Factory function to create a REF smart pointer instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The Mere Primitive Engine (\doxylink{namespace_m_p_e}{MPE}) namespace. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Sebastian Termen 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}\label{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a} 
+\index{MPE@{MPE}!REF@{REF}}
+\index{REF@{REF}!MPE@{MPE}}
+\doxysubsubsection{\texorpdfstring{REF}{REF}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+using \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{MPE\+::\+REF}} = std\+::shared\+\_\+ptr$<$T$>$}
+
+
+
+Alias template for std\+::shared\+\_\+ptr to manage shared ownership of objects. 
+
+REF allows multiple pointers to the same object, with the object being destroyed once the last REF is destroyed or reset. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Sebastian Termen 
+\end{DoxyAuthor}
+\Hypertarget{namespace_m_p_e_a85382a54818003754dc5f6952119ae4e}\label{namespace_m_p_e_a85382a54818003754dc5f6952119ae4e} 
+\index{MPE@{MPE}!SCOPE@{SCOPE}}
+\index{SCOPE@{SCOPE}!MPE@{MPE}}
+\doxysubsubsection{\texorpdfstring{SCOPE}{SCOPE}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+using \mbox{\hyperlink{namespace_m_p_e_a85382a54818003754dc5f6952119ae4e}{MPE\+::\+SCOPE}} = std\+::unique\+\_\+ptr$<$T$>$}
+
+
+
+Alias template for std\+::unique\+\_\+ptr to manage the lifecycle of individual objects. 
+
+SCOPE automatically deletes the object it points to when the SCOPE variable goes out of scope. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Sebastian Termen 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespace_m_p_e_a0875b39f498dcacf432d472b46928290}\label{namespace_m_p_e_a0875b39f498dcacf432d472b46928290} 
+\index{MPE@{MPE}!NEWREF@{NEWREF}}
+\index{NEWREF@{NEWREF}!MPE@{MPE}}
+\doxysubsubsection{\texorpdfstring{NEWREF()}{NEWREF()}}
+{\footnotesize\ttfamily template$<$typename T , typename... Args$>$ \\
+constexpr \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ T $>$ MPE\+::\+NEWREF (\begin{DoxyParamCaption}\item[{Args \&\&...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Factory function to create a REF smart pointer instance. 
+
+This function simplifies the creation of shared\+\_\+ptr instances with automatic type deduction and argument forwarding. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Sebastian Termen 
+\end{DoxyAuthor}
+std\+::make\+\_\+shared is used to construct an object and wrap it in a std\+::shared\+\_\+ptr (REF).
+
+It is more efficient than using std\+::shared\+\_\+ptr directly as it allocates memory for the object and the control block in a single memory block. \begin{DoxySeeAlso}{See also}
+\href{https://en.cppreference.com/w/cpp/memory/shared_ptr/make_shared}{\texttt{ https\+://en.\+cppreference.\+com/w/cpp/memory/shared\+\_\+ptr/make\+\_\+shared}}
+\end{DoxySeeAlso}
+\Hypertarget{namespace_m_p_e_a0d1b68927cc22d1e2e34575293475a83}\label{namespace_m_p_e_a0d1b68927cc22d1e2e34575293475a83} 
+\index{MPE@{MPE}!NEWSCOPE@{NEWSCOPE}}
+\index{NEWSCOPE@{NEWSCOPE}!MPE@{MPE}}
+\doxysubsubsection{\texorpdfstring{NEWSCOPE()}{NEWSCOPE()}}
+{\footnotesize\ttfamily template$<$typename T , typename... Args$>$ \\
+constexpr \mbox{\hyperlink{namespace_m_p_e_a85382a54818003754dc5f6952119ae4e}{SCOPE}}$<$ T $>$ MPE\+::\+NEWSCOPE (\begin{DoxyParamCaption}\item[{Args \&\&...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Factory function to create a SCOPE smart pointer instance. 
+
+This function simplifies the creation of unique\+\_\+ptr instances with automatic type deduction and argument forwarding. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Sebastian Termen 
+\end{DoxyAuthor}
+std\+::make\+\_\+unique is used to construct an object and wrap it in a std\+::unique\+\_\+ptr (SCOPE).
+
+It provides exception safety by ensuring that memory allocation and object construction are atomic operations. \begin{DoxySeeAlso}{See also}
+\href{https://en.cppreference.com/w/cpp/memory/unique_ptr/make_unique}{\texttt{ https\+://en.\+cppreference.\+com/w/cpp/memory/unique\+\_\+ptr/make\+\_\+unique}}
+\end{DoxySeeAlso}
