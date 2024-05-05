@@ -2,9 +2,13 @@
 
 Small Game/Rendering Engine made from scratch in C++
 
-## Working with source
+## Documentation
 
-## REQUIREMENTS
+Current documentation is minimal but available.
+
+1. [MPE Core Engine](./Documentation/MPE/html/index.html)
+
+## Working with Source and Requirements
 
 ### Platform
 
