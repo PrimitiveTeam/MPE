@@ -260,26 +260,26 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     # "${PROJECT_SOURCE_DIR}/MPE/Core/Input/*.cpp"
     # "${PROJECT_SOURCE_DIR}/MPE/Core/Layers/*.cpp"
 
-    # # /Debug
-    # "${PROJECT_SOURCE_DIR}/MPE/Debug/Profiling/*.cpp"
+    # /Profiling
+    "${PROJECT_SOURCE_DIR}/MPE/Profiling/*.cpp"
 
-    # # /Renderer
+    # /Renderer
     # "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.cpp"
     # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.cpp"
     # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.cpp"
     # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.cpp"
     # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.cpp"
 
-    # # /Platform/OpenGL
+    # /Platform/OpenGL
     # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.cpp"
     # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.cpp"
     # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.cpp"
     # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.cpp"
 
-    # # /Platform/Windows
+    # /Platform/Windows
     # "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/*.cpp"
 
-    # # /Vendor
+    # /Vendor
     # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.cpp"
     # "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.cpp"
   )
@@ -300,26 +300,26 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     # "${PROJECT_SOURCE_DIR}/MPE/Core/Input/*.h"
     # "${PROJECT_SOURCE_DIR}/MPE/Core/Layers/*.h"
 
-    # # /Debug
-    # "${PROJECT_SOURCE_DIR}/MPE/Debug/Profiling/*.h"
+    # /Profiling
+    "${PROJECT_SOURCE_DIR}/MPE/Profiling/*.h"
 
-    # # /Renderer
+    # /Renderer
     # "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.h"
     # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.h"
     # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.h"
     # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.h"
     # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.h"
 
-    # # /Platform/OpenGL
+    # /Platform/OpenGL
     # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.h"
     # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.h"
     # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.h"
     # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.h"
 
-    # # /Platform/Windows
+    # /Platform/Windows
     # "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/*.h"
 
-    # # /Vendor
+    # /Vendor
     # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.h"
     # "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.h"
   )

@@ -12,6 +12,7 @@
 // #include "MPE/Core/App.h"
 // #include "MPE/Core/Layers/Layer.h"
 #include "MPE/Core/Log.h"
+#include "MPE/Core/_CWD.h"
 // ----- APPLICATION -----
 
 // ----- PHYSICS -----
@@ -20,8 +21,8 @@
 
 // ----- PROFILING -----
 // ONLY FOR DEBUGGING!
-// #include "MPE/Debug/Profiling/_TIMER.h"
-// #include "MPE/Debug/Profiling/_PROFILING.h"
+#include "MPE/Profiling/_TIMER.h"
+#include "MPE/Profiling/_PROFILING.h"
 // ----- PROFILING -----
 
 // ----- EVENTS -----
