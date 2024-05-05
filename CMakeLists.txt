@@ -46,7 +46,7 @@ if(WIN32)
   set(CMAKE_BUILD_TYPE ${BUILD_TYPE_SETUP_OUTPUT})
 endif(WIN32)
 
-# SET INSTALLATION PATH BASED ON BUILD TYPE SETTING BUILD TYPE TOGGLING CUSTOM
+# SET INSTALLATION PATH CoreD ON BUILD TYPE SETTING BUILD TYPE TOGGLING CUSTOM
 # VERBOSITY
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   set(INSTALL_PATH_SUFFIX "Debug")
@@ -244,84 +244,86 @@ endif()
 # CURRENTLY ONLY WINDOWS IS SUPPORTED, ADDING THIS CHECK WILL MAKE IT EASIER TO
 # ADD SUPPORT FOR OTHER SYSTEMS IN THE FUTURE
 if(COMPILATION_PLATFORM STREQUAL "WIN32")
-  # WHILE MIGRATING CODE I WILL ADD AN EXAMPLE
-  file(GLOB_RECURSE MPE_CPP
-    "${PROJECT_SOURCE_DIR}/MPE/Test/*.cpp"
-  )
-
-  file(GLOB_RECURSE MPE_H
-    "${PROJECT_SOURCE_DIR}/MPE/Test/*.h"
-  )
-
   # ADD SOURCE FILES MPE LIBRARY .CPP FILES
-  # file(
-  # GLOB_RECURSE
-  # MPE_CPP
+  file(
+    GLOB_RECURSE
+    MPE_CPP
 
-  # # /Base
-  # "${PROJECT_SOURCE_DIR}/MPE/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Base/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Base/Events/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Base/Input/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Base/Layers/*.cpp"
+    # TEST
+    "${PROJECT_SOURCE_DIR}/MPE/Test/*.cpp"
 
-  # # /Debug
-  # "${PROJECT_SOURCE_DIR}/MPE/Debug/Profiling/*.cpp"
+    # /Core
+    # "${PROJECT_SOURCE_DIR}/MPE/*.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Core/*.cpp"
 
-  # # /Renderer
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Core/Events/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Core/Input/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Core/Layers/*.cpp"
 
-  # # /Platform/OpenGL
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.cpp"
+    # # /Debug
+    # "${PROJECT_SOURCE_DIR}/MPE/Debug/Profiling/*.cpp"
 
-  # # /Platform/Windows
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/*.cpp"
+    # # /Renderer
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.cpp"
 
-  # # /Vendor
-  # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.cpp")
+    # # /Platform/OpenGL
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.cpp"
 
-  # # MPE LIBRARY .H FILES
-  # file(
-  # GLOB_RECURSE
-  # MPE_H
+    # # /Platform/Windows
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/*.cpp"
 
-  # # /Base
-  # "${PROJECT_SOURCE_DIR}/MPE/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Base/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Base/Events/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Base/Input/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Base/Layers/*.h"
+    # # /Vendor
+    # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.cpp"
+  )
 
-  # # /Debug
-  # "${PROJECT_SOURCE_DIR}/MPE/Debug/Profiling/*.h"
+  # MPE LIBRARY .H FILES
+  file(
+    GLOB_RECURSE
+    MPE_H
 
-  # # /Renderer
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.h"
+    # TEST
+    "${PROJECT_SOURCE_DIR}/MPE/Test/*.cpp"
 
-  # # /Platform/OpenGL
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.h"
+    # /Core
+    "${PROJECT_SOURCE_DIR}/MPE/*.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Core/*.h"
 
-  # # /Platform/Windows
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Core/Events/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Core/Input/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Core/Layers/*.h"
 
-  # # /Vendor
-  # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.h")
+    # # /Debug
+    # "${PROJECT_SOURCE_DIR}/MPE/Debug/Profiling/*.h"
+
+    # # /Renderer
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.h"
+
+    # # /Platform/OpenGL
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.h"
+
+    # # /Platform/Windows
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/*.h"
+
+    # # /Vendor
+    # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.h"
+  )
+
   if(${VERBOSE})
     message(STATUS "MPE SOURCE FILES ADDED.")
   endif()
@@ -356,7 +358,7 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
   target_precompile_headers(MPE PUBLIC
     "${PROJECT_SOURCE_DIR}/MPE/MPEPCH.h")
 
-  # ADD INCLUDE DIRECTORIES TO MAKE INCLUDES EASY TO MANAGE.
+  # ADD INCLUDE DIRECTORIES TO MAKE INCLUDES EASY TO MANAGE
   target_include_directories(MPE PUBLIC ${MPE_H}
 
     # "${PROJECT_SOURCE_DIR}/MPE"
@@ -366,13 +368,13 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
   # target_include_directories(MPE PUBLIC
   # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB")
 
-  # COMPILER DEFINITIONS FOR MPE.
+  # COMPILER DEFINITIONS FOR MPE
   target_compile_definitions(MPE PUBLIC MPE_PLATFORM_WINDOWS)
   target_compile_definitions(MPE PUBLIC MPE_STATIC_LIBRARY)
   target_compile_definitions(MPE PUBLIC MPE_ENABLE_ASSERTS)
   target_compile_definitions(MPE PUBLIC MPE_COMPILER_${CURRENT_COMPILER})
 
-  # ENABLE PROFILING FOR DEBUG BUILS.
+  # ENABLE PROFILING FOR DEBUG BUILS
   if(CMAKE_BUILD_TYPE STREQUAL Debug)
     target_compile_definitions(MPE PUBLIC MPE_DEBUG_PROFILING)
     target_compile_definitions(MPE PUBLIC MPE_ENABLE_DEBUG_LOG)
@@ -424,7 +426,7 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
   # TEMPORARY
 
   # ADDING DUMMY EXECUTABLE
-  add_executable(DUMMY "${PROJECT_SOURCE_DIR}/MPE/main.cpp")
+  add_executable(DUMMY "${PROJECT_SOURCE_DIR}/DUMMY/main.cpp")
   target_include_directories(DUMMY PUBLIC "${PROJECT_SOURCE_DIR}/MPE")
   target_link_libraries(DUMMY PUBLIC MPE)
 
@@ -446,13 +448,13 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
   # ##############################################################################
   # PROJECTS SANDBOX
   if(${MPE_PROJECTS})
-    # ADD "SANDBOX" EXECUTABLE - THE ENTRYPOINT TO MPE.
+    # ADD "SANDBOX" EXECUTABLE - THE ENTRYPOINT TO MPE
     add_executable(SANDBOX "${PROJECT_SOURCE_DIR}/Sandbox/Sandbox.cpp")
 
     target_include_directories(SANDBOX PUBLIC "${PROJECT_SOURCE_DIR}")
     target_link_libraries(SANDBOX PUBLIC MPE)
 
-    # ADDING SANDBOX 2D LAYER.
+    # ADDING SANDBOX 2D LAYER
     file(GLOB_RECURSE SANDBOX2D_CPP
       "${PROJECT_SOURCE_DIR}/Sandbox/Sandbox2D/*.cpp")
     file(GLOB_RECURSE SANDBOX2D_H
@@ -561,7 +563,7 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
       message(STATUS "PONG COMPILE DEFINITIONS: ${DEFINITIONS_LIST}")
     endif()
 
-    # INSTALLATION PROCEDURE.
+    # INSTALLATION PROCEDURE
     install(
       TARGETS PONG
       LIBRARY DESTINATION bin
@@ -585,7 +587,7 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
   get_target_property(LIBRARY_STATE MPE TYPE)
 
   if(${LIBRARY_STATE} STREQUAL SHARED_LIBRARY)
-    # CURRENTLY NOT WORKING AT ALL.
+    # CURRENTLY NOT WORKING AT ALL
     target_compile_definitions(MPE PUBLIC MPE_PLATFORM_WINDOWS)
     target_compile_definitions(MPE PUBLIC MPE_DYNAMIC_LIB)
     target_compile_definitions(MPE PUBLIC MPE_ENABLE_ASSERTS)
@@ -594,7 +596,7 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     target_compile_definitions(SANDBOX PUBLIC MPE_BUILD_DLL)
   endif(${LIBRARY_STATE} STREQUAL SHARED_LIBRARY)
 
-  # DOUBLE CHECKS IF THE SYSTEM IS RUNNING ON WINDOWS-X64 SYSTEM.
+  # DOUBLE CHECKS IF THE SYSTEM IS RUNNING ON WINDOWS-X64 SYSTEM
   if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
     message("MPE SUPPORTS ONLY X64 SYSTEMS.")
     return()
