@@ -4,7 +4,7 @@ set(CXX_VERSION_NAME "cxx_std_${CMAKE_CXX_STANDARD}")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # TOGGLE TESTING
-set(MAIN_TEST OFF)
+set(MAIN_TEST ON)
 
 # TOGGLE EXAMPLES
 set(EXAMPLES OFF)
@@ -180,6 +180,44 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
       message(STATUS "VCPKG FOUND IN \"${VCPKG_FILEPATH}\".")
     endif()
   endif()
+
+  # USE SPECIFIC PATHS FOR VCPKG LIBRARIES
+  set(VCPKG_CUSTOM_PATHS ON)
+
+  if(${VERBOSE})
+    message(STATUS "VCPKG CUSTOM PATHS STATUS: ${VCPKG_CUSTOM_PATHS}")
+  endif()
+
+  if(${VCPKG_CUSTOM_PATHS})
+    if(${VERBOSE})
+      message(STATUS "VCPKG SETTING CUSTOM PATHS...")
+    endif()
+
+    set(fmt_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\fmt")
+    set(spdlog_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\spdlog")
+    set(glad_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glad")
+    set(glfw3_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glfw3")
+    set(imgui_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\imgui")
+    set(glm_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glm")
+    set(GTest_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\gtest")
+
+    if(${VERBOSE})
+      message(STATUS "fmt_DIR: ${fmt_DIR}")
+      message(STATUS "spdlog_DIR: ${spdlog_DIR}")
+      message(STATUS "glad_DIR: ${glad_DIR}")
+      message(STATUS "glfw3_DIR: ${glfw3_DIR}")
+      message(STATUS "imgui_DIR: ${imgui_DIR}")
+      message(STATUS "glm_DIR: ${glm_DIR}")
+      message(STATUS "GTest_DIR: ${GTest_DIR}")
+
+      message(STATUS "VCPKG CUSTOM PATHS SET.")
+    endif()
+  endif()
+
+  if(${VERBOSE})
+    message(STATUS "VCPKG SETUP COMPLETE.")
+  endif()
+
 elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   set(USE_VCPKG OFF)
 
@@ -197,17 +235,11 @@ endif()
 
 # FIND DEPENDCIES PROVIDED BY DEPENDENCY MANAGER
 # EXPLICITLY SET PACKAGE_DIR
-set(fmt_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\fmt")
 find_package(fmt CONFIG REQUIRED)
-set(spdlog_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\spdlog")
 find_package(spdlog CONFIG REQUIRED)
-set(glad_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glad")
 find_package(glad CONFIG REQUIRED)
-set(glfw3_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glfw3")
 find_package(glfw3 CONFIG REQUIRED)
-set(imgui_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\imgui")
 find_package(imgui CONFIG REQUIRED)
-set(glm_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glm")
 find_package(glm CONFIG REQUIRED)
 
 # find_package(imguizmo CONFIG REQUIRED) find_package(yaml-cpp CONFIG REQUIRED)
@@ -356,7 +388,7 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     # get_target_property(LIBRARY_STATE MPE TYPE)
     add_library(MPE SHARED ${MPE_CPP})
 
-    target_compile_definitions(MPE PRIVATE MPE_DYNAMIC_LIB)
+    target_compile_definitions(MPE PUBLIC MPE_DYNAMIC_LIB)
     target_compile_definitions(MPE PRIVATE MPE_BUILD_DLL)
 
   else()
@@ -389,13 +421,13 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
   target_link_libraries(
     MPE
     PUBLIC fmt::fmt
-    spdlog::spdlog
+    PRIVATE spdlog::spdlog
 
     # OpenGL::GL
-    glad::glad
-    glfw
-    imgui::imgui
-    glm::glm
+    PRIVATE glad::glad
+    PRIVATE glfw
+    PRIVATE imgui::imgui
+    PRIVATE glm::glm
 
     # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
   )
@@ -414,24 +446,41 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
   )
   target_include_directories(MPE PUBLIC "${PROJECT_SOURCE_DIR}")
 
+  target_include_directories(MPE PUBLIC "${PROJECT_SOURCE_DIR}/MPE")
+
   # target_include_directories(MPE PUBLIC
   # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB")
-  if(${MAIN_TEST})
-    add_subdirectory("${PROJECT_SOURCE_DIR}/Tests")
-  endif()
-
-  if(${EXAMPLES})
-    add_subdirectory("${PROJECT_SOURCE_DIR}/Examples")
-  endif()
 
   # INSTALLATION FOR LIBRARIES
   # EXAMPLES FOR FUTURE
+  if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    # MPE DEBUG DLLS
+    set(MPE_DLL_FILES
+      ${PROJECT_SOURCE_DIR}/Build/Debug/MPE.dll)
+    set(DEPENENDENCY_DLL_FILES
+      ${PROJECT_SOURCE_DIR}/Build/Debug/fmtd.dll
+      ${PROJECT_SOURCE_DIR}/Build/Debug/spdlogd.dll
+      ${PROJECT_SOURCE_DIR}/Build/Debug/gladd.dll
+      ${PROJECT_SOURCE_DIR}/Build/Debug/glfw3d.dll
+      ${PROJECT_SOURCE_DIR}/Build/Debug/imguid.dll
+      ${PROJECT_SOURCE_DIR}/Build/Debug/glmd.dll)
+  elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    # MPE RELEASE DLLS
+    set(MPE_DLL_FILES
+      ${PROJECT_SOURCE_DIR}/Build/Release/MPE.dll)
+    set(DEPENENDENCY_DLL_FILES
+      ${PROJECT_SOURCE_DIR}/Build/Release/fmt.dll
+      ${PROJECT_SOURCE_DIR}/Build/Release/spdlog.dll
+      ${PROJECT_SOURCE_DIR}/Build/Release/glad.dll
+      ${PROJECT_SOURCE_DIR}/Build/Release/glfw3.dll
+      ${PROJECT_SOURCE_DIR}/Build/Release/imgui.dll
+      ${PROJECT_SOURCE_DIR}/Build/Release/glm.dll)
+  endif()
 
-  # MPE DEBUG DLLS set(MPE_DLL_DEBUG_FILES
-  # ${VCPKG_CORE}/debug/bin/MPE.dll )
-
-  # MPE RELEASE DLLS set(MPE_DLL_RELEASE_FILES
-  # ${VCPKG_CORE}/bin/MPE.dll )
+  if(${VERBOSE})
+    message(STATUS "MPE DLL FILES: ${MPE_DLL_FILES}")
+    message(STATUS "DEPENDENCY DLL FILES: ${DEPENENDENCY_DLL_FILES}")
+  endif()
 
   # INSTALLATION PROCEDURE FOR MPE
   install(
@@ -454,6 +503,14 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     endif()
   endif()
 
+  if(${MAIN_TEST})
+    add_subdirectory("${PROJECT_SOURCE_DIR}/Tests")
+  endif()
+
+  if(${EXAMPLES})
+    add_subdirectory("${PROJECT_SOURCE_DIR}/Examples")
+  endif()
+
   # TEMPORARY
 
   # ADDING DUMMY EXECUTABLE
@@ -462,9 +519,9 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     target_include_directories(DUMMY PRIVATE "${PROJECT_SOURCE_DIR}/MPE")
     target_link_libraries(DUMMY PRIVATE MPE)
 
-    target_compile_definitions(DUMMY PRIVATE MPE_PLATFORM_WINDOWS)
+    # target_compile_definitions(DUMMY PRIVATE MPE_PLATFORM_WINDOWS)
     if(MPE_LIBRARY_TYPE STREQUAL SHARED)
-      target_compile_definitions(DUMMY PRIVATE MPE_DYNAMIC_LIB)
+      # target_compile_definitions(DUMMY PRIVATE MPE_DYNAMIC_LIB)
     endif()
 
     # INSTALLATION PROCEDURE
