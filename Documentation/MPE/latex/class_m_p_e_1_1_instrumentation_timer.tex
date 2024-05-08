@@ -1,0 +1,135 @@
+\doxysection{MPE\+::Instrumentation\+Timer Class Reference}
+\hypertarget{class_m_p_e_1_1_instrumentation_timer}{}\label{class_m_p_e_1_1_instrumentation_timer}\index{MPE::InstrumentationTimer@{MPE::InstrumentationTimer}}
+
+
+Instrumentation timer class.  
+
+
+
+
+{\ttfamily \#include $<$\+\_\+\+PROFILING.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_m_p_e_1_1_instrumentation_timer_abee4130b1a45c98ea6dac4e01e49cacb}{Instrumentation\+Timer}} (const char \texorpdfstring{$\ast$}{*}name)
+\begin{DoxyCompactList}\small\item\em Construct a new Instrumentation Timer object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_m_p_e_1_1_instrumentation_timer_ae0844152fc1618d7f8083949ed3419bc}{\texorpdfstring{$\sim$}{\string~}\+Instrumentation\+Timer}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the Instrumentation Timer object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_m_p_e_1_1_instrumentation_timer_ad3316d8f42b0e69d0c579ca814641370}{Stop}} ()
+\begin{DoxyCompactList}\small\item\em Stop the timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_m_p_e_1_1_instrumentation_timer_a622c40084dd4bce787fb316b9eb43121}{NAME}}
+\begin{DoxyCompactList}\small\item\em The name of the timer. \end{DoxyCompactList}\item 
+std\+::chrono\+::time\+\_\+point$<$ std\+::chrono\+::high\+\_\+resolution\+\_\+clock $>$ \mbox{\hyperlink{class_m_p_e_1_1_instrumentation_timer_a5a8a5bd380c19318d22729935fb4bde8}{START\+\_\+\+POINT}}
+\begin{DoxyCompactList}\small\item\em The starting point of the timer. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_m_p_e_1_1_instrumentation_timer_a7369713bdac17337d92bc5be3bc44811}{STOPPED}}
+\begin{DoxyCompactList}\small\item\em The stopping flag of the timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Instrumentation timer class. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_m_p_e_1_1_instrumentation_timer_abee4130b1a45c98ea6dac4e01e49cacb}\label{class_m_p_e_1_1_instrumentation_timer_abee4130b1a45c98ea6dac4e01e49cacb} 
+\index{MPE::InstrumentationTimer@{MPE::InstrumentationTimer}!InstrumentationTimer@{InstrumentationTimer}}
+\index{InstrumentationTimer@{InstrumentationTimer}!MPE::InstrumentationTimer@{MPE::InstrumentationTimer}}
+\doxysubsubsection{\texorpdfstring{InstrumentationTimer()}{InstrumentationTimer()}}
+{\footnotesize\ttfamily MPE\+::\+Instrumentation\+Timer\+::\+Instrumentation\+Timer (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})}
+
+
+
+Construct a new Instrumentation Timer object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the timer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\Hypertarget{class_m_p_e_1_1_instrumentation_timer_ae0844152fc1618d7f8083949ed3419bc}\label{class_m_p_e_1_1_instrumentation_timer_ae0844152fc1618d7f8083949ed3419bc} 
+\index{MPE::InstrumentationTimer@{MPE::InstrumentationTimer}!````~InstrumentationTimer@{\texorpdfstring{$\sim$}{\string~}InstrumentationTimer}}
+\index{````~InstrumentationTimer@{\texorpdfstring{$\sim$}{\string~}InstrumentationTimer}!MPE::InstrumentationTimer@{MPE::InstrumentationTimer}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}InstrumentationTimer()}{\string~InstrumentationTimer()}}
+{\footnotesize\ttfamily MPE\+::\+Instrumentation\+Timer\+::\texorpdfstring{$\sim$}{\string~}\+Instrumentation\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destroy the Instrumentation Timer object. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_m_p_e_1_1_instrumentation_timer_ad3316d8f42b0e69d0c579ca814641370}\label{class_m_p_e_1_1_instrumentation_timer_ad3316d8f42b0e69d0c579ca814641370} 
+\index{MPE::InstrumentationTimer@{MPE::InstrumentationTimer}!Stop@{Stop}}
+\index{Stop@{Stop}!MPE::InstrumentationTimer@{MPE::InstrumentationTimer}}
+\doxysubsubsection{\texorpdfstring{Stop()}{Stop()}}
+{\footnotesize\ttfamily void MPE\+::\+Instrumentation\+Timer\+::\+Stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Stop the timer. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_m_p_e_1_1_instrumentation_timer_a622c40084dd4bce787fb316b9eb43121}\label{class_m_p_e_1_1_instrumentation_timer_a622c40084dd4bce787fb316b9eb43121} 
+\index{MPE::InstrumentationTimer@{MPE::InstrumentationTimer}!NAME@{NAME}}
+\index{NAME@{NAME}!MPE::InstrumentationTimer@{MPE::InstrumentationTimer}}
+\doxysubsubsection{\texorpdfstring{NAME}{NAME}}
+{\footnotesize\ttfamily const char\texorpdfstring{$\ast$}{*} MPE\+::\+Instrumentation\+Timer\+::\+NAME\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The name of the timer. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\Hypertarget{class_m_p_e_1_1_instrumentation_timer_a5a8a5bd380c19318d22729935fb4bde8}\label{class_m_p_e_1_1_instrumentation_timer_a5a8a5bd380c19318d22729935fb4bde8} 
+\index{MPE::InstrumentationTimer@{MPE::InstrumentationTimer}!START\_POINT@{START\_POINT}}
+\index{START\_POINT@{START\_POINT}!MPE::InstrumentationTimer@{MPE::InstrumentationTimer}}
+\doxysubsubsection{\texorpdfstring{START\_POINT}{START\_POINT}}
+{\footnotesize\ttfamily std\+::chrono\+::time\+\_\+point$<$std\+::chrono\+::high\+\_\+resolution\+\_\+clock$>$ MPE\+::\+Instrumentation\+Timer\+::\+START\+\_\+\+POINT\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The starting point of the timer. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\Hypertarget{class_m_p_e_1_1_instrumentation_timer_a7369713bdac17337d92bc5be3bc44811}\label{class_m_p_e_1_1_instrumentation_timer_a7369713bdac17337d92bc5be3bc44811} 
+\index{MPE::InstrumentationTimer@{MPE::InstrumentationTimer}!STOPPED@{STOPPED}}
+\index{STOPPED@{STOPPED}!MPE::InstrumentationTimer@{MPE::InstrumentationTimer}}
+\doxysubsubsection{\texorpdfstring{STOPPED}{STOPPED}}
+{\footnotesize\ttfamily bool MPE\+::\+Instrumentation\+Timer\+::\+STOPPED\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The stopping flag of the timer. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Profiling/\mbox{\hyperlink{___p_r_o_f_i_l_i_n_g_8h}{\+\_\+\+PROFILING.\+h}}\item 
+D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Profiling/\mbox{\hyperlink{___p_r_o_f_i_l_i_n_g_8cpp}{\+\_\+\+PROFILING.\+cpp}}\end{DoxyCompactItemize}

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['newref_0',['NEWREF',['../namespace_m_p_e.html#a0875b39f498dcacf432d472b46928290',1,'MPE']]],
-  ['newscope_1',['NEWSCOPE',['../namespace_m_p_e.html#a0d1b68927cc22d1e2e34575293475a83',1,'MPE']]]
+  ['critical_0',['critical',['../class_m_p_e_1_1_log.html#aad4547e61eca8a7eb7d0b36ac1d65e8d',1,'MPE::Log']]]
 ];

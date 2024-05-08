@@ -7,34 +7,38 @@
 \DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{___c_o_r_e_8h}{MPE/Core/\_CORE.h}}"{}}}
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}spdlog/spdlog.h"{}}}
 \DoxyCodeLine{00005\ }
-\DoxyCodeLine{00101\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_m_p_e}{MPE}}}
-\DoxyCodeLine{00102\ \{}
-\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{class\ }MPE\_API\ \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}}}
-\DoxyCodeLine{00111\ \ \ \ \ \{}
-\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Init();}
-\DoxyCodeLine{00120\ }
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<spdlog::logger>}}\ \&\mbox{\hyperlink{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}{GetCoreLogger}}()\ \{\ \textcolor{keywordflow}{return}\ CoreLogger;\ \}}
-\DoxyCodeLine{00128\ }
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<spdlog::logger>}}\ \&\mbox{\hyperlink{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}{GetClientLogger}}()\ \{\ \textcolor{keywordflow}{return}\ ClientLogger;\ \}}
-\DoxyCodeLine{00136\ }
-\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<spdlog::logger>}}\ \mbox{\hyperlink{class_m_p_e_1_1_log_a576962ee20658b81054296cb760e7300}{CoreLogger}};}
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<spdlog::logger>}}\ \mbox{\hyperlink{class_m_p_e_1_1_log_ab96a3bab6a694a431bf6e1bde36b158c}{ClientLogger}};}
-\DoxyCodeLine{00150\ \ \ \ \ \};}
-\DoxyCodeLine{00151\ \}}
-\DoxyCodeLine{00152\ }
-\DoxyCodeLine{00153\ \textcolor{comment}{//\ ENGINE\ SIDE\ LOGS}}
-\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_ERROR(...)\ ::MPE::Log::GetCoreLogger()-\/>error(\_\_VA\_ARGS\_\_)}}
-\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_WARN(...)\ ::MPE::Log::GetCoreLogger()-\/>warn(\_\_VA\_ARGS\_\_)}}
-\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_INFO(...)\ ::MPE::Log::GetCoreLogger()-\/>info(\_\_VA\_ARGS\_\_)}}
-\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_TRACE(...)\ ::MPE::Log::GetCoreLogger()-\/>trace(\_\_VA\_ARGS\_\_)}}
-\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_FATAL(...)\ ::MPE::Log::GetCoreLogger()-\/>fatal(\_\_VA\_ARGS\_\_)}}
-\DoxyCodeLine{00159\ \textcolor{comment}{//\ CLIENT\ SIDE\ LOGS}}
-\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#define\ MPE\_ERROR(...)\ ::MPE::Log::GetClientLogger()-\/>error(\_\_VA\_ARGS\_\_)}}
-\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#define\ MPE\_WARN(...)\ ::MPE::Log::GetClientLogger()-\/>warn(\_\_VA\_ARGS\_\_)}}
-\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#define\ MPE\_INFO(...)\ ::MPE::Log::GetClientLogger()-\/>info(\_\_VA\_ARGS\_\_)}}
-\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#define\ MPE\_TRACE(...)\ ::MPE::Log::GetClientLogger()-\/>trace(\_\_VA\_ARGS\_\_)}}
-\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#define\ MPE\_FATAL(...)\ ::MPE::Log::GetClientLogger()-\/>fatal(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_m_p_e}{MPE}}}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{class\ }MPE\_API\ \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}}}
+\DoxyCodeLine{00016\ \ \ \ \ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91b}{Option}}}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0b00000001}}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ CONSOLE\ =\ 1\ <<\ 0,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0b00000010}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ FILE\ =\ 1\ <<\ 1,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}}(\textcolor{keyword}{const}\ std::string\ \&name,\ \textcolor{keywordtype}{int}\ options,\ std::string\ filename\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Logging\ methods}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ trace(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ info(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ warn(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ error(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ debug(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ critical(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<spdlog::logger>}}\ \mbox{\hyperlink{class_m_p_e_1_1_log_a4696c837e73e0bf2c728dccf8288e4f9}{logger}};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ std::vector<REF<spdlog::sinks::sink>>\ \mbox{\hyperlink{class_m_p_e_1_1_log_ad25f69aaa2b4f061231bbae57b326769}{sinks}};}
+\DoxyCodeLine{00044\ \ \ \ \ \};}
+\DoxyCodeLine{00045\ \}}
 
 \end{DoxyCode}

@@ -1,0 +1,169 @@
+\doxysection{MPE\+::Global\+Log Class Reference}
+\hypertarget{class_m_p_e_1_1_global_log}{}\label{class_m_p_e_1_1_global_log}\index{MPE::GlobalLog@{MPE::GlobalLog}}
+
+
+Main logging system for the engine.  
+
+
+
+
+{\ttfamily \#include $<$Global\+Log.\+h$>$}
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_m_p_e_1_1_global_log_a18022addc9fe0789b6217f04ddc60ae1}{Init}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the logging system. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \& \mbox{\hyperlink{class_m_p_e_1_1_global_log_a450f78a6bd652b79e2c172380af44fcd}{Get\+Core\+Logger}} ()
+\begin{DoxyCompactList}\small\item\em Gets the core logger. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \& \mbox{\hyperlink{class_m_p_e_1_1_global_log_a0a7d210429c8417b12ba2b0a006dc66f}{Get\+Debug\+Logger}} ()
+\begin{DoxyCompactList}\small\item\em Gets the debug logger. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \& \mbox{\hyperlink{class_m_p_e_1_1_global_log_ad20d9d0ea56ff9167ae3d907c599e49e}{Get\+Client\+Logger}} ()
+\begin{DoxyCompactList}\small\item\em Gets the client logger. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \mbox{\hyperlink{class_m_p_e_1_1_global_log_ab3685ea3de75c7e363e84ea67f0b66b1}{Core\+Logger}}
+\begin{DoxyCompactList}\small\item\em The core logger. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \mbox{\hyperlink{class_m_p_e_1_1_global_log_a0edc7c663b8a18acaa550368a5facb4c}{Debug\+Logger}}
+\begin{DoxyCompactList}\small\item\em The debug logger. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \mbox{\hyperlink{class_m_p_e_1_1_global_log_add53ea3c1c32467bcc34e54b21ec053b}{Client\+Logger}}
+\begin{DoxyCompactList}\small\item\em The client logger. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main logging system for the engine. 
+
+This file contains the main logging system for the engine. It uses the spdlog library for logging. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Sebastian Termen 
+\end{DoxyAuthor}
+\begin{DoxySeeAlso}{See also}
+\href{https://github.com/gabime/spdlog}{\texttt{ https\+://github.\+com/gabime/spdlog}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_m_p_e_1_1_global_log_ad20d9d0ea56ff9167ae3d907c599e49e}\label{class_m_p_e_1_1_global_log_ad20d9d0ea56ff9167ae3d907c599e49e} 
+\index{MPE::GlobalLog@{MPE::GlobalLog}!GetClientLogger@{GetClientLogger}}
+\index{GetClientLogger@{GetClientLogger}!MPE::GlobalLog@{MPE::GlobalLog}}
+\doxysubsubsection{\texorpdfstring{GetClientLogger()}{GetClientLogger()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \& MPE\+::\+Global\+Log\+::\+Get\+Client\+Logger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Gets the client logger. 
+
+This function returns the client logger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyReturn}{Returns}
+The client logger. 
+\end{DoxyReturn}
+\Hypertarget{class_m_p_e_1_1_global_log_a450f78a6bd652b79e2c172380af44fcd}\label{class_m_p_e_1_1_global_log_a450f78a6bd652b79e2c172380af44fcd} 
+\index{MPE::GlobalLog@{MPE::GlobalLog}!GetCoreLogger@{GetCoreLogger}}
+\index{GetCoreLogger@{GetCoreLogger}!MPE::GlobalLog@{MPE::GlobalLog}}
+\doxysubsubsection{\texorpdfstring{GetCoreLogger()}{GetCoreLogger()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \& MPE\+::\+Global\+Log\+::\+Get\+Core\+Logger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Gets the core logger. 
+
+This function returns the core logger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyReturn}{Returns}
+The core logger. 
+\end{DoxyReturn}
+\Hypertarget{class_m_p_e_1_1_global_log_a0a7d210429c8417b12ba2b0a006dc66f}\label{class_m_p_e_1_1_global_log_a0a7d210429c8417b12ba2b0a006dc66f} 
+\index{MPE::GlobalLog@{MPE::GlobalLog}!GetDebugLogger@{GetDebugLogger}}
+\index{GetDebugLogger@{GetDebugLogger}!MPE::GlobalLog@{MPE::GlobalLog}}
+\doxysubsubsection{\texorpdfstring{GetDebugLogger()}{GetDebugLogger()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \& MPE\+::\+Global\+Log\+::\+Get\+Debug\+Logger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Gets the debug logger. 
+
+This function returns the debug logger. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyReturn}{Returns}
+The debug logger. 
+\end{DoxyReturn}
+\Hypertarget{class_m_p_e_1_1_global_log_a18022addc9fe0789b6217f04ddc60ae1}\label{class_m_p_e_1_1_global_log_a18022addc9fe0789b6217f04ddc60ae1} 
+\index{MPE::GlobalLog@{MPE::GlobalLog}!Init@{Init}}
+\index{Init@{Init}!MPE::GlobalLog@{MPE::GlobalLog}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void MPE\+::\+Global\+Log\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Initializes the logging system. 
+
+This function initializes the logging system for the engine. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyNote}{Note}
+This function should be called at the start of the engine. 
+\end{DoxyNote}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_m_p_e_1_1_global_log_add53ea3c1c32467bcc34e54b21ec053b}\label{class_m_p_e_1_1_global_log_add53ea3c1c32467bcc34e54b21ec053b} 
+\index{MPE::GlobalLog@{MPE::GlobalLog}!ClientLogger@{ClientLogger}}
+\index{ClientLogger@{ClientLogger}!MPE::GlobalLog@{MPE::GlobalLog}}
+\doxysubsubsection{\texorpdfstring{ClientLogger}{ClientLogger}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ MPE\+::\+Global\+Log\+::\+Client\+Logger\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+The client logger. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_m_p_e_1_1_global_log_ad20d9d0ea56ff9167ae3d907c599e49e}{Get\+Client\+Logger()} 
+\end{DoxySeeAlso}
+\Hypertarget{class_m_p_e_1_1_global_log_ab3685ea3de75c7e363e84ea67f0b66b1}\label{class_m_p_e_1_1_global_log_ab3685ea3de75c7e363e84ea67f0b66b1} 
+\index{MPE::GlobalLog@{MPE::GlobalLog}!CoreLogger@{CoreLogger}}
+\index{CoreLogger@{CoreLogger}!MPE::GlobalLog@{MPE::GlobalLog}}
+\doxysubsubsection{\texorpdfstring{CoreLogger}{CoreLogger}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ MPE\+::\+Global\+Log\+::\+Core\+Logger\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+The core logger. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_m_p_e_1_1_global_log_a450f78a6bd652b79e2c172380af44fcd}{Get\+Core\+Logger()} 
+\end{DoxySeeAlso}
+\Hypertarget{class_m_p_e_1_1_global_log_a0edc7c663b8a18acaa550368a5facb4c}\label{class_m_p_e_1_1_global_log_a0edc7c663b8a18acaa550368a5facb4c} 
+\index{MPE::GlobalLog@{MPE::GlobalLog}!DebugLogger@{DebugLogger}}
+\index{DebugLogger@{DebugLogger}!MPE::GlobalLog@{MPE::GlobalLog}}
+\doxysubsubsection{\texorpdfstring{DebugLogger}{DebugLogger}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$spdlog\+::logger$>$ MPE\+::\+Global\+Log\+::\+Debug\+Logger\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+The debug logger. 
+
+This logger is only available in debug builds. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_m_p_e_1_1_global_log_a0a7d210429c8417b12ba2b0a006dc66f}{Get\+Debug\+Logger()} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Core/\mbox{\hyperlink{_global_log_8h}{Global\+Log.\+h}}\item 
+D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Core/\mbox{\hyperlink{_global_log_8cpp}{Global\+Log.\+cpp}}\end{DoxyCompactItemize}

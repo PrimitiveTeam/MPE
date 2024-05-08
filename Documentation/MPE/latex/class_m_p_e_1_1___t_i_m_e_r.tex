@@ -1,0 +1,221 @@
+\doxysection{MPE\+::\+\_\+\+TIMER\texorpdfstring{$<$}{<} FN \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_m_p_e_1_1___t_i_m_e_r}{}\label{class_m_p_e_1_1___t_i_m_e_r}\index{MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}}
+
+
+Timer class for profiling.  
+
+
+
+
+{\ttfamily \#include $<$\+\_\+\+TIMER.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a1454fac7f5ed2ac11dc8258a2ad1b32f}{\+\_\+\+TIMER}} (const char \texorpdfstring{$\ast$}{*}name, bool log=false)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_m_p_e_1_1___t_i_m_e_r}{\+\_\+\+TIMER} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a0a723389846d71ae0fe16bf222700340}{\+\_\+\+TIMER}} (const char \texorpdfstring{$\ast$}{*}name, FN \&\&func, bool log=false)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_m_p_e_1_1___t_i_m_e_r}{\+\_\+\+TIMER} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_ad1002d947dbbd72d8d60ad5223bdcecd}{\texorpdfstring{$\sim$}{\string~}\+\_\+\+TIMER}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \doxylink{class_m_p_e_1_1___t_i_m_e_r}{\+\_\+\+TIMER} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a51e5afaf10da82fe0c78d5a885ead471}{Stop}} ()
+\begin{DoxyCompactList}\small\item\em Stop the timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a31f78d814891a5256812587e09c2ae6f}{NAME}}
+\begin{DoxyCompactList}\small\item\em The name of the timer. \end{DoxyCompactList}\item 
+FN \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_aaed2c40d37885ec3e3150b5f8261ea4e}{FUNC}}
+\begin{DoxyCompactList}\small\item\em The function to call on stopping the timer. \end{DoxyCompactList}\item 
+std\+::chrono\+::time\+\_\+point$<$ std\+::chrono\+::high\+\_\+resolution\+\_\+clock $>$ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_aa64e744b0de12be69877e54ff6c49737}{START\+\_\+\+POINT}}
+\begin{DoxyCompactList}\small\item\em The starting point of the timer. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a7fea0ba04c21de51ec30264e834f850e}{STOPPED}}
+\begin{DoxyCompactList}\small\item\em The stopping flag of the timer. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a3b8b576a1a084df1dcddcde2324ad22f}{LOG}}
+\begin{DoxyCompactList}\small\item\em The logging flag of the timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename FN = std\+::function$<$void(const char \texorpdfstring{$\ast$}{*}, float)$>$$>$\newline
+class MPE\+::\+\_\+\+TIMER$<$ FN $>$}
+Timer class for profiling. 
+
+This class is used to profile code execution time. 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em FN} & The function type to call on stopping the timer. \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxySeeAlso}{See also}
+\+\_\+\+PROFILING 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_m_p_e_1_1___t_i_m_e_r_a1454fac7f5ed2ac11dc8258a2ad1b32f}\label{class_m_p_e_1_1___t_i_m_e_r_a1454fac7f5ed2ac11dc8258a2ad1b32f} 
+\index{MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}!\_TIMER@{\_TIMER}}
+\index{\_TIMER@{\_TIMER}!MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}}
+\doxysubsubsection{\texorpdfstring{\_TIMER()}{\_TIMER()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename FN  = std\+::function$<$void(const char \texorpdfstring{$\ast$}{*}, float)$>$$>$ \\
+\mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r}{MPE\+::\+\_\+\+TIMER}}$<$ FN $>$\+::\+\_\+\+TIMER (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name,  }\item[{bool}]{log = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new \doxylink{class_m_p_e_1_1___t_i_m_e_r}{\+\_\+\+TIMER} object. 
+
+This constructor is used to create a new \doxylink{class_m_p_e_1_1___t_i_m_e_r}{\+\_\+\+TIMER} object with only the name. 
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the timer. \\
+\hline
+{\em log} & The logging flag of the timer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\Hypertarget{class_m_p_e_1_1___t_i_m_e_r_a0a723389846d71ae0fe16bf222700340}\label{class_m_p_e_1_1___t_i_m_e_r_a0a723389846d71ae0fe16bf222700340} 
+\index{MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}!\_TIMER@{\_TIMER}}
+\index{\_TIMER@{\_TIMER}!MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}}
+\doxysubsubsection{\texorpdfstring{\_TIMER()}{\_TIMER()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename FN  = std\+::function$<$void(const char \texorpdfstring{$\ast$}{*}, float)$>$$>$ \\
+\mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r}{MPE\+::\+\_\+\+TIMER}}$<$ FN $>$\+::\+\_\+\+TIMER (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name,  }\item[{FN \&\&}]{func,  }\item[{bool}]{log = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new \doxylink{class_m_p_e_1_1___t_i_m_e_r}{\+\_\+\+TIMER} object. 
+
+This constructor is used to create a new \doxylink{class_m_p_e_1_1___t_i_m_e_r}{\+\_\+\+TIMER} object with the name and a function to call on stopping. 
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the timer. \\
+\hline
+{\em func} & The function to call on stopping the timer. \\
+\hline
+{\em log} & The logging flag of the timer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\Hypertarget{class_m_p_e_1_1___t_i_m_e_r_ad1002d947dbbd72d8d60ad5223bdcecd}\label{class_m_p_e_1_1___t_i_m_e_r_ad1002d947dbbd72d8d60ad5223bdcecd} 
+\index{MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}!````~\_TIMER@{\texorpdfstring{$\sim$}{\string~}\_TIMER}}
+\index{````~\_TIMER@{\texorpdfstring{$\sim$}{\string~}\_TIMER}!MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}\_TIMER()}{\string~\_TIMER()}}
+{\footnotesize\ttfamily template$<$typename FN  = std\+::function$<$void(const char \texorpdfstring{$\ast$}{*}, float)$>$$>$ \\
+\mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r}{MPE\+::\+\_\+\+TIMER}}$<$ FN $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r}{\+\_\+\+TIMER}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Destroy the \doxylink{class_m_p_e_1_1___t_i_m_e_r}{\+\_\+\+TIMER} object. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyNote}{Note}
+If the timer is not stopped, it will stop it. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_m_p_e_1_1___t_i_m_e_r_a51e5afaf10da82fe0c78d5a885ead471}{Stop()} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_m_p_e_1_1___t_i_m_e_r_a51e5afaf10da82fe0c78d5a885ead471}\label{class_m_p_e_1_1___t_i_m_e_r_a51e5afaf10da82fe0c78d5a885ead471} 
+\index{MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}!Stop@{Stop}}
+\index{Stop@{Stop}!MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}}
+\doxysubsubsection{\texorpdfstring{Stop()}{Stop()}}
+{\footnotesize\ttfamily template$<$typename FN  = std\+::function$<$void(const char \texorpdfstring{$\ast$}{*}, float)$>$$>$ \\
+void \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r}{MPE\+::\+\_\+\+TIMER}}$<$ FN $>$\+::\+Stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Stop the timer. 
+
+This function is used to stop the timer and execute the function if provided. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyNote}{Note}
+If the timer is already stopped, it will not stop it again. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_m_p_e_1_1___t_i_m_e_r_aaed2c40d37885ec3e3150b5f8261ea4e}{FUNC} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_m_p_e_1_1___t_i_m_e_r_aaed2c40d37885ec3e3150b5f8261ea4e}\label{class_m_p_e_1_1___t_i_m_e_r_aaed2c40d37885ec3e3150b5f8261ea4e} 
+\index{MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}!FUNC@{FUNC}}
+\index{FUNC@{FUNC}!MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}}
+\doxysubsubsection{\texorpdfstring{FUNC}{FUNC}}
+{\footnotesize\ttfamily template$<$typename FN  = std\+::function$<$void(const char \texorpdfstring{$\ast$}{*}, float)$>$$>$ \\
+FN \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r}{MPE\+::\+\_\+\+TIMER}}$<$ FN $>$\+::\+FUNC\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The function to call on stopping the timer. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\Hypertarget{class_m_p_e_1_1___t_i_m_e_r_a3b8b576a1a084df1dcddcde2324ad22f}\label{class_m_p_e_1_1___t_i_m_e_r_a3b8b576a1a084df1dcddcde2324ad22f} 
+\index{MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}!LOG@{LOG}}
+\index{LOG@{LOG}!MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}}
+\doxysubsubsection{\texorpdfstring{LOG}{LOG}}
+{\footnotesize\ttfamily template$<$typename FN  = std\+::function$<$void(const char \texorpdfstring{$\ast$}{*}, float)$>$$>$ \\
+bool \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r}{MPE\+::\+\_\+\+TIMER}}$<$ FN $>$\+::\+LOG\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The logging flag of the timer. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\Hypertarget{class_m_p_e_1_1___t_i_m_e_r_a31f78d814891a5256812587e09c2ae6f}\label{class_m_p_e_1_1___t_i_m_e_r_a31f78d814891a5256812587e09c2ae6f} 
+\index{MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}!NAME@{NAME}}
+\index{NAME@{NAME}!MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}}
+\doxysubsubsection{\texorpdfstring{NAME}{NAME}}
+{\footnotesize\ttfamily template$<$typename FN  = std\+::function$<$void(const char \texorpdfstring{$\ast$}{*}, float)$>$$>$ \\
+const char\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r}{MPE\+::\+\_\+\+TIMER}}$<$ FN $>$\+::\+NAME\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The name of the timer. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\Hypertarget{class_m_p_e_1_1___t_i_m_e_r_aa64e744b0de12be69877e54ff6c49737}\label{class_m_p_e_1_1___t_i_m_e_r_aa64e744b0de12be69877e54ff6c49737} 
+\index{MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}!START\_POINT@{START\_POINT}}
+\index{START\_POINT@{START\_POINT}!MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}}
+\doxysubsubsection{\texorpdfstring{START\_POINT}{START\_POINT}}
+{\footnotesize\ttfamily template$<$typename FN  = std\+::function$<$void(const char \texorpdfstring{$\ast$}{*}, float)$>$$>$ \\
+std\+::chrono\+::time\+\_\+point$<$std\+::chrono\+::high\+\_\+resolution\+\_\+clock$>$ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r}{MPE\+::\+\_\+\+TIMER}}$<$ FN $>$\+::\+START\+\_\+\+POINT\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The starting point of the timer. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\Hypertarget{class_m_p_e_1_1___t_i_m_e_r_a7fea0ba04c21de51ec30264e834f850e}\label{class_m_p_e_1_1___t_i_m_e_r_a7fea0ba04c21de51ec30264e834f850e} 
+\index{MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}!STOPPED@{STOPPED}}
+\index{STOPPED@{STOPPED}!MPE::\_TIMER$<$ FN $>$@{MPE::\_TIMER$<$ FN $>$}}
+\doxysubsubsection{\texorpdfstring{STOPPED}{STOPPED}}
+{\footnotesize\ttfamily template$<$typename FN  = std\+::function$<$void(const char \texorpdfstring{$\ast$}{*}, float)$>$$>$ \\
+bool \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r}{MPE\+::\+\_\+\+TIMER}}$<$ FN $>$\+::\+STOPPED\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The stopping flag of the timer. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Profiling/\mbox{\hyperlink{___t_i_m_e_r_8h}{\+\_\+\+TIMER.\+h}}\end{DoxyCompactItemize}

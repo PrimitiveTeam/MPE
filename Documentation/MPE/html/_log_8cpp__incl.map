@@ -1,13 +1,15 @@
 <map id="D:/WORK/GIT/MPE/MPE/Core/Log.cpp" name="D:/WORK/GIT/MPE/MPE/Core/Log.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="960,5,1130,48"/>
-<area shape="rect" id="Node000002" href="$_log_8h.html" title="Main logging system for the engine." alt="" coords="200,104,253,131"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="960,40,269,114,268,109,959,35"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="1036,5,1206,48"/>
+<area shape="rect" id="Node000002" href="$_log_8h.html" title="Extensible logging system for the engine." alt="" coords="200,104,253,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1036,39,269,115,268,109,1036,34"/>
 <area shape="rect" id="Node000006" href="$_m_p_e_p_c_h_8h.html" title="Precompiled header file for the MPE engine." alt="" coords="908,104,1030,131"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1029,50,991,94,987,90,1025,47"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1087,51,1005,98,1002,94,1084,46"/>
 <area shape="rect" id="Node000023" title=" " alt="" coords="1054,96,1188,139"/>
-<area shape="poly" id="edge23_Node000001_Node000023" title=" " alt="" coords="1064,47,1095,83,1091,86,1060,50"/>
-<area shape="rect" id="Node000024" title=" " alt="" coords="1212,104,1331,131"/>
-<area shape="poly" id="edge24_Node000001_Node000024" title=" " alt="" coords="1099,46,1226,96,1224,100,1097,51"/>
+<area shape="poly" id="edge23_Node000001_Node000023" title=" " alt="" coords="1124,48,1124,81,1118,81,1118,48"/>
+<area shape="rect" id="Node000024" title=" " alt="" coords="1212,96,1342,139"/>
+<area shape="poly" id="edge24_Node000001_Node000024" title=" " alt="" coords="1159,46,1229,86,1226,91,1156,51"/>
+<area shape="rect" id="Node000025" title=" " alt="" coords="1366,104,1484,131"/>
+<area shape="poly" id="edge25_Node000001_Node000025" title=" " alt="" coords="1193,46,1367,97,1366,102,1191,51"/>
 <area shape="rect" id="Node000003" href="$___c_o_r_e_8h.html" title="The Mere Primitive Engine (MPE) namespace." alt="" coords="5,187,146,213"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="204,134,113,182,111,177,201,129"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="170,187,282,213"/>

@@ -76,135 +76,199 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_m_p_e_1_1_log-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">MPE::Log Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Main logging system for the engine.  
- <a href="#details">More...</a></p>
-
 <p><code>#include &lt;<a class="el" href="_log_8h_source.html">Log.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:af33520c32f686c46bcb3dddc077d59ef" id="r_af33520c32f686c46bcb3dddc077d59ef"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af33520c32f686c46bcb3dddc077d59ef">Init</a> ()</td></tr>
-<tr class="memdesc:af33520c32f686c46bcb3dddc077d59ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the logging system.  <br /></td></tr>
-<tr class="separator:af33520c32f686c46bcb3dddc077d59ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa229dee4c3a5072f54020460131bdbba" id="r_aa229dee4c3a5072f54020460131bdbba"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespace_m_p_e.html#a003594098fb51fe684b9937e69d2593a">REF</a>&lt; spdlog::logger &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa229dee4c3a5072f54020460131bdbba">GetCoreLogger</a> ()</td></tr>
-<tr class="memdesc:aa229dee4c3a5072f54020460131bdbba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the core logger.  <br /></td></tr>
-<tr class="separator:aa229dee4c3a5072f54020460131bdbba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae445954dccc6d150d63974a814b6a6d5" id="r_ae445954dccc6d150d63974a814b6a6d5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespace_m_p_e.html#a003594098fb51fe684b9937e69d2593a">REF</a>&lt; spdlog::logger &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae445954dccc6d150d63974a814b6a6d5">GetClientLogger</a> ()</td></tr>
-<tr class="memdesc:ae445954dccc6d150d63974a814b6a6d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the client logger.  <br /></td></tr>
-<tr class="separator:ae445954dccc6d150d63974a814b6a6d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:aa07b240669d308041628f75e8f11a91b" id="r_aa07b240669d308041628f75e8f11a91b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa07b240669d308041628f75e8f11a91b">Option</a> { <a class="el" href="#aa07b240669d308041628f75e8f11a91bab3dedab598a7453622c6b9c75b6145f4">CONSOLE</a> = 1 &lt;&lt; 0
+, <a class="el" href="#aa07b240669d308041628f75e8f11a91baeb2d0d8ed2522fe2d7d5d6bfbb6d405a">FILE</a> = 1 &lt;&lt; 1
+ }</td></tr>
+<tr class="separator:aa07b240669d308041628f75e8f11a91b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:a576962ee20658b81054296cb760e7300" id="r_a576962ee20658b81054296cb760e7300"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespace_m_p_e.html#a003594098fb51fe684b9937e69d2593a">REF</a>&lt; spdlog::logger &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a576962ee20658b81054296cb760e7300">CoreLogger</a></td></tr>
-<tr class="memdesc:a576962ee20658b81054296cb760e7300"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core logger.  <br /></td></tr>
-<tr class="separator:a576962ee20658b81054296cb760e7300"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab96a3bab6a694a431bf6e1bde36b158c" id="r_ab96a3bab6a694a431bf6e1bde36b158c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespace_m_p_e.html#a003594098fb51fe684b9937e69d2593a">REF</a>&lt; spdlog::logger &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab96a3bab6a694a431bf6e1bde36b158c">ClientLogger</a></td></tr>
-<tr class="memdesc:ab96a3bab6a694a431bf6e1bde36b158c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The client logger.  <br /></td></tr>
-<tr class="separator:ab96a3bab6a694a431bf6e1bde36b158c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:af904af9307aa2833a1085abc91be98e2" id="r_af904af9307aa2833a1085abc91be98e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af904af9307aa2833a1085abc91be98e2">Log</a> (const std::string &amp;name, int options, std::string filename=&quot;&quot;)</td></tr>
+<tr class="separator:af904af9307aa2833a1085abc91be98e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38ea6b64e34b5202966556228572764b" id="r_a38ea6b64e34b5202966556228572764b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38ea6b64e34b5202966556228572764b">trace</a> (const std::string &amp;message)</td></tr>
+<tr class="separator:a38ea6b64e34b5202966556228572764b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d3246325d9268b2b2ce9d837920bf36" id="r_a6d3246325d9268b2b2ce9d837920bf36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d3246325d9268b2b2ce9d837920bf36">info</a> (const std::string &amp;message)</td></tr>
+<tr class="separator:a6d3246325d9268b2b2ce9d837920bf36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd0d076c6e83b273af939c217e8198cc" id="r_acd0d076c6e83b273af939c217e8198cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd0d076c6e83b273af939c217e8198cc">warn</a> (const std::string &amp;message)</td></tr>
+<tr class="separator:acd0d076c6e83b273af939c217e8198cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a085245274b910092f5f1bcf05b6f633c" id="r_a085245274b910092f5f1bcf05b6f633c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a085245274b910092f5f1bcf05b6f633c">error</a> (const std::string &amp;message)</td></tr>
+<tr class="separator:a085245274b910092f5f1bcf05b6f633c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a66ad11400028a090fa789876913d76" id="r_a8a66ad11400028a090fa789876913d76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8a66ad11400028a090fa789876913d76">debug</a> (const std::string &amp;message)</td></tr>
+<tr class="separator:a8a66ad11400028a090fa789876913d76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad4547e61eca8a7eb7d0b36ac1d65e8d" id="r_aad4547e61eca8a7eb7d0b36ac1d65e8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad4547e61eca8a7eb7d0b36ac1d65e8d">critical</a> (const std::string &amp;message)</td></tr>
+<tr class="separator:aad4547e61eca8a7eb7d0b36ac1d65e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a4696c837e73e0bf2c728dccf8288e4f9" id="r_a4696c837e73e0bf2c728dccf8288e4f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_m_p_e.html#a003594098fb51fe684b9937e69d2593a">REF</a>&lt; spdlog::logger &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4696c837e73e0bf2c728dccf8288e4f9">logger</a></td></tr>
+<tr class="separator:a4696c837e73e0bf2c728dccf8288e4f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad25f69aaa2b4f061231bbae57b326769" id="r_ad25f69aaa2b4f061231bbae57b326769"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespace_m_p_e.html#a003594098fb51fe684b9937e69d2593a">REF</a>&lt; spdlog::sinks::sink &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad25f69aaa2b4f061231bbae57b326769">sinks</a></td></tr>
+<tr class="separator:ad25f69aaa2b4f061231bbae57b326769"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Main logging system for the engine. </p>
-<p>This file contains the main logging system for the engine. It uses the spdlog library for logging. </p><dl class="section date"><dt>Date</dt><dd>2024-05-05 </dd></dl>
-<dl class="section author"><dt>Author</dt><dd>Sebastian Termen </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a href="https://github.com/gabime/spdlog">https://github.com/gabime/spdlog</a> </dd></dl>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae445954dccc6d150d63974a814b6a6d5" name="ae445954dccc6d150d63974a814b6a6d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae445954dccc6d150d63974a814b6a6d5">&#9670;&#160;</a></span>GetClientLogger()</h2>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="aa07b240669d308041628f75e8f11a91b" name="aa07b240669d308041628f75e8f11a91b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa07b240669d308041628f75e8f11a91b">&#9670;&#160;</a></span>Option</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="namespace_m_p_e.html#a003594098fb51fe684b9937e69d2593a">REF</a>&lt; spdlog::logger &gt; &amp; MPE::Log::GetClientLogger </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
-          <td></td>
+          <td class="memname">enum <a class="el" href="#aa07b240669d308041628f75e8f11a91b">MPE::Log::Option</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-
-<p>Gets the client logger. </p>
-<p>This function returns the client logger. </p><dl class="section date"><dt>Date</dt><dd>2024-05-05 </dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>The client logger. </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa07b240669d308041628f75e8f11a91bab3dedab598a7453622c6b9c75b6145f4" name="aa07b240669d308041628f75e8f11a91bab3dedab598a7453622c6b9c75b6145f4"></a>CONSOLE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa07b240669d308041628f75e8f11a91baeb2d0d8ed2522fe2d7d5d6bfbb6d405a" name="aa07b240669d308041628f75e8f11a91baeb2d0d8ed2522fe2d7d5d6bfbb6d405a"></a>FILE&#160;</td><td class="fielddoc"></td></tr>
+</table>
 
 </div>
 </div>
-<a id="aa229dee4c3a5072f54020460131bdbba" name="aa229dee4c3a5072f54020460131bdbba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa229dee4c3a5072f54020460131bdbba">&#9670;&#160;</a></span>GetCoreLogger()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af904af9307aa2833a1085abc91be98e2" name="af904af9307aa2833a1085abc91be98e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af904af9307aa2833a1085abc91be98e2">&#9670;&#160;</a></span>Log()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="namespace_m_p_e.html#a003594098fb51fe684b9937e69d2593a">REF</a>&lt; spdlog::logger &gt; &amp; MPE::Log::GetCoreLogger </td>
+          <td class="memname">MPE::Log::Log </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>options</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>filename</em><span class="paramdefsep"> = </span><span class="paramdefval">&quot;&quot;</span></span>&#160;)</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Gets the core logger. </p>
-<p>This function returns the core logger. </p><dl class="section date"><dt>Date</dt><dd>2024-05-05 </dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>The core logger. </dd></dl>
-
 </div>
 </div>
-<a id="af33520c32f686c46bcb3dddc077d59ef" name="af33520c32f686c46bcb3dddc077d59ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af33520c32f686c46bcb3dddc077d59ef">&#9670;&#160;</a></span>Init()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aad4547e61eca8a7eb7d0b36ac1d65e8d" name="aad4547e61eca8a7eb7d0b36ac1d65e8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad4547e61eca8a7eb7d0b36ac1d65e8d">&#9670;&#160;</a></span>critical()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void MPE::Log::Init </td>
+          <td class="memname">void MPE::Log::critical </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>message</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Initializes the logging system. </p>
-<p>This function initializes the logging system for the engine. </p><dl class="section date"><dt>Date</dt><dd>2024-05-05 </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function should be called at the start of the engine. </dd></dl>
+</div>
+</div>
+<a id="a8a66ad11400028a090fa789876913d76" name="a8a66ad11400028a090fa789876913d76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a66ad11400028a090fa789876913d76">&#9670;&#160;</a></span>debug()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MPE::Log::debug </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>message</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a085245274b910092f5f1bcf05b6f633c" name="a085245274b910092f5f1bcf05b6f633c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a085245274b910092f5f1bcf05b6f633c">&#9670;&#160;</a></span>error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MPE::Log::error </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>message</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6d3246325d9268b2b2ce9d837920bf36" name="a6d3246325d9268b2b2ce9d837920bf36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d3246325d9268b2b2ce9d837920bf36">&#9670;&#160;</a></span>info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MPE::Log::info </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>message</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a38ea6b64e34b5202966556228572764b" name="a38ea6b64e34b5202966556228572764b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38ea6b64e34b5202966556228572764b">&#9670;&#160;</a></span>trace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MPE::Log::trace </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>message</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acd0d076c6e83b273af939c217e8198cc" name="acd0d076c6e83b273af939c217e8198cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd0d076c6e83b273af939c217e8198cc">&#9670;&#160;</a></span>warn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MPE::Log::warn </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>message</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab96a3bab6a694a431bf6e1bde36b158c" name="ab96a3bab6a694a431bf6e1bde36b158c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab96a3bab6a694a431bf6e1bde36b158c">&#9670;&#160;</a></span>ClientLogger</h2>
+<a id="a4696c837e73e0bf2c728dccf8288e4f9" name="a4696c837e73e0bf2c728dccf8288e4f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4696c837e73e0bf2c728dccf8288e4f9">&#9670;&#160;</a></span>logger</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -213,24 +277,20 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespace_m_p_e.html#a003594098fb51fe684b9937e69d2593a">REF</a>&lt; spdlog::logger &gt; MPE::Log::ClientLogger</td>
+          <td class="memname"><a class="el" href="namespace_m_p_e.html#a003594098fb51fe684b9937e69d2593a">REF</a>&lt;spdlog::logger&gt; MPE::Log::logger</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>The client logger. </p>
-<dl class="section date"><dt>Date</dt><dd>2024-05-05 </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ae445954dccc6d150d63974a814b6a6d5" title="Gets the client logger.">GetClientLogger()</a> </dd></dl>
-
 </div>
 </div>
-<a id="a576962ee20658b81054296cb760e7300" name="a576962ee20658b81054296cb760e7300"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a576962ee20658b81054296cb760e7300">&#9670;&#160;</a></span>CoreLogger</h2>
+<a id="ad25f69aaa2b4f061231bbae57b326769" name="ad25f69aaa2b4f061231bbae57b326769"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad25f69aaa2b4f061231bbae57b326769">&#9670;&#160;</a></span>sinks</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,19 +299,15 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespace_m_p_e.html#a003594098fb51fe684b9937e69d2593a">REF</a>&lt; spdlog::logger &gt; MPE::Log::CoreLogger</td>
+          <td class="memname">std::vector&lt;<a class="el" href="namespace_m_p_e.html#a003594098fb51fe684b9937e69d2593a">REF</a>&lt;spdlog::sinks::sink&gt; &gt; MPE::Log::sinks</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>The core logger. </p>
-<dl class="section date"><dt>Date</dt><dd>2024-05-05 </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#aa229dee4c3a5072f54020460131bdbba" title="Gets the core logger.">GetCoreLogger()</a> </dd></dl>
 
 </div>
 </div>

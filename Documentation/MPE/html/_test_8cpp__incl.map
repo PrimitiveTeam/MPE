@@ -1,7 +1,11 @@
 <map id="D:/WORK/GIT/MPE/MPE/Test/Test.cpp" name="D:/WORK/GIT/MPE/MPE/Test/Test.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,175,48"/>
-<area shape="rect" id="Node000002" href="$_test_8h.html" title=" " alt="" coords="61,96,119,123"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,49,93,80,87,80,87,49"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="63,171,117,197"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,123,93,155,87,155,87,123"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="51,5,220,48"/>
+<area shape="rect" id="Node000002" href="$_test_8h.html" title=" " alt="" coords="107,96,164,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,49,138,80,133,80,133,49"/>
+<area shape="rect" id="Node000003" href="$___c_o_r_e_8h.html" title="The Mere Primitive Engine (MPE) namespace." alt="" coords="5,171,146,197"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="127,125,97,161,93,157,123,122"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="170,171,224,197"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="148,121,179,157,175,161,144,125"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="41,245,110,272"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="78,198,78,230,73,230,73,198"/>
 </map>

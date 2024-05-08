@@ -1,0 +1,218 @@
+\doxysection{D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Profiling/\+\_\+\+PROFILING.h File Reference}
+\hypertarget{___p_r_o_f_i_l_i_n_g_8h}{}\label{___p_r_o_f_i_l_i_n_g_8h}\index{D:/WORK/GIT/MPE/MPE/Profiling/\_PROFILING.h@{D:/WORK/GIT/MPE/MPE/Profiling/\_PROFILING.h}}
+
+
+Profiling system for the \doxylink{namespace_m_p_e}{MPE} engine.  
+
+
+{\ttfamily \#include "{}MPE/\+Core/\+\_\+\+CORE.\+h"{}}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+Include dependency graph for \+\_\+\+PROFILING.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{___p_r_o_f_i_l_i_n_g_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{___p_r_o_f_i_l_i_n_g_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_m_p_e_1_1_profile_result}{MPE\+::\+Profile\+Result}}
+\begin{DoxyCompactList}\small\item\em Profile result structure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_m_p_e_1_1_profiler_session}{MPE\+::\+Profiler\+Session}}
+\begin{DoxyCompactList}\small\item\em \doxylink{class_m_p_e_1_1_profiler}{Profiler} session structure. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_m_p_e_1_1_profiler}{MPE\+::\+Profiler}}
+\begin{DoxyCompactList}\small\item\em \doxylink{class_m_p_e_1_1_profiler}{Profiler} class. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_m_p_e_1_1_instrumentation_timer}{MPE\+::\+Instrumentation\+Timer}}
+\begin{DoxyCompactList}\small\item\em Instrumentation timer class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_m_p_e}{MPE}}
+\begin{DoxyCompactList}\small\item\em The Mere Primitive Engine (\doxylink{namespace_m_p_e}{MPE}) namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{___p_r_o_f_i_l_i_n_g_8h_abc760255bc2b8f39868877639afd6c78}{MPE\+\_\+\+PROFILE\+\_\+\+START}}()
+\begin{DoxyCompactList}\small\item\em Start a new profiler session. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{___p_r_o_f_i_l_i_n_g_8h_aa587f9d8403469154838363e4a3ef608}{MPE\+\_\+\+PROFILE\+\_\+\+END}}()
+\begin{DoxyCompactList}\small\item\em End the current profiler session. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{___p_r_o_f_i_l_i_n_g_8h_aff42448d3d74b20459b659e89f824c90}{MPE\+\_\+\+PROFILE\+\_\+\+SCOPE}}()
+\begin{DoxyCompactList}\small\item\em Profile scope macro for the \doxylink{namespace_m_p_e}{MPE} engine. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{___p_r_o_f_i_l_i_n_g_8h_a2267c62f8d0e4bc22753ccf2f6c45464}{MPE\+\_\+\+PROFILE\+\_\+\+FUNCTION}}()
+\begin{DoxyCompactList}\small\item\em Profile function macro for the \doxylink{namespace_m_p_e}{MPE} engine. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{___p_r_o_f_i_l_i_n_g_8h_affc4f817c1bcc92c7d2185b10e279a03}{MPE\+\_\+\+CORE\+\_\+\+PROFILE\+\_\+\+START}}()
+\begin{DoxyCompactList}\small\item\em Start a new profiler session. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{___p_r_o_f_i_l_i_n_g_8h_a6702072f0022bdaece1f17fd157ab1ae}{MPE\+\_\+\+CORE\+\_\+\+PROFILE\+\_\+\+END}}()
+\begin{DoxyCompactList}\small\item\em End the current profiler session. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{___p_r_o_f_i_l_i_n_g_8h_a503e4f1b0f51b582da2476e615887e71}{MPE\+\_\+\+CORE\+\_\+\+PROFILE\+\_\+\+SCOPE}}()
+\begin{DoxyCompactList}\small\item\em Profile scope macro for the \doxylink{namespace_m_p_e}{MPE} engine. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{___p_r_o_f_i_l_i_n_g_8h_a2de13b2226e76b27c78a8ba6bb5f6fa7}{MPE\+\_\+\+CORE\+\_\+\+PROFILE\+\_\+\+FUNCTION}}()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Profiling system for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Sebastian Termen 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{___p_r_o_f_i_l_i_n_g_8h_a6702072f0022bdaece1f17fd157ab1ae}\label{___p_r_o_f_i_l_i_n_g_8h_a6702072f0022bdaece1f17fd157ab1ae} 
+\index{\_PROFILING.h@{\_PROFILING.h}!MPE\_CORE\_PROFILE\_END@{MPE\_CORE\_PROFILE\_END}}
+\index{MPE\_CORE\_PROFILE\_END@{MPE\_CORE\_PROFILE\_END}!\_PROFILING.h@{\_PROFILING.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_CORE\_PROFILE\_END}{MPE\_CORE\_PROFILE\_END}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+CORE\+\_\+\+PROFILE\+\_\+\+END(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+End the current profiler session. 
+
+This macro is used to end the current profiler session. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyNote}{Note}
+This macro is only available in debug builds. 
+\end{DoxyNote}
+\Hypertarget{___p_r_o_f_i_l_i_n_g_8h_a2de13b2226e76b27c78a8ba6bb5f6fa7}\label{___p_r_o_f_i_l_i_n_g_8h_a2de13b2226e76b27c78a8ba6bb5f6fa7} 
+\index{\_PROFILING.h@{\_PROFILING.h}!MPE\_CORE\_PROFILE\_FUNCTION@{MPE\_CORE\_PROFILE\_FUNCTION}}
+\index{MPE\_CORE\_PROFILE\_FUNCTION@{MPE\_CORE\_PROFILE\_FUNCTION}!\_PROFILING.h@{\_PROFILING.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_CORE\_PROFILE\_FUNCTION}{MPE\_CORE\_PROFILE\_FUNCTION}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+CORE\+\_\+\+PROFILE\+\_\+\+FUNCTION(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{___p_r_o_f_i_l_i_n_g_8h_a503e4f1b0f51b582da2476e615887e71}\label{___p_r_o_f_i_l_i_n_g_8h_a503e4f1b0f51b582da2476e615887e71} 
+\index{\_PROFILING.h@{\_PROFILING.h}!MPE\_CORE\_PROFILE\_SCOPE@{MPE\_CORE\_PROFILE\_SCOPE}}
+\index{MPE\_CORE\_PROFILE\_SCOPE@{MPE\_CORE\_PROFILE\_SCOPE}!\_PROFILING.h@{\_PROFILING.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_CORE\_PROFILE\_SCOPE}{MPE\_CORE\_PROFILE\_SCOPE}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+CORE\+\_\+\+PROFILE\+\_\+\+SCOPE(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Profile scope macro for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+This macro is used to profile a scope in the \doxylink{namespace_m_p_e}{MPE} engine. 
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the scope. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyNote}{Note}
+This macro is only available in debug builds. 
+\end{DoxyNote}
+\Hypertarget{___p_r_o_f_i_l_i_n_g_8h_affc4f817c1bcc92c7d2185b10e279a03}\label{___p_r_o_f_i_l_i_n_g_8h_affc4f817c1bcc92c7d2185b10e279a03} 
+\index{\_PROFILING.h@{\_PROFILING.h}!MPE\_CORE\_PROFILE\_START@{MPE\_CORE\_PROFILE\_START}}
+\index{MPE\_CORE\_PROFILE\_START@{MPE\_CORE\_PROFILE\_START}!\_PROFILING.h@{\_PROFILING.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_CORE\_PROFILE\_START}{MPE\_CORE\_PROFILE\_START}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+CORE\+\_\+\+PROFILE\+\_\+\+START(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Start a new profiler session. 
+
+This macro is used to start a new profiler session. 
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the session. \\
+\hline
+{\em filepath} & The file path of the session. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyNote}{Note}
+This macro is only available in debug builds. 
+\end{DoxyNote}
+\Hypertarget{___p_r_o_f_i_l_i_n_g_8h_aa587f9d8403469154838363e4a3ef608}\label{___p_r_o_f_i_l_i_n_g_8h_aa587f9d8403469154838363e4a3ef608} 
+\index{\_PROFILING.h@{\_PROFILING.h}!MPE\_PROFILE\_END@{MPE\_PROFILE\_END}}
+\index{MPE\_PROFILE\_END@{MPE\_PROFILE\_END}!\_PROFILING.h@{\_PROFILING.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_PROFILE\_END}{MPE\_PROFILE\_END}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+PROFILE\+\_\+\+END(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+End the current profiler session. 
+
+This macro is used to end the current profiler session. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyNote}{Note}
+This macro is only available in debug builds. 
+\end{DoxyNote}
+\Hypertarget{___p_r_o_f_i_l_i_n_g_8h_a2267c62f8d0e4bc22753ccf2f6c45464}\label{___p_r_o_f_i_l_i_n_g_8h_a2267c62f8d0e4bc22753ccf2f6c45464} 
+\index{\_PROFILING.h@{\_PROFILING.h}!MPE\_PROFILE\_FUNCTION@{MPE\_PROFILE\_FUNCTION}}
+\index{MPE\_PROFILE\_FUNCTION@{MPE\_PROFILE\_FUNCTION}!\_PROFILING.h@{\_PROFILING.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_PROFILE\_FUNCTION}{MPE\_PROFILE\_FUNCTION}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+PROFILE\+\_\+\+FUNCTION(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Profile function macro for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+This macro is used to profile a function in the \doxylink{namespace_m_p_e}{MPE} engine. \begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyNote}{Note}
+This macro is only available in debug builds. 
+\end{DoxyNote}
+\Hypertarget{___p_r_o_f_i_l_i_n_g_8h_aff42448d3d74b20459b659e89f824c90}\label{___p_r_o_f_i_l_i_n_g_8h_aff42448d3d74b20459b659e89f824c90} 
+\index{\_PROFILING.h@{\_PROFILING.h}!MPE\_PROFILE\_SCOPE@{MPE\_PROFILE\_SCOPE}}
+\index{MPE\_PROFILE\_SCOPE@{MPE\_PROFILE\_SCOPE}!\_PROFILING.h@{\_PROFILING.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_PROFILE\_SCOPE}{MPE\_PROFILE\_SCOPE}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+PROFILE\+\_\+\+SCOPE(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Profile scope macro for the \doxylink{namespace_m_p_e}{MPE} engine. 
+
+This macro is used to profile a scope in the \doxylink{namespace_m_p_e}{MPE} engine. 
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the scope. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyNote}{Note}
+This macro is only available in debug builds. 
+\end{DoxyNote}
+\Hypertarget{___p_r_o_f_i_l_i_n_g_8h_abc760255bc2b8f39868877639afd6c78}\label{___p_r_o_f_i_l_i_n_g_8h_abc760255bc2b8f39868877639afd6c78} 
+\index{\_PROFILING.h@{\_PROFILING.h}!MPE\_PROFILE\_START@{MPE\_PROFILE\_START}}
+\index{MPE\_PROFILE\_START@{MPE\_PROFILE\_START}!\_PROFILING.h@{\_PROFILING.h}}
+\doxysubsubsection{\texorpdfstring{MPE\_PROFILE\_START}{MPE\_PROFILE\_START}}
+{\footnotesize\ttfamily \#define MPE\+\_\+\+PROFILE\+\_\+\+START(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Start a new profiler session. 
+
+This macro is used to start a new profiler session. 
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the session. \\
+\hline
+{\em filepath} & The file path of the session. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyNote}{Note}
+This macro is only available in debug builds. 
+\end{DoxyNote}

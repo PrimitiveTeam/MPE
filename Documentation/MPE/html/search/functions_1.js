@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['init_0',['Init',['../class_m_p_e_1_1_log.html#af33520c32f686c46bcb3dddc077d59ef',1,'MPE::Log']]]
+  ['beginsession_0',['BeginSession',['../class_m_p_e_1_1_profiler.html#a6c919d7344ca0ca3a741fa801033e394',1,'MPE::Profiler']]]
 ];

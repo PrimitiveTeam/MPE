@@ -1,0 +1,102 @@
+\doxysection{\+\_\+\+PROFILING.\+h}
+\hypertarget{___p_r_o_f_i_l_i_n_g_8h_source}{}\label{___p_r_o_f_i_l_i_n_g_8h_source}\index{D:/WORK/GIT/MPE/MPE/Profiling/\_PROFILING.h@{D:/WORK/GIT/MPE/MPE/Profiling/\_PROFILING.h}}
+\mbox{\hyperlink{___p_r_o_f_i_l_i_n_g_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{___c_o_r_e_8h}{MPE/Core/\_CORE.h}}"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00006\ \textcolor{comment}{TODO:\ Instead\ of\ logging\ to\ JSON\ another\ approach\ could\ be\ to\ use\ UDP\ and\ broadcast\ to\ a\ running\ Telegraf\ instance.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{Store\ in\ InfluxDB\ and\ explore\ with\ Grafana.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{Allows\ for\ real-\/time\ exploration\ of\ a\ running\ game's\ timings\ and\ are\ built\ for\ real-\/time\ telemetry\ and\ used\ for\ micro-\/services\ all\ the\ time,}}
+\DoxyCodeLine{00009\ \textcolor{comment}{so\ can\ store\ a\ long\ history\ of\ a\ lot\ of\ data.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_m_p_e}{MPE}}}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{struct\ }MPE\_API\ \mbox{\hyperlink{struct_m_p_e_1_1_profile_result}{ProfileResult}}}
+\DoxyCodeLine{00030\ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{struct_m_p_e_1_1_profile_result_a55da6e5cacf592b0f7b6bd6d62d473b8}{Name}};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ Start,\ \mbox{\hyperlink{struct_m_p_e_1_1_profile_result_af8d0ca91ff35c1f8e3e3af10cec5b20f}{End}};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{struct_m_p_e_1_1_profile_result_ad1d50ebec88d52a1ad1cffb6859714c3}{ThreadID}};}
+\DoxyCodeLine{00046\ \ \ \ \ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{struct\ }MPE\_API\ \mbox{\hyperlink{struct_m_p_e_1_1_profiler_session}{ProfilerSession}}}
+\DoxyCodeLine{00053\ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{struct_m_p_e_1_1_profiler_session_a642e2501271480bb03d6eb80c0809a78}{Name}};}
+\DoxyCodeLine{00059\ \ \ \ \ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{class\ }MPE\_API\ \mbox{\hyperlink{class_m_p_e_1_1_profiler}{Profiler}}}
+\DoxyCodeLine{00066\ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_m_p_e_1_1_profiler_session}{ProfilerSession}}\ *\mbox{\hyperlink{class_m_p_e_1_1_profiler_a692f7fd230d15e65cdefede2e1a5c652}{CURRENT\_SESSION}};}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ std::ofstream\ \mbox{\hyperlink{class_m_p_e_1_1_profiler_a8ab7437b944662c2faa67b2c3ad2dc12}{OUTPUT}};}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_m_p_e_1_1_profiler_a0ad1a1e9de23c0c260e58a8f795ae7a2}{PROFILE\_COUNT}};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1_profiler}{Profiler}}();}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ BeginSession(\textcolor{keyword}{const}\ std::string\ \&name,\ \textcolor{keyword}{const}\ std::string\ \&filepath\ =\ \textcolor{stringliteral}{"{}results.json"{}});}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ EndSession();}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ WriteProfile(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_m_p_e_1_1_profile_result}{ProfileResult}}\ \&result);}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ WriteHeader();}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ WriteFooter();}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_m_p_e_1_1_profiler}{Profiler}}\ \&\mbox{\hyperlink{class_m_p_e_1_1_profiler_a62146f56a187be164837ee5d62685232}{Get}}()}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_m_p_e_1_1_profiler}{Profiler}}\ instance;}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ instance;}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00144\ \ \ \ \ \};}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{class\ }MPE\_API\ \mbox{\hyperlink{class_m_p_e_1_1_instrumentation_timer}{InstrumentationTimer}}}
+\DoxyCodeLine{00151\ \ \ \ \ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{class_m_p_e_1_1_instrumentation_timer_a622c40084dd4bce787fb316b9eb43121}{NAME}};}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ std::chrono::time\_point<std::chrono::high\_resolution\_clock>\ \mbox{\hyperlink{class_m_p_e_1_1_instrumentation_timer_a5a8a5bd380c19318d22729935fb4bde8}{START\_POINT}};}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_m_p_e_1_1_instrumentation_timer_a7369713bdac17337d92bc5be3bc44811}{STOPPED}};}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1_instrumentation_timer}{InstrumentationTimer}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1_instrumentation_timer}{\string~InstrumentationTimer}}();}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ Stop();}
+\DoxyCodeLine{00188\ \ \ \ \ \};}
+\DoxyCodeLine{00189\ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#ifdef\ MPE\_DEBUG\_PROFILING}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#define\ MPE\_PROFILE\_START(name,\ filepath)\ ::MPE::Profiler::Get().BeginSession(name,\ filepath)}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#define\ MPE\_PROFILE\_END()\ ::MPE::Profiler::Get().EndSession()}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#define\ MPE\_PROFILE\_SCOPE(name)\ ::MPE::InstrumentationTimer\ timer\#\#\_\_LINE\_\_(name);}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#define\ MPE\_PROFILE\_FUNCTION()\ MPE\_PROFILE\_SCOPE(\_\_FUNCSIG\_\_)}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#define\ MPE\_PROFILE\_START()}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#define\ MPE\_PROFILE\_END()}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#define\ MPE\_PROFILE\_SCOPE()}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#define\ MPE\_PROFILE\_FUNCTION()}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#ifdef\ MPE\_CORE\_DEBUG\_PROFILING}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_PROFILE\_START(name,\ filepath)\ ::MPE::Profiler::Get().BeginSession(name,\ filepath)}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_PROFILE\_END()\ ::MPE::Profiler::Get().EndSession()}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_PROFILE\_SCOPE(name)\ ::MPE::InstrumentationTimer\ timer\#\#\_\_LINE\_\_(name);}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_PROFILE\_FUNCTION()\ MPE\_PROFILE\_SCOPE(\_\_FUNCSIG\_\_)}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_PROFILE\_START()}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_PROFILE\_END()}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_PROFILE\_SCOPE()}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_PROFILE\_FUNCTION()}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00214\ }
+
+\end{DoxyCode}

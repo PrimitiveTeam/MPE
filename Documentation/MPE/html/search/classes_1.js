@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['test_0',['Test',['../class_m_p_e_1_1_test.html',1,'MPE']]]
+  ['globallog_0',['GlobalLog',['../class_m_p_e_1_1_global_log.html',1,'MPE']]]
 ];

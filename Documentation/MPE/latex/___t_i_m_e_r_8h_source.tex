@@ -1,0 +1,93 @@
+\doxysection{\+\_\+\+TIMER.\+h}
+\hypertarget{___t_i_m_e_r_8h_source}{}\label{___t_i_m_e_r_8h_source}\index{D:/WORK/GIT/MPE/MPE/Profiling/\_TIMER.h@{D:/WORK/GIT/MPE/MPE/Profiling/\_TIMER.h}}
+\mbox{\hyperlink{___t_i_m_e_r_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_global_log_8h}{MPE/Core/GlobalLog.h}}"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_m_p_e}{MPE}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//\ Can't\ use\ MPE\_API\ as\ this\ is\ a\ header-\/only\ file\ (because\ of\ the\ template)}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FN\ =\ std::function<\textcolor{keywordtype}{void}(const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keywordtype}{float})>>}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r}{\_TIMER}}}
+\DoxyCodeLine{00028\ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a31f78d814891a5256812587e09c2ae6f}{NAME}};}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ FN\ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_aaed2c40d37885ec3e3150b5f8261ea4e}{FUNC}};}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ std::chrono::time\_point<std::chrono::high\_resolution\_clock>\ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_aa64e744b0de12be69877e54ff6c49737}{START\_POINT}};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a7fea0ba04c21de51ec30264e834f850e}{STOPPED}};}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a3b8b576a1a084df1dcddcde2324ad22f}{LOG}};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a1454fac7f5ed2ac11dc8258a2ad1b32f}{\_TIMER}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{bool}\ log\ =\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a31f78d814891a5256812587e09c2ae6f}{NAME}}(name),\ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_aaed2c40d37885ec3e3150b5f8261ea4e}{FUNC}}(nullptr),\ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a7fea0ba04c21de51ec30264e834f850e}{STOPPED}}(false),\ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a3b8b576a1a084df1dcddcde2324ad22f}{LOG}}(log)}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_aa64e744b0de12be69877e54ff6c49737}{START\_POINT}}\ =\ std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a0a723389846d71ae0fe16bf222700340}{\_TIMER}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ FN\ \&\&func,\ \textcolor{keywordtype}{bool}\ log\ =\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a31f78d814891a5256812587e09c2ae6f}{NAME}}(name),\ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_aaed2c40d37885ec3e3150b5f8261ea4e}{FUNC}}(std::move(func)),\ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a7fea0ba04c21de51ec30264e834f850e}{STOPPED}}(false),\ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a3b8b576a1a084df1dcddcde2324ad22f}{LOG}}(log)}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_aa64e744b0de12be69877e54ff6c49737}{START\_POINT}}\ =\ std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_ad1002d947dbbd72d8d60ad5223bdcecd}{\string~\_TIMER}}()}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a7fea0ba04c21de51ec30264e834f850e}{STOPPED}})}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a51e5afaf10da82fe0c78d5a885ead471}{Stop}}();}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a51e5afaf10da82fe0c78d5a885ead471}{Stop}}()}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a7fea0ba04c21de51ec30264e834f850e}{STOPPED}})}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ END\_POINT\ =\ std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ duration\ =\ std::chrono::duration\_cast<std::chrono::microseconds>(END\_POINT\ -\/\ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_aa64e744b0de12be69877e54ff6c49737}{START\_POINT}}).count()\ *\ 0.001f;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a7fea0ba04c21de51ec30264e834f850e}{STOPPED}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Execute\ the\ function\ if\ provided}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_aaed2c40d37885ec3e3150b5f8261ea4e}{FUNC}})}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_aaed2c40d37885ec3e3150b5f8261ea4e}{FUNC}}(\mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a31f78d814891a5256812587e09c2ae6f}{NAME}},\ duration);}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Log\ the\ duration\ if\ logging\ is\ enabled}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a3b8b576a1a084df1dcddcde2324ad22f}{LOG}})}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_global_log_8h_ad367ecd4d78bd34529ae56be40553043}{MPE\_CORE\_INFO}}(\textcolor{stringliteral}{"{}\{0\}\ duration:\ \{1\}\ ms"{}},\ \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r_a31f78d814891a5256812587e09c2ae6f}{NAME}},\ duration);}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ \ \ \ \ \};}
+\DoxyCodeLine{00127\ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{comment}{//\ \#define\ PROFILE\_SCOPE(name)\ \_TIMER\ timer\#\#\_\_LINE\_\_(name,\ [\&](auto\ profile)\{PROFILE.push\_back(profile);\})}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{comment}{//\ in\ used\ class:}}
+\DoxyCodeLine{00132\ \textcolor{comment}{//\ struct\ PROFILE\{}}
+\DoxyCodeLine{00133\ \textcolor{comment}{//\ \ \ \ \ const\ char*\ NAME;}}
+\DoxyCodeLine{00134\ \textcolor{comment}{//\ \ \ \ \ float\ TIME;}}
+\DoxyCodeLine{00135\ \textcolor{comment}{//\ \};}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{comment}{//\ std::vector<PROFILE>\ SYS\_PROFILE;}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ THEN}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{comment}{//\ MPE::\_TIMER\ timer("{}SANDBOX\ 2D\ ON\ UPDATE"{},\ [\&](PROFILE\ profile)\{SYS\_PROFILE.push\_back(profile);\});}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{comment}{//\ IMGUI:}}
+\DoxyCodeLine{00144\ \textcolor{comment}{//\ \ \ \ \ for\ (auto\&\&\ [name,\ time]\ :\ SYS\_PROFILE)\{}}
+\DoxyCodeLine{00145\ \textcolor{comment}{//\ \ \ \ \ char\ label[50];}}
+\DoxyCodeLine{00146\ \textcolor{comment}{//\ \ \ \ \ strcpy(label,\ name);}}
+\DoxyCodeLine{00147\ \textcolor{comment}{//\ \ \ \ \ strcat(label,\ "{}\ \%.3fms"{});}}
+\DoxyCodeLine{00148\ \textcolor{comment}{//\ \ \ \ \ ImGui::Text(label,\ time);}}
+\DoxyCodeLine{00149\ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00150\ \textcolor{comment}{//\ SYS\_PROFILE.clear();}}
+
+\end{DoxyCode}
