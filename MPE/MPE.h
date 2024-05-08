@@ -8,11 +8,17 @@
  * @date 2024-05-05
  */
 
-// ----- APPLICATION -----
+// ----- CORE INTERNAL -----
 // #include "MPE/Core/App.h"
 // #include "MPE/Core/Layers/Layer.h"
 #include "MPE/Core/GlobalLog.h"
 #include "MPE/Core/_CWD.h"
+// ----- CORE INTERNAL -----
+
+// ----- APPLICATION -----
+// #include "MPE/Core/App.h"
+// #include "MPE/Core/Layers/Layer.h"
+#include "MPE/Core/Log.h"
 // ----- APPLICATION -----
 
 // ----- PHYSICS -----

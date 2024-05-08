@@ -5,6 +5,7 @@
 void timer_test();
 void processHeavyTask();
 void anotherTask();
+void log_test(MPE::Log &log);
 
 int main()
 {
@@ -24,7 +25,18 @@ int main()
 
     MPE_PROFILE_END();
 
+    MPE::Log log("Main", MPE::Log::Option::CONSOLE | MPE::Log::Option::FILE, "main");
+    log.info("Hello, Custom Sink Log!");
+    log.trace("Hello, Custom Sink Log!");
+    log_test(log);
+
     return 0;
+}
+
+void log_test(MPE::Log &log)
+{
+    log.info("Hello, Custom Sink Log!");
+    log.trace("Hello, Custom Sink Log!");
 }
 
 void timer_test()
