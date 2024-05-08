@@ -21,6 +21,8 @@ namespace MPE
      * @date 2024-05-05
      * @see _PROFILING
      */
+
+    // Can't use MPE_API as this is a header-only file (because of the template)
     template <typename FN = std::function<void(const char *, float)>>
     class _TIMER
     {

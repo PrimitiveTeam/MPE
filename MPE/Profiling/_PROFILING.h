@@ -1,5 +1,7 @@
 #pragma once
 
+#include "MPE/Core/_CORE.h"
+
 /*
 TODO: Instead of logging to JSON another approach could be to use UDP and broadcast to a running Telegraf instance.
 Store in InfluxDB and explore with Grafana.
@@ -24,7 +26,7 @@ namespace MPE
      * @brief Profile result structure.
      * @date 2024-05-05
      */
-    struct ProfileResult
+    struct MPE_API ProfileResult
     {
         /**
          * @brief The name of the profile.
@@ -47,7 +49,7 @@ namespace MPE
      * @brief Profiler session structure.
      * @date 2024-05-05
      */
-    struct ProfilerSession
+    struct MPE_API ProfilerSession
     {
         /**
          * @brief The name of the session.
@@ -60,7 +62,7 @@ namespace MPE
      * @brief Profiler class.
      * @date 2024-05-05
      */
-    class Profiler
+    class MPE_API Profiler
     {
     private:
         /**
@@ -145,7 +147,7 @@ namespace MPE
      * @brief Instrumentation timer class.
      * @date 2024-05-05
      */
-    class InstrumentationTimer
+    class MPE_API InstrumentationTimer
     {
     private:
         /**

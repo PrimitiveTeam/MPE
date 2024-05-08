@@ -1,5 +1,5 @@
 #include "GlobalLog.h"
-#include "MPE/MPEPCH.h"
+// #include "MPE/MPEPCH.h"
 
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/fmt/ostr.h"
@@ -7,7 +7,11 @@
 namespace MPE
 {
     REF<spdlog::logger> GlobalLog::CoreLogger;
+
+#ifdef MPE_ENABLE_DEBUG_LOG
     REF<spdlog::logger> GlobalLog::DebugLogger;
+#endif
+
     REF<spdlog::logger> GlobalLog::ClientLogger;
 
     void GlobalLog::Init()
