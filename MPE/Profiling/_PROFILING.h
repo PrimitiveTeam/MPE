@@ -79,3 +79,15 @@ namespace MPE
 #define MPE_PROFILE_SCOPE()
 #define MPE_PROFILE_FUNCTION()
 #endif
+
+#ifdef MPE_CORE_DEBUG_PROFILING
+#define MPE_CORE_PROFILE_START(name, filepath) ::MPE::Profiler::Get().BeginSession(name, filepath)
+#define MPE_CORE_PROFILE_END() ::MPE::Profiler::Get().EndSession()
+#define MPE_CORE_PROFILE_SCOPE(name) ::MPE::InstrumentationTimer timer##__LINE__(name);
+#define MPE_CORE_PROFILE_FUNCTION() MPE_PROFILE_SCOPE(__FUNCSIG__)
+#else
+#define MPE_CORE_PROFILE_START()
+#define MPE_CORE_PROFILE_END()
+#define MPE_CORE_PROFILE_SCOPE()
+#define MPE_CORE_PROFILE_FUNCTION()
+#endif
