@@ -8,7 +8,7 @@ void anotherTask();
 
 int main()
 {
-    MPE::Log::Init();
+    MPE::GlobalLog::Init();
     SET_EXECUTABLE_PATH_AS_CWD();
     MPE_CORE_TRACE("Hello, MPE!");
 

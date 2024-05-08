@@ -6,10 +6,10 @@
 
 namespace MPE
 {
-    REF<spdlog::logger> Log::CoreLogger;
-    REF<spdlog::logger> Log::ClientLogger;
+    REF<spdlog::logger> GlobalLog::CoreLogger;
+    REF<spdlog::logger> GlobalLog::ClientLogger;
 
-    void Log::Init()
+    void GlobalLog::Init()
     {
         spdlog::set_pattern("%^[%T] %n: %v%$");
 

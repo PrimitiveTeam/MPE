@@ -20,7 +20,7 @@ namespace MPE
      * @author Sebastian Termen
      * @see https://github.com/gabime/spdlog
      */
-    class MPE_API Log
+    class MPE_API GlobalLog
     {
     public:
         /**
@@ -64,17 +64,17 @@ namespace MPE
 }
 
 // ENGINE SIDE LOGS
-#define MPE_CORE_ERROR(...) ::MPE::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define MPE_CORE_WARN(...) ::MPE::Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define MPE_CORE_INFO(...) ::MPE::Log::GetCoreLogger()->info(__VA_ARGS__)
-#define MPE_CORE_TRACE(...) ::MPE::Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define MPE_CORE_FATAL(...) ::MPE::Log::GetCoreLogger()->fatal(__VA_ARGS__)
+#define MPE_CORE_ERROR(...) ::MPE::GlobalLog::GetCoreLogger()->error(__VA_ARGS__)
+#define MPE_CORE_WARN(...) ::MPE::GlobalLog::GetCoreLogger()->warn(__VA_ARGS__)
+#define MPE_CORE_INFO(...) ::MPE::GlobalLog::GetCoreLogger()->info(__VA_ARGS__)
+#define MPE_CORE_TRACE(...) ::MPE::GlobalLog::GetCoreLogger()->trace(__VA_ARGS__)
+#define MPE_CORE_FATAL(...) ::MPE::GlobalLog::GetCoreLogger()->fatal(__VA_ARGS__)
 // CLIENT SIDE LOGS
-#define MPE_ERROR(...) ::MPE::Log::GetClientLogger()->error(__VA_ARGS__)
-#define MPE_WARN(...) ::MPE::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define MPE_INFO(...) ::MPE::Log::GetClientLogger()->info(__VA_ARGS__)
-#define MPE_TRACE(...) ::MPE::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define MPE_FATAL(...) ::MPE::Log::GetClientLogger()->fatal(__VA_ARGS__)
+#define MPE_ERROR(...) ::MPE::GlobalLog::GetClientLogger()->error(__VA_ARGS__)
+#define MPE_WARN(...) ::MPE::GlobalLog::GetClientLogger()->warn(__VA_ARGS__)
+#define MPE_INFO(...) ::MPE::GlobalLog::GetClientLogger()->info(__VA_ARGS__)
+#define MPE_TRACE(...) ::MPE::GlobalLog::GetClientLogger()->trace(__VA_ARGS__)
+#define MPE_FATAL(...) ::MPE::GlobalLog::GetClientLogger()->fatal(__VA_ARGS__)
 
 /**
  * @def MPE_CORE_ERROR(...)
