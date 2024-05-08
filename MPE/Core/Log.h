@@ -12,6 +12,13 @@
 
 namespace MPE
 {
+    /**
+     * @brief Extensible logging system for the engine.
+     * @details This file contains an extensible logging system for the engine. It uses the spdlog library for logging.
+     * @date 2024-05-05
+     * @author Sebastian Termen
+     * @see https://github.com/gabime/spdlog
+     */
     class MPE_API Log
     {
     public:
