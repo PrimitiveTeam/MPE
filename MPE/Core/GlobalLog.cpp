@@ -1,4 +1,4 @@
-#include "Log.h"
+#include "GlobalLog.h"
 #include "MPE/MPEPCH.h"
 
 #include "spdlog/sinks/stdout_color_sinks.h"

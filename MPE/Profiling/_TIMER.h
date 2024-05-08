@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MPE/Core/Log.h"
+#include "MPE/Core/GlobalLog.h"
 
 #include <chrono>
 #include <functional>

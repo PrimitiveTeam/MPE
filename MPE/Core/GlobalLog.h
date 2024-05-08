@@ -4,9 +4,10 @@
 #include "spdlog/spdlog.h"
 
 /**
- * @file Log.h
+ * @file GlobalLog.h
  * @brief Main logging system for the engine.
-*/
+ * @details This is meant for a global logging system for the engine.
+ */
 
 /**
  * @def MPE_CORE_ERROR(...)

@@ -11,7 +11,7 @@
 // ----- APPLICATION -----
 // #include "MPE/Core/App.h"
 // #include "MPE/Core/Layers/Layer.h"
-#include "MPE/Core/Log.h"
+#include "MPE/Core/GlobalLog.h"
 #include "MPE/Core/_CWD.h"
 // ----- APPLICATION -----
 
