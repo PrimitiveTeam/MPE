@@ -9,36 +9,36 @@
 \DoxyCodeLine{00005\ }
 \DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_m_p_e}{MPE}}}
 \DoxyCodeLine{00014\ \{}
-\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{class\ }MPE\_API\ \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}}}
-\DoxyCodeLine{00016\ \ \ \ \ \{}
-\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91b}{Option}}}
-\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0b00000001}}
-\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ CONSOLE\ =\ 1\ <<\ 0,}
-\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0b00000010}}
-\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ FILE\ =\ 1\ <<\ 1,}
-\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}}(\textcolor{keyword}{const}\ std::string\ \&name,\ \textcolor{keywordtype}{int}\ options,\ std::string\ filename\ =\ \textcolor{stringliteral}{"{}"{}});}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Logging\ methods}}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ trace(\textcolor{keyword}{const}\ std::string\ \&message);}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ info(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{class\ }MPE\_API\ \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}}}
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91b}{Option}}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0b00000001}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ CONSOLE\ =\ 1\ <<\ 0,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0b00000010}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ FILE\ =\ 1\ <<\ 1,}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \};}
 \DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ warn(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}}(\textcolor{keyword}{const}\ std::string\ \&name,\ \textcolor{keywordtype}{int}\ options,\ std::string\ filename\ =\ \textcolor{stringliteral}{"{}"{}});}
 \DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ error(\textcolor{keyword}{const}\ std::string\ \&message);}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ debug(\textcolor{keyword}{const}\ std::string\ \&message);}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ critical(\textcolor{keyword}{const}\ std::string\ \&message);}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<spdlog::logger>}}\ \mbox{\hyperlink{class_m_p_e_1_1_log_a4696c837e73e0bf2c728dccf8288e4f9}{logger}};}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ std::vector<REF<spdlog::sinks::sink>>\ \mbox{\hyperlink{class_m_p_e_1_1_log_ad25f69aaa2b4f061231bbae57b326769}{sinks}};}
-\DoxyCodeLine{00044\ \ \ \ \ \};}
-\DoxyCodeLine{00045\ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Logging\ methods}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ trace(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ info(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ warn(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ error(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ debug(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ critical(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<spdlog::logger>}}\ \mbox{\hyperlink{class_m_p_e_1_1_log_a4696c837e73e0bf2c728dccf8288e4f9}{logger}};}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ std::vector<REF<spdlog::sinks::sink>>\ \mbox{\hyperlink{class_m_p_e_1_1_log_ad25f69aaa2b4f061231bbae57b326769}{sinks}};}
+\DoxyCodeLine{00051\ \ \ \ \ \};}
+\DoxyCodeLine{00052\ \}}
 
 \end{DoxyCode}
