@@ -11,6 +11,7 @@
 // ----- CORE INTERNAL -----
 // #include "MPE/Core/App.h"
 // #include "MPE/Core/Layers/Layer.h"
+#include "MPE/Core/_CORE.h"
 #include "MPE/Core/GlobalLog.h"
 #include "MPE/Core/_CWD.h"
 // ----- CORE INTERNAL -----
