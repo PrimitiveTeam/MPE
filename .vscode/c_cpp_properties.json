@@ -11,6 +11,8 @@
         "_DEBUG",
         "UNICODE",
         "_UNICODE",
+        "MPE_ENABLE_DEBUG_LOG",
+        "MPE_CORE_DEBUG_PROFILING",
         "MPE_PLATFORM_WINDOWS",
         "MPE_STATIC_LIBRARY",
         "MPE_ENABLE_ASSERTS"
