@@ -421,7 +421,7 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
   target_link_libraries(
     MPE
     PUBLIC fmt::fmt
-    PRIVATE spdlog::spdlog
+    PUBLIC spdlog::spdlog
 
     # OpenGL::GL
     PRIVATE glad::glad
