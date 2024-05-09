@@ -98,19 +98,19 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">// ----- LOG -----</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">// ----- APPLICATION -----</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">// #include &quot;MPE/Core/App.h&quot;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="_app_8h.html">MPE/App/App.h</a>&quot;</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">// #include &quot;MPE/Core/Layers/Layer.h&quot;</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">// ----- APPLICATION -----</span></div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">// ----- PHYSICS -----</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">// #include &quot;MPE/Core/_TIME.h&quot;</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">// ----- PHYSICS -----</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">// ----- PROFILING -----</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">// ONLY FOR DEBUGGING!</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &quot;<a class="code" href="___t_i_m_e_r_8h.html">MPE/Profiling/_TIMER.h</a>&quot;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &quot;<a class="code" href="___p_r_o_f_i_l_i_n_g_8h.html">MPE/Profiling/_PROFILING.h</a>&quot;</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">// ----- PROFILING -----</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">// ONLY FOR DEBUGGING!</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &quot;<a class="code" href="___t_i_m_e_r_8h.html">MPE/Profiling/_TIMER.h</a>&quot;</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#include &quot;<a class="code" href="___p_r_o_f_i_l_i_n_g_8h.html">MPE/Profiling/_PROFILING.h</a>&quot;</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">// ----- PROFILING -----</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">// ----- PHYSICS -----</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#include &quot;<a class="code" href="_time_8h.html">MPE/Time/Time.h</a>&quot;</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">// ----- PHYSICS -----</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">// ----- EVENTS -----</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// #include &quot;MPE/Core/Events/EventApp.h&quot;</span></div>
@@ -148,16 +148,14 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">// #include &quot;MPE/Renderer/Cameras/OrthographicCameraController.h&quot;</span></div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">// #include &quot;MPE/Renderer/Cameras/StaticOrthographicCamera.h&quot;</span></div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">// ----- CAMERAS -----</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">//-----Entry Point----</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">// #include &quot;MPE/Core/EntryPoint.h&quot;</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">//-----Entry Point----</span></div>
 <div class="ttc" id="a___c_o_r_e_8h_html"><div class="ttname"><a href="___c_o_r_e_8h.html">_CORE.h</a></div><div class="ttdoc">The Mere Primitive Engine (MPE) namespace.</div></div>
 <div class="ttc" id="a___c_w_d_8h_html"><div class="ttname"><a href="___c_w_d_8h.html">_CWD.h</a></div><div class="ttdoc">Set the current working directory to the executable path.</div></div>
 <div class="ttc" id="a___p_r_o_f_i_l_i_n_g_8h_html"><div class="ttname"><a href="___p_r_o_f_i_l_i_n_g_8h.html">_PROFILING.h</a></div><div class="ttdoc">Profiling system for the MPE engine.</div></div>
 <div class="ttc" id="a___t_i_m_e_r_8h_html"><div class="ttname"><a href="___t_i_m_e_r_8h.html">_TIMER.h</a></div><div class="ttdoc">Timer class for profiling.</div></div>
+<div class="ttc" id="a_app_8h_html"><div class="ttname"><a href="_app_8h.html">App.h</a></div></div>
 <div class="ttc" id="a_global_log_8h_html"><div class="ttname"><a href="_global_log_8h.html">GlobalLog.h</a></div><div class="ttdoc">Main logging system for the engine.</div></div>
 <div class="ttc" id="a_log_8h_html"><div class="ttname"><a href="_log_8h.html">Log.h</a></div><div class="ttdoc">Extensible logging system for the engine.</div></div>
+<div class="ttc" id="a_time_8h_html"><div class="ttname"><a href="_time_8h.html">Time.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['memorysink_0',['MemorySink',['../class_m_p_e_1_1_memory_sink.html',1,'MPE']]]
+  ['log_0',['Log',['../class_m_p_e_1_1_log.html',1,'MPE']]]
 ];

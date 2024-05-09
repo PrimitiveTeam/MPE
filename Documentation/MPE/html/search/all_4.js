@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['end_0',['End',['../struct_m_p_e_1_1_profile_result.html#af8d0ca91ff35c1f8e3e3af10cec5b20f',1,'MPE::ProfileResult']]],
-  ['endsession_1',['EndSession',['../class_m_p_e_1_1_profiler.html#adaa9290037a6a16f45d12609c4acacbe',1,'MPE::Profiler']]],
-  ['error_2',['error',['../class_m_p_e_1_1_log.html#a085245274b910092f5f1bcf05b6f633c',1,'MPE::Log']]]
+  ['debug_0',['debug',['../class_m_p_e_1_1_log.html#a8a66ad11400028a090fa789876913d76',1,'MPE::Log']]],
+  ['debuglogger_1',['DebugLogger',['../class_m_p_e_1_1_global_log.html#a0edc7c663b8a18acaa550368a5facb4c',1,'MPE::GlobalLog']]]
 ];

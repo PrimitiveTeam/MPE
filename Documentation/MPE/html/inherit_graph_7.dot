@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="MPE::Test",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_m_p_e_1_1_test.html",tooltip=" "];
+  Node0 [id="Node000000",label="MPE::ProfilerSession",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$struct_m_p_e_1_1_profiler_session.html",tooltip="Profiler session structure."];
 }

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['instrumentationtimer_0',['InstrumentationTimer',['../class_m_p_e_1_1_instrumentation_timer.html',1,'MPE']]]
+  ['globallog_0',['GlobalLog',['../class_m_p_e_1_1_global_log.html',1,'MPE']]]
 ];

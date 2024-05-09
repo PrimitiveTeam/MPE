@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['test_0',['Test',['../class_m_p_e_1_1_test.html#a431c4d2e4f17bbfa0936ac01856c90ca',1,'MPE::Test']]],
-  ['trace_1',['trace',['../class_m_p_e_1_1_log.html#a38ea6b64e34b5202966556228572764b',1,'MPE::Log']]]
+  ['profiler_0',['Profiler',['../class_m_p_e_1_1_profiler.html#a6439c0b7c3eeee53abf69e9c07dfcd3f',1,'MPE::Profiler']]]
 ];

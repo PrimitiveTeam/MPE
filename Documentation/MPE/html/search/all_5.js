@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['file_0',['FILE',['../class_m_p_e_1_1_log.html#aa07b240669d308041628f75e8f11a91baeb2d0d8ed2522fe2d7d5d6bfbb6d405a',1,'MPE::Log']]],
-  ['flush_5f_1',['flush_',['../class_m_p_e_1_1_memory_sink.html#ab0d61f9597cb9bc3212bf58ac572b21c',1,'MPE::MemorySink']]],
-  ['func_2',['FUNC',['../class_m_p_e_1_1___t_i_m_e_r.html#aaed2c40d37885ec3e3150b5f8261ea4e',1,'MPE::_TIMER']]]
+  ['end_0',['End',['../struct_m_p_e_1_1_profile_result.html#af8d0ca91ff35c1f8e3e3af10cec5b20f',1,'MPE::ProfileResult']]],
+  ['endsession_1',['EndSession',['../class_m_p_e_1_1_profiler.html#adaa9290037a6a16f45d12609c4acacbe',1,'MPE::Profiler']]],
+  ['entrypoint_2eh_2',['EntryPoint.h',['../_entry_point_8h.html',1,'']]],
+  ['error_3',['error',['../class_m_p_e_1_1_log.html#a085245274b910092f5f1bcf05b6f633c',1,'MPE::Log']]]
 ];
