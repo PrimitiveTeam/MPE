@@ -440,13 +440,14 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     "${PROJECT_SOURCE_DIR}/MPE/MPEPCH.h")
 
   # ADD INCLUDE DIRECTORIES TO MAKE INCLUDES EASY TO MANAGE
-  target_include_directories(MPE PUBLIC ${MPE_H}
+  target_include_directories(MPE
+    PRIVATE ${MPE_H}
+    PRIVATE "${PROJECT_SOURCE_DIR}"
+    PRIVATE "${PROJECT_SOURCE_DIR}/MPE"
 
     # "${PROJECT_SOURCE_DIR}/MPE"
   )
-  target_include_directories(MPE PUBLIC "${PROJECT_SOURCE_DIR}")
 
-  target_include_directories(MPE PUBLIC "${PROJECT_SOURCE_DIR}/MPE")
 
   # target_include_directories(MPE PUBLIC
   # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB")
