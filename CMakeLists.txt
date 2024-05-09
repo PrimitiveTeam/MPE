@@ -302,6 +302,9 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     # /Profiling
     "${PROJECT_SOURCE_DIR}/MPE/Profiling/*.cpp"
 
+    # /Physics
+    "${PROJECT_SOURCE_DIR}/MPE/Time/*.cpp"
+
     # /Renderer
     # "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.cpp"
     # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.cpp"
@@ -350,6 +353,9 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
 
     # /Profiling
     "${PROJECT_SOURCE_DIR}/MPE/Profiling/*.h"
+
+    # /Physics
+    "${PROJECT_SOURCE_DIR}/MPE/Time/*.h"
 
     # /Renderer
     # "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.h"

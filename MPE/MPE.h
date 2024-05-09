@@ -25,15 +25,15 @@
 // #include "MPE/Core/Layers/Layer.h"
 // ----- APPLICATION -----
 
-// ----- PHYSICS -----
-// #include "MPE/Core/_TIME.h"
-// ----- PHYSICS -----
-
 // ----- PROFILING -----
 // ONLY FOR DEBUGGING!
 #include "MPE/Profiling/_TIMER.h"
 #include "MPE/Profiling/_PROFILING.h"
 // ----- PROFILING -----
+
+// ----- PHYSICS -----
+#include "MPE/Time/Time.h"
+// ----- PHYSICS -----
 
 // ----- EVENTS -----
 // #include "MPE/Core/Events/EventApp.h"
