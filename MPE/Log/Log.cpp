@@ -44,6 +44,11 @@ namespace MPE
         logger->set_level(spdlog::level::trace);
     }
 
+    REF<Log> Log::Create(const std::string &name, int options, std::string filename)
+    {
+        return NEWREF<Log>(name, options, filename);
+    }
+
     // Logging methods
     void Log::trace(const std::string &message)
     {

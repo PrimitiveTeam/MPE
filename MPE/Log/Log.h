@@ -37,6 +37,8 @@ namespace MPE
 
         Log(const std::string &name, int options, std::string filename = "");
 
+        static REF<Log> Create(const std::string &name, int options, std::string filename = "");
+
         // Logging methods
         void trace(const std::string &message);
 
