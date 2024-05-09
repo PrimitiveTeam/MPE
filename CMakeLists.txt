@@ -448,7 +448,6 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     # "${PROJECT_SOURCE_DIR}/MPE"
   )
 
-
   # target_include_directories(MPE PUBLIC
   # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB")
 
@@ -503,6 +502,13 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
       # install(FILES ${BOOST_PYTHON_DLL_RELEASE_FILES} DESTINATION bin)
     endif()
   endif()
+
+  # PUBLIC INCLUDES
+  set(MPE_PUBLIC_INCLUDES
+    ${MPE_H}
+    "${PROJECT_SOURCE_DIR}"
+    "${PROJECT_SOURCE_DIR}/MPE"
+  )
 
   if(${MAIN_TEST})
     add_subdirectory("${PROJECT_SOURCE_DIR}/Tests")
