@@ -12,14 +12,17 @@
 // #include "MPE/Core/App.h"
 // #include "MPE/Core/Layers/Layer.h"
 #include "MPE/Core/_CORE.h"
-#include "MPE/Core/GlobalLog.h"
 #include "MPE/Core/_CWD.h"
 // ----- CORE INTERNAL -----
+
+// ----- LOG -----
+#include "MPE/Log/GlobalLog.h"
+#include "MPE/Log/Log.h"
+// ----- LOG -----
 
 // ----- APPLICATION -----
 // #include "MPE/Core/App.h"
 // #include "MPE/Core/Layers/Layer.h"
-#include "MPE/Core/Log.h"
 // ----- APPLICATION -----
 
 // ----- PHYSICS -----

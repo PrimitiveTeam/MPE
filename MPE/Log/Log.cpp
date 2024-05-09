@@ -1,6 +1,8 @@
 #include "Log.h"
 #include "MPE/MPEPCH.h"
 
+#include "MPE/Log/CustomSinks/MemorySink.h"
+
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/sinks/basic_file_sink.h"
 #include "spdlog/fmt/ostr.h"
@@ -8,6 +10,7 @@
 namespace MPE
 {
     Log::Log(const std::string &name, int options, std::string filename)
+        : options(options)
     {
         if (options & CONSOLE)
         {
@@ -30,6 +33,11 @@ namespace MPE
             auto file_sink = NEWREF<spdlog::sinks::basic_file_sink_mt>(filename, true);
             file_sink->set_pattern("[%Y-%m-%d %H:%M:%S] [%L] [%n]: %v");
             sinks.push_back(file_sink);
+        }
+        if (options & MEMORY)
+        {
+            auto memory_sink = std::make_shared<MPE::MemorySink<std::mutex>>();
+            sinks.push_back(memory_sink);
         }
 
         logger = NEWREF<spdlog::logger>(name, begin(sinks), end(sinks));
@@ -65,5 +73,17 @@ namespace MPE
     void Log::critical(const std::string &message)
     {
         logger->critical(message);
+    }
+
+    std::string Log::getOutput()
+    {
+        // Check if memory sink is enabled
+        if (!(options & MEMORY))
+        {
+            throw std::runtime_error("Memory logging is not enabled.");
+        }
+        // This does not check type of sink, it assumes the last sink is MemorySink
+        auto memory_sink = std::dynamic_pointer_cast<MPE::MemorySink<std::mutex>>(sinks.back());
+        return memory_sink->get_contents_and_clear();
     }
 }

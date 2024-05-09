@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MPE/Core/_CORE.h"
+
 #include "spdlog/spdlog.h"
 
 /**

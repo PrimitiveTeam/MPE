@@ -3,6 +3,8 @@
 #include "MPE/Core/_CORE.h"
 #include "spdlog/spdlog.h"
 
+#include <string>
+
 /**
  * @file Log.h
  * @brief Extensible logging system for the engine.
@@ -28,6 +30,8 @@ namespace MPE
             CONSOLE = 1 << 0,
             // 0b00000010
             FILE = 1 << 1,
+            // 0b00000100
+            MEMORY = 1 << 2
         };
 
         Log(const std::string &name, int options, std::string filename = "");
@@ -45,8 +49,18 @@ namespace MPE
 
         void critical(const std::string &message);
 
+        /**
+         * @brief Gets the output of the memory sink.
+         * @date 2024-05-05
+         * @return The output of the memory sink.
+         * @note This will throw an exception if the memory sink is not enabled.
+         */
+        std::string getOutput();
+
     private:
         REF<spdlog::logger> logger;
         std::vector<REF<spdlog::sinks::sink>> sinks;
+        // Store options for logic
+        int options;
     };
 }

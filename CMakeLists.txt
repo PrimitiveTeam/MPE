@@ -296,6 +296,9 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     # "${PROJECT_SOURCE_DIR}/MPE/Core/Input/*.cpp"
     # "${PROJECT_SOURCE_DIR}/MPE/Core/Layers/*.cpp"
 
+    # /Log
+    "${PROJECT_SOURCE_DIR}/MPE/Log/*.cpp"
+
     # /Profiling
     "${PROJECT_SOURCE_DIR}/MPE/Profiling/*.cpp"
 
@@ -340,6 +343,10 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     # "${PROJECT_SOURCE_DIR}/MPE/Core/Events/*.h"
     # "${PROJECT_SOURCE_DIR}/MPE/Core/Input/*.h"
     # "${PROJECT_SOURCE_DIR}/MPE/Core/Layers/*.h"
+
+    # /Log
+    "${PROJECT_SOURCE_DIR}/MPE/Log/*.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Log/CustomSinks/*.h"
 
     # /Profiling
     "${PROJECT_SOURCE_DIR}/MPE/Profiling/*.h"
