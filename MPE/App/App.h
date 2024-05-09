@@ -20,5 +20,5 @@ namespace MPE
 		REF<MPE::Log> SYS_Log;
 	};
 
-	App *CreateApp();
+	static REF<App> CreateApp();
 }

@@ -6,12 +6,13 @@
 #include "MPE/Log/GlobalLog.h"
 #include "MPE/App/App.h"
 
-extern MPE::App *MPE::CreateApp();
+// Create reference to the CreateApp function
+extern MPE::REF<MPE::App> MPE::CreateApp();
 
 int main(int argc, char **argv)
 {
 	MPE::GlobalLog::Init();
-    SET_EXECUTABLE_PATH_AS_CWD();
+	SET_EXECUTABLE_PATH_AS_CWD();
 
 	// MPE_PROFILE_START("STARTUP", "MPE-PROFILE-STARTUP.json");
 	auto app = MPE::CreateApp();
@@ -19,7 +20,6 @@ int main(int argc, char **argv)
 	// MPE_PROFILE_START("RUNTIME", "MPE-PROFILE-RUNTIME.json");
 	app->Run();
 	// MPE_PROFILE_END();
-	delete app;
 }
 
 #else

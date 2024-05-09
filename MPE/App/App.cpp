@@ -19,4 +19,9 @@ namespace MPE
 	// 		Shutdown();
 	// 	}
 	// }
+
+	REF<App> CreateApp()
+	{
+		return NEWREF<App>();
+	}
 }

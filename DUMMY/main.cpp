@@ -43,9 +43,9 @@ public:
     }
 };
 
-MPE::App *MPE::CreateApp()
+MPE::REF<MPE::App> MPE::CreateApp()
 {
-    return new DummyApp();
+    return NEWREF<DummyApp>();
 }
 
 void log_test(MPE::Log &log)
