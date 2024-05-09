@@ -38,6 +38,10 @@
                 {
                     "library": "stb",
                     "triplet": "x64-windows"
+                },
+                {
+                    "library": "gtest",
+                    "triplet": "x64-windows"
                 }
             ],
             "post_install": [

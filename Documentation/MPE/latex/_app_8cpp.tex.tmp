@@ -1,0 +1,16 @@
+\doxysection{D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+App/\+App.cpp File Reference}
+\hypertarget{_app_8cpp}{}\label{_app_8cpp}\index{D:/WORK/GIT/MPE/MPE/App/App.cpp@{D:/WORK/GIT/MPE/MPE/App/App.cpp}}
+{\ttfamily \#include "{}App.\+h"{}}\newline
+{\ttfamily \#include "{}MPE/\+MPEPCH.\+h"{}}\newline
+Include dependency graph for App.\+cpp\+:
+% FIG 0
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_m_p_e}{MPE}}
+\begin{DoxyCompactList}\small\item\em The Mere Primitive Engine (\doxylink{namespace_m_p_e}{MPE}) namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ \mbox{\hyperlink{class_m_p_e_1_1_app}{App}} $>$ \mbox{\hyperlink{namespace_m_p_e_a56e270e1747974033d1771b6c1b756f6}{MPE\+::\+Create\+App}} ()
+\end{DoxyCompactItemize}

@@ -1,0 +1,120 @@
+\doxysection{MPE\+::Memory\+Sink\texorpdfstring{$<$}{<} Mutex \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_m_p_e_1_1_memory_sink}{}\label{class_m_p_e_1_1_memory_sink}\index{MPE::MemorySink$<$ Mutex $>$@{MPE::MemorySink$<$ Mutex $>$}}
+
+
+Custom memory sink for logging.  
+
+
+
+
+{\ttfamily \#include $<$Memory\+Sink.\+h$>$}
+
+
+
+Inheritance diagram for MPE\+::Memory\+Sink\texorpdfstring{$<$}{<} Mutex \texorpdfstring{$>$}{>}\+:
+% FIG 0
+
+
+Collaboration diagram for MPE\+::Memory\+Sink\texorpdfstring{$<$}{<} Mutex \texorpdfstring{$>$}{>}\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_m_p_e_1_1_memory_sink_a56bdbb0269c6c09a53807f44700dd599}{get\+\_\+contents\+\_\+and\+\_\+clear}} ()
+\item 
+std\+::string \mbox{\hyperlink{class_m_p_e_1_1_memory_sink_ab746c48a1a9dd505d0332e53af5fa42d}{get\+\_\+contents}} ()
+\item 
+void \mbox{\hyperlink{class_m_p_e_1_1_memory_sink_a563e0f426a0da5dbf492b2010fdd38a1}{clear}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_m_p_e_1_1_memory_sink_a9b9940f6878402fd1d4aa3022442e943}{sink\+\_\+it\+\_\+}} (const spdlog\+::details\+::log\+\_\+msg \&msg) override
+\begin{DoxyCompactList}\small\item\em \doxylink{class_m_p_e_1_1_log}{Log} the message to memory. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_m_p_e_1_1_memory_sink_ab0d61f9597cb9bc3212bf58ac572b21c}{flush\+\_\+}} () override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::stringstream \mbox{\hyperlink{class_m_p_e_1_1_memory_sink_a2b8218213ff1d260369c471ff0ac8aae}{stream}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Mutex$>$\newline
+class MPE\+::\+Memory\+Sink$<$ Mutex $>$}
+Custom memory sink for logging. 
+
+This class is used to create a custom memory sink for logging. 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Mutex} & The mutex type to use for the memory sink. \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyDate}{Date}
+2024-\/05-\/09 
+\end{DoxyDate}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_m_p_e_1_1_memory_sink_a563e0f426a0da5dbf492b2010fdd38a1}\label{class_m_p_e_1_1_memory_sink_a563e0f426a0da5dbf492b2010fdd38a1} 
+\index{MPE::MemorySink$<$ Mutex $>$@{MPE::MemorySink$<$ Mutex $>$}!clear@{clear}}
+\index{clear@{clear}!MPE::MemorySink$<$ Mutex $>$@{MPE::MemorySink$<$ Mutex $>$}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily template$<$typename Mutex $>$ \\
+void \mbox{\hyperlink{class_m_p_e_1_1_memory_sink}{MPE\+::\+Memory\+Sink}}$<$ Mutex $>$\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_m_p_e_1_1_memory_sink_ab0d61f9597cb9bc3212bf58ac572b21c}\label{class_m_p_e_1_1_memory_sink_ab0d61f9597cb9bc3212bf58ac572b21c} 
+\index{MPE::MemorySink$<$ Mutex $>$@{MPE::MemorySink$<$ Mutex $>$}!flush\_@{flush\_}}
+\index{flush\_@{flush\_}!MPE::MemorySink$<$ Mutex $>$@{MPE::MemorySink$<$ Mutex $>$}}
+\doxysubsubsection{\texorpdfstring{flush\_()}{flush\_()}}
+{\footnotesize\ttfamily template$<$typename Mutex $>$ \\
+void \mbox{\hyperlink{class_m_p_e_1_1_memory_sink}{MPE\+::\+Memory\+Sink}}$<$ Mutex $>$\+::flush\+\_\+ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [protected]}}
+
+\Hypertarget{class_m_p_e_1_1_memory_sink_ab746c48a1a9dd505d0332e53af5fa42d}\label{class_m_p_e_1_1_memory_sink_ab746c48a1a9dd505d0332e53af5fa42d} 
+\index{MPE::MemorySink$<$ Mutex $>$@{MPE::MemorySink$<$ Mutex $>$}!get\_contents@{get\_contents}}
+\index{get\_contents@{get\_contents}!MPE::MemorySink$<$ Mutex $>$@{MPE::MemorySink$<$ Mutex $>$}}
+\doxysubsubsection{\texorpdfstring{get\_contents()}{get\_contents()}}
+{\footnotesize\ttfamily template$<$typename Mutex $>$ \\
+std\+::string \mbox{\hyperlink{class_m_p_e_1_1_memory_sink}{MPE\+::\+Memory\+Sink}}$<$ Mutex $>$\+::get\+\_\+contents (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_m_p_e_1_1_memory_sink_a56bdbb0269c6c09a53807f44700dd599}\label{class_m_p_e_1_1_memory_sink_a56bdbb0269c6c09a53807f44700dd599} 
+\index{MPE::MemorySink$<$ Mutex $>$@{MPE::MemorySink$<$ Mutex $>$}!get\_contents\_and\_clear@{get\_contents\_and\_clear}}
+\index{get\_contents\_and\_clear@{get\_contents\_and\_clear}!MPE::MemorySink$<$ Mutex $>$@{MPE::MemorySink$<$ Mutex $>$}}
+\doxysubsubsection{\texorpdfstring{get\_contents\_and\_clear()}{get\_contents\_and\_clear()}}
+{\footnotesize\ttfamily template$<$typename Mutex $>$ \\
+std\+::string \mbox{\hyperlink{class_m_p_e_1_1_memory_sink}{MPE\+::\+Memory\+Sink}}$<$ Mutex $>$\+::get\+\_\+contents\+\_\+and\+\_\+clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_m_p_e_1_1_memory_sink_a9b9940f6878402fd1d4aa3022442e943}\label{class_m_p_e_1_1_memory_sink_a9b9940f6878402fd1d4aa3022442e943} 
+\index{MPE::MemorySink$<$ Mutex $>$@{MPE::MemorySink$<$ Mutex $>$}!sink\_it\_@{sink\_it\_}}
+\index{sink\_it\_@{sink\_it\_}!MPE::MemorySink$<$ Mutex $>$@{MPE::MemorySink$<$ Mutex $>$}}
+\doxysubsubsection{\texorpdfstring{sink\_it\_()}{sink\_it\_()}}
+{\footnotesize\ttfamily template$<$typename Mutex $>$ \\
+void \mbox{\hyperlink{class_m_p_e_1_1_memory_sink}{MPE\+::\+Memory\+Sink}}$<$ Mutex $>$\+::sink\+\_\+it\+\_\+ (\begin{DoxyParamCaption}\item[{const spdlog\+::details\+::log\+\_\+msg \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+\doxylink{class_m_p_e_1_1_log}{Log} the message to memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & The message to log. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyDate}{Date}
+2024-\/05-\/09 
+\end{DoxyDate}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_m_p_e_1_1_memory_sink_a2b8218213ff1d260369c471ff0ac8aae}\label{class_m_p_e_1_1_memory_sink_a2b8218213ff1d260369c471ff0ac8aae} 
+\index{MPE::MemorySink$<$ Mutex $>$@{MPE::MemorySink$<$ Mutex $>$}!stream@{stream}}
+\index{stream@{stream}!MPE::MemorySink$<$ Mutex $>$@{MPE::MemorySink$<$ Mutex $>$}}
+\doxysubsubsection{\texorpdfstring{stream}{stream}}
+{\footnotesize\ttfamily template$<$typename Mutex $>$ \\
+std\+::stringstream \mbox{\hyperlink{class_m_p_e_1_1_memory_sink}{MPE\+::\+Memory\+Sink}}$<$ Mutex $>$\+::stream\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Log/\+Custom\+Sinks/\mbox{\hyperlink{_memory_sink_8h}{Memory\+Sink.\+h}}\end{DoxyCompactItemize}

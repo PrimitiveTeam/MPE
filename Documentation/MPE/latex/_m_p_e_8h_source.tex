@@ -4,61 +4,68 @@
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ }
-\DoxyCodeLine{00011\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ APPLICATION\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ CORE\ INTERNAL\ -\/-\/-\/-\/-\/}}
 \DoxyCodeLine{00012\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/App.h"{}}}
 \DoxyCodeLine{00013\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/Layers/Layer.h"{}}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_log_8h}{MPE/Core/Log.h}}"{}}}
-\DoxyCodeLine{00015\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ APPLICATION\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ PHYSICS\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00018\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/\_TIME.h"{}}}
-\DoxyCodeLine{00019\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ PHYSICS\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ PROFILING\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00022\ \textcolor{comment}{//\ ONLY\ FOR\ DEBUGGING!}}
-\DoxyCodeLine{00023\ \textcolor{comment}{//\ \#include\ "{}MPE/Debug/Profiling/\_TIMER.h"{}}}
-\DoxyCodeLine{00024\ \textcolor{comment}{//\ \#include\ "{}MPE/Debug/Profiling/\_PROFILING.h"{}}}
-\DoxyCodeLine{00025\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ PROFILING\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ EVENTS\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00028\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/Events/EventApp.h"{}}}
-\DoxyCodeLine{00029\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/Events/EventKey.h"{}}}
-\DoxyCodeLine{00030\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/Events/EventMouse.h"{}}}
-\DoxyCodeLine{00031\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ EVENTS\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ INPUT\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00034\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/Input/Input.h"{}}}
-\DoxyCodeLine{00035\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/Input/KeyCodes.h"{}}}
-\DoxyCodeLine{00036\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/Input/MouseButtonCodes.h"{}}}
-\DoxyCodeLine{00037\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ INPUT\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00039\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ IMGUI\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00040\ \textcolor{comment}{//\ \#include\ "{}MPE/Vendor/ImGui/ImGuiLayer.h"{}}}
-\DoxyCodeLine{00041\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ IMGUI\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ RENDERER\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00044\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Renderer.h"{}}}
-\DoxyCodeLine{00045\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Renderer2D.h"{}}}
-\DoxyCodeLine{00046\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/RenderPrimitive.h"{}}}
-\DoxyCodeLine{00047\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ RENDERER\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ GRAPHICS\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00050\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Pipeline/VertexBuffer.h"{}}}
-\DoxyCodeLine{00051\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Pipeline/IndexBuffer.h"{}}}
-\DoxyCodeLine{00052\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Pipeline/VertexArray.h"{}}}
-\DoxyCodeLine{00053\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Shaders/Shader.h"{}}}
-\DoxyCodeLine{00054\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Textures/Texture.h"{}}}
-\DoxyCodeLine{00055\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Textures/Texture2D.h"{}}}
-\DoxyCodeLine{00056\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ GRAPHICS\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ CAMERAS\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00059\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Cameras/OrthographicCamera.h"{}}}
-\DoxyCodeLine{00060\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Cameras/OrthographicCameraController.h"{}}}
-\DoxyCodeLine{00061\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Cameras/StaticOrthographicCamera.h"{}}}
-\DoxyCodeLine{00062\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ CAMERAS\ -\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \textcolor{comment}{//-\/-\/-\/-\/-\/Entry\ Point-\/-\/-\/-\/}}
-\DoxyCodeLine{00065\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/EntryPoint.h"{}}}
-\DoxyCodeLine{00066\ \textcolor{comment}{//-\/-\/-\/-\/-\/Entry\ Point-\/-\/-\/-\/}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{___c_o_r_e_8h}{MPE/Core/\_CORE.h}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{___c_w_d_8h}{MPE/Core/\_CWD.h}}"{}}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ CORE\ INTERNAL\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ LOG\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_global_log_8h}{MPE/Log/GlobalLog.h}}"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_log_8h}{MPE/Log/Log.h}}"{}}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ LOG\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ APPLICATION\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_app_8h}{MPE/App/App.h}}"{}}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/Layers/Layer.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ APPLICATION\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ PROFILING\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ ONLY\ FOR\ DEBUGGING!}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{___t_i_m_e_r_8h}{MPE/Profiling/\_TIMER.h}}"{}}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{___p_r_o_f_i_l_i_n_g_8h}{MPE/Profiling/\_PROFILING.h}}"{}}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ PROFILING\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ PHYSICS\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_time_8h}{MPE/Time/Time.h}}"{}}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ PHYSICS\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ EVENTS\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/Events/EventApp.h"{}}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/Events/EventKey.h"{}}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/Events/EventMouse.h"{}}}
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ EVENTS\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ INPUT\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/Input/Input.h"{}}}
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/Input/KeyCodes.h"{}}}
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ \#include\ "{}MPE/Core/Input/MouseButtonCodes.h"{}}}
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ INPUT\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ IMGUI\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ \#include\ "{}MPE/Vendor/ImGui/ImGuiLayer.h"{}}}
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ IMGUI\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ RENDERER\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Renderer.h"{}}}
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Renderer2D.h"{}}}
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/RenderPrimitive.h"{}}}
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ RENDERER\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ GRAPHICS\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Pipeline/VertexBuffer.h"{}}}
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Pipeline/IndexBuffer.h"{}}}
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Pipeline/VertexArray.h"{}}}
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Shaders/Shader.h"{}}}
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Textures/Texture.h"{}}}
+\DoxyCodeLine{00066\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Textures/Texture2D.h"{}}}
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ GRAPHICS\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ CAMERAS\ -\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Cameras/OrthographicCamera.h"{}}}
+\DoxyCodeLine{00071\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Cameras/OrthographicCameraController.h"{}}}
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ \#include\ "{}MPE/Renderer/Cameras/StaticOrthographicCamera.h"{}}}
+\DoxyCodeLine{00073\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/\ CAMERAS\ -\/-\/-\/-\/-\/}}
 
 \end{DoxyCode}

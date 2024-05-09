@@ -1,20 +1,6 @@
 var searchData=
 [
-  ['m_5fname_0',['m_Name',['../class_m_p_e_1_1_test.html#a30df549362bede9d558c52fea042a4e8',1,'MPE::Test']]],
-  ['mpe_1',['MPE',['../namespace_m_p_e.html',1,'']]],
-  ['mpe_2eh_2',['MPE.h',['../_m_p_e_8h.html',1,'']]],
-  ['mpe_5fassert_3',['MPE_ASSERT',['../___c_o_r_e_8h.html#a5df9f011bff68aea0780cd6401f9ff57',1,'_CORE.h']]],
-  ['mpe_5fbind_5fevent_5ffunction_4',['MPE_BIND_EVENT_FUNCTION',['../___c_o_r_e_8h.html#a9d633604382288b771eae6171988932a',1,'_CORE.h']]],
-  ['mpe_5fcore_5fassert_5',['MPE_CORE_ASSERT',['../___c_o_r_e_8h.html#a9bd63e3538fa657a2292f49c04123514',1,'_CORE.h']]],
-  ['mpe_5fcore_5ferror_6',['MPE_CORE_ERROR',['../_log_8h.html#af6d174e12bff5c3bf9d5612693ceef91',1,'Log.h']]],
-  ['mpe_5fcore_5ffatal_7',['MPE_CORE_FATAL',['../_log_8h.html#a9411c4a0a151cb6b9065a636711dcb6a',1,'Log.h']]],
-  ['mpe_5fcore_5finfo_8',['MPE_CORE_INFO',['../_log_8h.html#ad367ecd4d78bd34529ae56be40553043',1,'Log.h']]],
-  ['mpe_5fcore_5ftrace_9',['MPE_CORE_TRACE',['../_log_8h.html#aba014a28d3849a890e0cb7a695da1b9e',1,'Log.h']]],
-  ['mpe_5fcore_5fwarn_10',['MPE_CORE_WARN',['../_log_8h.html#a122ba813fa13682bcb12d196cd19d9ef',1,'Log.h']]],
-  ['mpe_5ferror_11',['MPE_ERROR',['../_log_8h.html#a1c4df2c094a6be00eeb8a1089a1a114f',1,'Log.h']]],
-  ['mpe_5ffatal_12',['MPE_FATAL',['../_log_8cpp.html#a0ffa6bfa05d8812a913dcd165d0bef59',1,'MPE_FATAL:&#160;Log.cpp'],['../_log_8h.html#a0ffa6bfa05d8812a913dcd165d0bef59',1,'MPE_FATAL:&#160;Log.h']]],
-  ['mpe_5finfo_13',['MPE_INFO',['../_log_8h.html#ad9c7616dc5c0c62ee0d668e866b5dcb3',1,'Log.h']]],
-  ['mpe_5ftrace_14',['MPE_TRACE',['../_log_8h.html#ad6c4d32fa397d48e48a1bb9ea55fa811',1,'Log.h']]],
-  ['mpe_5fwarn_15',['MPE_WARN',['../_log_8h.html#aef142492e60452a0b7718c427ad8eb16',1,'Log.h']]],
-  ['mpepch_2eh_16',['MPEPCH.h',['../_m_p_e_p_c_h_8h.html',1,'']]]
+  ['file_0',['FILE',['../class_m_p_e_1_1_log.html#aa07b240669d308041628f75e8f11a91baeb2d0d8ed2522fe2d7d5d6bfbb6d405a',1,'MPE::Log']]],
+  ['flush_5f_1',['flush_',['../class_m_p_e_1_1_memory_sink.html#ab0d61f9597cb9bc3212bf58ac572b21c',1,'MPE::MemorySink']]],
+  ['func_2',['FUNC',['../class_m_p_e_1_1___t_i_m_e_r.html#aaed2c40d37885ec3e3150b5f8261ea4e',1,'MPE::_TIMER']]]
 ];

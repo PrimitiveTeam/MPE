@@ -71,18 +71,27 @@
 // IF A DYNAMIC LIBRARY IS USED THEN DEFINE MPE_API WITHIN MPE AS DLL EXPORT AND MPE_API WITHIN SANDBOX AS DLL IMPORT
 #ifdef MPE_DYNAMIC_LIB
 #ifdef MPE_BUILD_DLL
+// #pragma message("Building DLL")
+// #pragma warning(disable : 4005)
 #define MPE_API __declspec(dllexport)
 #else
+// #pragma message("Using Dynamic Lib")
 #define MPE_API __declspec(dllimport)
 #endif
+#else
 // DYNAMIC LIBRARY IS NOT SUPPORTED BY THIS PROJECT, BUT CAN STILL BE ENABLED
-#error DYNAMIC LIBRARY IS NOT INTENDED TO BE USED WITH THIS PROJECT.
+#pragma message("DYNAMIC LIBRARY IS NOT INTENDED TO BE USED WITH THIS PROJECT AT THE MOMENT.")
+#define MPE_API
 #endif
 #else
 #error MPE SUPPORTS ONLY WINDOWS.
 #endif
 
 #ifdef MPE_PLATFORM_LINUX
+#error MPE SUPPORTS ONLY WINDOWS.
+#endif
+
+#ifdef MPE_PLATFORM_OSX
 #error MPE SUPPORTS ONLY WINDOWS.
 #endif
 

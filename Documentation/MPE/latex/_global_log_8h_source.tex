@@ -1,0 +1,56 @@
+\doxysection{Global\+Log.\+h}
+\hypertarget{_global_log_8h_source}{}\label{_global_log_8h_source}\index{D:/WORK/GIT/MPE/MPE/Log/GlobalLog.h@{D:/WORK/GIT/MPE/MPE/Log/GlobalLog.h}}
+\mbox{\hyperlink{_global_log_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{___c_o_r_e_8h}{MPE/Core/\_CORE.h}}"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}spdlog/spdlog.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_m_p_e}{MPE}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{class\ }MPE\_API\ \mbox{\hyperlink{class_m_p_e_1_1_global_log}{GlobalLog}}}
+\DoxyCodeLine{00025\ \ \ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Init();}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<spdlog::logger>}}\ \&\mbox{\hyperlink{class_m_p_e_1_1_global_log_a450f78a6bd652b79e2c172380af44fcd}{GetCoreLogger}}()\ \{\ \textcolor{keywordflow}{return}\ CoreLogger;\ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<spdlog::logger>}}\ \&\mbox{\hyperlink{class_m_p_e_1_1_global_log_a0a7d210429c8417b12ba2b0a006dc66f}{GetDebugLogger}}()\ \{\ \textcolor{keywordflow}{return}\ DebugLogger;\ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<spdlog::logger>}}\ \&\mbox{\hyperlink{class_m_p_e_1_1_global_log_ad20d9d0ea56ff9167ae3d907c599e49e}{GetClientLogger}}()\ \{\ \textcolor{keywordflow}{return}\ ClientLogger;\ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<spdlog::logger>}}\ \mbox{\hyperlink{class_m_p_e_1_1_global_log_ab3685ea3de75c7e363e84ea67f0b66b1}{CoreLogger}};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<spdlog::logger>}}\ \mbox{\hyperlink{class_m_p_e_1_1_global_log_a0edc7c663b8a18acaa550368a5facb4c}{DebugLogger}};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<spdlog::logger>}}\ \mbox{\hyperlink{class_m_p_e_1_1_global_log_add53ea3c1c32467bcc34e54b21ec053b}{ClientLogger}};}
+\DoxyCodeLine{00081\ \ \ \ \ \};}
+\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{comment}{//\ CORE\ ENGINE\ LOGS}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_TRACE(...)\ ::MPE::GlobalLog::GetCoreLogger()-\/>trace(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_INFO(...)\ ::MPE::GlobalLog::GetCoreLogger()-\/>info(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_WARN(...)\ ::MPE::GlobalLog::GetCoreLogger()-\/>warn(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_ERROR(...)\ ::MPE::GlobalLog::GetCoreLogger()-\/>error(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_FATAL(...)\ ::MPE::GlobalLog::GetCoreLogger()-\/>fatal(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00090\ \textcolor{comment}{//\ DEBUG\ ENGINE\ LOGS}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#ifdef\ MPE\_ENABLE\_DEBUG\_LOG}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ MPE\_DEBUG\_TRACE(...)\ ::MPE::GlobalLog::GetDebugLogger()-\/>trace(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ MPE\_DEBUG\_INFO(...)\ ::MPE::GlobalLog::GetDebugLogger()-\/>info(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ MPE\_DEBUG\_WARN(...)\ ::MPE::GlobalLog::GetDebugLogger()-\/>warn(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ MPE\_DEBUG\_ERROR(...)\ ::MPE::GlobalLog::GetDebugLogger()-\/>error(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ MPE\_DEBUG\_FATAL(...)\ ::MPE::GlobalLog::GetDebugLogger()-\/>fatal(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00098\ \textcolor{comment}{//\ CLIENT\ MAIN\ LOGS}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ MPE\_TRACE(...)\ ::MPE::GlobalLog::GetClientLogger()-\/>trace(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ MPE\_INFO(...)\ ::MPE::GlobalLog::GetClientLogger()-\/>info(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ MPE\_WARN(...)\ ::MPE::GlobalLog::GetClientLogger()-\/>warn(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ MPE\_ERROR(...)\ ::MPE::GlobalLog::GetClientLogger()-\/>error(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ MPE\_FATAL(...)\ ::MPE::GlobalLog::GetClientLogger()-\/>fatal(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00243\ }
+
+\end{DoxyCode}

@@ -1,0 +1,36 @@
+\doxysection{D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Log/\+Custom\+Sinks/\+Memory\+Sink.h File Reference}
+\hypertarget{_memory_sink_8h}{}\label{_memory_sink_8h}\index{D:/WORK/GIT/MPE/MPE/Log/CustomSinks/MemorySink.h@{D:/WORK/GIT/MPE/MPE/Log/CustomSinks/MemorySink.h}}
+
+
+Custom memory sink for logging.  
+
+
+{\ttfamily \#include "{}MPE/\+Core/\+\_\+\+CORE.\+h"{}}\newline
+{\ttfamily \#include "{}spdlog/sinks/base\+\_\+sink.\+h"{}}\newline
+{\ttfamily \#include $<$mutex$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+Include dependency graph for Memory\+Sink.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_m_p_e_1_1_memory_sink}{MPE\+::\+Memory\+Sink$<$ Mutex $>$}}
+\begin{DoxyCompactList}\small\item\em Custom memory sink for logging. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_m_p_e}{MPE}}
+\begin{DoxyCompactList}\small\item\em The Mere Primitive Engine (\doxylink{namespace_m_p_e}{MPE}) namespace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Custom memory sink for logging. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/09 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Author}
+Sebastian Termen 
+\end{DoxyAuthor}

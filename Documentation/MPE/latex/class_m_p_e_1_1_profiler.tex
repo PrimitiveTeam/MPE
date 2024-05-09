@@ -1,0 +1,229 @@
+\doxysection{MPE\+::Profiler Class Reference}
+\hypertarget{class_m_p_e_1_1_profiler}{}\label{class_m_p_e_1_1_profiler}\index{MPE::Profiler@{MPE::Profiler}}
+
+
+\doxylink{class_m_p_e_1_1_profiler}{Profiler} class.  
+
+
+
+
+{\ttfamily \#include $<$\+\_\+\+PROFILING.\+h$>$}
+
+
+
+Collaboration diagram for MPE\+::Profiler\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{class_m_p_e_1_1_profiler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_m_p_e_1_1_profiler_a6439c0b7c3eeee53abf69e9c07dfcd3f}{Profiler}} ()
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_m_p_e_1_1_profiler}{Profiler} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_m_p_e_1_1_profiler_a6c919d7344ca0ca3a741fa801033e394}{Begin\+Session}} (const std\+::string \&name, const std\+::string \&filepath="{}results.\+json"{})
+\begin{DoxyCompactList}\small\item\em Begin a new profiler session. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_m_p_e_1_1_profiler_adaa9290037a6a16f45d12609c4acacbe}{End\+Session}} ()
+\begin{DoxyCompactList}\small\item\em End the current profiler session. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_m_p_e_1_1_profiler_aee5806a06feec00e2a0fb855f0c237af}{Write\+Profile}} (const \mbox{\hyperlink{struct_m_p_e_1_1_profile_result}{Profile\+Result}} \&result)
+\begin{DoxyCompactList}\small\item\em Write a profile result. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_m_p_e_1_1_profiler_ac4e10874670fa484f4de804cc96a202f}{Write\+Header}} ()
+\begin{DoxyCompactList}\small\item\em Write the header of the profiler session. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_m_p_e_1_1_profiler_a41e332ffec75c5274f508b5b74575709}{Write\+Footer}} ()
+\begin{DoxyCompactList}\small\item\em Write the footer of the profiler session. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_m_p_e_1_1_profiler}{Profiler}} \& \mbox{\hyperlink{class_m_p_e_1_1_profiler_a62146f56a187be164837ee5d62685232}{Get}} ()
+\begin{DoxyCompactList}\small\item\em Get the profiler instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_m_p_e_1_1_profiler_session}{Profiler\+Session}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_m_p_e_1_1_profiler_a692f7fd230d15e65cdefede2e1a5c652}{CURRENT\+\_\+\+SESSION}}
+\begin{DoxyCompactList}\small\item\em The current profiler session. \end{DoxyCompactList}\item 
+std\+::ofstream \mbox{\hyperlink{class_m_p_e_1_1_profiler_a8ab7437b944662c2faa67b2c3ad2dc12}{OUTPUT}}
+\begin{DoxyCompactList}\small\item\em The output file stream. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_m_p_e_1_1_profiler_a0ad1a1e9de23c0c260e58a8f795ae7a2}{PROFILE\+\_\+\+COUNT}}
+\begin{DoxyCompactList}\small\item\em The profile count. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_m_p_e_1_1_profiler}{Profiler} class. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_m_p_e_1_1_profiler_a6439c0b7c3eeee53abf69e9c07dfcd3f}\label{class_m_p_e_1_1_profiler_a6439c0b7c3eeee53abf69e9c07dfcd3f} 
+\index{MPE::Profiler@{MPE::Profiler}!Profiler@{Profiler}}
+\index{Profiler@{Profiler}!MPE::Profiler@{MPE::Profiler}}
+\doxysubsubsection{\texorpdfstring{Profiler()}{Profiler()}}
+{\footnotesize\ttfamily MPE\+::\+Profiler\+::\+Profiler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Construct a new \doxylink{class_m_p_e_1_1_profiler}{Profiler} object. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_m_p_e_1_1_profiler_a6c919d7344ca0ca3a741fa801033e394}\label{class_m_p_e_1_1_profiler_a6c919d7344ca0ca3a741fa801033e394} 
+\index{MPE::Profiler@{MPE::Profiler}!BeginSession@{BeginSession}}
+\index{BeginSession@{BeginSession}!MPE::Profiler@{MPE::Profiler}}
+\doxysubsubsection{\texorpdfstring{BeginSession()}{BeginSession()}}
+{\footnotesize\ttfamily void MPE\+::\+Profiler\+::\+Begin\+Session (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const std\+::string \&}]{filepath = {\ttfamily "{}results.json"{}} }\end{DoxyParamCaption})}
+
+
+
+Begin a new profiler session. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the session. \\
+\hline
+{\em filepath} & The file path of the session. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyNote}{Note}
+This function should be called at the start of the session. 
+\end{DoxyNote}
+\Hypertarget{class_m_p_e_1_1_profiler_adaa9290037a6a16f45d12609c4acacbe}\label{class_m_p_e_1_1_profiler_adaa9290037a6a16f45d12609c4acacbe} 
+\index{MPE::Profiler@{MPE::Profiler}!EndSession@{EndSession}}
+\index{EndSession@{EndSession}!MPE::Profiler@{MPE::Profiler}}
+\doxysubsubsection{\texorpdfstring{EndSession()}{EndSession()}}
+{\footnotesize\ttfamily void MPE\+::\+Profiler\+::\+End\+Session (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+End the current profiler session. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\begin{DoxyNote}{Note}
+This function should be called at the end of the session. 
+\end{DoxyNote}
+\Hypertarget{class_m_p_e_1_1_profiler_a62146f56a187be164837ee5d62685232}\label{class_m_p_e_1_1_profiler_a62146f56a187be164837ee5d62685232} 
+\index{MPE::Profiler@{MPE::Profiler}!Get@{Get}}
+\index{Get@{Get}!MPE::Profiler@{MPE::Profiler}}
+\doxysubsubsection{\texorpdfstring{Get()}{Get()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{class_m_p_e_1_1_profiler}{Profiler}} \& MPE\+::\+Profiler\+::\+Get (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Get the profiler instance. 
+
+\begin{DoxyReturn}{Returns}
+The profiler instance. 
+\end{DoxyReturn}
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+The profiler instance. \begin{DoxyDate}{Date}
+2024-\/05-\/05
+\end{DoxyDate}
+The profiler instance. \begin{DoxyDate}{Date}
+2024-\/05-\/05
+\end{DoxyDate}
+\Hypertarget{class_m_p_e_1_1_profiler_a41e332ffec75c5274f508b5b74575709}\label{class_m_p_e_1_1_profiler_a41e332ffec75c5274f508b5b74575709} 
+\index{MPE::Profiler@{MPE::Profiler}!WriteFooter@{WriteFooter}}
+\index{WriteFooter@{WriteFooter}!MPE::Profiler@{MPE::Profiler}}
+\doxysubsubsection{\texorpdfstring{WriteFooter()}{WriteFooter()}}
+{\footnotesize\ttfamily void MPE\+::\+Profiler\+::\+Write\+Footer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Write the footer of the profiler session. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\Hypertarget{class_m_p_e_1_1_profiler_ac4e10874670fa484f4de804cc96a202f}\label{class_m_p_e_1_1_profiler_ac4e10874670fa484f4de804cc96a202f} 
+\index{MPE::Profiler@{MPE::Profiler}!WriteHeader@{WriteHeader}}
+\index{WriteHeader@{WriteHeader}!MPE::Profiler@{MPE::Profiler}}
+\doxysubsubsection{\texorpdfstring{WriteHeader()}{WriteHeader()}}
+{\footnotesize\ttfamily void MPE\+::\+Profiler\+::\+Write\+Header (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Write the header of the profiler session. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\Hypertarget{class_m_p_e_1_1_profiler_aee5806a06feec00e2a0fb855f0c237af}\label{class_m_p_e_1_1_profiler_aee5806a06feec00e2a0fb855f0c237af} 
+\index{MPE::Profiler@{MPE::Profiler}!WriteProfile@{WriteProfile}}
+\index{WriteProfile@{WriteProfile}!MPE::Profiler@{MPE::Profiler}}
+\doxysubsubsection{\texorpdfstring{WriteProfile()}{WriteProfile()}}
+{\footnotesize\ttfamily void MPE\+::\+Profiler\+::\+Write\+Profile (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_m_p_e_1_1_profile_result}{Profile\+Result}} \&}]{result }\end{DoxyParamCaption})}
+
+
+
+Write a profile result. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em result} & The profile result. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_m_p_e_1_1_profiler_a692f7fd230d15e65cdefede2e1a5c652}\label{class_m_p_e_1_1_profiler_a692f7fd230d15e65cdefede2e1a5c652} 
+\index{MPE::Profiler@{MPE::Profiler}!CURRENT\_SESSION@{CURRENT\_SESSION}}
+\index{CURRENT\_SESSION@{CURRENT\_SESSION}!MPE::Profiler@{MPE::Profiler}}
+\doxysubsubsection{\texorpdfstring{CURRENT\_SESSION}{CURRENT\_SESSION}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_m_p_e_1_1_profiler_session}{Profiler\+Session}}\texorpdfstring{$\ast$}{*} MPE\+::\+Profiler\+::\+CURRENT\+\_\+\+SESSION\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The current profiler session. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\Hypertarget{class_m_p_e_1_1_profiler_a8ab7437b944662c2faa67b2c3ad2dc12}\label{class_m_p_e_1_1_profiler_a8ab7437b944662c2faa67b2c3ad2dc12} 
+\index{MPE::Profiler@{MPE::Profiler}!OUTPUT@{OUTPUT}}
+\index{OUTPUT@{OUTPUT}!MPE::Profiler@{MPE::Profiler}}
+\doxysubsubsection{\texorpdfstring{OUTPUT}{OUTPUT}}
+{\footnotesize\ttfamily std\+::ofstream MPE\+::\+Profiler\+::\+OUTPUT\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The output file stream. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+\Hypertarget{class_m_p_e_1_1_profiler_a0ad1a1e9de23c0c260e58a8f795ae7a2}\label{class_m_p_e_1_1_profiler_a0ad1a1e9de23c0c260e58a8f795ae7a2} 
+\index{MPE::Profiler@{MPE::Profiler}!PROFILE\_COUNT@{PROFILE\_COUNT}}
+\index{PROFILE\_COUNT@{PROFILE\_COUNT}!MPE::Profiler@{MPE::Profiler}}
+\doxysubsubsection{\texorpdfstring{PROFILE\_COUNT}{PROFILE\_COUNT}}
+{\footnotesize\ttfamily int MPE\+::\+Profiler\+::\+PROFILE\+\_\+\+COUNT\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The profile count. 
+
+\begin{DoxyDate}{Date}
+2024-\/05-\/05 
+\end{DoxyDate}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Profiling/\mbox{\hyperlink{___p_r_o_f_i_l_i_n_g_8h}{\+\_\+\+PROFILING.\+h}}\item 
+D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Profiling/\mbox{\hyperlink{___p_r_o_f_i_l_i_n_g_8cpp}{\+\_\+\+PROFILING.\+cpp}}\end{DoxyCompactItemize}

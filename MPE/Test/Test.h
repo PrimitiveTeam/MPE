@@ -1,10 +1,11 @@
 #pragma once
 
+#include "MPE/Core/_CORE.h"
 #include <string>
 
 namespace MPE
 {
-    class Test
+    class MPE_API Test
     {
     private:
         std::string m_Name;

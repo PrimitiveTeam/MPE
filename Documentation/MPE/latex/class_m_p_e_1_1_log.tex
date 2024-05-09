@@ -2,35 +2,60 @@
 \hypertarget{class_m_p_e_1_1_log}{}\label{class_m_p_e_1_1_log}\index{MPE::Log@{MPE::Log}}
 
 
-Main logging system for the engine.  
+Extensible logging system for the engine.  
 
 
 
 
 {\ttfamily \#include $<$Log.\+h$>$}
 
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91b}{Option}} \{ \mbox{\hyperlink{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91bab3dedab598a7453622c6b9c75b6145f4}{CONSOLE}} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0
+, \mbox{\hyperlink{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91baeb2d0d8ed2522fe2d7d5d6bfbb6d405a}{FILE}} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1
+, \mbox{\hyperlink{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91baac9230f0efdb9decc87473d9db716fd0}{MEMORY}} = 1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_m_p_e_1_1_log_af904af9307aa2833a1085abc91be98e2}{Log}} (const std\+::string \&name, int \mbox{\hyperlink{class_m_p_e_1_1_log_af80ba451f4b376cfa739258eef21753b}{options}}, std\+::string filename="{}"{})
+\item 
+void \mbox{\hyperlink{class_m_p_e_1_1_log_a38ea6b64e34b5202966556228572764b}{trace}} (const std\+::string \&message)
+\item 
+void \mbox{\hyperlink{class_m_p_e_1_1_log_a6d3246325d9268b2b2ce9d837920bf36}{info}} (const std\+::string \&message)
+\item 
+void \mbox{\hyperlink{class_m_p_e_1_1_log_acd0d076c6e83b273af939c217e8198cc}{warn}} (const std\+::string \&message)
+\item 
+void \mbox{\hyperlink{class_m_p_e_1_1_log_a085245274b910092f5f1bcf05b6f633c}{error}} (const std\+::string \&message)
+\item 
+void \mbox{\hyperlink{class_m_p_e_1_1_log_a8a66ad11400028a090fa789876913d76}{debug}} (const std\+::string \&message)
+\item 
+void \mbox{\hyperlink{class_m_p_e_1_1_log_aad4547e61eca8a7eb7d0b36ac1d65e8d}{critical}} (const std\+::string \&message)
+\item 
+std\+::string \mbox{\hyperlink{class_m_p_e_1_1_log_a39f70ba76c76908dd73fdf0fd6a11bbf}{get\+Output}} ()
+\begin{DoxyCompactList}\small\item\em Gets the output of the memory sink. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{class_m_p_e_1_1_log_af33520c32f686c46bcb3dddc077d59ef}{Init}} ()
-\begin{DoxyCompactList}\small\item\em Initializes the logging system. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \& \mbox{\hyperlink{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}{Get\+Core\+Logger}} ()
-\begin{DoxyCompactList}\small\item\em Gets the core logger. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \& \mbox{\hyperlink{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}{Get\+Client\+Logger}} ()
-\begin{DoxyCompactList}\small\item\em Gets the client logger. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Static Private Attributes}
+static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}} $>$ \mbox{\hyperlink{class_m_p_e_1_1_log_acb8564361cbbe2ff28b9e5684071b62d}{Create}} (const std\+::string \&name, int \mbox{\hyperlink{class_m_p_e_1_1_log_af80ba451f4b376cfa739258eef21753b}{options}}, std\+::string filename="{}"{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \mbox{\hyperlink{class_m_p_e_1_1_log_a576962ee20658b81054296cb760e7300}{Core\+Logger}}
-\begin{DoxyCompactList}\small\item\em The core logger. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \mbox{\hyperlink{class_m_p_e_1_1_log_ab96a3bab6a694a431bf6e1bde36b158c}{Client\+Logger}}
-\begin{DoxyCompactList}\small\item\em The client logger. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \mbox{\hyperlink{class_m_p_e_1_1_log_a4696c837e73e0bf2c728dccf8288e4f9}{logger}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::sinks\+::sink $>$ $>$ \mbox{\hyperlink{class_m_p_e_1_1_log_ad25f69aaa2b4f061231bbae57b326769}{sinks}}
+\item 
+int \mbox{\hyperlink{class_m_p_e_1_1_log_af80ba451f4b376cfa739258eef21753b}{options}}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Main logging system for the engine. 
+Extensible logging system for the engine. 
 
-This file contains the main logging system for the engine. It uses the spdlog library for logging. \begin{DoxyDate}{Date}
+This file contains an extensible logging system for the engine. It uses the spdlog library for logging. \begin{DoxyDate}{Date}
 2024-\/05-\/05 
 \end{DoxyDate}
 \begin{DoxyAuthor}{Author}
@@ -41,93 +66,124 @@ Sebastian Termen
 \end{DoxySeeAlso}
 
 
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91b}\label{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91b} 
+\index{MPE::Log@{MPE::Log}!Option@{Option}}
+\index{Option@{Option}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{Option}{Option}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91b}{MPE\+::\+Log\+::\+Option}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CONSOLE@{CONSOLE}!MPE::Log@{MPE::Log}}\index{MPE::Log@{MPE::Log}!CONSOLE@{CONSOLE}}}\Hypertarget{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91bab3dedab598a7453622c6b9c75b6145f4}\label{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91bab3dedab598a7453622c6b9c75b6145f4} 
+CONSOLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FILE@{FILE}!MPE::Log@{MPE::Log}}\index{MPE::Log@{MPE::Log}!FILE@{FILE}}}\Hypertarget{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91baeb2d0d8ed2522fe2d7d5d6bfbb6d405a}\label{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91baeb2d0d8ed2522fe2d7d5d6bfbb6d405a} 
+FILE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MEMORY@{MEMORY}!MPE::Log@{MPE::Log}}\index{MPE::Log@{MPE::Log}!MEMORY@{MEMORY}}}\Hypertarget{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91baac9230f0efdb9decc87473d9db716fd0}\label{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91baac9230f0efdb9decc87473d9db716fd0} 
+MEMORY&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_m_p_e_1_1_log_af904af9307aa2833a1085abc91be98e2}\label{class_m_p_e_1_1_log_af904af9307aa2833a1085abc91be98e2} 
+\index{MPE::Log@{MPE::Log}!Log@{Log}}
+\index{Log@{Log}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{Log()}{Log()}}
+{\footnotesize\ttfamily MPE\+::\+Log\+::\+Log (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{int}]{options,  }\item[{std\+::string}]{filename = {\ttfamily "{}"{}} }\end{DoxyParamCaption})}
+
+
+
 \doxysubsection{Member Function Documentation}
-\Hypertarget{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}\label{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5} 
-\index{MPE::Log@{MPE::Log}!GetClientLogger@{GetClientLogger}}
-\index{GetClientLogger@{GetClientLogger}!MPE::Log@{MPE::Log}}
-\doxysubsubsection{\texorpdfstring{GetClientLogger()}{GetClientLogger()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \& MPE\+::\+Log\+::\+Get\+Client\+Logger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+\Hypertarget{class_m_p_e_1_1_log_acb8564361cbbe2ff28b9e5684071b62d}\label{class_m_p_e_1_1_log_acb8564361cbbe2ff28b9e5684071b62d} 
+\index{MPE::Log@{MPE::Log}!Create@{Create}}
+\index{Create@{Create}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}} $>$ MPE\+::\+Log\+::\+Create (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{int}]{options,  }\item[{std\+::string}]{filename = {\ttfamily "{}"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{class_m_p_e_1_1_log_aad4547e61eca8a7eb7d0b36ac1d65e8d}\label{class_m_p_e_1_1_log_aad4547e61eca8a7eb7d0b36ac1d65e8d} 
+\index{MPE::Log@{MPE::Log}!critical@{critical}}
+\index{critical@{critical}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{critical()}{critical()}}
+{\footnotesize\ttfamily void MPE\+::\+Log\+::critical (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{message }\end{DoxyParamCaption})}
+
+\Hypertarget{class_m_p_e_1_1_log_a8a66ad11400028a090fa789876913d76}\label{class_m_p_e_1_1_log_a8a66ad11400028a090fa789876913d76} 
+\index{MPE::Log@{MPE::Log}!debug@{debug}}
+\index{debug@{debug}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{debug()}{debug()}}
+{\footnotesize\ttfamily void MPE\+::\+Log\+::debug (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{message }\end{DoxyParamCaption})}
+
+\Hypertarget{class_m_p_e_1_1_log_a085245274b910092f5f1bcf05b6f633c}\label{class_m_p_e_1_1_log_a085245274b910092f5f1bcf05b6f633c} 
+\index{MPE::Log@{MPE::Log}!error@{error}}
+\index{error@{error}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{error()}{error()}}
+{\footnotesize\ttfamily void MPE\+::\+Log\+::error (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{message }\end{DoxyParamCaption})}
+
+\Hypertarget{class_m_p_e_1_1_log_a39f70ba76c76908dd73fdf0fd6a11bbf}\label{class_m_p_e_1_1_log_a39f70ba76c76908dd73fdf0fd6a11bbf} 
+\index{MPE::Log@{MPE::Log}!getOutput@{getOutput}}
+\index{getOutput@{getOutput}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{getOutput()}{getOutput()}}
+{\footnotesize\ttfamily std\+::string MPE\+::\+Log\+::get\+Output (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Gets the client logger. 
+Gets the output of the memory sink. 
 
-This function returns the client logger. \begin{DoxyDate}{Date}
+\begin{DoxyDate}{Date}
 2024-\/05-\/05 
 \end{DoxyDate}
 \begin{DoxyReturn}{Returns}
-The client logger. 
+The output of the memory sink. 
 \end{DoxyReturn}
-\Hypertarget{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}\label{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba} 
-\index{MPE::Log@{MPE::Log}!GetCoreLogger@{GetCoreLogger}}
-\index{GetCoreLogger@{GetCoreLogger}!MPE::Log@{MPE::Log}}
-\doxysubsubsection{\texorpdfstring{GetCoreLogger()}{GetCoreLogger()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ \& MPE\+::\+Log\+::\+Get\+Core\+Logger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
-
-
-
-Gets the core logger. 
-
-This function returns the core logger. \begin{DoxyDate}{Date}
-2024-\/05-\/05 
-\end{DoxyDate}
-\begin{DoxyReturn}{Returns}
-The core logger. 
-\end{DoxyReturn}
-\Hypertarget{class_m_p_e_1_1_log_af33520c32f686c46bcb3dddc077d59ef}\label{class_m_p_e_1_1_log_af33520c32f686c46bcb3dddc077d59ef} 
-\index{MPE::Log@{MPE::Log}!Init@{Init}}
-\index{Init@{Init}!MPE::Log@{MPE::Log}}
-\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
-{\footnotesize\ttfamily void MPE\+::\+Log\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Initializes the logging system. 
-
-This function initializes the logging system for the engine. \begin{DoxyDate}{Date}
-2024-\/05-\/05 
-\end{DoxyDate}
 \begin{DoxyNote}{Note}
-This function should be called at the start of the engine. 
+This will throw an exception if the memory sink is not enabled. 
 \end{DoxyNote}
+\Hypertarget{class_m_p_e_1_1_log_a6d3246325d9268b2b2ce9d837920bf36}\label{class_m_p_e_1_1_log_a6d3246325d9268b2b2ce9d837920bf36} 
+\index{MPE::Log@{MPE::Log}!info@{info}}
+\index{info@{info}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{info()}{info()}}
+{\footnotesize\ttfamily void MPE\+::\+Log\+::info (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{message }\end{DoxyParamCaption})}
+
+\Hypertarget{class_m_p_e_1_1_log_a38ea6b64e34b5202966556228572764b}\label{class_m_p_e_1_1_log_a38ea6b64e34b5202966556228572764b} 
+\index{MPE::Log@{MPE::Log}!trace@{trace}}
+\index{trace@{trace}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{trace()}{trace()}}
+{\footnotesize\ttfamily void MPE\+::\+Log\+::trace (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{message }\end{DoxyParamCaption})}
+
+\Hypertarget{class_m_p_e_1_1_log_acd0d076c6e83b273af939c217e8198cc}\label{class_m_p_e_1_1_log_acd0d076c6e83b273af939c217e8198cc} 
+\index{MPE::Log@{MPE::Log}!warn@{warn}}
+\index{warn@{warn}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{warn()}{warn()}}
+{\footnotesize\ttfamily void MPE\+::\+Log\+::warn (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{message }\end{DoxyParamCaption})}
+
 
 
 \doxysubsection{Member Data Documentation}
-\Hypertarget{class_m_p_e_1_1_log_ab96a3bab6a694a431bf6e1bde36b158c}\label{class_m_p_e_1_1_log_ab96a3bab6a694a431bf6e1bde36b158c} 
-\index{MPE::Log@{MPE::Log}!ClientLogger@{ClientLogger}}
-\index{ClientLogger@{ClientLogger}!MPE::Log@{MPE::Log}}
-\doxysubsubsection{\texorpdfstring{ClientLogger}{ClientLogger}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ MPE\+::\+Log\+::\+Client\+Logger\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+\Hypertarget{class_m_p_e_1_1_log_a4696c837e73e0bf2c728dccf8288e4f9}\label{class_m_p_e_1_1_log_a4696c837e73e0bf2c728dccf8288e4f9} 
+\index{MPE::Log@{MPE::Log}!logger@{logger}}
+\index{logger@{logger}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{logger}{logger}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$spdlog\+::logger$>$ MPE\+::\+Log\+::logger\hspace{0.3cm}{\ttfamily [private]}}
 
+\Hypertarget{class_m_p_e_1_1_log_af80ba451f4b376cfa739258eef21753b}\label{class_m_p_e_1_1_log_af80ba451f4b376cfa739258eef21753b} 
+\index{MPE::Log@{MPE::Log}!options@{options}}
+\index{options@{options}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{options}{options}}
+{\footnotesize\ttfamily int MPE\+::\+Log\+::options\hspace{0.3cm}{\ttfamily [private]}}
 
+\Hypertarget{class_m_p_e_1_1_log_ad25f69aaa2b4f061231bbae57b326769}\label{class_m_p_e_1_1_log_ad25f69aaa2b4f061231bbae57b326769} 
+\index{MPE::Log@{MPE::Log}!sinks@{sinks}}
+\index{sinks@{sinks}!MPE::Log@{MPE::Log}}
+\doxysubsubsection{\texorpdfstring{sinks}{sinks}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$spdlog\+::sinks\+::sink$>$ $>$ MPE\+::\+Log\+::sinks\hspace{0.3cm}{\ttfamily [private]}}
 
-The client logger. 
-
-\begin{DoxyDate}{Date}
-2024-\/05-\/05 
-\end{DoxyDate}
-\begin{DoxySeeAlso}{See also}
-\doxylink{class_m_p_e_1_1_log_ae445954dccc6d150d63974a814b6a6d5}{Get\+Client\+Logger()} 
-\end{DoxySeeAlso}
-\Hypertarget{class_m_p_e_1_1_log_a576962ee20658b81054296cb760e7300}\label{class_m_p_e_1_1_log_a576962ee20658b81054296cb760e7300} 
-\index{MPE::Log@{MPE::Log}!CoreLogger@{CoreLogger}}
-\index{CoreLogger@{CoreLogger}!MPE::Log@{MPE::Log}}
-\doxysubsubsection{\texorpdfstring{CoreLogger}{CoreLogger}}
-{\footnotesize\ttfamily \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ spdlog\+::logger $>$ MPE\+::\+Log\+::\+Core\+Logger\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
-
-
-
-The core logger. 
-
-\begin{DoxyDate}{Date}
-2024-\/05-\/05 
-\end{DoxyDate}
-\begin{DoxySeeAlso}{See also}
-\doxylink{class_m_p_e_1_1_log_aa229dee4c3a5072f54020460131bdbba}{Get\+Core\+Logger()} 
-\end{DoxySeeAlso}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Core/\mbox{\hyperlink{_log_8h}{Log.\+h}}\item 
-D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Core/\mbox{\hyperlink{_log_8cpp}{Log.\+cpp}}\end{DoxyCompactItemize}
+D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Log/\mbox{\hyperlink{_log_8h}{Log.\+h}}\item 
+D\+:/\+WORK/\+GIT/\+MPE/\+MPE/\+Log/\mbox{\hyperlink{_log_8cpp}{Log.\+cpp}}\end{DoxyCompactItemize}

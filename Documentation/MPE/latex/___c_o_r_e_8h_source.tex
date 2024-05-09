@@ -17,81 +17,90 @@
 \DoxyCodeLine{00071\ \textcolor{comment}{//\ IF\ A\ DYNAMIC\ LIBRARY\ IS\ USED\ THEN\ DEFINE\ MPE\_API\ WITHIN\ MPE\ AS\ DLL\ EXPORT\ AND\ MPE\_API\ WITHIN\ SANDBOX\ AS\ DLL\ IMPORT}}
 \DoxyCodeLine{00072\ \textcolor{preprocessor}{\#ifdef\ MPE\_DYNAMIC\_LIB}}
 \DoxyCodeLine{00073\ \textcolor{preprocessor}{\#ifdef\ MPE\_BUILD\_DLL}}
-\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ MPE\_API\ \_\_declspec(dllexport)}}
-\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ MPE\_API\ \_\_declspec(dllimport)}}
-\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00078\ \textcolor{comment}{//\ DYNAMIC\ LIBRARY\ IS\ NOT\ SUPPORTED\ BY\ THIS\ PROJECT,\ BUT\ CAN\ STILL\ BE\ ENABLED}}
-\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#error\ DYNAMIC\ LIBRARY\ IS\ NOT\ INTENDED\ TO\ BE\ USED\ WITH\ THIS\ PROJECT.}}
+\DoxyCodeLine{00074\ \textcolor{comment}{//\ \#pragma\ message("{}Building\ DLL"{})}}
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ \#pragma\ warning(disable\ :\ 4005)}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ MPE\_API\ \_\_declspec(dllexport)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00078\ \textcolor{comment}{//\ \#pragma\ message("{}Using\ Dynamic\ Lib"{})}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ MPE\_API\ \_\_declspec(dllimport)}}
 \DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{00081\ \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#error\ MPE\ SUPPORTS\ ONLY\ WINDOWS.}}
-\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#ifdef\ MPE\_PLATFORM\_LINUX}}
-\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#error\ MPE\ SUPPORTS\ ONLY\ WINDOWS.}}
-\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \textcolor{comment}{//\ CMAKE\ BUILD-\/SET\ DEFINITIONS:}}
-\DoxyCodeLine{00090\ \textcolor{comment}{//\ MPE\ ASSERTIONS}}
-\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#ifdef\ MPE\_ENABLE\_ASSERTS}}
-\DoxyCodeLine{00092\ \textcolor{comment}{//\ LOGGING\ ASSERTIONS\ FOR\ DEBUG\ BUILDS}}
-\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#ifdef\ MPE\_PLATFORM\_WINDOWS}}
-\DoxyCodeLine{00094\ \textcolor{comment}{//\ WINDOWS\ ONLY\ SOLUTION\ FOR\ ASSERTIONS}}
-\DoxyCodeLine{00095\ }
-\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ MPE\_ASSERT(x,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
-\DoxyCodeLine{00097\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
-\DoxyCodeLine{00098\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (!(x))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
-\DoxyCodeLine{00099\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
-\DoxyCodeLine{00100\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ MPE\_ERROR("{}ASSERTION\ FAILED:\ \{0\}"{},\ \_\_VA\_ARGS\_\_);\ \(\backslash\)}}
-\DoxyCodeLine{00101\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \_\_debugbreak();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
-\DoxyCodeLine{00102\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
-\DoxyCodeLine{00103\ \textcolor{preprocessor}{\ \ \ \ \}}}
-\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_ASSERT(x,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
-\DoxyCodeLine{00105\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
-\DoxyCodeLine{00106\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (!(x))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
-\DoxyCodeLine{00107\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
-\DoxyCodeLine{00108\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ MPE\_CORE\_ERROR("{}ASSERTION\ FAILED:\ \{0\}"{},\ \_\_VA\_ARGS\_\_);\ \(\backslash\)}}
-\DoxyCodeLine{00109\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \_\_debugbreak();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
-\DoxyCodeLine{00110\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
-\DoxyCodeLine{00111\ \textcolor{preprocessor}{\ \ \ \ \}}}
-\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{00114\ \textcolor{comment}{//\ IF\ NO\ CMAKE\ BUILD-\/SET\ DEFINITIONS\ THEN\ SET\ AS\ NOTHING\ (FOR\ RELEASE\ BUILDS).}}
-\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ MPE\_ASSERT(x,\ ...)}}
-\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_ASSERT(x,\ ...)}}
-\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{00118\ }
-\DoxyCodeLine{00119\ \textcolor{comment}{//\ HEADER\ SET\ DEFINITIONS:}}
-\DoxyCodeLine{00120\ }
-\DoxyCodeLine{00121\ \textcolor{comment}{//\ RIGHT\ SHIFT\ OPERATION\ FOR\ EVENT\ ENUMS}}
-\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ BIT(x)\ (1\ <<\ x)}}
-\DoxyCodeLine{00123\ }
-\DoxyCodeLine{00124\ \textcolor{comment}{//\ OPENGL\ DEFINITIONS:}}
-\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ OPENGL\_SHADER\_TYPE\_AMOUNT\ 2}}
-\DoxyCodeLine{00126\ }
-\DoxyCodeLine{00127\ \textcolor{comment}{//\ BIND\ FUNCTIONS\ FOR\ EVENTS}}
-\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ MPE\_BIND\_EVENT\_FUNCTION(func)\ std::bind(\&func,\ this,\ std::placeholders::\_1)}}
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ DYNAMIC\ LIBRARY\ IS\ NOT\ SUPPORTED\ BY\ THIS\ PROJECT,\ BUT\ CAN\ STILL\ BE\ ENABLED}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#pragma\ message("{}DYNAMIC\ LIBRARY\ IS\ NOT\ INTENDED\ TO\ BE\ USED\ WITH\ THIS\ PROJECT\ AT\ THE\ MOMENT."{})}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ MPE\_API}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#error\ MPE\ SUPPORTS\ ONLY\ WINDOWS.}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#ifdef\ MPE\_PLATFORM\_LINUX}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#error\ MPE\ SUPPORTS\ ONLY\ WINDOWS.}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#ifdef\ MPE\_PLATFORM\_OSX}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#error\ MPE\ SUPPORTS\ ONLY\ WINDOWS.}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{comment}{//\ CMAKE\ BUILD-\/SET\ DEFINITIONS:}}
+\DoxyCodeLine{00099\ \textcolor{comment}{//\ MPE\ ASSERTIONS}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#ifdef\ MPE\_ENABLE\_ASSERTS}}
+\DoxyCodeLine{00101\ \textcolor{comment}{//\ LOGGING\ ASSERTIONS\ FOR\ DEBUG\ BUILDS}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#ifdef\ MPE\_PLATFORM\_WINDOWS}}
+\DoxyCodeLine{00103\ \textcolor{comment}{//\ WINDOWS\ ONLY\ SOLUTION\ FOR\ ASSERTIONS}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ MPE\_ASSERT(x,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (!(x))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ MPE\_ERROR("{}ASSERTION\ FAILED:\ \{0\}"{},\ \_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \_\_debugbreak();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_ASSERT(x,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (!(x))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ MPE\_CORE\_ERROR("{}ASSERTION\ FAILED:\ \{0\}"{},\ \_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \_\_debugbreak();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00123\ \textcolor{comment}{//\ IF\ NO\ CMAKE\ BUILD-\/SET\ DEFINITIONS\ THEN\ SET\ AS\ NOTHING\ (FOR\ RELEASE\ BUILDS).}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ MPE\_ASSERT(x,\ ...)}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ MPE\_CORE\_ASSERT(x,\ ...)}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{comment}{//\ HEADER\ SET\ DEFINITIONS:}}
 \DoxyCodeLine{00129\ }
-\DoxyCodeLine{00135\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_m_p_e}{MPE}}}
-\DoxyCodeLine{00136\ \{}
-\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_m_p_e_a85382a54818003754dc5f6952119ae4e}{SCOPE}}\ =\ std::unique\_ptr<T>;}
-\DoxyCodeLine{00145\ }
-\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
-\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{namespace_m_p_e_a85382a54818003754dc5f6952119ae4e}{SCOPE<T>}}\ \mbox{\hyperlink{namespace_m_p_e_a0d1b68927cc22d1e2e34575293475a83}{NEWSCOPE}}(Args\ \&\&...args)}
-\DoxyCodeLine{00154\ \ \ \ \ \{}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_unique<T>(std::forward<Args>(args)...);}
-\DoxyCodeLine{00161\ \ \ \ \ \}}
-\DoxyCodeLine{00162\ }
-\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
-\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}\ =\ std::shared\_ptr<T>;}
+\DoxyCodeLine{00130\ \textcolor{comment}{//\ RIGHT\ SHIFT\ OPERATION\ FOR\ EVENT\ ENUMS}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ BIT(x)\ (1\ <<\ x)}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{comment}{//\ OPENGL\ DEFINITIONS:}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#define\ OPENGL\_SHADER\_TYPE\_AMOUNT\ 2}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{comment}{//\ BIND\ FUNCTIONS\ FOR\ EVENTS}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ MPE\_BIND\_EVENT\_FUNCTION(func)\ std::bind(\&func,\ this,\ std::placeholders::\_1)}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00144\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_m_p_e}{MPE}}}
+\DoxyCodeLine{00145\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_m_p_e_a85382a54818003754dc5f6952119ae4e}{SCOPE}}\ =\ std::unique\_ptr<T>;}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{namespace_m_p_e_a85382a54818003754dc5f6952119ae4e}{SCOPE<T>}}\ \mbox{\hyperlink{namespace_m_p_e_a0d1b68927cc22d1e2e34575293475a83}{NEWSCOPE}}(Args\ \&\&...args)}
+\DoxyCodeLine{00163\ \ \ \ \ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_unique<T>(std::forward<Args>(args)...);}
+\DoxyCodeLine{00170\ \ \ \ \ \}}
 \DoxyCodeLine{00171\ }
-\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
-\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<T>}}\ \mbox{\hyperlink{namespace_m_p_e_a0875b39f498dcacf432d472b46928290}{NEWREF}}(Args\ \&\&...args)}
-\DoxyCodeLine{00180\ \ \ \ \ \{}
-\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<T>(std::forward<Args>(args)...);}
-\DoxyCodeLine{00188\ \ \ \ \ \}}
-\DoxyCodeLine{00189\ \}}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}\ =\ std::shared\_ptr<T>;}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<T>}}\ \mbox{\hyperlink{namespace_m_p_e_a0875b39f498dcacf432d472b46928290}{NEWREF}}(Args\ \&\&...args)}
+\DoxyCodeLine{00189\ \ \ \ \ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_shared<T>(std::forward<Args>(args)...);}
+\DoxyCodeLine{00197\ \ \ \ \ \}}
+\DoxyCodeLine{00198\ \}}
 
 \end{DoxyCode}

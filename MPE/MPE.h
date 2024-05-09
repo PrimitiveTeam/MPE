@@ -8,21 +8,32 @@
  * @date 2024-05-05
  */
 
-// ----- APPLICATION -----
+// ----- CORE INTERNAL -----
 // #include "MPE/Core/App.h"
 // #include "MPE/Core/Layers/Layer.h"
-#include "MPE/Core/Log.h"
-// ----- APPLICATION -----
+#include "MPE/Core/_CORE.h"
+#include "MPE/Core/_CWD.h"
+// ----- CORE INTERNAL -----
 
-// ----- PHYSICS -----
-// #include "MPE/Core/_TIME.h"
-// ----- PHYSICS -----
+// ----- LOG -----
+#include "MPE/Log/GlobalLog.h"
+#include "MPE/Log/Log.h"
+// ----- LOG -----
+
+// ----- APPLICATION -----
+#include "MPE/App/App.h"
+// #include "MPE/Core/Layers/Layer.h"
+// ----- APPLICATION -----
 
 // ----- PROFILING -----
 // ONLY FOR DEBUGGING!
-// #include "MPE/Debug/Profiling/_TIMER.h"
-// #include "MPE/Debug/Profiling/_PROFILING.h"
+#include "MPE/Profiling/_TIMER.h"
+#include "MPE/Profiling/_PROFILING.h"
 // ----- PROFILING -----
+
+// ----- PHYSICS -----
+#include "MPE/Time/Time.h"
+// ----- PHYSICS -----
 
 // ----- EVENTS -----
 // #include "MPE/Core/Events/EventApp.h"
@@ -60,7 +71,3 @@
 // #include "MPE/Renderer/Cameras/OrthographicCameraController.h"
 // #include "MPE/Renderer/Cameras/StaticOrthographicCamera.h"
 // ----- CAMERAS -----
-
-//-----Entry Point----
-// #include "MPE/Core/EntryPoint.h"
-//-----Entry Point----

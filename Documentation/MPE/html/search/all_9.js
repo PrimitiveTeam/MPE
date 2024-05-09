@@ -1,4 +1,9 @@
 var searchData=
 [
-  ['ref_0',['REF',['../namespace_m_p_e.html#a003594098fb51fe684b9937e69d2593a',1,'MPE']]]
+  ['log_0',['Log',['../class_m_p_e_1_1_log.html',1,'MPE']]],
+  ['log_1',['LOG',['../class_m_p_e_1_1___t_i_m_e_r.html#a3b8b576a1a084df1dcddcde2324ad22f',1,'MPE::_TIMER']]],
+  ['log_2',['Log',['../class_m_p_e_1_1_log.html#af904af9307aa2833a1085abc91be98e2',1,'MPE::Log']]],
+  ['log_2ecpp_3',['Log.cpp',['../_log_8cpp.html',1,'']]],
+  ['log_2eh_4',['Log.h',['../_log_8h.html',1,'']]],
+  ['logger_5',['logger',['../class_m_p_e_1_1_log.html#a4696c837e73e0bf2c728dccf8288e4f9',1,'MPE::Log']]]
 ];

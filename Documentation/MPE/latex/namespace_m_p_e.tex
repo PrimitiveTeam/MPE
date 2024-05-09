@@ -8,9 +8,27 @@ The Mere Primitive Engine (\doxylink{namespace_m_p_e}{MPE}) namespace.
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}}
+class \mbox{\hyperlink{class_m_p_e_1_1___t_i_m_e_r}{\+\_\+\+TIMER}}
+\begin{DoxyCompactList}\small\item\em Timer class for profiling. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_m_p_e_1_1_app}{App}}
+\item 
+class \mbox{\hyperlink{class_m_p_e_1_1_global_log}{Global\+Log}}
 \begin{DoxyCompactList}\small\item\em Main logging system for the engine. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_m_p_e_1_1_instrumentation_timer}{Instrumentation\+Timer}}
+\begin{DoxyCompactList}\small\item\em Instrumentation timer class. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}}
+\begin{DoxyCompactList}\small\item\em Extensible logging system for the engine. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_m_p_e_1_1_memory_sink}{Memory\+Sink}}
+\begin{DoxyCompactList}\small\item\em Custom memory sink for logging. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_m_p_e_1_1_profiler}{Profiler}}
+\begin{DoxyCompactList}\small\item\em \doxylink{class_m_p_e_1_1_profiler}{Profiler} class. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_m_p_e_1_1_profile_result}{Profile\+Result}}
+\begin{DoxyCompactList}\small\item\em Profile result structure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_m_p_e_1_1_profiler_session}{Profiler\+Session}}
+\begin{DoxyCompactList}\small\item\em \doxylink{class_m_p_e_1_1_profiler}{Profiler} session structure. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_m_p_e_1_1_test}{Test}}
+\item 
+class \mbox{\hyperlink{class_m_p_e_1_1_time}{Time}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -21,6 +39,8 @@ class \mbox{\hyperlink{class_m_p_e_1_1_test}{Test}}
 \begin{DoxyCompactList}\small\item\em Alias template for std\+::shared\+\_\+ptr to manage shared ownership of objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ \mbox{\hyperlink{class_m_p_e_1_1_app}{App}} $>$ \mbox{\hyperlink{namespace_m_p_e_a56e270e1747974033d1771b6c1b756f6}{Create\+App}} ()
 \item 
 {\footnotesize template$<$typename T , typename... Args$>$ }\\constexpr \mbox{\hyperlink{namespace_m_p_e_a85382a54818003754dc5f6952119ae4e}{SCOPE}}$<$ T $>$ \mbox{\hyperlink{namespace_m_p_e_a0d1b68927cc22d1e2e34575293475a83}{NEWSCOPE}} (Args \&\&...args)
 \begin{DoxyCompactList}\small\item\em Factory function to create a SCOPE smart pointer instance. \end{DoxyCompactList}\item 
@@ -77,6 +97,12 @@ Sebastian Termen
 
 
 \doxysubsection{Function Documentation}
+\Hypertarget{namespace_m_p_e_a56e270e1747974033d1771b6c1b756f6}\label{namespace_m_p_e_a56e270e1747974033d1771b6c1b756f6} 
+\index{MPE@{MPE}!CreateApp@{CreateApp}}
+\index{CreateApp@{CreateApp}!MPE@{MPE}}
+\doxysubsubsection{\texorpdfstring{CreateApp()}{CreateApp()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF}}$<$ \mbox{\hyperlink{class_m_p_e_1_1_app}{App}} $>$ MPE\+::\+Create\+App (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
 \Hypertarget{namespace_m_p_e_a0875b39f498dcacf432d472b46928290}\label{namespace_m_p_e_a0875b39f498dcacf432d472b46928290} 
 \index{MPE@{MPE}!NEWREF@{NEWREF}}
 \index{NEWREF@{NEWREF}!MPE@{MPE}}
