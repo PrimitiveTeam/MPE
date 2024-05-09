@@ -331,7 +331,7 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     MPE_H
 
     # TEST
-    "${PROJECT_SOURCE_DIR}/MPE/Test/*.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Test/*.h"
 
     # /Core
     "${PROJECT_SOURCE_DIR}/MPE/*.h"
