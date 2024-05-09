@@ -467,10 +467,12 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     set(DEPENENDENCY_DLL_FILES
       ${PROJECT_SOURCE_DIR}/Build/Debug/fmtd.dll
       ${PROJECT_SOURCE_DIR}/Build/Debug/spdlogd.dll
-      ${PROJECT_SOURCE_DIR}/Build/Debug/gladd.dll
-      ${PROJECT_SOURCE_DIR}/Build/Debug/glfw3d.dll
-      ${PROJECT_SOURCE_DIR}/Build/Debug/imguid.dll
-      ${PROJECT_SOURCE_DIR}/Build/Debug/glmd.dll)
+
+      # ${PROJECT_SOURCE_DIR}/Build/Debug/gladd.dll
+      # ${PROJECT_SOURCE_DIR}/Build/Debug/glfw3d.dll
+      # ${PROJECT_SOURCE_DIR}/Build/Debug/imguid.dll
+      # ${PROJECT_SOURCE_DIR}/Build/Debug/glmd.dll
+    )
   elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
     # MPE RELEASE DLLS
     set(MPE_DLL_FILES
@@ -478,10 +480,12 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     set(DEPENENDENCY_DLL_FILES
       ${PROJECT_SOURCE_DIR}/Build/Release/fmt.dll
       ${PROJECT_SOURCE_DIR}/Build/Release/spdlog.dll
-      ${PROJECT_SOURCE_DIR}/Build/Release/glad.dll
-      ${PROJECT_SOURCE_DIR}/Build/Release/glfw3.dll
-      ${PROJECT_SOURCE_DIR}/Build/Release/imgui.dll
-      ${PROJECT_SOURCE_DIR}/Build/Release/glm.dll)
+
+      # ${PROJECT_SOURCE_DIR}/Build/Release/glad.dll
+      # ${PROJECT_SOURCE_DIR}/Build/Release/glfw3.dll
+      # ${PROJECT_SOURCE_DIR}/Build/Release/imgui.dll
+      # ${PROJECT_SOURCE_DIR}/Build/Release/glm.dll
+    )
   endif()
 
   if(${VERBOSE})
