@@ -523,7 +523,8 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
   # ADDING DUMMY EXECUTABLE
   if(DUMMY_EXECUTABLE)
     add_executable(DUMMY "${PROJECT_SOURCE_DIR}/DUMMY/main.cpp")
-    target_include_directories(DUMMY PRIVATE "${PROJECT_SOURCE_DIR}/MPE")
+
+    target_include_directories(DUMMY PRIVATE ${MPE_PUBLIC_INCLUDES})
     target_link_libraries(DUMMY PRIVATE MPE)
 
     # target_compile_definitions(DUMMY PRIVATE MPE_PLATFORM_WINDOWS)
