@@ -93,12 +93,13 @@ $(function() {
 Public Types</h2></td></tr>
 <tr class="memitem:aa07b240669d308041628f75e8f11a91b" id="r_aa07b240669d308041628f75e8f11a91b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa07b240669d308041628f75e8f11a91b">Option</a> { <a class="el" href="#aa07b240669d308041628f75e8f11a91bab3dedab598a7453622c6b9c75b6145f4">CONSOLE</a> = 1 &lt;&lt; 0
 , <a class="el" href="#aa07b240669d308041628f75e8f11a91baeb2d0d8ed2522fe2d7d5d6bfbb6d405a">FILE</a> = 1 &lt;&lt; 1
+, <a class="el" href="#aa07b240669d308041628f75e8f11a91baac9230f0efdb9decc87473d9db716fd0">MEMORY</a> = 1 &lt;&lt; 2
  }</td></tr>
 <tr class="separator:aa07b240669d308041628f75e8f11a91b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af904af9307aa2833a1085abc91be98e2" id="r_af904af9307aa2833a1085abc91be98e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af904af9307aa2833a1085abc91be98e2">Log</a> (const std::string &amp;name, int options, std::string filename=&quot;&quot;)</td></tr>
+<tr class="memitem:af904af9307aa2833a1085abc91be98e2" id="r_af904af9307aa2833a1085abc91be98e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af904af9307aa2833a1085abc91be98e2">Log</a> (const std::string &amp;name, int <a class="el" href="#af80ba451f4b376cfa739258eef21753b">options</a>, std::string filename=&quot;&quot;)</td></tr>
 <tr class="separator:af904af9307aa2833a1085abc91be98e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38ea6b64e34b5202966556228572764b" id="r_a38ea6b64e34b5202966556228572764b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38ea6b64e34b5202966556228572764b">trace</a> (const std::string &amp;message)</td></tr>
 <tr class="separator:a38ea6b64e34b5202966556228572764b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -112,6 +113,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8a66ad11400028a090fa789876913d76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad4547e61eca8a7eb7d0b36ac1d65e8d" id="r_aad4547e61eca8a7eb7d0b36ac1d65e8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad4547e61eca8a7eb7d0b36ac1d65e8d">critical</a> (const std::string &amp;message)</td></tr>
 <tr class="separator:aad4547e61eca8a7eb7d0b36ac1d65e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39f70ba76c76908dd73fdf0fd6a11bbf" id="r_a39f70ba76c76908dd73fdf0fd6a11bbf"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a39f70ba76c76908dd73fdf0fd6a11bbf">getOutput</a> ()</td></tr>
+<tr class="memdesc:a39f70ba76c76908dd73fdf0fd6a11bbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the output of the memory sink.  <br /></td></tr>
+<tr class="separator:a39f70ba76c76908dd73fdf0fd6a11bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -119,6 +123,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a4696c837e73e0bf2c728dccf8288e4f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad25f69aaa2b4f061231bbae57b326769" id="r_ad25f69aaa2b4f061231bbae57b326769"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespace_m_p_e.html#a003594098fb51fe684b9937e69d2593a">REF</a>&lt; spdlog::sinks::sink &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad25f69aaa2b4f061231bbae57b326769">sinks</a></td></tr>
 <tr class="separator:ad25f69aaa2b4f061231bbae57b326769"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af80ba451f4b376cfa739258eef21753b" id="r_af80ba451f4b376cfa739258eef21753b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af80ba451f4b376cfa739258eef21753b">options</a></td></tr>
+<tr class="separator:af80ba451f4b376cfa739258eef21753b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Extensible logging system for the engine. </p>
@@ -140,6 +146,7 @@ Private Attributes</h2></td></tr>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa07b240669d308041628f75e8f11a91bab3dedab598a7453622c6b9c75b6145f4" name="aa07b240669d308041628f75e8f11a91bab3dedab598a7453622c6b9c75b6145f4"></a>CONSOLE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aa07b240669d308041628f75e8f11a91baeb2d0d8ed2522fe2d7d5d6bfbb6d405a" name="aa07b240669d308041628f75e8f11a91baeb2d0d8ed2522fe2d7d5d6bfbb6d405a"></a>FILE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aa07b240669d308041628f75e8f11a91baac9230f0efdb9decc87473d9db716fd0" name="aa07b240669d308041628f75e8f11a91baac9230f0efdb9decc87473d9db716fd0"></a>MEMORY&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -223,6 +230,28 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a39f70ba76c76908dd73fdf0fd6a11bbf" name="a39f70ba76c76908dd73fdf0fd6a11bbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39f70ba76c76908dd73fdf0fd6a11bbf">&#9670;&#160;</a></span>getOutput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string MPE::Log::getOutput </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the output of the memory sink. </p>
+<dl class="section date"><dt>Date</dt><dd>2024-05-05 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The output of the memory sink. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This will throw an exception if the memory sink is not enabled. </dd></dl>
+
+</div>
+</div>
 <a id="a6d3246325d9268b2b2ce9d837920bf36" name="a6d3246325d9268b2b2ce9d837920bf36"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6d3246325d9268b2b2ce9d837920bf36">&#9670;&#160;</a></span>info()</h2>
 
@@ -297,6 +326,28 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="af80ba451f4b376cfa739258eef21753b" name="af80ba451f4b376cfa739258eef21753b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af80ba451f4b376cfa739258eef21753b">&#9670;&#160;</a></span>options</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MPE::Log::options</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad25f69aaa2b4f061231bbae57b326769" name="ad25f69aaa2b4f061231bbae57b326769"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad25f69aaa2b4f061231bbae57b326769">&#9670;&#160;</a></span>sinks</h2>
 
@@ -320,8 +371,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>D:/WORK/GIT/MPE/MPE/Core/<a class="el" href="_log_8h_source.html">Log.h</a></li>
-<li>D:/WORK/GIT/MPE/MPE/Core/<a class="el" href="_log_8cpp.html">Log.cpp</a></li>
+<li>D:/WORK/GIT/MPE/MPE/Log/<a class="el" href="_log_8h_source.html">Log.h</a></li>
+<li>D:/WORK/GIT/MPE/MPE/Log/<a class="el" href="_log_8cpp.html">Log.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

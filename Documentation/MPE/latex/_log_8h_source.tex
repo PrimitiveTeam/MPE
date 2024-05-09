@@ -1,5 +1,5 @@
 \doxysection{Log.\+h}
-\hypertarget{_log_8h_source}{}\label{_log_8h_source}\index{D:/WORK/GIT/MPE/MPE/Core/Log.h@{D:/WORK/GIT/MPE/MPE/Core/Log.h}}
+\hypertarget{_log_8h_source}{}\label{_log_8h_source}\index{D:/WORK/GIT/MPE/MPE/Log/Log.h@{D:/WORK/GIT/MPE/MPE/Log/Log.h}}
 \mbox{\hyperlink{_log_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
@@ -7,38 +7,46 @@
 \DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{___c_o_r_e_8h}{MPE/Core/\_CORE.h}}"{}}}
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}spdlog/spdlog.h"{}}}
 \DoxyCodeLine{00005\ }
-\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_m_p_e}{MPE}}}
-\DoxyCodeLine{00014\ \{}
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{class\ }MPE\_API\ \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}}}
-\DoxyCodeLine{00023\ \ \ \ \ \{}
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91b}{Option}}}
-\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0b00000001}}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ CONSOLE\ =\ 1\ <<\ 0,}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0b00000010}}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ FILE\ =\ 1\ <<\ 1,}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}}(\textcolor{keyword}{const}\ std::string\ \&name,\ \textcolor{keywordtype}{int}\ options,\ std::string\ filename\ =\ \textcolor{stringliteral}{"{}"{}});}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Logging\ methods}}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ trace(\textcolor{keyword}{const}\ std::string\ \&message);}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ info(\textcolor{keyword}{const}\ std::string\ \&message);}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ warn(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_m_p_e}{MPE}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{class\ }MPE\_API\ \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}}}
+\DoxyCodeLine{00025\ \ \ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{class_m_p_e_1_1_log_aa07b240669d308041628f75e8f11a91b}{Option}}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0b00000001}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ CONSOLE\ =\ 1\ <<\ 0,}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0b00000010}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ FILE\ =\ 1\ <<\ 1,}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0b00000100}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ MEMORY\ =\ 1\ <<\ 2}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1_log}{Log}}(\textcolor{keyword}{const}\ std::string\ \&name,\ \textcolor{keywordtype}{int}\ options,\ std::string\ filename\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Logging\ methods}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ trace(\textcolor{keyword}{const}\ std::string\ \&message);}
 \DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ error(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ info(\textcolor{keyword}{const}\ std::string\ \&message);}
 \DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ debug(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ warn(\textcolor{keyword}{const}\ std::string\ \&message);}
 \DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ critical(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ error(\textcolor{keyword}{const}\ std::string\ \&message);}
 \DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<spdlog::logger>}}\ \mbox{\hyperlink{class_m_p_e_1_1_log_a4696c837e73e0bf2c728dccf8288e4f9}{logger}};}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ std::vector<REF<spdlog::sinks::sink>>\ \mbox{\hyperlink{class_m_p_e_1_1_log_ad25f69aaa2b4f061231bbae57b326769}{sinks}};}
-\DoxyCodeLine{00051\ \ \ \ \ \};}
-\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ debug(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ critical(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ std::string\ getOutput();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{REF<spdlog::logger>}}\ \mbox{\hyperlink{class_m_p_e_1_1_log_a4696c837e73e0bf2c728dccf8288e4f9}{logger}};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ std::vector<REF<spdlog::sinks::sink>>\ \mbox{\hyperlink{class_m_p_e_1_1_log_ad25f69aaa2b4f061231bbae57b326769}{sinks}};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Store\ options\ for\ logic}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_m_p_e_1_1_log_af80ba451f4b376cfa739258eef21753b}{options}};}
+\DoxyCodeLine{00065\ \ \ \ \ \};}
+\DoxyCodeLine{00066\ \}}
 
 \end{DoxyCode}
