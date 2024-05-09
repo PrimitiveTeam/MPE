@@ -1,36 +1,51 @@
 #include <iostream>
 #include <Test/Test.h>
 #include <MPE.h>
+#include <EntryPoint.h>
 
 void timer_test();
 void processHeavyTask();
 void anotherTask();
 void log_test(MPE::Log &log);
 
-int main()
+class DummyApp : public MPE::App
 {
-    MPE::GlobalLog::Init();
-    SET_EXECUTABLE_PATH_AS_CWD();
-    MPE_CORE_TRACE("Hello, MPE!");
+public:
+    DummyApp()
+    {
+        MPE_CORE_TRACE("DummyApp created!");
+    }
 
-    MPE::Test test;
-    MPE_CORE_INFO("Test: {0}", test.GetName());
+    ~DummyApp()
+    {
+        MPE_CORE_TRACE("DummyApp destroyed!");
+    }
 
-    MPE_PROFILE_START("MainSession", "main_profile.json");
+    void Run() override
+    {
+        MPE_CORE_TRACE("DummyApp running!");
+        MPE::Test test;
+        MPE_CORE_INFO("Test: {0}", test.GetName());
 
-    processHeavyTask();
-    anotherTask();
+        MPE_PROFILE_START("MainSession", "main_profile.json");
 
-    timer_test();
+        processHeavyTask();
+        anotherTask();
 
-    MPE_PROFILE_END();
+        timer_test();
 
-    MPE::Log log("Main", MPE::Log::Option::CONSOLE | MPE::Log::Option::FILE, "main");
-    log.info("Hello, Custom Sink Log!");
-    log.trace("Hello, Custom Sink Log!");
-    log_test(log);
+        MPE_PROFILE_END();
 
-    return 0;
+        MPE::Log log("Main", MPE::Log::Option::CONSOLE | MPE::Log::Option::FILE, "main");
+        log.info("Hello, Custom Sink Log!");
+        log.trace("Hello, Custom Sink Log!");
+        log_test(log);
+    }
+};
+
+MPE::App *MPE::CreateApp()
+{
+    return new DummyApp();
 }
 
 void log_test(MPE::Log &log)
