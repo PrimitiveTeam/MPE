@@ -1,5 +1,5 @@
 #include "GlobalLog.h"
-// #include "MPE/MPEPCH.h"
+#include "MPE/MPEPCH.h"
 
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/fmt/ostr.h"
