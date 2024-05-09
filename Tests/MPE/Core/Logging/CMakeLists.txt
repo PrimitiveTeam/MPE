@@ -19,7 +19,7 @@ install(TARGETS MPE-Core-Logging-Log
 install(FILES $<TARGET_RUNTIME_DLLS:MPE-Core-Logging-Log> DESTINATION Tests/MPE/Core/Logging)
 
 # TODO: Potential optimization for the future if CI is used to run these test: Do not copy the .dlls; instead add the core MPE build path to the PATH environment variable
-add_custom_command(TARGET MPE-Core-Logging-Log POST_BUILD
+add_custom_command(TARGET MPE-Core-Logging-Log PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
     "${MPE_DLL_FILES}"
     "$<TARGET_FILE_DIR:MPE-Core-Logging-Log>"
