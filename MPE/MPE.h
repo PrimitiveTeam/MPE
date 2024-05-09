@@ -21,7 +21,7 @@
 // ----- LOG -----
 
 // ----- APPLICATION -----
-// #include "MPE/Core/App.h"
+#include "MPE/App/App.h"
 // #include "MPE/Core/Layers/Layer.h"
 // ----- APPLICATION -----
 
@@ -71,7 +71,3 @@
 // #include "MPE/Renderer/Cameras/OrthographicCameraController.h"
 // #include "MPE/Renderer/Cameras/StaticOrthographicCamera.h"
 // ----- CAMERAS -----
-
-//-----Entry Point----
-// #include "MPE/Core/EntryPoint.h"
-//-----Entry Point----

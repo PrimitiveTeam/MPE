@@ -299,6 +299,9 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     # /Log
     "${PROJECT_SOURCE_DIR}/MPE/Log/*.cpp"
 
+    # /App
+    "${PROJECT_SOURCE_DIR}/MPE/App/*.cpp"
+
     # /Profiling
     "${PROJECT_SOURCE_DIR}/MPE/Profiling/*.cpp"
 
@@ -350,6 +353,9 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     # /Log
     "${PROJECT_SOURCE_DIR}/MPE/Log/*.h"
     "${PROJECT_SOURCE_DIR}/MPE/Log/CustomSinks/*.h"
+
+    # /App
+    "${PROJECT_SOURCE_DIR}/MPE/App/*.h"
 
     # /Profiling
     "${PROJECT_SOURCE_DIR}/MPE/Profiling/*.h"
