@@ -292,7 +292,6 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     # "${PROJECT_SOURCE_DIR}/MPE/*.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Core/*.cpp"
 
-    # "${PROJECT_SOURCE_DIR}/MPE/Core/Events/*.cpp"
     # "${PROJECT_SOURCE_DIR}/MPE/Core/Input/*.cpp"
     # "${PROJECT_SOURCE_DIR}/MPE/Core/Layers/*.cpp"
 
@@ -307,6 +306,9 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
 
     # /Physics
     "${PROJECT_SOURCE_DIR}/MPE/Time/*.cpp"
+
+    # /Events
+    "${PROJECT_SOURCE_DIR}/MPE/Core/Events/*.cpp"
 
     # /Renderer
     # "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.cpp"
@@ -346,7 +348,6 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     "${PROJECT_SOURCE_DIR}/MPE/*.h"
     "${PROJECT_SOURCE_DIR}/MPE/Core/*.h"
 
-    # "${PROJECT_SOURCE_DIR}/MPE/Core/Events/*.h"
     # "${PROJECT_SOURCE_DIR}/MPE/Core/Input/*.h"
     # "${PROJECT_SOURCE_DIR}/MPE/Core/Layers/*.h"
 
@@ -362,6 +363,9 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
 
     # /Physics
     "${PROJECT_SOURCE_DIR}/MPE/Time/*.h"
+
+    # /Events
+    "${PROJECT_SOURCE_DIR}/MPE/Core/Events/*.cpp"
 
     # /Renderer
     # "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.h"

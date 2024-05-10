@@ -36,9 +36,9 @@
 // ----- PHYSICS -----
 
 // ----- EVENTS -----
-// #include "MPE/Core/Events/EventApp.h"
-// #include "MPE/Core/Events/EventKey.h"
-// #include "MPE/Core/Events/EventMouse.h"
+#include "MPE/Events/EventApp.h"
+#include "MPE/Events/EventKey.h"
+#include "MPE/Events/EventMouse.h"
 // ----- EVENTS -----
 
 // ----- INPUT -----
