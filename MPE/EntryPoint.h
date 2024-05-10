@@ -1,14 +1,34 @@
 #pragma once
 
+/**
+ * @file EntryPoint.h
+ * @brief Entry point for the MPE engine.
+ * @details This file is used to define the entry point for the MPE engine.
+ * @date 2024-05-05
+ * @author Sebastian Termen
+ */
+
 #ifdef MPE_PLATFORM_WINDOWS
 
 #include "MPE/Core/_CWD.h"
 #include "MPE/Log/GlobalLog.h"
 #include "MPE/App/App.h"
 
-// Create reference to the CreateApp function
+/**
+ * @brief Create a new MPE application.
+ * @details This function is used to create a new MPE application.
+ * @return A reference to the new MPE application.
+ * @see MPE::App
+ */
 extern MPE::REF<MPE::App> MPE::CreateApp();
 
+/**
+ * @brief Entry point for the MPE engine.
+ * @details This function is the entry point for the MPE engine.
+ * @param argc The number of arguments.
+ * @param argv The arguments.
+ * @return The exit code.
+ */
 int main(int argc, char **argv)
 {
 	MPE::GlobalLog::Init();
