@@ -1,13 +1,14 @@
 #pragma once
 
 #include "MPE/Core/_CORE.h"
+#include "MPE/Log/GlobalLog.h"
 
 #include <functional>
 #include <string>
 
 namespace MPE
 {
-    enum class EventType
+    enum class MPE_API EventType
     {
         None = 0,
         // WINDOW EVENTS:
@@ -28,11 +29,13 @@ namespace MPE
         MouseButtonPressed,
         MouseButtonReleased,
         MouseMoved,
-        MouseScrolled
+        MouseScrolled,
+        // FUNCTION EVENTS:
+        FunctionCalled
 
     };
 
-    enum EventCategory
+    enum MPE_API EventCategory
     {
         None = 0,
         EventCategoryApp = BIT(0),
@@ -70,7 +73,7 @@ namespace MPE
         }
     };
 
-    class EventDispatcher
+    class MPE_API EventDispatcher
     {
         template <typename T>
         using EventFn = std::function<bool(T &)>;
@@ -85,6 +88,7 @@ namespace MPE
             if (SYS_Event.GetEventType() == T::GetStaticType())
             {
                 SYS_Event.SYS_Handled = func(*(T *)&SYS_Event);
+                MPE_DEBUG_TRACE("Event: {0}", SYS_Event.ToString());
                 return true;
             }
             return false;
@@ -94,7 +98,7 @@ namespace MPE
         Event &SYS_Event;
     };
 
-    inline std::ostream &operator<<(std::ostream &os, const Event &e)
+    MPE_API inline std::ostream &operator<<(std::ostream &os, const Event &e)
     {
         return os << e.ToString();
     }

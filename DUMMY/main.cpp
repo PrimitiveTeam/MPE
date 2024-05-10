@@ -40,6 +40,24 @@ public:
         log.info("Hello, Custom Sink Log!");
         log.trace("Hello, Custom Sink Log!");
         log_test(log);
+
+        // Random event test
+        MPE::FunctionCalledEvent funcEvent("SampleFunction");
+        OnEvent(funcEvent);
+    }
+
+private:
+    bool TestFunc(MPE::FunctionCalledEvent &event)
+    {
+        MPE_CORE_TRACE("TestFunc called!");
+        return true;
+    }
+    // Used when another function is called
+    void OnEvent(MPE::Event &e)
+    {
+        MPE::EventDispatcher dispatcher(e);
+        // dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(DummyApp::TestFunc));
+        dispatcher.Dispatch<MPE::FunctionCalledEvent>(MPE_BIND_EVENT_FUNCTION(DummyApp::TestFunc));
     }
 };
 

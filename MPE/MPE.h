@@ -39,6 +39,7 @@
 #include "MPE/Events/EventApp.h"
 #include "MPE/Events/EventKey.h"
 #include "MPE/Events/EventMouse.h"
+#include "MPE/Events/EventFunction.h"
 // ----- EVENTS -----
 
 // ----- INPUT -----

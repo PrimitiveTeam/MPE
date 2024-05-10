@@ -7,8 +7,7 @@ namespace MPE
     class MPE_API KeyEvent : public Event
     {
     protected:
-        KeyEvent(int keycode)
-            : KeyCode(keycode) {}
+        KeyEvent(int keycode);
         int KeyCode;
 
     public:
@@ -23,17 +22,11 @@ namespace MPE
         int RepeatCount;
 
     public:
-        KeyPressedEvent(int keycode, int repeatCount)
-            : KeyEvent(keycode), RepeatCount(repeatCount) {}
+        KeyPressedEvent(int keycode, int repeatCount);
 
         inline int GetRepeatCount() const { return RepeatCount; }
 
-        std::string ToString() const override
-        {
-            std::stringstream ss;
-            ss << "KeyPressedEvent: " << KeyCode << " (" << RepeatCount << " repeats)";
-            return ss.str();
-        }
+        std::string ToString() const override;
 
         EVENT_CLASS_TYPE(KeyPressed)
     };
@@ -41,15 +34,9 @@ namespace MPE
     class MPE_API KeyReleasedEvent : public KeyEvent
     {
     public:
-        KeyReleasedEvent(int keycode)
-            : KeyEvent(keycode) {}
+        KeyReleasedEvent(int keycode);
 
-        std::string ToString() const override
-        {
-            std::stringstream ss;
-            ss << "KeyReleasedEvent: " << KeyCode;
-            return ss.str();
-        }
+        std::string ToString() const override;
 
         EVENT_CLASS_TYPE(KeyReleased)
     };
@@ -57,15 +44,9 @@ namespace MPE
     class MPE_API KeyTypedEvent : public KeyEvent
     {
     public:
-        KeyTypedEvent(int keycode)
-            : KeyEvent(keycode) {}
+        KeyTypedEvent(int keycode);
 
-        std::string ToString() const override
-        {
-            std::stringstream ss;
-            ss << "KeyTypedEvent: " << KeyCode;
-            return ss.str();
-        }
+        std::string ToString() const override;
 
         EVENT_CLASS_TYPE(KeyTyped)
     };
