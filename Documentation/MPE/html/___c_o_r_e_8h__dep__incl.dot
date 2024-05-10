@@ -6,7 +6,7 @@ digraph "D:/WORK/GIT/MPE/MPE/Core/_CORE.h"
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   Node1 [id="Node000001",label="D:/WORK/GIT/MPE/MPE\l/Core/_CORE.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="The Mere Primitive Engine (MPE) namespace."];
   Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node2 [id="Node000002",label="D:/WORK/GIT/MPE/MPE\l/App/App.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_app_8h.html",tooltip=" "];
+  Node2 [id="Node000002",label="D:/WORK/GIT/MPE/MPE\l/App/App.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_app_8h.html",tooltip="App class for the MPE engine."];
   Node2 -> Node3 [id="edge2_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
   Node3 [id="Node000003",label="D:/WORK/GIT/MPE/MPE\l/App/App.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_app_8cpp.html",tooltip=" "];
   Node2 -> Node4 [id="edge3_Node000002_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
@@ -42,7 +42,7 @@ digraph "D:/WORK/GIT/MPE/MPE/Core/_CORE.h"
   Node14 -> Node15 [id="edge22_Node000014_Node000015",dir="back",color="steelblue1",style="solid",tooltip=" "];
   Node15 [id="Node000015",label="D:/WORK/GIT/MPE/MPE\l/Test/Test.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_test_8cpp.html",tooltip=" "];
   Node1 -> Node16 [id="edge23_Node000001_Node000016",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node16 [id="Node000016",label="D:/WORK/GIT/MPE/MPE\l/Time/Time.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_time_8h.html",tooltip=" "];
+  Node16 [id="Node000016",label="D:/WORK/GIT/MPE/MPE\l/Time/Time.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_time_8h.html",tooltip="Time class for the MPE engine."];
   Node16 -> Node4 [id="edge24_Node000016_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
   Node16 -> Node17 [id="edge25_Node000016_Node000017",dir="back",color="steelblue1",style="solid",tooltip=" "];
   Node17 [id="Node000017",label="D:/WORK/GIT/MPE/MPE\l/Time/Time.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_time_8cpp.html",tooltip=" "];
