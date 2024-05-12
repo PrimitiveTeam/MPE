@@ -91,6 +91,7 @@
         "xtr1common": "cpp",
         "xtree": "cpp",
         "xutility": "cpp",
-        "any": "cpp"
+        "any": "cpp",
+        "text_encoding": "cpp"
     }
 }
