@@ -206,9 +206,22 @@ if(WIN32)
 
     set(fmt_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\fmt")
     set(spdlog_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\spdlog")
-    set(glad_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glad")
+
+    # set(glad_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glad")
+    # GLAD
+    set(glad_DIR "${PROJECT_SOURCE_DIR}/Vendor/Glad")
+    add_library(glad STATIC "${glad_DIR}/src/gl.c")
+    target_include_directories(glad PUBLIC "${glad_DIR}/include")
+
     set(glfw3_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glfw3")
-    set(imgui_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\imgui")
+
+    # set(imgui_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\imgui")
+    # IMGUI
+    set(imgui_DIR "${PROJECT_SOURCE_DIR}/Vendor/imgui")
+    file(GLOB IMGUI_SOURCES "${PROJECT_SOURCE_DIR}/Vendor/imgui/*.cpp")
+    add_library(imgui STATIC ${IMGUI_SOURCES})
+    target_include_directories(imgui PUBLIC "${imgui_DIR}")
+
     set(glm_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glm")
     set(GTest_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\gtest")
 
@@ -267,7 +280,6 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   endif()
 
 elseif(COMPILATION_PLATFORM STREQUAL "OSX")
-
   set(USE_VCPKG OFF)
 
   if(${VERBOSE})
@@ -529,9 +541,9 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     PUBLIC spdlog::spdlog
 
     # OpenGL::GL
-    PRIVATE glad::glad
+    PRIVATE glad
     PRIVATE glfw
-    PRIVATE imgui::imgui
+    PRIVATE imgui
     PRIVATE glm::glm
 
     # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
