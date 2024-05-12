@@ -92,9 +92,49 @@
             "instructions": []
         },
         "macos": {
-            "tools": [],
+            "tools": [
+                "gcc",
+                "clang",
+                "brew",
+                "xcode",
+                "cmake",
+                "git"
+            ],
             "toolchain": "",
-            "osx_packages": [],
+            "osx_packages": [
+                {
+                    "package": "fmt",
+                    "tool": "brew"
+                },
+                {
+                    "package": "spdlog",
+                    "tool": "brew"
+                },
+                {
+                    "package": "glfw",
+                    "tool": "brew"
+                },
+                {
+                    "package": "glad",
+                    "tool": "brew"
+                },
+                {
+                    "package": "imgui",
+                    "tool": "brew"
+                },
+                {
+                    "package": "glm",
+                    "tool": "brew"
+                },
+                {
+                    "package": "stb",
+                    "tool": "brew"
+                },
+                {
+                    "package": "gtest",
+                    "tool": "brew"
+                }
+            ],
             "setup_steps": []
         }
     }
