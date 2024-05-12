@@ -88,7 +88,11 @@ void processHeavyTask()
     volatile int value = 0;
     for (int i = 0; i < 1000000; ++i)
     {
+        #ifdef MPE_COMPILER_APPLECLANG
+        value = value + i;
+        #else
         value += i;
+        #endif
     }
 }
 
@@ -100,6 +104,10 @@ void anotherTask()
     volatile int sum = 1;
     for (int i = 1; i < 1000; ++i)
     {
+        #ifdef MPE_COMPILER_APPLECLANG
+        sum = sum * i;
+        #else
         sum *= i;
+        #endif
     }
 }

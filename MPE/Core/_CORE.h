@@ -83,16 +83,46 @@
 #pragma message("DYNAMIC LIBRARY IS NOT INTENDED TO BE USED WITH THIS PROJECT AT THE MOMENT.")
 #define MPE_API
 #endif
+
+#elif MPE_PLATFORM_LINUX
+
+#ifdef MPE_STATIC_LIBRARY
+// define as nothing
+#define MPE_API
+#endif
+
+#ifdef MPE_DYNAMIC_LIB
+
+#ifdef MPE_BUILD_DLL
+#error "Building DLL is not supported on Linux"
+#define MPE_API __attribute__((visibility("default")))
 #else
-#error MPE SUPPORTS ONLY WINDOWS.
+#error "Using Dynamic Lib is not supported on Linux"
 #endif
 
-#ifdef MPE_PLATFORM_LINUX
-#error MPE SUPPORTS ONLY WINDOWS.
 #endif
 
-#ifdef MPE_PLATFORM_OSX
-#error MPE SUPPORTS ONLY WINDOWS.
+#elif MPE_PLATFORM_OSX
+
+#ifdef MPE_STATIC_LIBRARY
+// define as nothing
+#define MPE_API
+#endif
+
+#ifdef MPE_DYNAMIC_LIB
+
+#ifdef MPE_BUILD_DLL
+#error "Building DLL is not supported on Linux"
+#define MPE_API __attribute__((visibility("default")))
+#else
+#error "Using Dynamic Lib is not supported on Linux"
+#endif
+
+#endif
+
+#else
+#error "MPE only supports Windows, Linux and OSX."
+
 #endif
 
 // CMAKE BUILD-SET DEFINITIONS:
@@ -118,6 +148,49 @@
 			__debugbreak();                                       \
 		}                                                         \
 	}
+#elif MPE_PLATFORM_LINUX or MPE_PLATFORM_OSX
+// LINUX ONLY SOLUTION FOR ASSERTIONS
+// we should also try to use this if possible defined(SIGTRAP) (i.e., POSIX), raise(SIGTRAP)
+#include <signal.h>
+
+#ifdef SIGTRAP
+#define MPE_ASSERT(x, ...)                                   \
+	{                                                        \
+		if (!(x))                                            \
+		{                                                    \
+			MPE_ERROR("ASSERTION FAILED: {0}", __VA_ARGS__); \
+			raise(SIGTRAP);                                  \
+		}                                                    \
+	}
+#define MPE_CORE_ASSERT(x, ...)                                   \
+	{                                                             \
+		if (!(x))                                                 \
+		{                                                         \
+			MPE_CORE_ERROR("ASSERTION FAILED: {0}", __VA_ARGS__); \
+			raise(SIGTRAP);                                       \
+		}                                                         \
+	}
+
+#else
+
+#define MPE_ASSERT(x, ...)                                   \
+	{                                                        \
+		if (!(x))                                            \
+		{                                                    \
+			MPE_ERROR("ASSERTION FAILED: {0}", __VA_ARGS__); \
+			__builtin_trap();                                \
+		}                                                    \
+	}
+#define MPE_CORE_ASSERT(x, ...)                                   \
+	{                                                             \
+		if (!(x))                                                 \
+		{                                                         \
+			MPE_CORE_ERROR("ASSERTION FAILED: {0}", __VA_ARGS__); \
+			__builtin_trap();                                     \
+		}                                                         \
+	}
+
+#endif
 #endif
 #else
 // IF NO CMAKE BUILD-SET DEFINITIONS THEN SET AS NOTHING (FOR RELEASE BUILDS).
@@ -134,7 +207,11 @@
 #define OPENGL_SHADER_TYPE_AMOUNT 2
 
 // BIND FUNCTIONS FOR EVENTS
+#ifdef MPE_COMPILER_MSVC
 #define MPE_BIND_EVENT_FUNCTION(func) std::bind(&func, this, std::placeholders::_1)
+#elif MPE_COMPILER_CLANG or MPE_COMPILER_GNU or MPE_COMPILER_APPLECLANG
+#define MPE_BIND_EVENT_FUNCTION(func) [this](auto &&...args) -> decltype(auto) { return this->func(std::forward<decltype(args)>(args)...); }
+#endif
 
 /**
  * @brief The Mere Primitive Engine (MPE) namespace.
