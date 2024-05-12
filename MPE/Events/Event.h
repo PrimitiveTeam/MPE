@@ -11,26 +11,26 @@ namespace MPE
     enum class MPE_API EventType
     {
         None = 0,
-        // WINDOW EVENTS:
+        // WINDOW EVENTS
         WindowClose,
         WindowResize,
         WindowFocus,
         WindowLostFocus,
         WindowMoves,
-        // APP EVENTS:
+        // APP EVENTS
         AppTick,
         AppUpdate,
         AppRender,
-        // KEY EVENTS:
+        // KEY EVENTS
         KeyPressed,
         KeyReleased,
         KeyTyped,
-        // MOUSE EVENTS:
+        // MOUSE EVENTS
         MouseButtonPressed,
         MouseButtonReleased,
         MouseMoved,
         MouseScrolled,
-        // FUNCTION EVENTS:
+        // FUNCTION EVENTS
         FunctionCalled
 
     };
@@ -42,7 +42,8 @@ namespace MPE
         EventCategoryInput = BIT(1),
         EventCategoryKeyboard = BIT(2),
         EventCategoryMouse = BIT(3),
-        EventCategoryMouseButton = BIT(4)
+        EventCategoryMouseButton = BIT(4),
+        EventCategoryFunctions = BIT(5)
     };
 
 #define EVENT_CLASS_TYPE(type)                                                  \

@@ -26,6 +26,6 @@ namespace MPE
         std::string ToString() const override;
 
         EVENT_CLASS_TYPE(FunctionCalled)
-        EVENT_CLASS_CATEGORY(EventCategoryApp)
+        EVENT_CLASS_CATEGORY(EventCategoryFunctions)
     };
 }
