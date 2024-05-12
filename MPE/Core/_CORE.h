@@ -102,9 +102,7 @@
 
 #endif
 
-#endif
-
-#ifdef MPE_PLATFORM_OSX
+#elif MPE_PLATFORM_OSX
 
 #ifdef MPE_STATIC_LIBRARY
 // define as nothing
