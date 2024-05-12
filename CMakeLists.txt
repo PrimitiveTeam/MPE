@@ -122,19 +122,24 @@ elseif(LOWER_COMPILER_ID STREQUAL "gnu")
 elseif(LOWER_COMPILER_ID STREQUAL "clang")
   set(CURRENT_COMPILER "CLANG")
   set(COMPILATION_PLATFORM "UNIX")
+elseif(LOWER_COMPILER_ID STREQUAL "appleclang")
+  set(CURRENT_COMPILER "APPLECLANG")
+  set(COMPILATION_PLATFORM "DARWIN")
 else()
-  message(FATAL_ERROR "COMPILER NOT SUPPORTED.")
+  message(FATAL_ERROR "COMPILER: {${CMAKE_CXX_COMPILER_ID}} NOT SUPPORTED.")
 endif()
 
 if(${VERBOSE})
   message(STATUS "CURRENT COMPILER PATH: ${CMAKE_CXX_COMPILER}")
   message(STATUS "CURRENT COMPILER: ${CMAKE_CXX_COMPILER_ID}")
   message(STATUS "CURRENT COMPILER VERSION: ${CMAKE_CXX_COMPILER_VERSION}")
+  message(STATUS "CURRENT COMPILER: ${CURRENT_COMPILER}")
+  message(STATUS "CURRENT PLATFORM: ${COMPILATION_PLATFORM}")
   message(STATUS "COMPILER SETUP COMPLETE.")
 endif()
 
 # DEPENDENCY MANAGEMENT
-if(COMPILATION_PLATFORM STREQUAL "WIN32")
+if(WIN32)
   set(USE_VCPKG ON)
 
   if(${VERBOSE})
@@ -260,6 +265,47 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
     # message(STATUS "GTest_DIR: ${GTest_DIR}")
     message(STATUS "CUSTOM LIBRARY PATHS SET.")
   endif()
+
+elseif(COMPILATION_PLATFORM STREQUAL "DARWIN")
+
+  set(USE_VCPKG OFF)
+
+  if(${VERBOSE})
+    message(STATUS "VCPKG STATUS: ${USE_VCPKG}")
+  endif()
+
+  # message(STATUS "VCPKG NOT SUPPORTED ON UNIX SYSTEMS.")
+  if(${VERBOSE})
+    message(STATUS "ADDING CUSTOM PATHS FOR SPECIFIC LIBRARIES...")
+  endif()
+
+  # GLAD
+  set(glad_DIR "${PROJECT_SOURCE_DIR}/Vendor/Glad")
+  add_library(glad STATIC "${glad_DIR}/src/gl.c")
+  target_include_directories(glad PUBLIC "${glad_DIR}/include")
+
+  # IMGUI
+  set(imgui_DIR "${PROJECT_SOURCE_DIR}/Vendor/imgui")
+  file(GLOB IMGUI_SOURCES "${PROJECT_SOURCE_DIR}/Vendor/imgui/*.cpp")
+  add_library(imgui STATIC ${IMGUI_SOURCES})
+  target_include_directories(imgui PUBLIC "${imgui_DIR}")
+
+  # set(glfw3_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glfw3")
+  # set(imgui_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\imgui")
+  # set(glm_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glm")
+  # set(GTest_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\gtest")
+  if(${VERBOSE})
+    message(STATUS "glad_DIR: ${glad_DIR}")
+    message(STATUS "imgui_DIR: ${imgui_DIR}")
+
+    # message(STATUS "glfw3_DIR: ${glfw3_DIR}")
+    # message(STATUS "glm_DIR: ${glm_DIR}")
+    # message(STATUS "GTest_DIR: ${GTest_DIR}")
+    message(STATUS "CUSTOM LIBRARY PATHS SET.")
+  endif()
+
+else()
+  message(FATAL_ERROR "PLATFORM NOT SUPPORTED.")
 endif()
 
 # ADDING DEPENDENCIES
@@ -1096,5 +1142,334 @@ if(COMPILATION_PLATFORM STREQUAL "UNIX")
     return()
   endif()
 endif(COMPILATION_PLATFORM STREQUAL "UNIX")
+
+if(COMPILATION_PLATFORM STREQUAL "DARWIN")
+  # ADD SOURCE FILES MPE LIBRARY .CPP FILES
+  file(
+    GLOB_RECURSE
+    MPE_CPP
+
+    # TEST
+    "${PROJECT_SOURCE_DIR}/MPE/Test/*.cpp"
+
+    # /Core
+    # "${PROJECT_SOURCE_DIR}/MPE/*.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Core/*.cpp"
+
+    # "${PROJECT_SOURCE_DIR}/MPE/Core/Input/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Core/Layers/*.cpp"
+
+    # /Log
+    "${PROJECT_SOURCE_DIR}/MPE/Log/*.cpp"
+
+    # /App
+    "${PROJECT_SOURCE_DIR}/MPE/App/*.cpp"
+
+    # /Profiling
+    "${PROJECT_SOURCE_DIR}/MPE/Profiling/*.cpp"
+
+    # /Physics
+    "${PROJECT_SOURCE_DIR}/MPE/Time/*.cpp"
+
+    # /Events
+    "${PROJECT_SOURCE_DIR}/MPE/Events/*.cpp"
+
+    # /Renderer
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.cpp"
+
+    # /Platform/OpenGL
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.cpp"
+
+    # /Platform/Windows
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/*.cpp"
+
+    # /Vendor
+    # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.cpp"
+  )
+
+  # PRINT MPE SOURCE FILES
+  if(${VERBOSE})
+    message(STATUS "MPE SOURCE:\n{${MPE_CPP}}")
+  endif()
+
+  # MPE LIBRARY .H FILES
+  file(
+    GLOB_RECURSE
+    MPE_H
+
+    # TEST
+    "${PROJECT_SOURCE_DIR}/MPE/Test/*.h"
+
+    # /Core
+    "${PROJECT_SOURCE_DIR}/MPE/*.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Core/*.h"
+
+    # "${PROJECT_SOURCE_DIR}/MPE/Core/Input/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Core/Layers/*.h"
+
+    # /Log
+    "${PROJECT_SOURCE_DIR}/MPE/Log/*.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Log/CustomSinks/*.h"
+
+    # /App
+    "${PROJECT_SOURCE_DIR}/MPE/App/*.h"
+
+    # /Profiling
+    "${PROJECT_SOURCE_DIR}/MPE/Profiling/*.h"
+
+    # /Physics
+    "${PROJECT_SOURCE_DIR}/MPE/Time/*.h"
+
+    # /Events
+    "${PROJECT_SOURCE_DIR}/MPE/Events/*.cpp"
+
+    # /Renderer
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.h"
+
+    # /Platform/OpenGL
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.h"
+
+    # /Platform/Windows
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/*.h"
+
+    # /Vendor
+    # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.h"
+  )
+
+  # PRINT MPE SOURCE FILES
+  if(${VERBOSE})
+    message(STATUS "MPE HEADERS:\n{${MPE_H}}")
+  endif()
+
+  if(${VERBOSE})
+    message(STATUS "MPE SOURCE FILES ADDED.")
+  endif()
+
+  # BUILD MPE LIBRARY BASED ON SET LIBRARY TYPE
+  if(${MPE_LIBRARY_TYPE} STREQUAL STATIC)
+    # MAKE MPE LIBRARY STATIC - DYNAMIC LIBRARY COULD BE SUPPORTED
+    add_library(MPE STATIC ${MPE_CPP})
+    target_compile_definitions(MPE PRIVATE MPE_STATIC_LIBRARY)
+  elseif(${MPE_LIBRARY_TYPE} STREQUAL SHARED)
+    # DOUBLE CHECKS IF BUILDSYSTEM IS USING ONLY STATIC LIBRARY. DYNAMIC LIBRARIES
+    # ARE POSSIBLE TO BE USED, BUT IS NOT INTENDED WITH THIS PROJECT AT THE MOMENT.
+    # DYNAMIC LIBRARIES ARE STILL IMPLEMENTED AS AN EXAMPLE AND CAN STILL BE USED IF THE
+    # USERS DEEM THAT IT IS NEEDED. REMOVE #ERROR PREPROCESSOR DECLARATION ON LINE
+    # 17 IN CORE.H FILE
+    # get_target_property(LIBRARY_STATE MPE TYPE)
+    add_library(MPE SHARED ${MPE_CPP})
+
+    target_compile_definitions(MPE PUBLIC MPE_DYNAMIC_LIBRARY)
+    target_compile_definitions(MPE PRIVATE MPE_BUILD_DLL)
+
+  else()
+    message(FATAL_ERROR "LIBRARY TYPE {${MPE_LIBRARY_TYPE}} NOT SUPPORTED.")
+  endif()
+
+  # COMPILER DEFINITIONS FOR MPE
+  target_compile_definitions(MPE PUBLIC MPE_PLATFORM_LINUX)
+  target_compile_definitions(MPE PUBLIC MPE_ENABLE_ASSERTS)
+  target_compile_definitions(MPE PUBLIC MPE_COMPILER_${CURRENT_COMPILER})
+
+  # ENABLE PROFILING FOR DEBUG BUILS
+  if(CMAKE_BUILD_TYPE STREQUAL Debug)
+    target_compile_definitions(MPE PUBLIC MPE_CORE_DEBUG_PROFILING)
+    target_compile_definitions(MPE PUBLIC MPE_DEBUG_PROFILING)
+    target_compile_definitions(MPE PUBLIC MPE_ENABLE_DEBUG_LOG)
+  endif(CMAKE_BUILD_TYPE STREQUAL Debug)
+
+  if(${VERBOSE})
+    get_target_property(DEFINITIONS_LIST MPE COMPILE_DEFINITIONS)
+    message(STATUS "MPE COMPILE DEFINITIONS: ${DEFINITIONS_LIST}")
+  endif()
+
+  target_compile_features(MPE PUBLIC ${CXX_VERSION_NAME})
+  set_target_properties(MPE PROPERTIES VERSION ${PROJECT_FULL_VERSION})
+
+  set_target_properties(MPE PROPERTIES OUTPUT_NAME "MPE")
+
+  # MAKE SURE TO INCLUDE LIBRARY DIRECTORIES
+  # target_include_directories(MPE
+  # PRIVATE "${glad_DIR}/include"
+  # PRIVATE "${imgui_DIR}"
+  # )
+  if(${VERBOSE})
+    # PRINT INCLUDE DIRECTORIES
+    get_target_property(INCLUDE_DIRECTORIES MPE INCLUDE_DIRECTORIES)
+    message(STATUS "MPE INCLUDE DIRECTORIES: ${INCLUDE_DIRECTORIES}")
+  endif()
+
+  # ADD MPE DEPENDENCIES
+  target_link_libraries(
+    MPE
+    PUBLIC fmt::fmt
+    PUBLIC spdlog::spdlog
+
+    # OpenGL::GL
+    PRIVATE glad
+    PRIVATE glfw
+    PRIVATE imgui
+    PRIVATE glm::glm
+
+    # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
+  )
+
+  # find_path(STB_INCLUDE_DIRS "stb_c_lexer.h") target_include_directories(MPE
+  # PUBLIC ${Stb_INCLUDE_DIRS})
+
+  # ADD MPEPCH.H AS A PRECOMPILED HEADER FILE
+  target_precompile_headers(MPE PUBLIC
+    "${PROJECT_SOURCE_DIR}/MPE/MPEPCH.h")
+
+  # ADD INCLUDE DIRECTORIES TO MAKE INCLUDES EASY TO MANAGE
+  target_include_directories(MPE
+    PRIVATE "${PROJECT_SOURCE_DIR}"
+    PRIVATE "${PROJECT_SOURCE_DIR}/MPE"
+
+    # "${PROJECT_SOURCE_DIR}/MPE"
+  )
+
+  # target_include_directories(MPE PUBLIC
+  # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB")
+
+  # INSTALLATION FOR LIBRARIES
+  # EXAMPLES FOR FUTURE
+  if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    # MPE DEBUG DLLS
+    set(MPE_DLL_FILES
+      ${PROJECT_SOURCE_DIR}/Build/Debug/MPE.dll)
+    set(DEPENENDENCY_DLL_FILES
+      ${PROJECT_SOURCE_DIR}/Build/Debug/fmtd.dll
+      ${PROJECT_SOURCE_DIR}/Build/Debug/spdlogd.dll
+
+      # ${PROJECT_SOURCE_DIR}/Build/Debug/gladd.dll
+      # ${PROJECT_SOURCE_DIR}/Build/Debug/glfw3d.dll
+      # ${PROJECT_SOURCE_DIR}/Build/Debug/imguid.dll
+      # ${PROJECT_SOURCE_DIR}/Build/Debug/glmd.dll
+    )
+  elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    # MPE RELEASE DLLS
+    set(MPE_DLL_FILES
+      ${PROJECT_SOURCE_DIR}/Build/Release/MPE.dll)
+    set(DEPENENDENCY_DLL_FILES
+      ${PROJECT_SOURCE_DIR}/Build/Release/fmt.dll
+      ${PROJECT_SOURCE_DIR}/Build/Release/spdlog.dll
+
+      # ${PROJECT_SOURCE_DIR}/Build/Release/glad.dll
+      # ${PROJECT_SOURCE_DIR}/Build/Release/glfw3.dll
+      # ${PROJECT_SOURCE_DIR}/Build/Release/imgui.dll
+      # ${PROJECT_SOURCE_DIR}/Build/Release/glm.dll
+    )
+  endif()
+
+  if(${VERBOSE})
+    message(STATUS "MPE DLL FILES: ${MPE_DLL_FILES}")
+    message(STATUS "DEPENDENCY DLL FILES: ${DEPENENDENCY_DLL_FILES}")
+  endif()
+
+  # INSTALLATION PROCEDURE FOR MPE
+  install(
+    TARGETS MPE
+    LIBRARY DESTINATION bin
+    ARCHIVE DESTINATION bin
+    RUNTIME DESTINATION bin)
+
+  if(${INSTALL_DLLS})
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    # EXAMPLES FOR FUTURE
+    # install(FILES ${GTK_DLL_DEBUG_FILES} DESTINATION bin) install(FILES
+    # ${MPE_DLL_DEBUG_FILES} DESTINATION bin)
+    # install(FILES ${BOOST_PYTHON_DLL_DEBUG_FILES} DESTINATION bin)
+    elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+      # EXAMPLES FOR FUTURE
+      # install(FILES ${GTK_DLL_RELEASE_FILES} DESTINATION bin) install(FILES
+      # ${MPE_DLL_RELEASE_FILES} DESTINATION bin)
+      # install(FILES ${BOOST_PYTHON_DLL_RELEASE_FILES} DESTINATION bin)
+    endif()
+  endif()
+
+  # PUBLIC INCLUDES
+  set(MPE_PUBLIC_INCLUDES
+    "${PROJECT_SOURCE_DIR}"
+    "${PROJECT_SOURCE_DIR}/MPE"
+  )
+
+  if(${MAIN_TEST})
+    add_subdirectory("${PROJECT_SOURCE_DIR}/Tests")
+  endif()
+
+  if(${EXAMPLES})
+    add_subdirectory("${PROJECT_SOURCE_DIR}/Examples")
+  endif()
+
+  # TEMPORARY
+
+  # ADDING DUMMY EXECUTABLE
+  if(DUMMY_EXECUTABLE)
+    add_executable(DUMMY "${PROJECT_SOURCE_DIR}/DUMMY/main.cpp")
+
+    target_include_directories(DUMMY PRIVATE ${MPE_PUBLIC_INCLUDES})
+    target_link_libraries(DUMMY PRIVATE MPE)
+
+    if(MPE_LIBRARY_TYPE STREQUAL SHARED)
+      target_compile_definitions(DUMMY PRIVATE MPE_DYNAMIC_LIBRARY)
+    else()
+      target_compile_definitions(DUMMY PRIVATE MPE_STATIC_LIBRARY)
+    endif()
+
+    # HAVE TO BE EXPLICIT WITH DEFINES FOR LINUX AS CMAKE IS NOT WORKING AS EXPECTED
+    # COMPILER DEFINITIONS FOR MPE
+    target_compile_definitions(DUMMY PUBLIC MPE_PLATFORM_LINUX)
+    target_compile_definitions(DUMMY PUBLIC MPE_ENABLE_ASSERTS)
+    target_compile_definitions(DUMMY PUBLIC MPE_COMPILER_${CURRENT_COMPILER})
+
+    # ENABLE PROFILING FOR DEBUG BUILS
+    if(CMAKE_BUILD_TYPE STREQUAL Debug)
+      target_compile_definitions(DUMMY PUBLIC MPE_CORE_DEBUG_PROFILING)
+      target_compile_definitions(DUMMY PUBLIC MPE_DEBUG_PROFILING)
+      target_compile_definitions(DUMMY PUBLIC MPE_ENABLE_DEBUG_LOG)
+    endif(CMAKE_BUILD_TYPE STREQUAL Debug)
+
+    if(${VERBOSE})
+      get_target_property(DEFINITIONS_LIST DUMMY COMPILE_DEFINITIONS)
+      message(STATUS "DUMMY COMPILE DEFINITIONS: ${DEFINITIONS_LIST}")
+    endif()
+
+    # INSTALLATION PROCEDURE
+    install(
+      TARGETS DUMMY
+      LIBRARY DESTINATION bin
+      ARCHIVE DESTINATION bin
+      RUNTIME DESTINATION bin)
+
+    install(FILES $<TARGET_RUNTIME_DLLS:DUMMY> DESTINATION bin)
+  endif(DUMMY_EXECUTABLE)
+
+  # TEMPORARY
+
+  # ##############################################################################
+
+  # DOUBLE CHECKS IF THE SYSTEM IS RUNNING ON WINDOWS-X64 SYSTEM
+  if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
+    message("MPE SUPPORTS ONLY X64 SYSTEMS.")
+    return()
+  endif()
+endif(COMPILATION_PLATFORM STREQUAL "DARWIN")
 
 message(STATUS "MPE/CMAKE SUCCESSFULLY FINISHED.")
