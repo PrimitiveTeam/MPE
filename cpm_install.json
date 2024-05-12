@@ -51,11 +51,13 @@
         "linux": {
             "dependencies": [],
             "toolchain": "",
+            "libraries": [],
             "instructions": []
         },
         "macos": {
             "tools": [],
             "toolchain": "",
+            "osx_packages": [],
             "setup_steps": []
         }
     }
