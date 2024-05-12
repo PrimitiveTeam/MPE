@@ -189,10 +189,19 @@ namespace MPE
 }
 
 #ifdef MPE_DEBUG_PROFILING
+#ifdef MPE_COMPILER_MSVC
 #define MPE_PROFILE_START(name, filepath) ::MPE::Profiler::Get().BeginSession(name, filepath)
 #define MPE_PROFILE_END() ::MPE::Profiler::Get().EndSession()
 #define MPE_PROFILE_SCOPE(name) ::MPE::InstrumentationTimer timer##__LINE__(name);
 #define MPE_PROFILE_FUNCTION() MPE_PROFILE_SCOPE(__FUNCSIG__)
+
+#elif MPE_COMPILER_CLANG
+#define MPE_PROFILE_START(name, filepath) ::MPE::Profiler::Get().BeginSession(name, filepath)
+#define MPE_PROFILE_END() ::MPE::Profiler::Get().EndSession()
+#define MPE_PROFILE_SCOPE(name) ::MPE::InstrumentationTimer timer##__LINE__(name);
+#define MPE_PROFILE_FUNCTION() MPE_PROFILE_SCOPE(__PRETTY_FUNCTION__)
+
+#endif
 #else
 #define MPE_PROFILE_START()
 #define MPE_PROFILE_END()
@@ -201,10 +210,19 @@ namespace MPE
 #endif
 
 #ifdef MPE_CORE_DEBUG_PROFILING
+#ifdef MPE_COMPILER_MSVC
 #define MPE_CORE_PROFILE_START(name, filepath) ::MPE::Profiler::Get().BeginSession(name, filepath)
 #define MPE_CORE_PROFILE_END() ::MPE::Profiler::Get().EndSession()
 #define MPE_CORE_PROFILE_SCOPE(name) ::MPE::InstrumentationTimer timer##__LINE__(name);
 #define MPE_CORE_PROFILE_FUNCTION() MPE_PROFILE_SCOPE(__FUNCSIG__)
+
+#elif MPE_COMPILER_CLANG
+#define MPE_CORE_PROFILE_START(name, filepath) ::MPE::Profiler::Get().BeginSession(name, filepath)
+#define MPE_CORE_PROFILE_END() ::MPE::Profiler::Get().EndSession()
+#define MPE_CORE_PROFILE_SCOPE(name) ::MPE::InstrumentationTimer timer##__LINE__(name);
+#define MPE_CORE_PROFILE_FUNCTION() MPE_PROFILE_SCOPE(__PRETTY_FUNCTION__)
+
+#endif
 #else
 #define MPE_CORE_PROFILE_START()
 #define MPE_CORE_PROFILE_END()
