@@ -21,7 +21,7 @@ set(DUMMY_EXECUTABLE ON)
 
 # SHARED OR STATIC LIBRARY
 # ONLY 'STATIC' OR 'SHARED'
-set(MPE_LIBRARY_TYPE SHARED)
+set(MPE_LIBRARY_TYPE STATIC)
 
 # SETTING PROJECT VERSION
 set(PROJECT_VERSION_MAJOR 0)
@@ -236,8 +236,16 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
     message(STATUS "ADDING CUSTOM PATHS FOR SPECIFIC LIBRARIES...")
   endif()
 
+  # GLAD
   set(glad_DIR "${PROJECT_SOURCE_DIR}/Vendor/glad")
+  add_library(glad STATIC "${glad_DIR}/src/glad.c")
+  target_include_directories(glad PUBLIC "${glad_DIR}/include")
+
+  # IMGUI
   set(imgui_DIR "${PROJECT_SOURCE_DIR}/Vendor/imgui")
+  file(GLOB IMGUI_SOURCES "${PROJECT_SOURCE_DIR}/Vendor/imgui/*.cpp")
+  add_library(imgui STATIC ${IMGUI_SOURCES})
+  target_include_directories(imgui PUBLIC "${imgui_DIR}")
 
   # set(glfw3_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glfw3")
   # set(imgui_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\imgui")
@@ -439,7 +447,7 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     # get_target_property(LIBRARY_STATE MPE TYPE)
     add_library(MPE SHARED ${MPE_CPP})
 
-    target_compile_definitions(MPE PUBLIC MPE_DYNAMIC_LIB)
+    target_compile_definitions(MPE PUBLIC MPE_DYNAMIC_LIBRARY)
     target_compile_definitions(MPE PRIVATE MPE_BUILD_DLL)
 
   else()
@@ -584,7 +592,7 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
 
     # target_compile_definitions(DUMMY PRIVATE MPE_PLATFORM_WINDOWS)
     if(MPE_LIBRARY_TYPE STREQUAL SHARED)
-      # target_compile_definitions(DUMMY PRIVATE MPE_DYNAMIC_LIB)
+      # target_compile_definitions(DUMMY PRIVATE MPE_DYNAMIC_LIBRARY)
     endif()
 
     # INSTALLATION PROCEDURE
@@ -894,7 +902,7 @@ if(COMPILATION_PLATFORM STREQUAL "UNIX")
     # get_target_property(LIBRARY_STATE MPE TYPE)
     add_library(MPE SHARED ${MPE_CPP})
 
-    target_compile_definitions(MPE PUBLIC MPE_DYNAMIC_LIB)
+    target_compile_definitions(MPE PUBLIC MPE_DYNAMIC_LIBRARY)
     target_compile_definitions(MPE PRIVATE MPE_BUILD_DLL)
 
   else()
@@ -924,11 +932,10 @@ if(COMPILATION_PLATFORM STREQUAL "UNIX")
   set_target_properties(MPE PROPERTIES OUTPUT_NAME "MPE")
 
   # MAKE SURE TO INCLUDE LIBRARY DIRECTORIES
-  target_include_directories(MPE
-    PRIVATE "${glad_DIR}/include"
-    PRIVATE "${imgui_DIR}"
-  )
-
+  # target_include_directories(MPE
+  # PRIVATE "${glad_DIR}/include"
+  # PRIVATE "${imgui_DIR}"
+  # )
   if(${VERBOSE})
     # PRINT INCLUDE DIRECTORIES
     get_target_property(INCLUDE_DIRECTORIES MPE INCLUDE_DIRECTORIES)
@@ -1049,9 +1056,28 @@ if(COMPILATION_PLATFORM STREQUAL "UNIX")
     target_include_directories(DUMMY PRIVATE ${MPE_PUBLIC_INCLUDES})
     target_link_libraries(DUMMY PRIVATE MPE)
 
-    # target_compile_definitions(DUMMY PRIVATE MPE_PLATFORM_WINDOWS)
     if(MPE_LIBRARY_TYPE STREQUAL SHARED)
-      # target_compile_definitions(DUMMY PRIVATE MPE_DYNAMIC_LIB)
+      target_compile_definitions(DUMMY PRIVATE MPE_DYNAMIC_LIBRARY)
+    else()
+      target_compile_definitions(DUMMY PRIVATE MPE_STATIC_LIBRARY)
+    endif()
+
+    # HAVE TO BE EXPLICIT WITH DEFINES FOR LINUX AS CMAKE IS NOT WORKING AS EXPECTED
+    # COMPILER DEFINITIONS FOR MPE
+    target_compile_definitions(DUMMY PUBLIC MPE_PLATFORM_LINUX)
+    target_compile_definitions(DUMMY PUBLIC MPE_ENABLE_ASSERTS)
+    target_compile_definitions(DUMMY PUBLIC MPE_COMPILER_${CURRENT_COMPILER})
+
+    # ENABLE PROFILING FOR DEBUG BUILS
+    if(CMAKE_BUILD_TYPE STREQUAL Debug)
+      target_compile_definitions(DUMMY PUBLIC MPE_CORE_DEBUG_PROFILING)
+      target_compile_definitions(DUMMY PUBLIC MPE_DEBUG_PROFILING)
+      target_compile_definitions(DUMMY PUBLIC MPE_ENABLE_DEBUG_LOG)
+    endif(CMAKE_BUILD_TYPE STREQUAL Debug)
+
+    if(${VERBOSE})
+      get_target_property(DEFINITIONS_LIST DUMMY COMPILE_DEFINITIONS)
+      message(STATUS "DUMMY COMPILE DEFINITIONS: ${DEFINITIONS_LIST}")
     endif()
 
     # INSTALLATION PROCEDURE
