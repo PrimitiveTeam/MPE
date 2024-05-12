@@ -70,6 +70,50 @@
       "cStandard": "c23",
       "cppStandard": "c++23",
       "intelliSenseMode": "linux-gcc-x64"
+    },
+    {
+      "name": "macOS-Clang",
+      "includePath": [
+        "${workspaceFolder}/**"
+      ],
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE",
+        "MPE_STATIC_LIBRARY",
+        "MPE_PLATFORM_OSX",
+        "MPE_ENABLE_ASSERTS",
+        "MPE_COMPILER_APPLECLANG",
+        "MPE_CORE_DEBUG_PROFILING",
+        "MPE_DEBUG_PROFILING",
+        "MPE_ENABLE_DEBUG_LOG"
+      ],
+      "compilerPath": "/usr/bin/clang",
+      "cStandard": "c23",
+      "cppStandard": "c++23",
+      "intelliSenseMode": "macos-clang-x64"
+    },
+    {
+      "name": "macOS-GCC",
+      "includePath": [
+        "${workspaceFolder}/**"
+      ],
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE",
+        "MPE_STATIC_LIBRARY",
+        "MPE_PLATFORM_OSX",
+        "MPE_ENABLE_ASSERTS",
+        "MPE_COMPILER_APPLEGNU",
+        "MPE_CORE_DEBUG_PROFILING",
+        "MPE_DEBUG_PROFILING",
+        "MPE_ENABLE_DEBUG_LOG"
+      ],
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "c23",
+      "cppStandard": "c++23",
+      "intelliSenseMode": "macos-gcc-x64"
     }
   ],
   "version": 4

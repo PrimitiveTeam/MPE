@@ -105,7 +105,26 @@
 #endif
 
 #ifdef MPE_PLATFORM_OSX
-#error MPE SUPPORTS ONLY WINDOWS.
+
+#ifdef MPE_STATIC_LIBRARY
+// define as nothing
+#define MPE_API
+#endif
+
+#ifdef MPE_DYNAMIC_LIB
+
+#ifdef MPE_BUILD_DLL
+#error "Building DLL is not supported on Linux"
+#define MPE_API __attribute__((visibility("default")))
+#else
+#error "Using Dynamic Lib is not supported on Linux"
+#endif
+
+#endif
+
+#else
+#error "MPE only supports Windows, Linux and OSX."
+
 #endif
 
 // CMAKE BUILD-SET DEFINITIONS:
@@ -131,7 +150,7 @@
 			__debugbreak();                                       \
 		}                                                         \
 	}
-#elif MPE_PLATFORM_LINUX
+#elif MPE_PLATFORM_LINUX or MPE_PLATFORM_OSX
 // LINUX ONLY SOLUTION FOR ASSERTIONS
 // we should also try to use this if possible defined(SIGTRAP) (i.e., POSIX), raise(SIGTRAP)
 #include <signal.h>
@@ -192,7 +211,7 @@
 // BIND FUNCTIONS FOR EVENTS
 #ifdef MPE_COMPILER_MSVC
 #define MPE_BIND_EVENT_FUNCTION(func) std::bind(&func, this, std::placeholders::_1)
-#elif MPE_COMPILER_CLANG or MPE_COMPILER_GNU
+#elif MPE_COMPILER_CLANG or MPE_COMPILER_GNU or MPE_COMPILER_APPLECLANG
 #define MPE_BIND_EVENT_FUNCTION(func) [this](auto &&...args) -> decltype(auto) { return this->func(std::forward<decltype(args)>(args)...); }
 #endif
 

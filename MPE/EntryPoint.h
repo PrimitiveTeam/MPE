@@ -88,6 +88,46 @@ int main(int argc, char **argv)
 	// MPE_PROFILE_END();
 }
 
+#elif MPE_PLATFORM_OSX
+
+#include "MPE/Core/_CWD.h"
+#include "MPE/Log/GlobalLog.h"
+#include "MPE/App/App.h"
+
+/**
+ * @brief Create a new MPE application.
+ * @details This function is used to create a new MPE application.
+ * @return A reference to the new MPE application.
+ * @see MPE::App
+ */
+extern MPE::REF<MPE::App> MPE::CreateApp();
+
+/**
+ * @brief Entry point for the MPE engine.
+ * @details This function is the entry point for the MPE engine.
+ * @param argc The number of arguments.
+ * @param argv The arguments.
+ * @return The exit code.
+ */
+int main(int argc, char **argv)
+{
+	MPE::GlobalLog::Init();
+	SET_EXECUTABLE_PATH_AS_CWD();
+
+	// Print out argc and argv
+	for (int i = 0; i < argc; i++)
+	{
+		MPE_CORE_TRACE("Argv[{0}]: {1}", i, argv[i]);
+	}
+
+	// MPE_PROFILE_START("STARTUP", "MPE-PROFILE-STARTUP.json");
+	auto app = MPE::CreateApp();
+	// MPE_PROFILE_END();
+	// MPE_PROFILE_START("RUNTIME", "MPE-PROFILE-RUNTIME.json");
+	app->Run();
+	// MPE_PROFILE_END();
+}
+
 #else
 
 #error No entrypoint defined for this platform.

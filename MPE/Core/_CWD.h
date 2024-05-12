@@ -71,6 +71,35 @@
         }                                                             \
     }
 
+#elif MPE_PLATFORM_OSX
+
+#include <string>
+#include <libproc.h>
+#include <unistd.h>
+#include <limits.h>
+#include <libgen.h>
+
+#define SET_EXECUTABLE_PATH_AS_CWD()                                                            \
+    {                                                                                           \
+        char path[PROC_PIDPATHINFO_MAXSIZE];                                                    \
+        if (proc_pidpath(getpid(), path, sizeof(path)) > 0)                                     \
+        {                                                                                       \
+            char *dir_path = dirname(path);                                                     \
+            if (chdir(dir_path) == 0)                                                           \
+            {                                                                                   \
+                MPE_CORE_WARN("Working directory set to: {0}", dir_path);                       \
+            }                                                                                   \
+            else                                                                                \
+            {                                                                                   \
+                MPE_CORE_ERROR("Cannot set the working directory. Error: {}", strerror(errno)); \
+            }                                                                                   \
+        }                                                                                       \
+        else                                                                                    \
+        {                                                                                       \
+            MPE_CORE_ERROR("Failed to retrieve executable path. Error: {}", strerror(errno));   \
+        }                                                                                       \
+    }
+
 #else
 #error CWD does not support this system.
 #endif
