@@ -9,6 +9,10 @@
 #include <Windows.h>
 #endif
 
+#ifdef MPE_PLATFORM_LINUX
+#include <unistd.h>
+#endif
+
 // BASIC
 #include <iostream>
 #include <memory>
