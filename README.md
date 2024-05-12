@@ -54,7 +54,7 @@ For windows [VCPKG](https://vcpkg.io/) is __required__.
 ### BUILDING
 
 1. Download the repo
-2. Execute ``git submodule --init --recursive``
+2. Execute ``git submodule init``
 3. CD into the __repo root__
 4. CD into ``/CPM/cpm``
 5. 1\~\*Execute ``cargo build --release``
