@@ -1,8 +1,11 @@
 # TOOL ENTRYPOINTS
 cpm.bat
+cpm.sh
 # ------------------------------------------------------------------------------
 # BUILD AND INSTALL
 [Bb]uild
 [Ii]nstall
 [Oo]ut
 # ------------------------------------------------------------------------------
+# VENDOR / DEPENDENCIES
+[Vv]endor
