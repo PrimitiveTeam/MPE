@@ -49,9 +49,45 @@
             ]
         },
         "linux": {
-            "dependencies": [],
+            "dependencies": [
+                "git",
+                "cmake"
+            ],
             "toolchain": "",
-            "libraries": [],
+            "libraries": [
+                {
+                    "library": "fmt",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "spdlog",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "glfw",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "glad",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "imgui",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "glm",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "stb",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "gtest",
+                    "distribution": "arch"
+                }
+            ],
             "instructions": []
         },
         "macos": {
