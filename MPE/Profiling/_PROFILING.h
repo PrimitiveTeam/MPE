@@ -195,7 +195,7 @@ namespace MPE
 #define MPE_PROFILE_SCOPE(name) ::MPE::InstrumentationTimer timer##__LINE__(name);
 #define MPE_PROFILE_FUNCTION() MPE_PROFILE_SCOPE(__FUNCSIG__)
 
-#elif MPE_COMPILER_CLANG
+#elif MPE_COMPILER_CLANG or MPE_COMPILER_GNU
 #define MPE_PROFILE_START(name, filepath) ::MPE::Profiler::Get().BeginSession(name, filepath)
 #define MPE_PROFILE_END() ::MPE::Profiler::Get().EndSession()
 #define MPE_PROFILE_SCOPE(name) ::MPE::InstrumentationTimer timer##__LINE__(name);
@@ -216,7 +216,7 @@ namespace MPE
 #define MPE_CORE_PROFILE_SCOPE(name) ::MPE::InstrumentationTimer timer##__LINE__(name);
 #define MPE_CORE_PROFILE_FUNCTION() MPE_PROFILE_SCOPE(__FUNCSIG__)
 
-#elif MPE_COMPILER_CLANG
+#elif MPE_COMPILER_CLANG or MPE_COMPILER_GNU
 #define MPE_CORE_PROFILE_START(name, filepath) ::MPE::Profiler::Get().BeginSession(name, filepath)
 #define MPE_CORE_PROFILE_END() ::MPE::Profiler::Get().EndSession()
 #define MPE_CORE_PROFILE_SCOPE(name) ::MPE::InstrumentationTimer timer##__LINE__(name);

@@ -192,7 +192,7 @@
 // BIND FUNCTIONS FOR EVENTS
 #ifdef MPE_COMPILER_MSVC
 #define MPE_BIND_EVENT_FUNCTION(func) std::bind(&func, this, std::placeholders::_1)
-#elif MPE_COMPILER_CLANG
+#elif MPE_COMPILER_CLANG or MPE_COMPILER_GNU
 #define MPE_BIND_EVENT_FUNCTION(func) [this](auto &&...args) -> decltype(auto) { return this->func(std::forward<decltype(args)>(args)...); }
 #endif
 
