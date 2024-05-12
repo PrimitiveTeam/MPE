@@ -24,6 +24,50 @@
       "cStandard": "c23",
       "cppStandard": "c++23",
       "intelliSenseMode": "windows-msvc-x64"
+    },
+    {
+      "name": "Linux-Clang",
+      "includePath": [
+        "${workspaceFolder}/**"
+      ],
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE",
+        "MPE_DYNAMIC_LIB",
+        "MPE_BUILD_DLL",
+        "MPE_ENABLE_DEBUG_LOG",
+        "MPE_CORE_DEBUG_PROFILING",
+        "MPE_PLATFORM_LINUX",
+        "MPE_STATIC_LIBRARY",
+        "MPE_ENABLE_ASSERTS"
+      ],
+      "compilerPath": "/usr/bin/clang",
+      "cStandard": "c23",
+      "cppStandard": "c++23",
+      "intelliSenseMode": "linux-clang-x64"
+    },
+    {
+      "name": "Linux-GCC",
+      "includePath": [
+        "${workspaceFolder}/**"
+      ],
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE",
+        "MPE_DYNAMIC_LIB",
+        "MPE_BUILD_DLL",
+        "MPE_ENABLE_DEBUG_LOG",
+        "MPE_CORE_DEBUG_PROFILING",
+        "MPE_PLATFORM_LINUX",
+        "MPE_STATIC_LIBRARY",
+        "MPE_ENABLE_ASSERTS"
+      ],
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "c23",
+      "cppStandard": "c++23",
+      "intelliSenseMode": "linux-gcc-x64"
     }
   ],
   "version": 4
