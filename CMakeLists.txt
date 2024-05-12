@@ -237,8 +237,8 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   endif()
 
   # GLAD
-  set(glad_DIR "${PROJECT_SOURCE_DIR}/Vendor/glad")
-  add_library(glad STATIC "${glad_DIR}/src/glad.c")
+  set(glad_DIR "${PROJECT_SOURCE_DIR}/Vendor/Glad")
+  add_library(glad STATIC "${glad_DIR}/src/gl.c")
   target_include_directories(glad PUBLIC "${glad_DIR}/include")
 
   # IMGUI
