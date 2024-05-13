@@ -10,8 +10,7 @@
 
 #ifdef MPE_PLATFORM_WINDOWS
 
-#include "MPE/Core/_CWD.h"
-#include "MPE/Log/GlobalLog.h"
+#include "MPE/Core/_INIT.h"
 #include "MPE/App/App.h"
 
 /**
@@ -31,8 +30,7 @@ extern MPE::REF<MPE::App> MPE::CreateApp();
  */
 int main(int argc, char **argv)
 {
-	MPE::GlobalLog::Init();
-	SET_EXECUTABLE_PATH_AS_CWD();
+	MPE_STARTUP();
 
 	// Print out argc and argv
 	for (int i = 0; i < argc; i++)
@@ -50,8 +48,7 @@ int main(int argc, char **argv)
 
 #elif MPE_PLATFORM_LINUX
 
-#include "MPE/Core/_CWD.h"
-#include "MPE/Log/GlobalLog.h"
+#include "MPE/Core/_INIT.h"
 #include "MPE/App/App.h"
 
 /**
@@ -71,8 +68,7 @@ extern MPE::REF<MPE::App> MPE::CreateApp();
  */
 int main(int argc, char **argv)
 {
-	MPE::GlobalLog::Init();
-	SET_EXECUTABLE_PATH_AS_CWD();
+	MPE_STARTUP();
 
 	// Print out argc and argv
 	for (int i = 0; i < argc; i++)
@@ -90,8 +86,7 @@ int main(int argc, char **argv)
 
 #elif MPE_PLATFORM_OSX
 
-#include "MPE/Core/_CWD.h"
-#include "MPE/Log/GlobalLog.h"
+#include "MPE/Core/_INIT.h"
 #include "MPE/App/App.h"
 
 /**
@@ -111,8 +106,7 @@ extern MPE::REF<MPE::App> MPE::CreateApp();
  */
 int main(int argc, char **argv)
 {
-	MPE::GlobalLog::Init();
-	SET_EXECUTABLE_PATH_AS_CWD();
+	MPE_STARTUP();
 
 	// Print out argc and argv
 	for (int i = 0; i < argc; i++)
