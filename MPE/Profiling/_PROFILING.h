@@ -203,9 +203,9 @@ namespace MPE
 
 #endif
 #else
-#define MPE_PROFILE_START()
+#define MPE_PROFILE_START(name, filepath)
 #define MPE_PROFILE_END()
-#define MPE_PROFILE_SCOPE()
+#define MPE_PROFILE_SCOPE(name)
 #define MPE_PROFILE_FUNCTION()
 #endif
 
@@ -224,9 +224,9 @@ namespace MPE
 
 #endif
 #else
-#define MPE_CORE_PROFILE_START()
+#define MPE_CORE_PROFILE_START(name, filepath)
 #define MPE_CORE_PROFILE_END()
-#define MPE_CORE_PROFILE_SCOPE()
+#define MPE_CORE_PROFILE_SCOPE(name)
 #define MPE_CORE_PROFILE_FUNCTION()
 #endif
 

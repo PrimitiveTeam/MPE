@@ -38,7 +38,12 @@ namespace MPE
          * @date 2024-05-05
          * @return The core logger.
          */
-        inline static REF<spdlog::logger> &GetCoreLogger() { return CoreLogger; }
+        inline static REF<spdlog::logger> &GetCoreLogger()
+        {
+            if (CoreLogger == nullptr)
+                throw std::runtime_error("Core logger is not initialized.");
+            return CoreLogger;
+        }
 
         /**
          * @brief Gets the debug logger.
@@ -46,7 +51,12 @@ namespace MPE
          * @date 2024-05-05
          * @return The debug logger.
          */
-        inline static REF<spdlog::logger> &GetDebugLogger() { return DebugLogger; }
+        inline static REF<spdlog::logger> &GetDebugLogger()
+        {
+            if (DebugLogger == nullptr)
+                throw std::runtime_error("Debug logger is not initialized.");
+            return DebugLogger;
+        }
 
         /**
          * @brief Gets the client logger.
@@ -54,7 +64,12 @@ namespace MPE
          * @date 2024-05-05
          * @return The client logger.
          */
-        inline static REF<spdlog::logger> &GetClientLogger() { return ClientLogger; }
+        inline static REF<spdlog::logger> &GetClientLogger()
+        {
+            if (ClientLogger == nullptr)
+                throw std::runtime_error("Client logger is not initialized.");
+            return ClientLogger;
+        }
 
     private:
         /**
@@ -94,6 +109,15 @@ namespace MPE
 #define MPE_DEBUG_WARN(...) ::MPE::GlobalLog::GetDebugLogger()->warn(__VA_ARGS__)
 #define MPE_DEBUG_ERROR(...) ::MPE::GlobalLog::GetDebugLogger()->error(__VA_ARGS__)
 #define MPE_DEBUG_FATAL(...) ::MPE::GlobalLog::GetDebugLogger()->fatal(__VA_ARGS__)
+
+#else
+// Define as nothing
+#define MPE_DEBUG_TRACE(...)
+#define MPE_DEBUG_INFO(...)
+#define MPE_DEBUG_WARN(...)
+#define MPE_DEBUG_ERROR(...)
+#define MPE_DEBUG_FATAL(...)
+
 #endif
 // CLIENT MAIN LOGS
 #define MPE_TRACE(...) ::MPE::GlobalLog::GetClientLogger()->trace(__VA_ARGS__)
