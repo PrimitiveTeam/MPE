@@ -44,6 +44,37 @@ public:
         // Random event test
         MPE::FunctionCalledEvent funcEvent("SampleFunction");
         OnEvent(funcEvent);
+
+        // Try catch custom Error
+        try
+        {
+            throw MPE::Error(404, "Not Found", MPE::Severity::Error, MPE::Category::Global);
+        }
+        catch (const MPE::Error &e)
+        {
+            e.std_log();
+        }
+
+        // Try catch from pre-defined exceptions
+        try
+        {
+            throw MPE_ERROR_1001;
+        }
+        catch (const std::exception &e)
+        {
+            MPE_CORE_ERROR("Exception: {0}", e.what());
+        }
+
+        // Try catch from pre-defined exceptions
+        try
+        {
+            // throw MPE::ErrorRegistry::get(1001);
+            throw MPE_ERROR_1001;
+        }
+        catch (const MPE::Error &e)
+        {
+            MPE_CORE_ERROR("Exception: {0}", e.get_verbose_log());
+        }
     }
 
 private:
@@ -88,11 +119,11 @@ void processHeavyTask()
     volatile int value = 0;
     for (int i = 0; i < 1000000; ++i)
     {
-        #ifdef MPE_COMPILER_APPLECLANG
+#ifdef MPE_COMPILER_APPLECLANG
         value = value + i;
-        #else
+#else
         value += i;
-        #endif
+#endif
     }
 }
 
@@ -104,10 +135,10 @@ void anotherTask()
     volatile int sum = 1;
     for (int i = 1; i < 1000; ++i)
     {
-        #ifdef MPE_COMPILER_APPLECLANG
+#ifdef MPE_COMPILER_APPLECLANG
         sum = sum * i;
-        #else
+#else
         sum *= i;
-        #endif
+#endif
     }
 }
