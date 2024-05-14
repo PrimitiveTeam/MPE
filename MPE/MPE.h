@@ -20,6 +20,11 @@
 #include "MPE/Log/Log.h"
 // ----- LOG -----
 
+// ----- ERRORS -----
+#include "MPE/Errors/Error.h"
+#include "MPE/Errors/Errors.h"
+// ----- ERRORS -----
+
 // ----- APPLICATION -----
 #include "MPE/App/App.h"
 // #include "MPE/Core/Layers/Layer.h"

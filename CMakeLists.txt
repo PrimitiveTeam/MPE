@@ -388,6 +388,9 @@ file(
   # /Log
   "${PROJECT_SOURCE_DIR}/MPE/Log/*.cpp"
 
+  # /Errors
+  "${PROJECT_SOURCE_DIR}/MPE/Errors/*.cpp"
+
   # /App
   "${PROJECT_SOURCE_DIR}/MPE/App/*.cpp"
 
@@ -444,6 +447,9 @@ file(
   # /Log
   "${PROJECT_SOURCE_DIR}/MPE/Log/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Log/CustomSinks/*.h"
+
+  # /Errors
+  "${PROJECT_SOURCE_DIR}/MPE/Errors/*.h"
 
   # /App
   "${PROJECT_SOURCE_DIR}/MPE/App/*.h"
