@@ -9,7 +9,7 @@ TabWidth: 4
 # Options: Never, ForIndentation, Always
 UseTab: Never
 # Maximum line length
-ColumnLimit: 80
+ColumnLimit: 160
 # Options: Attach, Linux, Mozilla, Stroustrup, Allman, Whitesmiths
 BreakBeforeBraces: Allman
 # Control if short if statements can be on a single line
