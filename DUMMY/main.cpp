@@ -69,6 +69,21 @@ class DummyApp : public MPE::App
         {
             MPE_CORE_ERROR("Exception: {0}", e.get_verbose_log());
         }
+
+#ifdef MPE_PLATFORM_WINDOWS
+        // Show a message box
+        try
+        {
+            // throw MPE::ErrorRegistry::get(1001);
+            throw MPE_ERROR_1001;
+        }
+        catch (const MPE::Error &e)
+        {
+            MPE_CORE_ERROR("Exception: {0}", e.get_verbose_log());
+            e.showExceptionDialog(e);
+            MPE::Error::showExceptionDialog(e);
+        }
+#endif
     }
 
   private:

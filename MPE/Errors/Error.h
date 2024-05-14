@@ -51,14 +51,7 @@ class MPE_API Error : public std::exception
 
     static const Error &get(int code);
 
-    void showExceptionDialog(const std::exception &e)
-    {
-#ifdef MPE_PLATFORM_WINDOWS
-        std::string errorMessage = "An unhandled exception occurred: ";
-        errorMessage += e.what();
-        MessageBoxA(NULL, errorMessage.c_str(), "Unhandled Exception", MB_ICONERROR | MB_OK);
-#endif
-    }
+    static const void showExceptionDialog(const std::exception &e);
 
   protected:
     int code_;
