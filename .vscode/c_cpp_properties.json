@@ -19,7 +19,7 @@
         "MPE_COMPILER_MSVC",
         "MPE_CORE_DEBUG_PROFILING",
         "MPE_DEBUG_PROFILING",
-        "MPE_ENABLE_DEBUG_LOG",
+        "MPE_ENABLE_DEBUG_LOG"
       ],
       "windowsSdkVersion": "10.0.22000.0",
       "compilerPath": "cl.exe",
@@ -29,9 +29,7 @@
     },
     {
       "name": "Linux-Clang",
-      "includePath": [
-        "${workspaceFolder}/**"
-      ],
+      "includePath": ["${workspaceFolder}/**"],
       "defines": [
         "_DEBUG",
         "UNICODE",
@@ -51,9 +49,7 @@
     },
     {
       "name": "Linux-GCC",
-      "includePath": [
-        "${workspaceFolder}/**"
-      ],
+      "includePath": ["${workspaceFolder}/**"],
       "defines": [
         "_DEBUG",
         "UNICODE",
@@ -73,9 +69,7 @@
     },
     {
       "name": "macOS-Clang",
-      "includePath": [
-        "${workspaceFolder}/**"
-      ],
+      "includePath": ["${workspaceFolder}/**"],
       "defines": [
         "_DEBUG",
         "UNICODE",
@@ -95,9 +89,7 @@
     },
     {
       "name": "macOS-GCC",
-      "includePath": [
-        "${workspaceFolder}/**"
-      ],
+      "includePath": ["${workspaceFolder}/**"],
       "defines": [
         "_DEBUG",
         "UNICODE",
