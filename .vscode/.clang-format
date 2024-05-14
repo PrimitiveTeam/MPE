@@ -44,6 +44,8 @@ IndentGotoLabels: false
 KeepEmptyLinesAtTheStartOfBlocks: true
 # Options: None, Inner, All
 NamespaceIndentation: None
+# Do not add comments at the end of namespace closing braces
+FixNamespaceComments: false
 # Reflow long comments
 ReflowComments: true
 # Sort include directives
