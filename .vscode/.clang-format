@@ -13,7 +13,9 @@ ColumnLimit: 80
 # Options: Attach, Linux, Mozilla, Stroustrup, Allman, Whitesmiths
 BreakBeforeBraces: Allman
 # Control if short if statements can be on a single line
-AllowShortIfStatementsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: true
+# Keep simple macros on a single line
+AllowShortFunctionsOnASingleLine: Inline
 # Options: Left, Right, Middle
 PointerAlignment: Left
 # Indentation level for access modifiers
