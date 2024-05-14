@@ -3,25 +3,25 @@
 
 namespace MPE
 {
-	App::App()
-	{
-		SYS_Log = MPE::Log::Create("App", MPE::Log::Option::CONSOLE);
-	}
+App::App()
+{
+    SYS_Log = MPE::Log::Create("App", MPE::Log::Option::CONSOLE);
+}
 
-	App::~App() {}
+App::~App() {}
 
-	// void App::Run()
-	// {
-	// 	while (SYS_Running)
-	// 	{
-	// 		SYS_Log->info("Running...");
-	// 		std::this_thread::sleep_for(std::chrono::seconds(1));
-	// 		Shutdown();
-	// 	}
-	// }
+// void App::Run()
+// {
+// 	while (SYS_Running)
+// 	{
+// 		SYS_Log->info("Running...");
+// 		std::this_thread::sleep_for(std::chrono::seconds(1));
+// 		Shutdown();
+// 	}
+// }
 
-	REF<App> CreateApp()
-	{
-		return NEWREF<App>();
-	}
+REF<App> CreateApp()
+{
+    return NEWREF<App>();
+}
 }

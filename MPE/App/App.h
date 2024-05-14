@@ -12,26 +12,26 @@
 
 namespace MPE
 {
-	/**
-	 * @brief App class for the MPE engine.
-	 * @details This class is used to define the application for the MPE engine.
-	 * @date 2024-05-05
-	 * @see EntryPoint.h
-	 */
-	class MPE_API App
-	{
-	public:
-		App();
-		virtual ~App();
+/**
+ * @brief App class for the MPE engine.
+ * @details This class is used to define the application for the MPE engine.
+ * @date 2024-05-05
+ * @see EntryPoint.h
+ */
+class MPE_API App
+{
+  public:
+    App();
+    virtual ~App();
 
-		virtual void Run() {};
+    virtual void Run() {};
 
-		inline void Shutdown() { SYS_Running = false; }
+    inline void Shutdown() { SYS_Running = false; }
 
-	private:
-		bool SYS_Running = true;
-		REF<MPE::Log> SYS_Log;
-	};
+  private:
+    bool SYS_Running = true;
+    REF<MPE::Log> SYS_Log;
+};
 
-	static REF<App> CreateApp();
+static REF<App> CreateApp();
 }

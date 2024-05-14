@@ -1,7 +1,7 @@
-#include <iostream>
-#include <Test/Test.h>
-#include <MPE.h>
 #include <EntryPoint.h>
+#include <MPE.h>
+#include <Test/Test.h>
+#include <iostream>
 
 void timer_test();
 void processHeavyTask();
@@ -10,16 +10,10 @@ void log_test(MPE::Log &log);
 
 class DummyApp : public MPE::App
 {
-public:
-    DummyApp()
-    {
-        MPE_CORE_TRACE("DummyApp created!");
-    }
+  public:
+    DummyApp() { MPE_CORE_TRACE("DummyApp created!"); }
 
-    ~DummyApp()
-    {
-        MPE_CORE_TRACE("DummyApp destroyed!");
-    }
+    ~DummyApp() { MPE_CORE_TRACE("DummyApp destroyed!"); }
 
     void Run() override
     {
@@ -77,7 +71,7 @@ public:
         }
     }
 
-private:
+  private:
     bool TestFunc(MPE::FunctionCalledEvent &event)
     {
         MPE_CORE_TRACE("TestFunc called!");
