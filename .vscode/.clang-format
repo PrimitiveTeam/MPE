@@ -87,32 +87,3 @@ IncludeCategories:
     Priority: 2
 
 # Preprocessor Options
-
-# Brace Wrapping Options
-
-# Brace wrapping after case labels
-AfterCaseLabel: false
-# Brace wrapping after class definition
-AfterClass: false
-# Brace wrapping after control statements
-AfterControlStatement: false
-# Brace wrapping after enum definition
-AfterEnum: false
-# Brace wrapping after function definition
-AfterFunction: false
-# Brace wrapping after namespace definition
-AfterNamespace: false
-# Brace wrapping after Objective-C declaration
-AfterObjCDeclaration: false
-# Brace wrapping after struct definition
-AfterStruct: false
-# Brace wrapping after union definition
-AfterUnion: false
-# Brace wrapping before catch
-BeforeCatch: false
-# Brace wrapping before else
-BeforeElse: false
-# Indent braces
-IndentBraces: false
-
-# Brace Wrapping Options
