@@ -82,10 +82,10 @@
 #        else
 // #pragma message("Using Dynamic Lib")
 #            define MPE_API __declspec(dllimport)
+#            pragma message("DYNAMIC LIBRARY IS NOT INTENDED TO BE USED WITH THIS PROJECT AT THE MOMENT.")
 #        endif
 #    else
 // DYNAMIC LIBRARY IS NOT SUPPORTED BY THIS PROJECT, BUT CAN STILL BE ENABLED
-#        pragma message("DYNAMIC LIBRARY IS NOT INTENDED TO BE USED WITH THIS PROJECT AT THE MOMENT.")
 #        define MPE_API
 #    endif
 
