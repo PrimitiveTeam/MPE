@@ -1,5 +1,6 @@
 #include "MPE/Errors/Error.h"
 #include "MPE/MPEPCH.h"
+#include "MPE/MPEPLAT.h"
 
 namespace MPE
 {
