@@ -70,11 +70,12 @@
 #ifdef MPE_PLATFORM_WINDOWS
 // IF A STATIC LIBRARY IS USED THEN DEFINE MPE_API AS NOTHING
 #    ifdef MPE_STATIC_LIBRARY
+#        pragma message("MPE_STATIC_LIBRARY - DEFINED")
 #        define MPE_API
 #    endif
 // IF A DYNAMIC LIBRARY IS USED THEN DEFINE MPE_API WITHIN MPE AS DLL EXPORT AND
 // MPE_API WITHIN SANDBOX AS DLL IMPORT
-#    ifdef MPE_DYNAMIC_LIB
+#    ifdef MPE_DYNAMIC_LIBRARY
 #        ifdef MPE_BUILD_DLL
 // #pragma message("Building DLL")
 // #pragma warning(disable : 4005)
@@ -96,7 +97,7 @@
 #        define MPE_API
 #    endif
 
-#    ifdef MPE_DYNAMIC_LIB
+#    ifdef MPE_DYNAMIC_LIBRARY
 
 #        ifdef MPE_BUILD_DLL
 #            error "Building DLL is not supported on Linux"
@@ -114,7 +115,7 @@
 #        define MPE_API
 #    endif
 
-#    ifdef MPE_DYNAMIC_LIB
+#    ifdef MPE_DYNAMIC_LIBRARY
 
 #        ifdef MPE_BUILD_DLL
 #            error "Building DLL is not supported on Linux"
