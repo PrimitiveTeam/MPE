@@ -44,6 +44,8 @@ int main(int argc, char **argv)
     // MPE_PROFILE_START("RUNTIME", "MPE-PROFILE-RUNTIME.json");
     app->Run();
     // MPE_PROFILE_END();
+
+    return 0;
 }
 
 #elif MPE_PLATFORM_LINUX
