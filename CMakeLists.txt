@@ -403,6 +403,7 @@ file(
 
   # /App
   "${PROJECT_SOURCE_DIR}/MPE/App/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/App/Layers/*.cpp"
 
   # /Profiling
   "${PROJECT_SOURCE_DIR}/MPE/Profiling/*.cpp"
@@ -463,6 +464,7 @@ file(
 
   # /App
   "${PROJECT_SOURCE_DIR}/MPE/App/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/App/Layers/*.h"
 
   # /Profiling
   "${PROJECT_SOURCE_DIR}/MPE/Profiling/*.h"

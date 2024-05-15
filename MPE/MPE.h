@@ -29,7 +29,8 @@
 // ----- APPLICATION -----
 #include "MPE/App/App.h"
 #include "MPE/App/Window.h"
-// #include "MPE/Core/Layers/Layer.h"
+#include "MPE/App/Layers/Layer.h"
+#include "MPE/App/Layers/LayerStack.h"
 // ----- APPLICATION -----
 
 // ----- PROFILING -----
