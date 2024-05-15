@@ -100,11 +100,11 @@
 #    ifdef MPE_DYNAMIC_LIBRARY
 
 #        ifdef MPE_BUILD_DLL
-#            warning "Building DLL is not supported on Linux"
+// #            warning "Building DLL is not supported on Linux"
 #            define MPE_API __attribute__((visibility("default")))
 #        else
 #            define MPE_API
-#            warning "Using Dynamic Libraries is not supported on Linux"
+// #            warning "Using Dynamic Libraries is not supported on Linux"
 #        endif
 
 #    endif
@@ -119,11 +119,11 @@
 #    ifdef MPE_DYNAMIC_LIBRARY
 
 #        ifdef MPE_BUILD_DLL
-#            warning "Building DLL is not supported on OSX"
+// #            warning "Building DLL is not supported on OSX"
 #            define MPE_API __attribute__((visibility("default")))
 #        else
 #            define MPE_API
-#            warning "Using Dynamic Libraries is not supported on OSX"
+// #            warning "Using Dynamic Libraries is not supported on OSX"
 #        endif
 
 #    endif
