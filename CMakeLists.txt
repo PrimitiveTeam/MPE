@@ -37,7 +37,13 @@ set(PROJECT_FULL_VERSION
 )
 
 # CREATING PROJECT
-project(MERELY_PRIMITIVE_ENGINE VERSION ${PROJECT_VERSION})
+if(WIN32)
+  project(MERELY_PRIMITIVE_ENGINE VERSION ${PROJECT_VERSION} LANGUAGES C CXX)
+elseif(APPLE)
+  project(MERELY_PRIMITIVE_ENGINE VERSION ${PROJECT_VERSION} LANGUAGES C CXX OBJC OBJCXX)
+else()
+  project(MERELY_PRIMITIVE_ENGINE VERSION ${PROJECT_VERSION} LANGUAGES C CXX)
+endif()
 
 # RUN CMP TO ASSIGN BUILD TYPE
 if(WIN32)
@@ -336,6 +342,10 @@ find_package(glfw3 CONFIG REQUIRED)
 # find_package(imgui CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 
+if(COMPILATION_PLATFORM STREQUAL "OSX")
+  find_library(COCOA_LIBRARY Cocoa)
+endif()
+
 # find_package(imguizmo CONFIG REQUIRED) find_package(yaml-cpp CONFIG REQUIRED)
 # find_package(Stb REQUIRED)
 if(${VERBOSE})
@@ -489,6 +499,98 @@ if(${VERBOSE})
   message(STATUS "MPE HEADERS:\n{${MPE_H}}")
 endif()
 
+# ADD PLATFORM BASED MPE SOURCE FILES
+if(COMPILATION_PLATFORM STREQUAL "WIN32")
+  file(
+    GLOB_RECURSE
+    MPE_WIN32_CPP
+
+    # CORE
+    # /Platform/Windows
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/*.cpp"
+
+    # /Platform/Windows/Errors
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/Errors/*.cpp"
+  )
+
+  # file(
+  # GLOB_RECURSE
+  # MPE_WIN32_H
+
+  # # /Platform/Windows
+  # "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/*.h"
+  # )
+
+  # ADD MPE WIN32 SOURCE FILES
+  list(APPEND MPE_CPP ${MPE_WIN32_CPP})
+
+  # list(APPEND MPE_H ${MPE_WIN32_H})
+
+  # PRINT MPE WIN32 SOURCE FILES
+  if(${VERBOSE})
+    message(STATUS "MPE WIN32 SOURCE:\n{${MPE_WIN32_CPP}}")
+  endif()
+elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
+  # file(
+  # GLOB_RECURSE
+  # MPE_UNIX_CPP
+
+  # # CORE
+  # # /Platform/Unix
+  # "${PROJECT_SOURCE_DIR}/MPE/Platform/Unix/*.cpp"
+  # )
+
+  # file(
+  # GLOB_RECURSE
+  # MPE_UNIX_H
+
+  # # /Platform/Unix
+  # "${PROJECT_SOURCE_DIR}/MPE/Platform/Unix/*.h"
+  # )
+
+  # ADD MPE UNIX SOURCE FILES
+  list(APPEND MPE_CPP ${MPE_UNIX_CPP})
+
+  # list(APPEND MPE_H ${MPE_UNIX_H})
+
+  # PRINT MPE UNIX SOURCE FILES
+  if(${VERBOSE})
+    message(STATUS "MPE UNIX SOURCE:\n{${MPE_UNIX_CPP}}")
+  endif()
+elseif(COMPILATION_PLATFORM STREQUAL "OSX")
+  file(
+    GLOB_RECURSE
+    MPE_OSX_CPP
+
+    # CORE
+    # /Platform/OSX
+    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OSX/*.cpp"
+
+    # /Platform/OSX/Errors
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/Errors/*.mm"
+  )
+
+  # file(
+  # GLOB_RECURSE
+  # MPE_OSX_H
+
+  # # /Platform/OSX
+  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OSX/*.h"
+  # )
+
+  # ADD MPE OSX SOURCE FILES
+  list(APPEND MPE_CPP ${MPE_OSX_CPP})
+
+  # list(APPEND MPE_H ${MPE_OSX_H})
+
+  # set_source_files_properties(${MPE_OSX_CPP} PROPERTIES COMPILE_FLAGS "-include MPE/MPEPCH.h")
+
+  # PRINT MPE OSX SOURCE FILES
+  if(${VERBOSE})
+    message(STATUS "MPE OSX SOURCE:\n{${MPE_OSX_CPP}}")
+  endif()
+endif()
+
 if(${VERBOSE})
   message(STATUS "MPE SOURCE FILES ADDED.")
 endif()
@@ -496,7 +598,23 @@ endif()
 # BUILD MPE LIBRARY BASED ON SET LIBRARY TYPE
 if(${MPE_LIBRARY_TYPE} STREQUAL STATIC)
   # MAKE MPE LIBRARY STATIC - DYNAMIC LIBRARY COULD BE SUPPORTED
-  add_library(MPE STATIC ${MPE_CPP})
+  if(COMPILATION_PLATFORM STREQUAL "WIN32")
+    add_library(MPE STATIC
+      ${MPE_CPP}
+      ${MPE_WIN32_CPP}
+    )
+  elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
+    add_library(MPE STATIC
+      ${MPE_CPP}
+      ${MPE_UNIX_CPP}
+    )
+  elseif(COMPILATION_PLATFORM STREQUAL "OSX")
+    add_library(MPE STATIC
+      ${MPE_CPP}
+      ${MPE_OSX_CPP}
+    )
+  endif()
+
   target_compile_definitions(MPE PRIVATE MPE_STATIC_LIBRARY)
 elseif(${MPE_LIBRARY_TYPE} STREQUAL SHARED)
   # DOUBLE CHECKS IF BUILDSYSTEM IS USING ONLY STATIC LIBRARY. DYNAMIC LIBRARIES
@@ -505,7 +623,22 @@ elseif(${MPE_LIBRARY_TYPE} STREQUAL SHARED)
   # USERS DEEM THAT IT IS NEEDED. REMOVE #ERROR PREPROCESSOR DECLARATION ON LINE
   # 17 IN CORE.H FILE
   # get_target_property(LIBRARY_STATE MPE TYPE)
-  add_library(MPE SHARED ${MPE_CPP})
+  if(COMPILATION_PLATFORM STREQUAL "WIN32")
+    add_library(MPE SHARED
+      ${MPE_CPP}
+      ${MPE_WIN32_CPP}
+    )
+  elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
+    add_library(MPE SHARED
+      ${MPE_CPP}
+      ${MPE_UNIX_CPP}
+    )
+  elseif(COMPILATION_PLATFORM STREQUAL "OSX")
+    add_library(MPE SHARED
+      ${MPE_CPP}
+      ${MPE_OSX_CPP}
+    )
+  endif()
 
   target_compile_definitions(MPE PUBLIC MPE_DYNAMIC_LIBRARY)
   target_compile_definitions(MPE PRIVATE MPE_BUILD_DLL)
@@ -570,6 +703,13 @@ target_link_libraries(
 
   # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
 )
+
+if(COMPILATION_PLATFORM STREQUAL "OSX")
+  target_link_libraries(
+    MPE
+    PRIVATE ${COCOA_LIBRARY}
+  )
+endif()
 
 # find_path(STB_INCLUDE_DIRS "stb_c_lexer.h") target_include_directories(MPE
 # PUBLIC ${Stb_INCLUDE_DIRS})
