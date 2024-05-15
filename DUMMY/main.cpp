@@ -70,7 +70,6 @@ class DummyApp : public MPE::App
             MPE_CORE_ERROR("Exception: {0}", e.get_verbose_log());
         }
 
-#ifdef MPE_PLATFORM_WINDOWS
         // Show a message box
         try
         {
@@ -83,7 +82,6 @@ class DummyApp : public MPE::App
             e.showExceptionDialog(e);
             MPE::Error::showExceptionDialog(e);
         }
-#endif
     }
 
   private:
