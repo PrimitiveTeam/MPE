@@ -8,15 +8,13 @@ void processHeavyTask();
 void anotherTask();
 void log_test(MPE::Log &log);
 
-class DummyApp : public MPE::App
+class DummyLayer : public MPE::Layer
 {
   public:
-    DummyApp() { MPE_CORE_TRACE("DummyApp created!"); }
-
-    ~DummyApp() { MPE_CORE_TRACE("DummyApp destroyed!"); }
-
-    void Run() override
+    DummyLayer() : Layer("DummyLayer")
     {
+        MPE_CORE_TRACE("DummyLayer created!");
+
         MPE_CORE_TRACE("DummyApp running!");
         MPE::Test test;
         MPE_CORE_INFO("Test: {0}", test.GetName());
@@ -84,24 +82,86 @@ class DummyApp : public MPE::App
         }
     }
 
+    ~DummyLayer() { MPE_CORE_TRACE("DummyLayer destroyed!"); }
+
+    void OnAttach() override { MPE_CORE_TRACE("DummyLayer attached!"); }
+
+    void OnDetach() override { MPE_CORE_TRACE("DummyLayer detached!"); }
+
+    void OnUpdate(MPE::Time deltatime) override { MPE_CORE_TRACE("DummyLayer updated! DeltaTime: {0}", deltatime.GetMilliSeconds()); }
+
+    void OnImGuiRender() override { MPE_CORE_TRACE("DummyLayer ImGui rendered!"); }
+
+    void OnEvent(MPE::Event &event) override
+    {
+        MPE::EventDispatcher dispatcher(event);
+        dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(DummyLayer::OnKeyPressed));
+        dispatcher.Dispatch<MPE::FunctionCalledEvent>(MPE_BIND_EVENT_FUNCTION(DummyLayer::TestFunc));
+    }
+
+    bool OnKeyPressed(MPE::KeyPressedEvent &event)
+    {
+        MPE_CORE_TRACE("Key pressed: {0}", event.GetKeyCode());
+        return true;
+    }
+
   private:
     bool TestFunc(MPE::FunctionCalledEvent &event)
     {
         MPE_CORE_TRACE("TestFunc called!");
         return true;
     }
-    // Used when another function is called
-    void OnEvent(MPE::Event &e)
+};
+
+class TestLayer : public MPE::Layer
+{
+  public:
+    TestLayer() : Layer("TestLayer") { MPE_CORE_TRACE("TestLayer created!"); }
+
+    ~TestLayer() { MPE_CORE_TRACE("TestLayer destroyed!"); }
+
+    void OnAttach() override { MPE_CORE_TRACE("TestLayer attached!"); }
+
+    void OnDetach() override { MPE_CORE_TRACE("TestLayer detached!"); }
+
+    void OnUpdate(MPE::Time deltatime) override { MPE_CORE_TRACE("TestLayer updated! DeltaTime: {0}", deltatime.GetMilliSeconds()); }
+
+    void OnImGuiRender() override { MPE_CORE_TRACE("TestLayer ImGui rendered!"); }
+
+    void OnEvent(MPE::Event &event) override
     {
-        MPE::EventDispatcher dispatcher(e);
-        // dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(DummyApp::TestFunc));
-        dispatcher.Dispatch<MPE::FunctionCalledEvent>(MPE_BIND_EVENT_FUNCTION(DummyApp::TestFunc));
+        MPE::EventDispatcher dispatcher(event);
+        dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(TestLayer::OnKeyPressed));
+    }
+
+    bool OnKeyPressed(MPE::KeyPressedEvent &event)
+    {
+        MPE_CORE_TRACE("Key pressed: {0}", event.GetKeyCode());
+        return true;
+    }
+};
+
+class DummyApp : public MPE::App
+{
+  public:
+    DummyApp()
+    {
+        MPE_CORE_TRACE("DummyApp created!");
+        PushLayer(MPE::NEWREF<DummyLayer>());
+        PushLayer(MPE::NEWREF<TestLayer>());
+    }
+
+    ~DummyApp()
+    {
+        // Pop all layers
+        PopAllLayers();
+        MPE_CORE_TRACE("DummyApp destroyed!");
     }
 };
 
 MPE::REF<MPE::App> MPE::CreateApp()
 {
-    return NEWREF<DummyApp>();
+    return MPE::NEWREF<DummyApp>();
 }
 
 void log_test(MPE::Log &log)
