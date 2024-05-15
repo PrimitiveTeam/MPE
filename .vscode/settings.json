@@ -94,6 +94,7 @@
     "xtree": "cpp",
     "xutility": "cpp",
     "any": "cpp",
-    "text_encoding": "cpp"
+    "text_encoding": "cpp",
+    "*.ipp": "cpp"
   }
 }
