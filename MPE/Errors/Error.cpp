@@ -29,8 +29,21 @@ const char *Error::what() const noexcept
 
 const Error &Error::get(int code)
 {
+#ifdef MPE_COMPILER_CLANG
+    static std::map<int, Error> errors;
+
+    auto it = errors.find(code);
+    if (it != errors.end())
+    {
+        return it->second;
+    }
+    
+    static Error unknownError;
+    return unknownError;
+#else
     static std::map<int, Error> errors;
     return errors[code];
+#endif
 }
 
 }
