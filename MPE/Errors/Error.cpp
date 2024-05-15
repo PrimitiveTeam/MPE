@@ -33,12 +33,4 @@ const Error &Error::get(int code)
     return errors[code];
 }
 
-const void Error::showExceptionDialog(const std::exception &e)
-{
-#ifdef MPE_PLATFORM_WINDOWS
-    std::string errorMessage = "An unhandled exception occurred: ";
-    errorMessage += e.what();
-    MessageBoxA(NULL, errorMessage.c_str(), "Unhandled Exception", MB_ICONERROR | MB_OK);
-#endif
-}
 }

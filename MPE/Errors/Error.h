@@ -8,10 +8,6 @@
 #include <stdexcept>
 #include <string>
 
-#ifdef MPE_PLATFORM_WINDOWS
-#    include <Windows.h>
-#endif
-
 namespace MPE
 {
 // Error severity levels
@@ -51,6 +47,7 @@ class MPE_API Error : public std::exception
 
     static const Error &get(int code);
 
+    // MPE/Platform/x/Errors/Errors.cpp
     static const void showExceptionDialog(const std::exception &e);
 
   protected:
