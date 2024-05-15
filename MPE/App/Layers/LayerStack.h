@@ -9,19 +9,21 @@ namespace MPE
 class MPE_API LayerStack
 {
   private:
-    std::vector<Layer *> SYS_Layers;
+    std::vector<REF<Layer>> SYS_Layers;
     unsigned int SYS_LayerInsertIndex = 0;
 
   public:
     LayerStack();
     ~LayerStack();
 
-    void PushLayer(Layer *layer);
-    void PushOverlay(Layer *overlay);
-    void PopLayer(Layer *layer);
-    void PopOverlay(Layer *overlay);
+    void PushLayer(const REF<Layer> &layer);
+    void PopLayer();
+    void PushOverlay(const REF<Layer> &overlay);
+    void PopOverlay();
 
-    std::vector<Layer *>::iterator begin() { return SYS_Layers.begin(); }
-    std::vector<Layer *>::iterator end() { return SYS_Layers.end(); }
+    bool empty() { return SYS_Layers.empty(); }
+
+    std::vector<REF<Layer>>::iterator begin() { return SYS_Layers.begin(); }
+    std::vector<REF<Layer>>::iterator end() { return SYS_Layers.end(); }
 };
 }

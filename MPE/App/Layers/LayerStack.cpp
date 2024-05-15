@@ -7,39 +7,41 @@ LayerStack::LayerStack() {}
 
 LayerStack::~LayerStack()
 {
-    for (Layer *layer : SYS_Layers)
+    for (REF<Layer> layer : SYS_Layers)
     {
-        delete layer;
+        layer.reset();
     }
 }
 
-void LayerStack::PushLayer(Layer *layer)
+void LayerStack::PushLayer(const REF<Layer> &layer)
 {
     SYS_Layers.emplace(SYS_Layers.begin() + SYS_LayerInsertIndex, layer);
     SYS_LayerInsertIndex++;
 }
 
-void LayerStack::PushOverlay(Layer *overlay)
+void LayerStack::PopLayer()
 {
-    SYS_Layers.emplace_back(overlay);
-}
-
-void LayerStack::PopLayer(Layer *layer)
-{
-    auto it = std::find(SYS_Layers.begin(), SYS_Layers.end(), layer);
-    if (it != SYS_Layers.end())
+    if (SYS_LayerInsertIndex > 0)
     {
+        auto it = SYS_Layers.begin() + (SYS_LayerInsertIndex - 1);
+        (*it)->OnDetach();
         SYS_Layers.erase(it);
         SYS_LayerInsertIndex--;
     }
 }
 
-void LayerStack::PopOverlay(Layer *overlay)
+void LayerStack::PushOverlay(const REF<Layer> &overlay)
 {
-    auto it = std::find(SYS_Layers.begin(), SYS_Layers.end(), overlay);
-    if (it != SYS_Layers.end())
+    SYS_Layers.emplace_back(overlay);
+}
+
+void LayerStack::PopOverlay()
+{
+    if (!SYS_Layers.empty() && SYS_LayerInsertIndex < SYS_Layers.size())
     {
-        SYS_Layers.erase(it);
+        auto it = SYS_Layers.end() - 1;
+        (*it)->OnDetach();
+        SYS_Layers.pop_back();
     }
 }
 }
