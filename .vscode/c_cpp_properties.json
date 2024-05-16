@@ -19,7 +19,7 @@
         "MPE_COMPILER_MSVC",
         "MPE_CORE_DEBUG_PROFILING",
         "MPE_DEBUG_PROFILING",
-        "MPE_ENABLE_DEBUG_LOG",
+        "MPE_ENABLE_DEBUG_LOG"
       ],
       "windowsSdkVersion": "10.0.22000.0",
       "compilerPath": "cl.exe",
@@ -29,13 +29,13 @@
     },
     {
       "name": "Linux-Clang",
-      "includePath": [
-        "${workspaceFolder}/**"
-      ],
+      "includePath": ["${workspaceFolder}/**"],
       "defines": [
         "_DEBUG",
         "UNICODE",
         "_UNICODE",
+        "MPE_DYNAMIC_LIB",
+        "MPE_BUILD_DLL",
         "MPE_STATIC_LIBRARY",
         "MPE_PLATFORM_LINUX",
         "MPE_ENABLE_ASSERTS",
@@ -51,13 +51,13 @@
     },
     {
       "name": "Linux-GCC",
-      "includePath": [
-        "${workspaceFolder}/**"
-      ],
+      "includePath": ["${workspaceFolder}/**"],
       "defines": [
         "_DEBUG",
         "UNICODE",
         "_UNICODE",
+        "MPE_DYNAMIC_LIB",
+        "MPE_BUILD_DLL",
         "MPE_STATIC_LIBRARY",
         "MPE_PLATFORM_LINUX",
         "MPE_ENABLE_ASSERTS",
@@ -73,13 +73,13 @@
     },
     {
       "name": "macOS-Clang",
-      "includePath": [
-        "${workspaceFolder}/**"
-      ],
+      "includePath": ["${workspaceFolder}/**"],
       "defines": [
         "_DEBUG",
         "UNICODE",
         "_UNICODE",
+        "MPE_DYNAMIC_LIB",
+        "MPE_BUILD_DLL",
         "MPE_STATIC_LIBRARY",
         "MPE_PLATFORM_OSX",
         "MPE_ENABLE_ASSERTS",
@@ -95,13 +95,13 @@
     },
     {
       "name": "macOS-GCC",
-      "includePath": [
-        "${workspaceFolder}/**"
-      ],
+      "includePath": ["${workspaceFolder}/**"],
       "defines": [
         "_DEBUG",
         "UNICODE",
         "_UNICODE",
+        "MPE_DYNAMIC_LIB",
+        "MPE_BUILD_DLL",
         "MPE_STATIC_LIBRARY",
         "MPE_PLATFORM_OSX",
         "MPE_ENABLE_ASSERTS",

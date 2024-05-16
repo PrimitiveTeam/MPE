@@ -4,20 +4,20 @@
 
 namespace MPE
 {
-    // Create a function called event
-    class MPE_API FunctionCalledEvent : public Event
-    {
-    private:
-        std::string FunctionName;
+// Create a function called event
+class MPE_API FunctionCalledEvent : public Event
+{
+  private:
+    std::string FunctionName;
 
-    public:
-        FunctionCalledEvent(std::string functionName);
+  public:
+    FunctionCalledEvent(std::string functionName);
 
-        inline std::string GetFunctionName() const { return FunctionName; }
+    inline std::string GetFunctionName() const { return FunctionName; }
 
-        std::string ToString() const override;
+    std::string ToString() const override;
 
-        EVENT_CLASS_TYPE(FunctionCalled)
-        EVENT_CLASS_CATEGORY(EventCategoryFunctions)
-    };
+    EVENT_CLASS_TYPE(FunctionCalled)
+    EVENT_CLASS_CATEGORY(EventCategoryFunctions)
+};
 }

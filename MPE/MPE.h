@@ -3,8 +3,9 @@
 /**
  * @file MPE.h
  * @brief Precompiled header file for the MPE engine.
- * @details This file is used to include all the necessary headers for the MPE engine.
- * Use this file to include all the necessary headers for an external application.
+ * @details This file is used to include all the necessary headers for the MPE
+ * engine. Use this file to include all the necessary headers for an external
+ * application.
  * @date 2024-05-05
  */
 
@@ -20,15 +21,22 @@
 #include "MPE/Log/Log.h"
 // ----- LOG -----
 
+// ----- ERRORS -----
+#include "MPE/Errors/Error.h"
+#include "MPE/Errors/Errors.h"
+// ----- ERRORS -----
+
 // ----- APPLICATION -----
 #include "MPE/App/App.h"
-// #include "MPE/Core/Layers/Layer.h"
+#include "MPE/App/Window.h"
+#include "MPE/App/Layers/Layer.h"
+#include "MPE/App/Layers/LayerStack.h"
 // ----- APPLICATION -----
 
 // ----- PROFILING -----
 // ONLY FOR DEBUGGING!
-#include "MPE/Profiling/_TIMER.h"
 #include "MPE/Profiling/_PROFILING.h"
+#include "MPE/Profiling/_TIMER.h"
 // ----- PROFILING -----
 
 // ----- PHYSICS -----
@@ -37,9 +45,9 @@
 
 // ----- EVENTS -----
 #include "MPE/Events/EventApp.h"
+#include "MPE/Events/EventFunction.h"
 #include "MPE/Events/EventKey.h"
 #include "MPE/Events/EventMouse.h"
-#include "MPE/Events/EventFunction.h"
 // ----- EVENTS -----
 
 // ----- INPUT -----

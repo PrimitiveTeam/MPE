@@ -4,69 +4,69 @@
 
 namespace MPE
 {
-    class MPE_API MouseMovedEvent : public Event
-    {
-    private:
-        float MouseX, MouseY;
+class MPE_API MouseMovedEvent : public Event
+{
+  private:
+    float MouseX, MouseY;
 
-    public:
-        MouseMovedEvent(float x, float y);
+  public:
+    MouseMovedEvent(float x, float y);
 
-        inline float GetX() const { return MouseX; }
-        inline float GetY() const { return MouseY; }
+    inline float GetX() const { return MouseX; }
+    inline float GetY() const { return MouseY; }
 
-        std::string ToString() const override;
+    std::string ToString() const override;
 
-        EVENT_CLASS_TYPE(MouseMoved)
-        EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
-    };
+    EVENT_CLASS_TYPE(MouseMoved)
+    EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+};
 
-    class MPE_API MouseScrolledEvent : public Event
-    {
-    private:
-        float XOffset, YOffset;
+class MPE_API MouseScrolledEvent : public Event
+{
+  private:
+    float XOffset, YOffset;
 
-    public:
-        MouseScrolledEvent(float xoffset, float yoffset);
-        inline float GetXOffset() const { return XOffset; }
-        inline float GetYOffset() const { return YOffset; }
+  public:
+    MouseScrolledEvent(float xoffset, float yoffset);
+    inline float GetXOffset() const { return XOffset; }
+    inline float GetYOffset() const { return YOffset; }
 
-        std::string ToString() const override;
+    std::string ToString() const override;
 
-        EVENT_CLASS_TYPE(MouseScrolled)
-        EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
-    };
+    EVENT_CLASS_TYPE(MouseScrolled)
+    EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+};
 
-    class MPE_API MouseButtonEvent : public Event
-    {
-    protected:
-        MouseButtonEvent(int button);
+class MPE_API MouseButtonEvent : public Event
+{
+  protected:
+    MouseButtonEvent(int button);
 
-        int Button;
+    int Button;
 
-    public:
-        inline int GetMouseButton() const { return Button; }
+  public:
+    inline int GetMouseButton() const { return Button; }
 
-        EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
-    };
+    EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+};
 
-    class MPE_API MouseButtonPressedEvent : public MouseButtonEvent
-    {
-    public:
-        MouseButtonPressedEvent(int button);
+class MPE_API MouseButtonPressedEvent : public MouseButtonEvent
+{
+  public:
+    MouseButtonPressedEvent(int button);
 
-        std::string ToString() const override;
+    std::string ToString() const override;
 
-        EVENT_CLASS_TYPE(MouseButtonPressed)
-    };
+    EVENT_CLASS_TYPE(MouseButtonPressed)
+};
 
-    class MPE_API MouseButtonReleasedEvent : public MouseButtonEvent
-    {
-    public:
-        MouseButtonReleasedEvent(int button);
+class MPE_API MouseButtonReleasedEvent : public MouseButtonEvent
+{
+  public:
+    MouseButtonReleasedEvent(int button);
 
-        std::string ToString() const override;
+    std::string ToString() const override;
 
-        EVENT_CLASS_TYPE(MouseButtonReleased)
-    };
+    EVENT_CLASS_TYPE(MouseButtonReleased)
+};
 }
