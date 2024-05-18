@@ -301,10 +301,29 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   set_target_properties(glad PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
   # IMGUI
-  set(imgui_DIR "${PROJECT_SOURCE_DIR}/Vendor/imgui")
-  file(GLOB IMGUI_SOURCES "${PROJECT_SOURCE_DIR}/Vendor/imgui/*.cpp")
-  add_library(imgui STATIC ${IMGUI_SOURCES})
-  target_include_directories(imgui PUBLIC "${imgui_DIR}")
+  set(imgui_DIR ${PROJECT_SOURCE_DIR}/Vendor/imgui)
+
+  file(GLOB_RECURSE IMGUI_S
+    "${imgui_DIR}/imgui.cpp"
+    "${imgui_DIR}/imgui_draw.cpp"
+    "${imgui_DIR}/imgui_tables.cpp"
+    "${imgui_DIR}/imgui_widgets.cpp"
+    "${imgui_DIR}/imgui_demo.cpp"
+  )
+
+  list(APPEND IMGUI_S
+    "${imgui_DIR}/backends/imgui_impl_glfw.cpp"
+    "${imgui_DIR}/backends/imgui_impl_opengl3.cpp"
+  )
+
+  add_library(imgui STATIC
+    ${IMGUI_S}
+  )
+  target_include_directories(imgui PUBLIC
+    "${imgui_DIR}"
+    ${glfw3_INCLUDE_DIRS}
+  )
+  target_link_libraries(imgui PRIVATE glfw)
 
   # GTK#
   find_package(PkgConfig REQUIRED)
@@ -603,6 +622,9 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
 
     # /Platform/Linux/Errors
     "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Errors/*.cpp"
+
+    # /Platform/Linux/Input
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Input/*.cpp"
   )
 
   file(
@@ -611,6 +633,9 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
 
     # /Platform/Linux/App
     "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/App/*.h"
+
+    # /Platform/Linux/Input
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Input/*.h"
   )
 
   # ADD MPE Linux SOURCE FILES
