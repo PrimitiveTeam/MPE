@@ -37,7 +37,7 @@ const Error &Error::get(int code)
     {
         return it->second;
     }
-    
+
     static Error unknownError;
     return unknownError;
 #else
