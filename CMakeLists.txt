@@ -541,31 +541,31 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     message(STATUS "MPE WIN32 HEADERS:\n{${MPE_WIN32_H}}")
   endif()
 elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
+  file(
+  GLOB_RECURSE
+  MPE_Linux_CPP
+
+  # CORE
+  # /Platform/Linux
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/*.cpp"
+  )
+
   # file(
   # GLOB_RECURSE
-  # MPE_UNIX_CPP
+  # MPE_Linux_H
 
-  # # CORE
-  # # /Platform/Unix
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/Unix/*.cpp"
+  # # /Platform/Linux
+  # "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/*.h"
   # )
 
-  # file(
-  # GLOB_RECURSE
-  # MPE_UNIX_H
+  # ADD MPE Linux SOURCE FILES
+  list(APPEND MPE_CPP ${MPE_Linux_CPP})
 
-  # # /Platform/Unix
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/Unix/*.h"
-  # )
+  # list(APPEND MPE_H ${MPE_Linux_H})
 
-  # ADD MPE UNIX SOURCE FILES
-  list(APPEND MPE_CPP ${MPE_UNIX_CPP})
-
-  # list(APPEND MPE_H ${MPE_UNIX_H})
-
-  # PRINT MPE UNIX SOURCE FILES
+  # PRINT MPE Linux SOURCE FILES
   if(${VERBOSE})
-    message(STATUS "MPE UNIX SOURCE:\n{${MPE_UNIX_CPP}}")
+    message(STATUS "MPE Linux SOURCE:\n{${MPE_Linux_CPP}}")
   endif()
 elseif(COMPILATION_PLATFORM STREQUAL "OSX")
   file(
@@ -616,7 +616,7 @@ if(${MPE_LIBRARY_TYPE} STREQUAL STATIC)
   elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
     add_library(MPE STATIC
       ${MPE_CPP}
-      ${MPE_UNIX_CPP}
+      ${MPE_Linux_CPP}
     )
   elseif(COMPILATION_PLATFORM STREQUAL "OSX")
     add_library(MPE STATIC

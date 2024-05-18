@@ -1,7 +1,7 @@
 #include "MPE/Errors/Error.h"
+#include "MPE/Log/GlobalLog.h"
 #include "MPE/MPEPCH.h"
 #include "MPE/MPEPLAT.h"
-#include "MPE/Log/GlobalLog.h"
 
 namespace MPE
 {
