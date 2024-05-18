@@ -4,6 +4,7 @@
 
 #ifdef MPE_PLATFORM_LINUX
 #    include <unistd.h>
+#    include <gtk/gtk.h>
 #endif
 
 #ifdef MPE_PLATFORM_OSX

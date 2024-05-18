@@ -10,6 +10,11 @@ const void Error::showExceptionDialog(const std::exception &e)
 {
     std::string errorMessage = "An unhandled exception occurred: ";
     errorMessage += e.what();
-    std::cout << errorMessage << std::endl;
+
+    gtk_init(NULL, NULL);
+    GtkWidget *dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "%s", errorMessage.c_str());
+    gtk_window_set_title(GTK_WINDOW(dialog), "Unhandled Exception");
+    gtk_dialog_run(GTK_DIALOG(dialog));
+    gtk_widget_destroy(dialog);
 }
 }
