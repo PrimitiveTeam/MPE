@@ -274,13 +274,14 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   add_library(imgui STATIC ${IMGUI_SOURCES})
   target_include_directories(imgui PUBLIC "${imgui_DIR}")
 
-  # set(glfw3_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glfw3")
-  # set(imgui_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\imgui")
-  # set(glm_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glm")
-  # set(GTest_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\gtest")
+  # GTK#
+  find_package(PkgConfig REQUIRED)
+  pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
+
   if(${VERBOSE})
     message(STATUS "glad_DIR: ${glad_DIR}")
     message(STATUS "imgui_DIR: ${imgui_DIR}")
+    message(STATUS "GTK3_INCLUDE_DIRS: ${GTK3_INCLUDE_DIRS}")
 
     # message(STATUS "glfw3_DIR: ${glfw3_DIR}")
     # message(STATUS "glm_DIR: ${glm_DIR}")
@@ -311,10 +312,6 @@ elseif(COMPILATION_PLATFORM STREQUAL "OSX")
   add_library(imgui STATIC ${IMGUI_SOURCES})
   target_include_directories(imgui PUBLIC "${imgui_DIR}")
 
-  # set(glfw3_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glfw3")
-  # set(imgui_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\imgui")
-  # set(glm_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glm")
-  # set(GTest_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\gtest")
   if(${VERBOSE})
     message(STATUS "glad_DIR: ${glad_DIR}")
     message(STATUS "imgui_DIR: ${imgui_DIR}")
@@ -727,6 +724,13 @@ if(COMPILATION_PLATFORM STREQUAL "OSX")
   )
 endif()
 
+if(COMPILATION_PLATFORM STREQUAL "UNIX")
+  target_link_libraries(
+    MPE
+    PRIVATE ${GTK3_LIBRARIES}
+  )
+endif()
+
 # find_path(STB_INCLUDE_DIRS "stb_c_lexer.h") target_include_directories(MPE
 # PUBLIC ${Stb_INCLUDE_DIRS})
 
@@ -741,6 +745,11 @@ target_include_directories(MPE
 
   # "${PROJECT_SOURCE_DIR}/MPE"
 )
+
+if(COMPILATION_PLATFORM STREQUAL "UNIX")
+  target_include_directories(MPE
+    PRIVATE "${GTK3_INCLUDE_DIRS}")
+endif()
 
 # target_include_directories(MPE PUBLIC
 # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB")

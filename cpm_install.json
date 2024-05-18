@@ -87,6 +87,10 @@
                 {
                     "library": "gtest",
                     "distribution": "arch"
+                },
+                {
+                    "library": "gtk3",
+                    "distribution": "arch"
                 }
             ],
             "instructions": []
