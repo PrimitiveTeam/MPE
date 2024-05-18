@@ -7,10 +7,15 @@ MPE/Events
 MPE/Log
 MPE/Log/CustomSinks
 MPE/Platform
-MPE/Platform/macOS
-MPE/Platform/macOS/Errors
 MPE/Platform/Windows
 MPE/Platform/Windows/Errors
+MPE/Platform/Windows/App
+MPE/Platform/Linux
+MPE/Platform/Linux/App
+MPE/Platform/Linux/Errors
+MPE/Platform/macOS
+MPE/Platform/macOS/App
+MPE/Platform/macOS/Errors
 MPE/Profiling
 MPE/Test
 MPE/Time
