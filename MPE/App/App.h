@@ -5,6 +5,7 @@
 #include "MPE/App/Window.h"
 #include "MPE/Core/_CORE.h"
 #include "MPE/Log/Log.h"
+#include "MPE/Events/EventApp.h"
 
 #include <memory>
 
@@ -23,7 +24,7 @@ namespace MPE
  * @date 2024-05-05
  * @see EntryPoint.h
  */
-class MPE_API App : public std::enable_shared_from_this<App>
+class MPE_API App
 {
   public:
     App();
@@ -41,20 +42,25 @@ class MPE_API App : public std::enable_shared_from_this<App>
     void PopOverlay();
     void PopAllOverlays();
 
-    inline REF<App> GetApp() { return SYS_Instance; }
-    inline REF<Window> GetWindow() { return SYS_Window; }
+    inline static App *GetApp() { return SYS_APP_Instance; }
+    inline REF<Window> GetWindow() { return SYS_APP_Window; }
 
-    inline void Shutdown() { SYS_Running = false; }
+    inline void Shutdown() { SYS_APP_Running = false; }
 
   private:
-    REF<App> SYS_Instance;
-    REF<Window> SYS_Window;
+    bool OnWindowClose(WindowCloseEvent &e);
+    bool OnWindowResize(WindowResizeEvent &e);
+
+    static App *SYS_APP_Instance;
+    REF<Window> SYS_APP_Window;
     REF<LayerStack> SYS_LayerStack;
     REF<Log> SYS_Log;
 
-    bool SYS_Running = true;
+    bool SYS_APP_Running = true;
     bool SYS_Minimized = false;
+
+    float SYS_LAST_FRAME_TIME = 0.0f;
 };
 
-static REF<App> CreateApp();
+App *CreateApp();
 }

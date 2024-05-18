@@ -159,9 +159,9 @@ class DummyApp : public MPE::App
     }
 };
 
-MPE::REF<MPE::App> MPE::CreateApp()
+MPE::App *MPE::CreateApp()
 {
-    return MPE::NEWREF<DummyApp>();
+    return new DummyApp();
 }
 
 void log_test(MPE::Log &log)

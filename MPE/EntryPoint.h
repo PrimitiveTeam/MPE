@@ -16,10 +16,10 @@
 /**
  * @brief Create a new MPE application.
  * @details This function is used to create a new MPE application.
- * @return A reference to the new MPE application.
+ * @return A pointer to the new MPE application.
  * @see MPE::App
  */
-extern MPE::REF<MPE::App> MPE::CreateApp();
+extern MPE::App *MPE::CreateApp();
 
 /**
  * @brief Entry point for the MPE engine.

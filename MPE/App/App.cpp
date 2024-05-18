@@ -3,49 +3,59 @@
 
 #include "MPE/App/Layers/LayerStack.h"
 #include "MPE/Core/_INIT.h"
+#include "MPE/Input/Input.h"
+#include "MPE/Platform/Windows/Input/WindowsInput.h"
+#include "MPE/Core/_CORE.h"
+
+// TEMP
+#include <GLFW/glfw3.h>
 
 namespace MPE
 {
+MPE_API App *App::SYS_APP_Instance = nullptr;
+
 App::App()
 {
     SYS_Log = MPE::Log::Create("App", MPE::Log::Option::CONSOLE);
     SYS_LayerStack = NEWREF<LayerStack>();
 
-    SYS_Window = Window::CreateNativeWindow(WindowProps("MPE Engine", 1280, 720));
-    SYS_Window->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));
+    MPE_CORE_ASSERT(!SYS_APP_Instance, "APP ALREADY EXISTS.");
+    SYS_APP_Instance = this;
 
-    MPE_CORE_ASSERT(SYS_Window, "NATIVE WINDOW NOT CREATED.");
+    SYS_APP_Window = Window::CreateNativeWindow(WindowProps("MPE Engine", 1280, 720));
+    SYS_APP_Window->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));
+
+    MPE_CORE_ASSERT(SYS_APP_Window, "NATIVE WINDOW NOT CREATED.");
+
+    // Initialize Renderer
+    // Initialize ImGuiLayer and push to overlay layer
+
+    MPE_CORE_INFO("App instance initialized.");
+
+    // SYS_APP_Window = Window::CreateNativeWindow(WindowProps("MPE Engine", 1280, 720));
+    // SYS_APP_Window->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));
+
+    // MPE_CORE_ASSERT(SYS_APP_Window, "NATIVE WINDOW NOT CREATED.");
 
     // Initialize Renderer
     // Initialize ImGuiLayer and push to overlay layer
 }
 
-App::~App() {}
-
-void App::Initialize()
+App::~App()
 {
-    MPE_CORE_ASSERT(!SYS_Instance, "APP ALREADY EXISTS.");
-    SYS_Instance = shared_from_this();
-}
-
-REF<App> CreateApp()
-{
-    auto app = std::make_shared<App>();
-    app->Initialize();
-    return app;
-    // return NEWREF<App>();
+    SYS_APP_Instance = nullptr;
 }
 
 void App::Run()
 {
-    while (SYS_Running)
+    while (SYS_APP_Running)
     {
         SYS_Log->info("Running...");
 
-        // Platform::GetTime();
-        // glfwGetTime() would be used here but for now we need a simple timer to keep track of the time passed since the last frame
-        float time = 0.0f;
-        Time deltaTime = time - 0.0f;
+        // TODO: Platform::GetTime();
+        float time = (float) glfwGetTime();
+        Time deltaTime = time - SYS_LAST_FRAME_TIME;
+        SYS_LAST_FRAME_TIME = time;
 
         if (!SYS_Minimized)
         {
@@ -57,15 +67,20 @@ void App::Run()
             }
         }
 
-        // SYS_Window->OnUpdate();
+        SYS_APP_Window->OnUpdate();
 
-        Shutdown();
+        if (Input::IsKeyPressed(MPE_KEY_ESCAPE))
+        {
+            Shutdown();
+        }
     }
 }
 
 void App::OnEvent(Event &SYS_Event)
 {
     EventDispatcher dispatcher(SYS_Event);
+    dispatcher.Dispatch<WindowCloseEvent>(MPE_BIND_EVENT_FUNCTION(App::OnWindowClose));
+    dispatcher.Dispatch<WindowResizeEvent>(MPE_BIND_EVENT_FUNCTION(App::OnWindowResize));
 
     for (auto it = SYS_LayerStack->end(); it != SYS_LayerStack->begin();)
     {
@@ -87,9 +102,6 @@ void App::PopLayer()
 {
     if (!SYS_LayerStack->empty())
     {
-        // auto it = SYS_LayerStack->end();
-        // it->get()->OnDetach();
-        // SYS_LayerStack->PopLayer(*it);
         SYS_LayerStack->PopLayer();
     }
 }
@@ -98,9 +110,6 @@ void App::PopAllLayers()
 {
     while (!SYS_LayerStack->empty())
     {
-        // auto it = SYS_LayerStack->end();
-        // it->get()->OnDetach();
-        // SYS_LayerStack->PopLayer(*it);
         SYS_LayerStack->PopLayer();
     }
 }
@@ -115,9 +124,6 @@ void App::PopOverlay()
 {
     if (!SYS_LayerStack->empty())
     {
-        // auto it = SYS_LayerStack->end();
-        // it->get()->OnDetach();
-        // SYS_LayerStack->PopOverlay(*it);
         SYS_LayerStack->PopOverlay();
     }
 }
@@ -126,10 +132,27 @@ void App::PopAllOverlays()
 {
     while (!SYS_LayerStack->empty())
     {
-        // auto it = SYS_LayerStack->end();
-        // it->get()->OnDetach();
-        // SYS_LayerStack->PopOverlay(*it);
         SYS_LayerStack->PopOverlay();
     }
+}
+
+bool App::OnWindowClose(WindowCloseEvent &e)
+{
+    Shutdown();
+    return true;
+}
+
+bool App::OnWindowResize(WindowResizeEvent &e)
+{
+    if (e.GetWidth() == 0 || e.GetHeight() == 0)
+    {
+        SYS_Minimized = true;
+        return false;
+    }
+    SYS_Minimized = false;
+
+    // Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+    return false;
 }
 }
