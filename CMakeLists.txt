@@ -21,7 +21,11 @@ set(DUMMY_EXECUTABLE ON)
 
 # SHARED OR STATIC LIBRARY
 # ONLY 'STATIC' OR 'SHARED'
-set(MPE_LIBRARY_TYPE SHARED)
+set(MPE_LIBRARY_TYPE STATIC)
+
+if(MPE_LIBRARY_TYPE STREQUAL SHARED)
+  message(FATAL_ERROR "SHARED LIBRARIES ARE DISABLED BECAUSE IMGUI DOES NOT WORK WITH SHARED LIBRARIES AT THE MOMENT.")
+endif()
 
 # SETTING PROJECT VERSION
 set(PROJECT_VERSION_MAJOR 0)
@@ -225,7 +229,8 @@ if(WIN32)
     set(glfw3_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glfw3")
 
     # IMGUI
-    set(imgui_DIR "${PROJECT_SOURCE_DIR}/Vendor/imgui")
+    # set(imgui_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\imgui")
+    set(imgui_DIR ${PROJECT_SOURCE_DIR}/Vendor/imgui)
 
     file(GLOB_RECURSE IMGUI_S
       "${imgui_DIR}/imgui.cpp"
@@ -233,6 +238,9 @@ if(WIN32)
       "${imgui_DIR}/imgui_tables.cpp"
       "${imgui_DIR}/imgui_widgets.cpp"
       "${imgui_DIR}/imgui_demo.cpp"
+    )
+
+    list(APPEND IMGUI_S
       "${imgui_DIR}/backends/imgui_impl_glfw.cpp"
       "${imgui_DIR}/backends/imgui_impl_opengl3.cpp"
     )
@@ -737,7 +745,7 @@ target_link_libraries(
   # OpenGL::GL
   PRIVATE glad
   PRIVATE glfw
-  PRIVATE imgui
+  PUBLIC imgui
   PRIVATE glm::glm
 
   # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
@@ -859,7 +867,7 @@ if(DUMMY_EXECUTABLE)
 
   target_link_libraries(DUMMY PRIVATE
     MPE
-    imgui)
+  )
   target_include_directories(DUMMY PRIVATE ${MPE_PUBLIC_INCLUDES})
 
   # COMPILER DEFINITIONS FOR DUMMY
