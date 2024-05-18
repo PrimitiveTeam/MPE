@@ -392,9 +392,6 @@ file(
   # "${PROJECT_SOURCE_DIR}/MPE/*.cpp"
   "${PROJECT_SOURCE_DIR}/MPE/Core/*.cpp"
 
-  # "${PROJECT_SOURCE_DIR}/MPE/Core/Input/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Core/Layers/*.cpp"
-
   # /Log
   "${PROJECT_SOURCE_DIR}/MPE/Log/*.cpp"
 
@@ -410,6 +407,9 @@ file(
 
   # /Physics
   "${PROJECT_SOURCE_DIR}/MPE/Time/*.cpp"
+
+  # /Input
+  "${PROJECT_SOURCE_DIR}/MPE/Input/*.cpp"
 
   # /Events
   "${PROJECT_SOURCE_DIR}/MPE/Events/*.cpp"
@@ -456,9 +456,6 @@ file(
   "${PROJECT_SOURCE_DIR}/MPE/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Core/*.h"
 
-  # "${PROJECT_SOURCE_DIR}/MPE/Core/Input/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Core/Layers/*.h"
-
   # /Log
   "${PROJECT_SOURCE_DIR}/MPE/Log/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Log/CustomSinks/*.h"
@@ -475,6 +472,9 @@ file(
 
   # /Physics
   "${PROJECT_SOURCE_DIR}/MPE/Time/*.h"
+
+  # /Input
+  "${PROJECT_SOURCE_DIR}/MPE/Input/*.h"
 
   # /Events
   "${PROJECT_SOURCE_DIR}/MPE/Events/*.h"
@@ -520,6 +520,9 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
 
     # /Platform/Windows/Errors
     "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/Errors/*.cpp"
+
+    # /Platform/Windows/Input
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/Input/*.cpp"
   )
 
   file(
@@ -528,6 +531,9 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
 
     # /Platform/Windows/App
     "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/App/*.h"
+
+    # /Platform/Windows/Input
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/Input/*.h"
   )
 
   # ADD MPE WIN32 SOURCE FILES
