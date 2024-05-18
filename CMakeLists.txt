@@ -265,6 +265,9 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   add_library(glad STATIC "${glad_DIR}/src/glad.c")
   target_include_directories(glad PUBLIC "${glad_DIR}/include")
 
+  # Ensure that glad is compiled with -fPIC
+  set_target_properties(glad PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
   # IMGUI
   set(imgui_DIR "${PROJECT_SOURCE_DIR}/Vendor/imgui")
   file(GLOB IMGUI_SOURCES "${PROJECT_SOURCE_DIR}/Vendor/imgui/*.cpp")
@@ -542,12 +545,12 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
   endif()
 elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   file(
-  GLOB_RECURSE
-  MPE_Linux_CPP
+    GLOB_RECURSE
+    MPE_Linux_CPP
 
-  # CORE
-  # /Platform/Linux
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/*.cpp"
+    # CORE
+    # /Platform/Linux
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/*.cpp"
   )
 
   # file(
@@ -580,11 +583,11 @@ elseif(COMPILATION_PLATFORM STREQUAL "OSX")
   )
 
   file(
-  GLOB_RECURSE
-  MPE_macOS_H
+    GLOB_RECURSE
+    MPE_macOS_H
 
-  # /Platform/macOS/App
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/App/*.h"
+    # /Platform/macOS/App
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/App/*.h"
   )
 
   # ADD MPE macOS SOURCE FILES
