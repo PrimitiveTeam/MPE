@@ -5,7 +5,10 @@
       "includePath": [
         "${workspaceFolder}/**",
         "${vcpkgRoot}/x64-windows/include",
-        "${vcpkgRoot}/x64-windows-static/include"
+        "${vcpkgRoot}/x64-windows-static/include",
+        "${workspaceFolder}/Vendor/imgui",
+        "${workspaceFolder}/Vendor/imgui/backends",
+        "${workspaceFolder}/Vendor/glad"
       ],
       "defines": [
         "_DEBUG",
