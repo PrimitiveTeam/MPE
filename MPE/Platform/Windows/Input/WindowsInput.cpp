@@ -7,13 +7,7 @@
 
 namespace MPE
 {
-	// bool InitializeInput() {
-    //     REF<Input> Input::SYS_Input_Instance = std::make_shared<WindowsInput>();
-    //     return true;
-    // }
 REF<Input> Input::SYS_Input_Instance = NEWREF<WindowsInput>();
-// REF<Input> Input::SYS_Input_Instance = NEWREF<WindowsInput>();
-// REF<Input> Input::SYS_Input_Instance = std::make_shared<WindowsInput>();
 
 bool WindowsInput::IsKeyPressedImpl(int keycode)
 {
