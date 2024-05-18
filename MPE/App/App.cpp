@@ -10,9 +10,11 @@ App::App()
 {
     SYS_Log = MPE::Log::Create("App", MPE::Log::Option::CONSOLE);
     SYS_LayerStack = NEWREF<LayerStack>();
-    
+
     SYS_Window = Window::CreateNativeWindow(WindowProps("MPE Engine", 1280, 720));
     SYS_Window->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));
+
+    MPE_CORE_ASSERT(SYS_Window, "NATIVE WINDOW NOT CREATED.");
 
     // Initialize Renderer
     // Initialize ImGuiLayer and push to overlay layer
