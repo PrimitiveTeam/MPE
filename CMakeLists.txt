@@ -339,10 +339,29 @@ elseif(COMPILATION_PLATFORM STREQUAL "OSX")
   target_include_directories(glad PUBLIC "${glad_DIR}/include")
 
   # IMGUI
-  set(imgui_DIR "${PROJECT_SOURCE_DIR}/Vendor/imgui")
-  file(GLOB IMGUI_SOURCES "${PROJECT_SOURCE_DIR}/Vendor/imgui/*.cpp")
-  add_library(imgui STATIC ${IMGUI_SOURCES})
-  target_include_directories(imgui PUBLIC "${imgui_DIR}")
+  set(imgui_DIR ${PROJECT_SOURCE_DIR}/Vendor/imgui)
+
+  file(GLOB_RECURSE IMGUI_S
+    "${imgui_DIR}/imgui.cpp"
+    "${imgui_DIR}/imgui_draw.cpp"
+    "${imgui_DIR}/imgui_tables.cpp"
+    "${imgui_DIR}/imgui_widgets.cpp"
+    "${imgui_DIR}/imgui_demo.cpp"
+  )
+
+  list(APPEND IMGUI_S
+    "${imgui_DIR}/backends/imgui_impl_glfw.cpp"
+    "${imgui_DIR}/backends/imgui_impl_opengl3.cpp"
+  )
+
+  add_library(imgui STATIC
+    ${IMGUI_S}
+  )
+  target_include_directories(imgui PUBLIC
+    "${imgui_DIR}"
+    ${glfw3_INCLUDE_DIRS}
+  )
+  target_link_libraries(imgui PRIVATE glfw)
 
   if(${VERBOSE})
     message(STATUS "glad_DIR: ${glad_DIR}")
@@ -614,6 +633,9 @@ elseif(COMPILATION_PLATFORM STREQUAL "OSX")
 
     # /Platform/macOS/Errors
     "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/Errors/*.mm"
+
+    # /Platform/macOS/Input
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/Input/*.cpp"
   )
 
   file(
@@ -622,6 +644,9 @@ elseif(COMPILATION_PLATFORM STREQUAL "OSX")
 
     # /Platform/macOS/App
     "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/App/*.h"
+
+    # /Platform/macOS/Input
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/Input/*.h"
   )
 
   # ADD MPE macOS SOURCE FILES
