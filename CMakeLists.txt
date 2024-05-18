@@ -570,34 +570,34 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
 elseif(COMPILATION_PLATFORM STREQUAL "OSX")
   file(
     GLOB_RECURSE
-    MPE_OSX_CPP
+    MPE_macOS_CPP
 
-    # CORE
-    # /Platform/OSX
-    # "${PROJECT_SOURCE_DIR}/MPE/Platform/OSX/*.cpp"
+    # /Platform/macOS/App
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/App/*.cpp"
 
-    # /Platform/OSX/Errors
+    # /Platform/macOS/Errors
     "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/Errors/*.mm"
   )
 
-  # file(
-  # GLOB_RECURSE
-  # MPE_OSX_H
+  file(
+  GLOB_RECURSE
+  MPE_macOS_H
 
-  # # /Platform/OSX
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OSX/*.h"
-  # )
+  # /Platform/macOS/App
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/App/*.h"
+  )
 
-  # ADD MPE OSX SOURCE FILES
-  list(APPEND MPE_CPP ${MPE_OSX_CPP})
+  # ADD MPE macOS SOURCE FILES
+  list(APPEND MPE_CPP ${MPE_macOS_CPP})
 
-  # list(APPEND MPE_H ${MPE_OSX_H})
+  list(APPEND MPE_H ${MPE_macOS_H})
 
   # set_source_files_properties(${MPE_OSX_CPP} PROPERTIES COMPILE_FLAGS "-include MPE/MPEPCH.h")
 
-  # PRINT MPE OSX SOURCE FILES
+  # PRINT MPE macOS SOURCE FILES
   if(${VERBOSE})
-    message(STATUS "MPE OSX SOURCE:\n{${MPE_OSX_CPP}}")
+    message(STATUS "MPE macOS SOURCE:\n{${MPE_macOS_CPP}}")
+    message(STATUS "MPE macOS HEADERS:\n{${MPE_macOS_H}}")
   endif()
 endif()
 
