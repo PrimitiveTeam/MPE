@@ -23,6 +23,7 @@ class MPE_API macOSWindow : public Window
     inline void SetEventCallback(const EventCallbackFn &callback) override { SYS_Data.EventCallback = callback; }
     void SetVSync(bool enabled) override;
     bool IsVSync() const override;
+    void SetFrameRate(unsigned int frameRate) override;
 
     inline virtual void *GetNativeWindow() const override { return SYS_Window; }
 
