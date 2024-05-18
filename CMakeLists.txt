@@ -414,8 +414,12 @@ file(
   # /Events
   "${PROJECT_SOURCE_DIR}/MPE/Events/*.cpp"
 
+  # /OpenGL
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.cpp"
+
   # /Renderer
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.cpp"
+
   # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.cpp"
   # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.cpp"
   # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.cpp"
@@ -473,10 +477,14 @@ file(
   "${PROJECT_SOURCE_DIR}/MPE/Time/*.h"
 
   # /Events
-  "${PROJECT_SOURCE_DIR}/MPE/Events/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Events/*.h"
+
+  # /OpenGL
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.h"
 
   # /Renderer
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.h"
+
   # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.h"
   # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.h"
   # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.h"
@@ -507,30 +515,30 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     GLOB_RECURSE
     MPE_WIN32_CPP
 
-    # CORE
     # /Platform/Windows
-    # "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/*.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/App/*.cpp"
 
     # /Platform/Windows/Errors
     "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/Errors/*.cpp"
   )
 
-  # file(
-  # GLOB_RECURSE
-  # MPE_WIN32_H
+  file(
+    GLOB_RECURSE
+    MPE_WIN32_H
 
-  # # /Platform/Windows
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/*.h"
-  # )
+    # /Platform/Windows
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/App/*.h"
+  )
 
   # ADD MPE WIN32 SOURCE FILES
   list(APPEND MPE_CPP ${MPE_WIN32_CPP})
 
-  # list(APPEND MPE_H ${MPE_WIN32_H})
+  list(APPEND MPE_H ${MPE_WIN32_H})
 
   # PRINT MPE WIN32 SOURCE FILES
   if(${VERBOSE})
     message(STATUS "MPE WIN32 SOURCE:\n{${MPE_WIN32_CPP}}")
+    message(STATUS "MPE WIN32 HEADERS:\n{${MPE_WIN32_H}}")
   endif()
 elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   # file(

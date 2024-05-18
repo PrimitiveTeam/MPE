@@ -10,14 +10,9 @@ App::App()
 {
     SYS_Log = MPE::Log::Create("App", MPE::Log::Option::CONSOLE);
     SYS_LayerStack = NEWREF<LayerStack>();
-
-    // MPE_CORE_ASSERT(!SYS_Instance, "APP ALREADY EXISTS.");
-    // // Assign ref to this instance
-    // SYS_Instance = shared_from_this();
-
-    // MPE_STARTUP();
-    // SYS_Window = NEWREF<MPE::Window>(WindowProps("MPE Engine", 1280, 720));
-    // SYS_Window->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));
+    
+    SYS_Window = Window::CreateNativeWindow(WindowProps("MPE Engine", 1280, 720));
+    SYS_Window->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));
 
     // Initialize Renderer
     // Initialize ImGuiLayer and push to overlay layer
@@ -29,8 +24,6 @@ void App::Initialize()
 {
     MPE_CORE_ASSERT(!SYS_Instance, "APP ALREADY EXISTS.");
     SYS_Instance = shared_from_this();
-
-    MPE_STARTUP();
 }
 
 REF<App> CreateApp()
