@@ -6,6 +6,7 @@
 #include "MPE/Core/_CORE.h"
 #include "MPE/Log/Log.h"
 #include "MPE/Events/EventApp.h"
+#include "MPE/Vendor/ImGui/ImGuiLayer.h"
 
 #include <memory>
 
@@ -52,6 +53,7 @@ class MPE_API App
     bool OnWindowResize(WindowResizeEvent &e);
 
     static App *SYS_APP_Instance;
+    REF<ImGuiLayer> SYS_ImGuiLayer;
     REF<Window> SYS_APP_Window;
     REF<LayerStack> SYS_LayerStack;
     REF<Log> SYS_Log;

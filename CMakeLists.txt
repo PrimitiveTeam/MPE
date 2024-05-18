@@ -213,20 +213,38 @@ if(WIN32)
     set(fmt_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\fmt")
     set(spdlog_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\spdlog")
 
-    # set(glad_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glad")
     # GLAD
     set(glad_DIR "${PROJECT_SOURCE_DIR}/Vendor/Glad")
-    add_library(glad STATIC "${glad_DIR}/src/glad.c")
+
+    file(GLOB_RECURSE GLAD_S
+      "${glad_DIR}/src/glad.c")
+
+    add_library(glad STATIC ${GLAD_S})
     target_include_directories(glad PUBLIC "${glad_DIR}/include")
 
     set(glfw3_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glfw3")
 
-    # set(imgui_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\imgui")
     # IMGUI
     set(imgui_DIR "${PROJECT_SOURCE_DIR}/Vendor/imgui")
-    file(GLOB IMGUI_SOURCES "${PROJECT_SOURCE_DIR}/Vendor/imgui/*.cpp")
-    add_library(imgui STATIC ${IMGUI_SOURCES})
-    target_include_directories(imgui PUBLIC "${imgui_DIR}")
+
+    file(GLOB_RECURSE IMGUI_S
+      "${imgui_DIR}/imgui.cpp"
+      "${imgui_DIR}/imgui_draw.cpp"
+      "${imgui_DIR}/imgui_tables.cpp"
+      "${imgui_DIR}/imgui_widgets.cpp"
+      "${imgui_DIR}/imgui_demo.cpp"
+      "${imgui_DIR}/backends/imgui_impl_glfw.cpp"
+      "${imgui_DIR}/backends/imgui_impl_opengl3.cpp"
+    )
+
+    add_library(imgui STATIC
+      ${IMGUI_S}
+    )
+    target_include_directories(imgui PUBLIC
+      "${imgui_DIR}"
+      ${glfw3_INCLUDE_DIRS}
+    )
+    target_link_libraries(imgui PRIVATE glfw)
 
     set(glm_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glm")
     set(GTest_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\gtest")
@@ -234,9 +252,15 @@ if(WIN32)
     if(${VERBOSE})
       message(STATUS "fmt_DIR: ${fmt_DIR}")
       message(STATUS "spdlog_DIR: ${spdlog_DIR}")
+
       message(STATUS "glad_DIR: ${glad_DIR}")
+      message(STATUS "glad_DIR_S: ${GLAD_S}")
+
       message(STATUS "glfw3_DIR: ${glfw3_DIR}")
+
       message(STATUS "imgui_DIR: ${imgui_DIR}")
+      message(STATUS "imgui_DIR_S: ${IMGUI_S}")
+
       message(STATUS "glm_DIR: ${glm_DIR}")
       message(STATUS "GTest_DIR: ${GTest_DIR}")
 
@@ -335,11 +359,7 @@ endif()
 # EXPLICITLY SET PACKAGE_DIR
 find_package(fmt CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
-
-# find_package(glad CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
-
-# find_package(imgui CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 
 if(COMPILATION_PLATFORM STREQUAL "OSX")
@@ -436,7 +456,7 @@ file(
 
   # /Vendor
   # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.cpp"
 )
 
 # PRINT MPE SOURCE FILES
@@ -501,7 +521,7 @@ file(
 
   # /Vendor
   # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.h"
 )
 
 # PRINT MPE SOURCE FILES
@@ -837,7 +857,9 @@ endif()
 if(DUMMY_EXECUTABLE)
   add_executable(DUMMY "${PROJECT_SOURCE_DIR}/DUMMY/main.cpp")
 
-  target_link_libraries(DUMMY PRIVATE MPE)
+  target_link_libraries(DUMMY PRIVATE
+    MPE
+    imgui)
   target_include_directories(DUMMY PRIVATE ${MPE_PUBLIC_INCLUDES})
 
   # COMPILER DEFINITIONS FOR DUMMY

@@ -27,8 +27,8 @@ App::App()
 
     MPE_CORE_ASSERT(SYS_APP_Window, "NATIVE WINDOW NOT CREATED.");
 
-    // Initialize Renderer
-    // Initialize ImGuiLayer and push to overlay layer
+    SYS_ImGuiLayer = NEWREF<ImGuiLayer>();
+    PushOverlay(SYS_ImGuiLayer);
 
     MPE_CORE_INFO("App instance initialized.");
 
@@ -66,6 +66,17 @@ void App::Run()
                 layer->OnUpdate(deltaTime);
             }
         }
+
+        SYS_ImGuiLayer->Begin();
+        for (REF<Layer> layer : *SYS_LayerStack)
+        {
+            layer->OnImGuiRender();
+        }
+        SYS_ImGuiLayer->End();
+
+        // EVENT POLLING
+        // auto[x, y] = Input::GetMousePosition();
+        // MPE_CORE_ERROR("{0}, {1}", x, y);
 
         SYS_APP_Window->OnUpdate();
 
