@@ -518,7 +518,7 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     GLOB_RECURSE
     MPE_WIN32_CPP
 
-    # /Platform/Windows
+    # /Platform/Windows/App
     "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/App/*.cpp"
 
     # /Platform/Windows/Errors
@@ -529,7 +529,7 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     GLOB_RECURSE
     MPE_WIN32_H
 
-    # /Platform/Windows
+    # /Platform/Windows/App
     "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/App/*.h"
   )
 
@@ -548,27 +548,30 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
     GLOB_RECURSE
     MPE_Linux_CPP
 
-    # CORE
-    # /Platform/Linux
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/*.cpp"
+    # /Platform/Linux/App
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/App/*.cpp"
+
+    # /Platform/Linux/Errors
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Errors/*.cpp"
   )
 
-  # file(
-  # GLOB_RECURSE
-  # MPE_Linux_H
+  file(
+    GLOB_RECURSE
+    MPE_Linux_H
 
-  # # /Platform/Linux
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/*.h"
-  # )
+    # /Platform/Linux/App
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/App/*.h"
+  )
 
   # ADD MPE Linux SOURCE FILES
   list(APPEND MPE_CPP ${MPE_Linux_CPP})
 
-  # list(APPEND MPE_H ${MPE_Linux_H})
+  list(APPEND MPE_H ${MPE_Linux_H})
 
   # PRINT MPE Linux SOURCE FILES
   if(${VERBOSE})
     message(STATUS "MPE Linux SOURCE:\n{${MPE_Linux_CPP}}")
+    message(STATUS "MPE Linux HEADERS:\n{${MPE_Linux_H}}")
   endif()
 elseif(COMPILATION_PLATFORM STREQUAL "OSX")
   file(
