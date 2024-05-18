@@ -42,7 +42,7 @@ class MPE_API App
     void PopOverlay();
     void PopAllOverlays();
 
-    inline static App *GetApp() { return SYS_APP_Instance; }
+    inline static App &GetApp() { return *SYS_APP_Instance; }
     inline REF<Window> GetWindow() { return SYS_APP_Window; }
 
     inline void Shutdown() { SYS_APP_Running = false; }
