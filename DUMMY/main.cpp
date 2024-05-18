@@ -92,15 +92,7 @@ class DummyLayer : public MPE::Layer
 
     void OnUpdate(MPE::Time deltatime) override { MPE_CORE_TRACE("DummyLayer updated! DeltaTime: {0}", deltatime.GetMilliSeconds()); }
 
-    void OnImGuiRender() override
-    {
-        MPE_CORE_TRACE("DummyLayer ImGui rendered!");
-        ImGui::Begin("TEST");
-
-        ImGui::Text("SCENE VARIABLES");
-
-        ImGui::End();
-    }
+    void OnImGuiRender() override { MPE_CORE_TRACE("DummyLayer ImGui rendered!"); }
 
     void OnEvent(MPE::Event &event) override
     {
@@ -136,7 +128,13 @@ class TestLayer : public MPE::Layer
 
     void OnUpdate(MPE::Time deltatime) override { MPE_CORE_TRACE("TestLayer updated! DeltaTime: {0}", deltatime.GetMilliSeconds()); }
 
-    void OnImGuiRender() override { MPE_CORE_TRACE("TestLayer ImGui rendered!"); }
+    void OnImGuiRender() override
+    {
+        MPE_CORE_TRACE("TestLayer ImGui rendered!");
+        ImGui::Begin("TEST");
+        ImGui::Text("SCENE VARIABLES");
+        ImGui::End();
+    }
 
     void OnEvent(MPE::Event &event) override
     {
