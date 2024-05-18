@@ -216,7 +216,7 @@ if(WIN32)
     # set(glad_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glad")
     # GLAD
     set(glad_DIR "${PROJECT_SOURCE_DIR}/Vendor/Glad")
-    add_library(glad STATIC "${glad_DIR}/src/gl.c")
+    add_library(glad STATIC "${glad_DIR}/src/glad.c")
     target_include_directories(glad PUBLIC "${glad_DIR}/include")
 
     set(glfw3_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glfw3")
@@ -261,13 +261,13 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   endif()
 
   # GLAD
-  set(glad_DIR "${PROJECT_SOURCE_DIR}/Vendor/Glad")
-  add_library(glad STATIC "${glad_DIR}/src/gl.c")
-  target_include_directories(glad PUBLIC "${glad_DIR}/include")
+  set(glad_DIR "${PROJECT_SOURCE_DIR}\\Vendor\\Glad")
+  add_library(glad STATIC "${glad_DIR}\\src\\glad.c")
+  target_include_directories(glad PUBLIC "${glad_DIR}\\include")
 
   # IMGUI
-  set(imgui_DIR "${PROJECT_SOURCE_DIR}/Vendor/imgui")
-  file(GLOB IMGUI_SOURCES "${PROJECT_SOURCE_DIR}/Vendor/imgui/*.cpp")
+  set(imgui_DIR "${PROJECT_SOURCE_DIR}\\Vendor\\imgui")
+  file(GLOB IMGUI_SOURCES "${PROJECT_SOURCE_DIR}\\Vendor\\imgui\\*.cpp")
   add_library(imgui STATIC ${IMGUI_SOURCES})
   target_include_directories(imgui PUBLIC "${imgui_DIR}")
 
@@ -299,7 +299,7 @@ elseif(COMPILATION_PLATFORM STREQUAL "OSX")
 
   # GLAD
   set(glad_DIR "${PROJECT_SOURCE_DIR}/Vendor/Glad")
-  add_library(glad STATIC "${glad_DIR}/src/gl.c")
+  add_library(glad STATIC "${glad_DIR}/src/glad.c")
   target_include_directories(glad PUBLIC "${glad_DIR}/include")
 
   # IMGUI
