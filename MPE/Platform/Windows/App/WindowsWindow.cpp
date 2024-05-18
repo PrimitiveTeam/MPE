@@ -183,4 +183,9 @@ bool WindowsWindow::IsVSync() const
 {
     return SYS_Data.VSync;
 }
+
+void WindowsWindow::SetFrameRate(unsigned int frameRate)
+{
+    glfwSwapInterval(frameRate);
+}
 }
