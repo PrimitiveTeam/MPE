@@ -51,9 +51,9 @@
 // ----- EVENTS -----
 
 // ----- INPUT -----
-// #include "MPE/Core/Input/Input.h"
-// #include "MPE/Core/Input/KeyCodes.h"
-// #include "MPE/Core/Input/MouseButtonCodes.h"
+#include "MPE/Input/Input.h"
+#include "MPE/Input/KeyCodes.h"
+#include "MPE/Input/MouseButtonCodes.h"
 // ----- INPUT -----
 
 // ----- IMGUI -----
