@@ -46,7 +46,14 @@ void ImGuiLayer::OnAttach()
 
     // Setup Platform/Renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(window, true);
+
+#ifdef MPE_PLATFORM_WINDOWS
     ImGui_ImplOpenGL3_Init("#version 410");
+#elif MPE_PLATFORM_OSX
+    ImGui_ImplOpenGL3_Init("#version 150");
+#else
+    ImGui_ImplOpenGL3_Init("#version 410");
+#endif
 }
 
 void ImGuiLayer::OnDetach()
