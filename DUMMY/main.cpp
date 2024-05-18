@@ -77,8 +77,8 @@ class DummyLayer : public MPE::Layer
         catch (const MPE::Error &e)
         {
             MPE_CORE_ERROR("Exception: {0}", e.get_verbose_log());
-            e.showExceptionDialog(e);
-            MPE::Error::showExceptionDialog(e);
+            // e.showExceptionDialog(e);
+            // MPE::Error::showExceptionDialog(e);
         }
     }
 
