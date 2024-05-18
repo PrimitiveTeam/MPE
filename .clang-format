@@ -51,7 +51,7 @@ FixNamespaceComments: false
 # Reflow long comments
 ReflowComments: true
 # Sort include directives
-SortIncludes: true
+SortIncludes: false
 # Add space after C-style cast
 SpaceAfterCStyleCast: true
 # Add space after template keyword
