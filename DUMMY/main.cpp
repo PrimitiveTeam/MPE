@@ -155,6 +155,11 @@ class DummyApp : public MPE::App
     DummyApp()
     {
         MPE_CORE_TRACE("DummyApp created!");
+
+#ifdef MPE_DYNAMIC_LIBRARY
+        ImGui::SetCurrentContext(this->GetImGuiContext());
+#endif
+
         PushLayer(MPE::NEWREF<DummyLayer>());
         PushLayer(MPE::NEWREF<TestLayer>());
     }

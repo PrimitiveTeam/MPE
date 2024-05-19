@@ -46,6 +46,10 @@ class MPE_API App
     inline static App &GetApp() { return *SYS_APP_Instance; }
     inline REF<Window> GetWindow() { return SYS_APP_Window; }
 
+#ifdef MPE_DYNAMIC_LIBRARY
+    ImGuiContext *GetImGuiContext() { return SYS_ImGuiLayer->GetImGuiContext(); }
+#endif
+
     inline void Shutdown() { SYS_APP_Running = false; }
 
   private:
