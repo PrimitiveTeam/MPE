@@ -1,0 +1,91 @@
+# STYLE OPTIONS
+
+# Predefined style (LLVM, Google, Chromium, Microsoft, Mozilla, WebKit)
+BasedOnStyle: Google
+# Number of spaces used for indentation
+IndentWidth: 4
+# Number of spaces per tab
+TabWidth: 4
+# Options: Never, ForIndentation, Always
+UseTab: Never
+# Maximum line length
+ColumnLimit: 160
+# Options: Attach, Linux, Mozilla, Stroustrup, Allman, Whitesmiths
+BreakBeforeBraces: Allman
+# Control if short if statements can be on a single line
+AllowShortIfStatementsOnASingleLine: true
+# Keep simple macros on a single line
+AllowShortFunctionsOnASingleLine: Inline
+# Options: Left, Right, Middle
+PointerAlignment: Left
+# Indentation level for access modifiers
+AccessModifierOffset: -2
+# Align parameters after open bracket
+AlignAfterOpenBracket: true
+# Align operands of binary and ternary expressions
+AlignOperands: true
+# Align trailing comments
+AlignTrailingComments: true
+# Bin-pack function arguments
+BinPackArguments: true
+# Bin-pack function parameters
+BinPackParameters: true
+# Options: None, NonAssignment, All
+BreakBeforeBinaryOperators: None
+# Break before ternary operators
+BreakBeforeTernaryOperators: true
+# Break constructor initializers before comma
+BreakConstructorInitializersBeforeComma: false
+# Options: BeforeColon, AfterColon, BeforeComma, AfterComma
+BreakInheritanceList: BeforeColon
+# Indent case labels in switch statements
+IndentCaseLabels: true
+# Indent goto labels
+IndentGotoLabels: false
+# Keep empty lines at the start of blocks
+KeepEmptyLinesAtTheStartOfBlocks: true
+# Options: None, Inner, All
+NamespaceIndentation: None
+# Do not add comments at the end of namespace closing braces
+FixNamespaceComments: false
+# Reflow long comments
+ReflowComments: true
+# Sort include directives
+SortIncludes: false
+# Add space after C-style cast
+SpaceAfterCStyleCast: true
+# Add space after template keyword
+SpaceAfterTemplateKeyword: true
+# Options: Never, ControlStatements, Always
+SpaceBeforeParens: ControlStatements
+# Add spaces inside angle brackets
+SpacesInAngles: false
+# Add spaces in container literals
+SpacesInContainerLiterals: false
+# Add spaces inside C-style cast parentheses
+SpacesInCStyleCastParentheses: false
+# Add spaces inside parentheses
+SpacesInParentheses: false
+# Add spaces inside square brackets
+SpacesInSquareBrackets: false
+# Options: Cpp03, Cpp11, Auto (Automatically detect language standard)
+Standard: Auto
+
+# STYLE OPTIONS
+
+# Preprocessor Options
+
+# Options: None, BeforeHash, AfterHash
+IndentPPDirectives: AfterHash
+# Options: Merge, Preserve, Regroup
+IncludeBlocks: Preserve
+# Regular expression for main include files
+IncludeIsMainRegex: ''
+# Sort order for include categories`
+IncludeCategories:
+  - Regex: '^<.*\.h>'
+    Priority: 1
+  - Regex: '.*'
+    Priority: 2
+
+# Preprocessor Options

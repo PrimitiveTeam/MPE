@@ -14,71 +14,84 @@
 
 namespace MPE
 {
+/**
+ * @brief Main logging system for the engine.
+ * @details This file contains the main logging system for the engine. It uses
+ * the spdlog library for logging.
+ * @date 2024-05-05
+ * @author Sebastian Termen
+ * @see https://github.com/gabime/spdlog
+ */
+class MPE_API GlobalLog
+{
+  public:
     /**
-     * @brief Main logging system for the engine.
-     * @details This file contains the main logging system for the engine. It uses the spdlog library for logging.
+     * @brief Initializes the logging system.
+     * @details This function initializes the logging system for the engine.
      * @date 2024-05-05
-     * @author Sebastian Termen
-     * @see https://github.com/gabime/spdlog
+     * @note This function should be called at the start of the engine.
      */
-    class MPE_API GlobalLog
+    static void Init();
+
+    /**
+     * @brief Gets the core logger.
+     * @details This function returns the core logger.
+     * @date 2024-05-05
+     * @return The core logger.
+     */
+    inline static REF<spdlog::logger> &GetCoreLogger()
     {
-    public:
-        /**
-         * @brief Initializes the logging system.
-         * @details This function initializes the logging system for the engine.
-         * @date 2024-05-05
-         * @note This function should be called at the start of the engine.
-         */
-        static void Init();
+        if (CoreLogger == nullptr) throw std::runtime_error("Core logger is not initialized.");
+        return CoreLogger;
+    }
 
-        /**
-         * @brief Gets the core logger.
-         * @details This function returns the core logger.
-         * @date 2024-05-05
-         * @return The core logger.
-         */
-        inline static REF<spdlog::logger> &GetCoreLogger() { return CoreLogger; }
+    /**
+     * @brief Gets the debug logger.
+     * @details This function returns the debug logger.
+     * @date 2024-05-05
+     * @return The debug logger.
+     */
+    inline static REF<spdlog::logger> &GetDebugLogger()
+    {
+        if (DebugLogger == nullptr) throw std::runtime_error("Debug logger is not initialized.");
+        return DebugLogger;
+    }
 
-        /**
-         * @brief Gets the debug logger.
-         * @details This function returns the debug logger.
-         * @date 2024-05-05
-         * @return The debug logger.
-         */
-        inline static REF<spdlog::logger> &GetDebugLogger() { return DebugLogger; }
+    /**
+     * @brief Gets the client logger.
+     * @details This function returns the client logger.
+     * @date 2024-05-05
+     * @return The client logger.
+     */
+    inline static REF<spdlog::logger> &GetClientLogger()
+    {
+        if (ClientLogger == nullptr) throw std::runtime_error("Client logger is not initialized.");
+        return ClientLogger;
+    }
 
-        /**
-         * @brief Gets the client logger.
-         * @details This function returns the client logger.
-         * @date 2024-05-05
-         * @return The client logger.
-         */
-        inline static REF<spdlog::logger> &GetClientLogger() { return ClientLogger; }
+  private:
+    /**
+     * @brief The core logger.
+     * @date 2024-05-05
+     * @see GetCoreLogger()
+     */
+    static REF<spdlog::logger> CoreLogger;
 
-    private:
-        /**
-         * @brief The core logger.
-         * @date 2024-05-05
-         * @see GetCoreLogger()
-         */
-        static REF<spdlog::logger> CoreLogger;
+    /**
+     * @brief The debug logger.
+     * @details This logger is only available in debug builds.
+     * @date 2024-05-05
+     * @see GetDebugLogger()
+     */
+    static REF<spdlog::logger> DebugLogger;
 
-        /**
-         * @brief The debug logger.
-         * @details This logger is only available in debug builds.
-         * @date 2024-05-05
-         * @see GetDebugLogger()
-         */
-        static REF<spdlog::logger> DebugLogger;
-
-        /**
-         * @brief The client logger.
-         * @date 2024-05-05
-         * @see GetClientLogger()
-         */
-        static REF<spdlog::logger> ClientLogger;
-    };
+    /**
+     * @brief The client logger.
+     * @date 2024-05-05
+     * @see GetClientLogger()
+     */
+    static REF<spdlog::logger> ClientLogger;
+};
 }
 
 // CORE ENGINE LOGS
@@ -89,11 +102,20 @@ namespace MPE
 #define MPE_CORE_FATAL(...) ::MPE::GlobalLog::GetCoreLogger()->fatal(__VA_ARGS__)
 // DEBUG ENGINE LOGS
 #ifdef MPE_ENABLE_DEBUG_LOG
-#define MPE_DEBUG_TRACE(...) ::MPE::GlobalLog::GetDebugLogger()->trace(__VA_ARGS__)
-#define MPE_DEBUG_INFO(...) ::MPE::GlobalLog::GetDebugLogger()->info(__VA_ARGS__)
-#define MPE_DEBUG_WARN(...) ::MPE::GlobalLog::GetDebugLogger()->warn(__VA_ARGS__)
-#define MPE_DEBUG_ERROR(...) ::MPE::GlobalLog::GetDebugLogger()->error(__VA_ARGS__)
-#define MPE_DEBUG_FATAL(...) ::MPE::GlobalLog::GetDebugLogger()->fatal(__VA_ARGS__)
+#    define MPE_DEBUG_TRACE(...) ::MPE::GlobalLog::GetDebugLogger()->trace(__VA_ARGS__)
+#    define MPE_DEBUG_INFO(...) ::MPE::GlobalLog::GetDebugLogger()->info(__VA_ARGS__)
+#    define MPE_DEBUG_WARN(...) ::MPE::GlobalLog::GetDebugLogger()->warn(__VA_ARGS__)
+#    define MPE_DEBUG_ERROR(...) ::MPE::GlobalLog::GetDebugLogger()->error(__VA_ARGS__)
+#    define MPE_DEBUG_FATAL(...) ::MPE::GlobalLog::GetDebugLogger()->fatal(__VA_ARGS__)
+
+#else
+// Define as nothing
+#    define MPE_DEBUG_TRACE(...)
+#    define MPE_DEBUG_INFO(...)
+#    define MPE_DEBUG_WARN(...)
+#    define MPE_DEBUG_ERROR(...)
+#    define MPE_DEBUG_FATAL(...)
+
 #endif
 // CLIENT MAIN LOGS
 #define MPE_TRACE(...) ::MPE::GlobalLog::GetClientLogger()->trace(__VA_ARGS__)
@@ -160,7 +182,8 @@ namespace MPE
 /**
  * @def MPE_DEBUG_INFO(...)
  * @brief Information logging macro for the MPE engine.
- * @details This macro is used to log an information message to the debug logger.
+ * @details This macro is used to log an information message to the debug
+ * logger.
  * @date 2024-05-05
  * @param ... The information message to log.
  * @see GetDebugLogger()
@@ -209,7 +232,8 @@ namespace MPE
 /**
  * @def MPE_INFO(...)
  * @brief Information logging macro for the MPE engine.
- * @details This macro is used to log an information message to the client logger.
+ * @details This macro is used to log an information message to the client
+ * logger.
  * @date 2024-05-05
  * @param ... The information message to log.
  * @see GetClientLogger()

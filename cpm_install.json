@@ -49,13 +49,96 @@
             ]
         },
         "linux": {
-            "dependencies": [],
+            "dependencies": [
+                "git",
+                "cmake",
+                "glad"
+            ],
             "toolchain": "",
+            "libraries": [
+                {
+                    "library": "fmt",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "spdlog",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "glfw",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "glad",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "imgui",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "glm",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "stb",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "gtest",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "gtk3",
+                    "distribution": "arch"
+                }
+            ],
             "instructions": []
         },
         "macos": {
-            "tools": [],
+            "tools": [
+                "gcc",
+                "clang",
+                "brew",
+                "xcode",
+                "cmake",
+                "git"
+            ],
             "toolchain": "",
+            "osx_packages": [
+                {
+                    "package": "fmt",
+                    "tool": "brew"
+                },
+                {
+                    "package": "spdlog",
+                    "tool": "brew"
+                },
+                {
+                    "package": "glfw",
+                    "tool": "brew"
+                },
+                {
+                    "package": "glad",
+                    "tool": "brew"
+                },
+                {
+                    "package": "imgui",
+                    "tool": "brew"
+                },
+                {
+                    "package": "glm",
+                    "tool": "brew"
+                },
+                {
+                    "package": "stb",
+                    "tool": "brew"
+                },
+                {
+                    "package": "gtest",
+                    "tool": "brew"
+                }
+            ],
             "setup_steps": []
         }
     }

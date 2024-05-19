@@ -2,12 +2,7 @@
 
 namespace MPE
 {
-    Test::Test()
-        : m_Name("Test")
-    {
-    }
+Test::Test() : m_Name("Test") {}
 
-    Test::~Test()
-    {
-    }
+Test::~Test() {}
 }

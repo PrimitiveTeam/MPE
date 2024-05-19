@@ -4,37 +4,36 @@
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifdef\ MPE\_PLATFORM\_WINDOWS}}
-\DoxyCodeLine{00004\ }
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{___c_w_d_8h}{MPE/Core/\_CWD.h}}"{}}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_global_log_8h}{MPE/Log/GlobalLog.h}}"{}}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_app_8h}{MPE/App/App.h}}"{}}}
-\DoxyCodeLine{00008\ }
-\DoxyCodeLine{00009\ \textcolor{comment}{//\ Create\ reference\ to\ the\ CreateApp\ function}}
-\DoxyCodeLine{00010\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{MPE::REF<MPE::App>}}\ \mbox{\hyperlink{namespace_m_p_e_a56e270e1747974033d1771b6c1b756f6}{MPE::CreateApp}}();}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv)}
-\DoxyCodeLine{00013\ \{}
-\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1_global_log_a18022addc9fe0789b6217f04ddc60ae1}{MPE::GlobalLog::Init}}();}
-\DoxyCodeLine{00015\ \ \ \ \ SET\_EXECUTABLE\_PATH\_AS\_CWD();}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifdef\ MPE\_PLATFORM\_WINDOWS}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{___c_w_d_8h}{MPE/Core/\_CWD.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_global_log_8h}{MPE/Log/GlobalLog.h}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_app_8h}{MPE/App/App.h}}"{}}}
 \DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \ \ \ \ \textcolor{comment}{//\ Print\ out\ argc\ and\ argv}}
-\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ argc;\ i++)}
-\DoxyCodeLine{00019\ \ \ \ \ \{}
-\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_global_log_8h_aba014a28d3849a890e0cb7a695da1b9e}{MPE\_CORE\_TRACE}}(\textcolor{stringliteral}{"{}Argv[\{0\}]:\ \{1\}"{}},\ i,\ argv[i]);}
-\DoxyCodeLine{00021\ \ \ \ \ \}}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{//\ MPE\_PROFILE\_START("{}STARTUP"{},\ "{}MPE-\/PROFILE-\/STARTUP.json"{});}}
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{auto}\ app\ =\ \mbox{\hyperlink{namespace_m_p_e_a56e270e1747974033d1771b6c1b756f6}{MPE::CreateApp}}();}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//\ MPE\_PROFILE\_END();}}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//\ MPE\_PROFILE\_START("{}RUNTIME"{},\ "{}MPE-\/PROFILE-\/RUNTIME.json"{});}}
-\DoxyCodeLine{00027\ \ \ \ \ app-\/>Run();}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//\ MPE\_PROFILE\_END();}}
-\DoxyCodeLine{00029\ \}}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#error\ No\ entrypoint\ defined\ for\ this\ platform.}}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00023\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{namespace_m_p_e_a003594098fb51fe684b9937e69d2593a}{MPE::REF<MPE::App>}}\ \mbox{\hyperlink{namespace_m_p_e_a56e270e1747974033d1771b6c1b756f6}{MPE::CreateApp}}();}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv)}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_m_p_e_1_1_global_log_a18022addc9fe0789b6217f04ddc60ae1}{MPE::GlobalLog::Init}}();}
+\DoxyCodeLine{00035\ \ \ \ \ SET\_EXECUTABLE\_PATH\_AS\_CWD();}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ Print\ out\ argc\ and\ argv}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ argc;\ i++)}
+\DoxyCodeLine{00039\ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_global_log_8h_aba014a28d3849a890e0cb7a695da1b9e}{MPE\_CORE\_TRACE}}(\textcolor{stringliteral}{"{}Argv[\{0\}]:\ \{1\}"{}},\ i,\ argv[i]);}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//\ MPE\_PROFILE\_START("{}STARTUP"{},\ "{}MPE-\/PROFILE-\/STARTUP.json"{});}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{auto}\ app\ =\ \mbox{\hyperlink{namespace_m_p_e_a56e270e1747974033d1771b6c1b756f6}{MPE::CreateApp}}();}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//\ MPE\_PROFILE\_END();}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{comment}{//\ MPE\_PROFILE\_START("{}RUNTIME"{},\ "{}MPE-\/PROFILE-\/RUNTIME.json"{});}}
+\DoxyCodeLine{00047\ \ \ \ \ app-\/>Run();}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//\ MPE\_PROFILE\_END();}}
+\DoxyCodeLine{00049\ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#error\ No\ entrypoint\ defined\ for\ this\ platform.}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

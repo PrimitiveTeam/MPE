@@ -1,0 +1,16 @@
+#pragma once
+
+#include "MPE/Input/Input.h"
+
+namespace MPE
+{
+class MPE_API macOSInput : public Input
+{
+  protected:
+    virtual bool IsKeyPressedImpl(int keycode) override;
+    virtual bool IsMouseButtonPressedImpl(int button) override;
+    virtual std::pair<float, float> GetMousePositionImpl() override;
+    virtual float GetMouseXImpl() override;
+    virtual float GetMouseYImpl() override;
+};
+}

@@ -24,7 +24,7 @@ digraph "D:/WORK/GIT/MPE/MPE/MPE.h"
   Node7 -> Node8 [id="edge36_Node000007_Node000008",color="steelblue1",style="solid",tooltip=" "];
   Node8 [id="Node000008",label="string",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node1 -> Node9 [id="edge37_Node000001_Node000009",color="steelblue1",style="solid",tooltip=" "];
-  Node9 [id="Node000009",label="MPE/App/App.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_app_8h.html",tooltip=" "];
+  Node9 [id="Node000009",label="MPE/App/App.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_app_8h.html",tooltip="App class for the MPE engine."];
   Node9 -> Node2 [id="edge38_Node000009_Node000002",color="steelblue1",style="solid",tooltip=" "];
   Node9 -> Node7 [id="edge39_Node000009_Node000007",color="steelblue1",style="solid",tooltip=" "];
   Node1 -> Node10 [id="edge40_Node000001_Node000010",color="steelblue1",style="solid",tooltip=" "];
@@ -42,6 +42,6 @@ digraph "D:/WORK/GIT/MPE/MPE/MPE.h"
   Node13 -> Node14 [id="edge48_Node000013_Node000014",color="steelblue1",style="solid",tooltip=" "];
   Node14 [id="Node000014",label="fstream",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node1 -> Node15 [id="edge49_Node000001_Node000015",color="steelblue1",style="solid",tooltip=" "];
-  Node15 [id="Node000015",label="MPE/Time/Time.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_time_8h.html",tooltip=" "];
+  Node15 [id="Node000015",label="MPE/Time/Time.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_time_8h.html",tooltip="Time class for the MPE engine."];
   Node15 -> Node2 [id="edge50_Node000015_Node000002",color="steelblue1",style="solid",tooltip=" "];
 }
