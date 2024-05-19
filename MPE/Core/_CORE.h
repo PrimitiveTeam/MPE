@@ -292,3 +292,7 @@ constexpr REF<T> NEWREF(Args &&...args)
     return std::make_shared<T>(std::forward<Args>(args)...);
 }
 }
+
+#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
+#define PROJECT_VERSION TOSTRING(MPE_FULL_VERSION)
