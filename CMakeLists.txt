@@ -1007,9 +1007,9 @@ if(${MPE_PROJECTS})
   )
   target_include_directories(SANDBOX PRIVATE ${MPE_PUBLIC_INCLUDES})
 
-  # # COMPILER DEFINITIONS FOR SANDBOX
-  # # THIS IS NEEDED AS CMAKE IGNORES PUBLIC/PRIVATE/INTERFACE FOR DEFINITIONS FOR SOME REASON
-  # # TODO: FIND A WAY TO FIX THIS ISSUE
+  # COMPILER DEFINITIONS FOR SANDBOX
+  # THIS IS NEEDED AS CMAKE IGNORES PUBLIC/PRIVATE/INTERFACE FOR DEFINITIONS FOR SOME REASON
+  # TODO: FIND A WAY TO FIX THIS ISSUE
   if(COMPILATION_PLATFORM STREQUAL "WIN32")
     target_compile_definitions(SANDBOX PUBLIC MPE_PLATFORM_WINDOWS)
   elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
@@ -1137,56 +1137,121 @@ endif(${MPE_PROJECTS})
 # ##############################################################################
 # PROJECTS PONG
 if(${MPE_PROJECTS})
-  # add_executable(PONG
-  # "${PROJECT_SOURCE_DIR}/Projects/Pong/ProjectSelector.cpp")
+  add_executable(PONG
+    "${PROJECT_SOURCE_DIR}/Projects/Pong/ProjectSelector.cpp")
 
-  # file(GLOB_RECURSE PONG_CPP
-  # "${PROJECT_SOURCE_DIR}/Projects/Pong/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/Projects/Pong/Core/*.cpp")
+  target_include_directories(PONG PRIVATE ${MPE_PUBLIC_INCLUDES})
 
-  # file(GLOB_RECURSE PONG_H
-  # "${PROJECT_SOURCE_DIR}/Projects/Pong/*.h"
-  # "${PROJECT_SOURCE_DIR}/Projects/Pong/Core/*.h")
+  file(GLOB_RECURSE PONG_CPP
+    "${PROJECT_SOURCE_DIR}/Projects/Pong/*.cpp"
+    "${PROJECT_SOURCE_DIR}/Projects/Pong/Core/*.cpp")
 
-  # add_library(PONG_SRC STATIC ${PONG_CPP})
-  # target_include_directories(PONG_SRC PUBLIC ${PONG_H})
-  # target_link_libraries(PONG_SRC PUBLIC MPE)
-  # target_link_libraries(PONG PUBLIC MPE)
-  # target_link_libraries(PONG PUBLIC PONG_SRC)
+  file(GLOB_RECURSE PONG_H
+    "${PROJECT_SOURCE_DIR}/Projects/Pong/*.h"
+    "${PROJECT_SOURCE_DIR}/Projects/Pong/Core/*.h")
 
-  # target_compile_features(PONG PUBLIC ${CXX_VERSION_NAME})
-  # set_target_properties(PONG PROPERTIES VERSION ${PROJECT_FULL_VERSION})
-  # set_target_properties(PONG PROPERTIES OUTPUT_NAME "MPE-PONG")
+  add_library(PONG_SRC STATIC ${PONG_CPP})
+  target_include_directories(PONG_SRC PUBLIC
+    ${PONG_H}
+    ${MPE_PUBLIC_INCLUDES}
+  )
 
-  # # COMPILER DEFINITIONS FOR PONG
-  # target_compile_definitions(PONG PUBLIC PONG_PLATFORM_WINDOWS)
+  # COMPILER DEFINITIONS FOR PONG_SRC
+  # THIS IS NEEDED AS CMAKE IGNORES PUBLIC/PRIVATE/INTERFACE FOR DEFINITIONS FOR SOME REASON
+  # TODO: FIND A WAY TO FIX THIS ISSUE
+  if(COMPILATION_PLATFORM STREQUAL "WIN32")
+    target_compile_definitions(PONG_SRC PUBLIC MPE_PLATFORM_WINDOWS)
+  elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
+    target_compile_definitions(PONG_SRC PUBLIC MPE_PLATFORM_LINUX)
+  elseif(COMPILATION_PLATFORM STREQUAL "OSX")
+    target_compile_definitions(PONG_SRC PUBLIC MPE_PLATFORM_OSX)
+  endif()
 
-  # target_compile_definitions(PONG PUBLIC PONG_ENABLE_ASSERTS)
-  # target_compile_definitions(PONG PUBLIC PONG_COMPILER_${CURRENT_COMPILER})
+  target_compile_definitions(PONG_SRC PUBLIC MPE_ENABLE_ASSERTS)
+  target_compile_definitions(PONG_SRC PUBLIC MPE_COMPILER_${CURRENT_COMPILER})
 
-  # # ENABLE PROFILING FOR DEBUG BUILDS
-  # if(CMAKE_BUILD_TYPE STREQUAL Debug)
-  # target_compile_definitions(PONG PUBLIC PONG_DEBUG_PROFILING)
-  # target_compile_definitions(PONG PUBLIC PONG_ENABLE_DEBUG_LOG)
-  # endif(CMAKE_BUILD_TYPE STREQUAL Debug)
+  if(CMAKE_BUILD_TYPE STREQUAL Debug)
+    target_compile_definitions(PONG_SRC PUBLIC MPE_CORE_DEBUG_PROFILING)
+    target_compile_definitions(PONG_SRC PUBLIC MPE_DEBUG_PROFILING)
+    target_compile_definitions(PONG_SRC PUBLIC MPE_ENABLE_DEBUG_LOG)
+  endif(CMAKE_BUILD_TYPE STREQUAL Debug)
 
-  # if(${VERBOSE})
-  # get_target_property(DEFINITIONS_LIST PONG COMPILE_DEFINITIONS)
-  # message(STATUS "PONG COMPILE DEFINITIONS: ${DEFINITIONS_LIST}")
-  # endif()
+  if(MPE_LIBRARY_TYPE STREQUAL SHARED)
+    target_compile_definitions(PONG_SRC PUBLIC MPE_DYNAMIC_LIBRARY)
+  else()
+    target_compile_definitions(PONG_SRC PUBLIC MPE_STATIC_LIBRARY)
+  endif()
 
-  # # INSTALLATION PROCEDURE
-  # install(
-  # TARGETS PONG
-  # LIBRARY DESTINATION bin
-  # ARCHIVE DESTINATION bin
-  # RUNTIME DESTINATION bin)
+  if(${VERBOSE})
+    get_target_property(DEFINITIONS_LIST PONG_SRC COMPILE_DEFINITIONS)
+    message(STATUS "PONG_SRC COMPILE DEFINITIONS: ${DEFINITIONS_LIST}")
+  endif()
 
-  # install(FILES $<TARGET_RUNTIME_DLLS:PONG> DESTINATION bin)
+  target_link_libraries(PONG_SRC PUBLIC MPE)
+  target_link_libraries(PONG PUBLIC MPE)
+  target_link_libraries(PONG PUBLIC PONG_SRC)
 
-  # if(${VERBOSE})
-  # message(STATUS "MPE-PONG ADDED.")
-  # endif()
+  set_target_properties(PONG PROPERTIES VERSION ${PROJECT_FULL_VERSION})
+  set_target_properties(PONG PROPERTIES OUTPUT_NAME "MPE-PONG")
+
+  # COMPILER DEFINITIONS FOR PONG
+  # THIS IS NEEDED AS CMAKE IGNORES PUBLIC/PRIVATE/INTERFACE FOR DEFINITIONS FOR SOME REASON
+  # TODO: FIND A WAY TO FIX THIS ISSUE
+  if(COMPILATION_PLATFORM STREQUAL "WIN32")
+    target_compile_definitions(PONG PUBLIC MPE_PLATFORM_WINDOWS)
+  elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
+    target_compile_definitions(PONG PUBLIC MPE_PLATFORM_LINUX)
+  elseif(COMPILATION_PLATFORM STREQUAL "OSX")
+    target_compile_definitions(PONG PUBLIC MPE_PLATFORM_OSX)
+  endif()
+
+  target_compile_definitions(PONG PUBLIC MPE_ENABLE_ASSERTS)
+  target_compile_definitions(PONG PUBLIC MPE_COMPILER_${CURRENT_COMPILER})
+
+  if(CMAKE_BUILD_TYPE STREQUAL Debug)
+    target_compile_definitions(PONG PUBLIC MPE_CORE_DEBUG_PROFILING)
+    target_compile_definitions(PONG PUBLIC MPE_DEBUG_PROFILING)
+    target_compile_definitions(PONG PUBLIC MPE_ENABLE_DEBUG_LOG)
+  endif(CMAKE_BUILD_TYPE STREQUAL Debug)
+
+  if(MPE_LIBRARY_TYPE STREQUAL SHARED)
+    target_compile_definitions(PONG PUBLIC MPE_DYNAMIC_LIBRARY)
+  else()
+    target_compile_definitions(PONG PUBLIC MPE_STATIC_LIBRARY)
+  endif()
+
+  if(${VERBOSE})
+    get_target_property(DEFINITIONS_LIST PONG COMPILE_DEFINITIONS)
+    message(STATUS "PONG COMPILE DEFINITIONS: ${DEFINITIONS_LIST}")
+  endif()
+
+  # Copy the /Project/*/Data folder to the build directory
+  add_custom_command(
+    TARGET PONG
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${PROJECT_SOURCE_DIR}/Projects/Pong/Data
+    $<TARGET_FILE_DIR:PONG>/Data
+  )
+
+  # Copy the /Project/*/Data folder to the install directory
+  install(
+    DIRECTORY ${PROJECT_SOURCE_DIR}/Projects/Pong/Data
+    DESTINATION bin
+  )
+
+  # INSTALLATION PROCEDURE
+  install(
+    TARGETS PONG
+    LIBRARY DESTINATION bin
+    ARCHIVE DESTINATION bin
+    RUNTIME DESTINATION bin)
+
+  install(FILES $<TARGET_RUNTIME_DLLS:PONG> DESTINATION bin)
+
+  if(${VERBOSE})
+    message(STATUS "MPE-PONG ADDED.")
+  endif()
 endif(${MPE_PROJECTS})
 
 # ##############################################################################
