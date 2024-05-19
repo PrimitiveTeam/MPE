@@ -23,4 +23,13 @@ else
     git checkout docking
 fi
 
+# stb
+# If stb already exists, cancel next step
+if [ -d "stb" ]; then
+    echo "stb already exists. Skipping..."
+else
+    echo "Cloning stb..."
+    git clone https://github.com/nothings/stb.git
+fi
+
 echo "Setup complete."

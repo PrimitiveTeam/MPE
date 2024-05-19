@@ -14,12 +14,20 @@ REM imgui
 REM If imgui already exists, cancel next step
 if exist "imgui" (
     echo imgui already exists. Skipping...
-    exit /b 0
 ) else (
     echo Cloning imgui...
     git clone https://github.com/ocornut/imgui.git
     cd imgui
     git checkout docking
+)
+
+REM stb
+REM If stb already exists, cancel next step
+if exist "stb" (
+    echo stb already exists. Skipping...
+) else (
+    echo Cloning stb...
+    git clone https://github.com/nothings/stb.git
 )
 
 echo Setup complete.

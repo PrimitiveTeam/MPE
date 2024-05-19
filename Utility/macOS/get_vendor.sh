@@ -16,12 +16,20 @@ cd $SCRIPT_DIR/../../Vendor
 # If imgui already exists, cancel next step
 if [ -d "imgui" ]; then
     echo "imgui already exists. Skipping..."
-    exit 0
 else
     echo "Cloning imgui..."
     git clone https://github.com/ocornut/imgui.git
     cd imgui
     git checkout docking
+fi
+
+# stb
+# If stb already exists, cancel next step
+if [ -d "stb" ]; then
+    echo "stb already exists. Skipping..."
+else
+    echo "Cloning stb..."
+    git clone https://github.com/nothings/stb.git
 fi
 
 echo "Setup complete."
