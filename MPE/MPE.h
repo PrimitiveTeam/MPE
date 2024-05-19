@@ -57,26 +57,26 @@
 // ----- INPUT -----
 
 // ----- IMGUI -----
-// #include "MPE/Vendor/ImGui/ImGuiLayer.h"
+#include "MPE/Vendor/ImGui/ImGuiLayer.h"
 // ----- IMGUI -----
 
 // ----- RENDERER -----
-// #include "MPE/Renderer/Renderer.h"
-// #include "MPE/Renderer/Renderer2D.h"
-// #include "MPE/Renderer/RenderPrimitive.h"
+#include "MPE/Renderer/Renderer.h"
+#include "MPE/Renderer/Renderer2D.h"
+#include "MPE/Renderer/RenderPrimitive.h"
 // ----- RENDERER -----
 
 // ----- GRAPHICS -----
-// #include "MPE/Renderer/Pipeline/VertexBuffer.h"
-// #include "MPE/Renderer/Pipeline/IndexBuffer.h"
-// #include "MPE/Renderer/Pipeline/VertexArray.h"
-// #include "MPE/Renderer/Shaders/Shader.h"
-// #include "MPE/Renderer/Textures/Texture.h"
-// #include "MPE/Renderer/Textures/Texture2D.h"
+#include "MPE/Renderer/Pipeline/VertexBuffer.h"
+#include "MPE/Renderer/Pipeline/IndexBuffer.h"
+#include "MPE/Renderer/Pipeline/VertexArray.h"
+#include "MPE/Renderer/Shaders/Shader.h"
+#include "MPE/Renderer/Textures/Texture.h"
+#include "MPE/Renderer/Textures/Texture2D.h"
 // ----- GRAPHICS -----
 
 // ----- CAMERAS -----
-// #include "MPE/Renderer/Cameras/OrthographicCamera.h"
-// #include "MPE/Renderer/Cameras/OrthographicCameraController.h"
-// #include "MPE/Renderer/Cameras/StaticOrthographicCamera.h"
+#include "MPE/Renderer/Cameras/OrthographicCamera.h"
+#include "MPE/Renderer/Cameras/OrthographicCameraController.h"
+#include "MPE/Renderer/Cameras/StaticOrthographicCamera.h"
 // ----- CAMERAS -----

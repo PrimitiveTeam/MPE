@@ -252,6 +252,7 @@ if(WIN32)
 
     set(glm_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glm")
     set(GTest_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\gtest")
+    set(Stb_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\stb")
 
     if(${VERBOSE})
       message(STATUS "fmt_DIR: ${fmt_DIR}")
@@ -267,6 +268,7 @@ if(WIN32)
 
       message(STATUS "glm_DIR: ${glm_DIR}")
       message(STATUS "GTest_DIR: ${GTest_DIR}")
+      message(STATUS "Stb_DIR: ${Stb_DIR}")
 
       message(STATUS "VCPKG CUSTOM PATHS SET.")
     endif()
@@ -481,24 +483,20 @@ file(
 
   # /Renderer
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.cpp"
-
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.cpp"
 
   # /Platform/OpenGL
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.cpp"
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.cpp"
-
-  # /Platform/Windows
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.cpp"
 
   # /Vendor
-  # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.cpp"
   "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.cpp"
 )
 
 # PRINT MPE SOURCE FILES
@@ -546,24 +544,20 @@ file(
 
   # /Renderer
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.h"
-
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.h"
 
   # /Platform/OpenGL
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.h"
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.h"
-
-  # /Platform/Windows
-  # "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.h"
 
   # /Vendor
-  # "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.h"
 )
 
 # PRINT MPE SOURCE FILES
@@ -811,8 +805,9 @@ if(COMPILATION_PLATFORM STREQUAL "UNIX")
   )
 endif()
 
-# find_path(STB_INCLUDE_DIRS "stb_c_lexer.h") target_include_directories(MPE
-# PUBLIC ${Stb_INCLUDE_DIRS})
+# find_path(STB_INCLUDE_DIRS "stb_c_lexer.h")
+target_include_directories(MPE
+  PRIVATE ${Stb_INCLUDE_DIRS})
 
 # ADD MPEPCH.H AS A PRECOMPILED HEADER FILE
 target_precompile_headers(MPE PUBLIC

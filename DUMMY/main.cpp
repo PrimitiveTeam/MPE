@@ -126,7 +126,12 @@ class TestLayer : public MPE::Layer
 
     void OnDetach() override { MPE_CORE_TRACE("TestLayer detached!"); }
 
-    void OnUpdate(MPE::Time deltatime) override { MPE_CORE_TRACE("TestLayer updated! DeltaTime: {0}", deltatime.GetMilliSeconds()); }
+    void OnUpdate(MPE::Time deltatime) override
+    {
+        MPE_CORE_TRACE("TestLayer updated! DeltaTime: {0}", deltatime.GetMilliSeconds());
+        MPE::RenderPrimitive::SetClearColor(CLEAR_COLOR);
+        MPE::RenderPrimitive::Clear();
+    }
 
     void OnImGuiRender() override
     {
@@ -147,6 +152,9 @@ class TestLayer : public MPE::Layer
         MPE_CORE_TRACE("Key pressed: {0}", event.GetKeyCode());
         return true;
     }
+
+  private:
+    glm::vec4 CLEAR_COLOR = {0.5f, 0.25f, 0.5f, 1.0f};
 };
 
 class DummyApp : public MPE::App
