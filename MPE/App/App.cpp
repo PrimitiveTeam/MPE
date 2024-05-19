@@ -1,11 +1,11 @@
 #include "App.h"
 #include "MPE/MPEPCH.h"
 
+#include "MPE/Core/_CORE.h"
 #include "MPE/App/Layers/LayerStack.h"
-#include "MPE/Core/_INIT.h"
 #include "MPE/Input/Input.h"
 #include "MPE/Platform/Windows/Input/WindowsInput.h"
-#include "MPE/Core/_CORE.h"
+#include "MPE/Renderer/Renderer.h"
 
 // TEMP
 #include <GLFW/glfw3.h>
@@ -26,6 +26,8 @@ App::App()
     SYS_APP_Window->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));
 
     MPE_CORE_ASSERT(SYS_APP_Window, "NATIVE WINDOW NOT CREATED.");
+
+    Renderer::Init();
 
     SYS_ImGuiLayer = NEWREF<ImGuiLayer>();
     PushOverlay(SYS_ImGuiLayer);

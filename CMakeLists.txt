@@ -13,7 +13,7 @@ set(EXAMPLES OFF)
 set(INSTALL_DLLS OFF)
 
 # SWITCHES FOR PROJECTS
-set(MPE_PROJECTS OFF)
+set(MPE_PROJECTS ON)
 
 # TEMPORARY
 # DUMMY EXECUTABLE
@@ -1000,47 +1000,108 @@ endif()
 # PROJECTS SANDBOX
 if(${MPE_PROJECTS})
   # ADD "SANDBOX" EXECUTABLE - THE ENTRYPOINT TO MPE
-  add_executable(SANDBOX "${PROJECT_SOURCE_DIR}/Sandbox/Sandbox.cpp")
+  add_executable(SANDBOX "${PROJECT_SOURCE_DIR}/Projects/Sandbox/Sandbox.cpp")
 
-  target_include_directories(SANDBOX PUBLIC "${PROJECT_SOURCE_DIR}")
-  target_link_libraries(SANDBOX PUBLIC MPE)
+  target_link_libraries(SANDBOX PRIVATE
+    MPE
+  )
+  target_include_directories(SANDBOX PRIVATE ${MPE_PUBLIC_INCLUDES})
 
-  # ADDING SANDBOX 2D LAYER
-  file(GLOB_RECURSE SANDBOX2D_CPP
-    "${PROJECT_SOURCE_DIR}/Sandbox/Sandbox2D/*.cpp")
-  file(GLOB_RECURSE SANDBOX2D_H
-    "${PROJECT_SOURCE_DIR}/Sandbox/Sandbox2D/*.h")
-  add_library(SANDBOX2D STATIC ${SANDBOX2D_CPP})
-  target_include_directories(SANDBOX2D PUBLIC ${SANDBOX2D_H})
-  target_link_libraries(SANDBOX2D PUBLIC MPE)
-  target_link_libraries(SANDBOX PUBLIC SANDBOX2D)
+  # # COMPILER DEFINITIONS FOR SANDBOX
+  # # THIS IS NEEDED AS CMAKE IGNORES PUBLIC/PRIVATE/INTERFACE FOR DEFINITIONS FOR SOME REASON
+  # # TODO: FIND A WAY TO FIX THIS ISSUE
+  if(COMPILATION_PLATFORM STREQUAL "WIN32")
+    target_compile_definitions(SANDBOX PUBLIC MPE_PLATFORM_WINDOWS)
+  elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
+    target_compile_definitions(SANDBOX PUBLIC MPE_PLATFORM_LINUX)
+  elseif(COMPILATION_PLATFORM STREQUAL "OSX")
+    target_compile_definitions(SANDBOX PUBLIC MPE_PLATFORM_OSX)
+  endif()
 
-  target_compile_features(SANDBOX PUBLIC ${CXX_VERSION_NAME})
-  set_target_properties(SANDBOX PROPERTIES VERSION ${PROJECT_FULL_VERSION})
-  set_target_properties(SANDBOX PROPERTIES OUTPUT_NAME "MPE-SANDBOX")
+  target_compile_definitions(SANDBOX PUBLIC MPE_ENABLE_ASSERTS)
+  target_compile_definitions(SANDBOX PUBLIC MPE_COMPILER_${CURRENT_COMPILER})
 
-  # COMPILER DEFINITIONS FOR SANDBOX
-  target_compile_definitions(SANDBOX PUBLIC SANDBOX_PLATFORM_WINDOWS)
-
-  target_compile_definitions(SANDBOX PUBLIC SANDBOX_ENABLE_ASSERTS)
-  target_compile_definitions(SANDBOX PUBLIC SANDBOX_COMPILER_${CURRENT_COMPILER})
-
-  # ENABLE PROFILING FOR DEBUG BUILDS
   if(CMAKE_BUILD_TYPE STREQUAL Debug)
-    target_compile_definitions(SANDBOX PUBLIC SANDBOX_DEBUG_PROFILING)
-    target_compile_definitions(SANDBOX PUBLIC SANDBOX_ENABLE_DEBUG_LOG)
+    target_compile_definitions(SANDBOX PUBLIC MPE_CORE_DEBUG_PROFILING)
+    target_compile_definitions(SANDBOX PUBLIC MPE_DEBUG_PROFILING)
+    target_compile_definitions(SANDBOX PUBLIC MPE_ENABLE_DEBUG_LOG)
   endif(CMAKE_BUILD_TYPE STREQUAL Debug)
+
+  if(MPE_LIBRARY_TYPE STREQUAL SHARED)
+    target_compile_definitions(SANDBOX PUBLIC MPE_DYNAMIC_LIBRARY)
+  else()
+    target_compile_definitions(SANDBOX PUBLIC MPE_STATIC_LIBRARY)
+  endif()
 
   if(${VERBOSE})
     get_target_property(DEFINITIONS_LIST SANDBOX COMPILE_DEFINITIONS)
     message(STATUS "SANDBOX COMPILE DEFINITIONS: ${DEFINITIONS_LIST}")
   endif()
 
-  # COMPILER DEFINITIONS FOR SANDBOX
-  target_compile_definitions(SANDBOX PUBLIC MPE_PLATFORM_WINDOWS)
+  # ADDING SANDBOX 2D LAYER
+  file(GLOB_RECURSE SANDBOX2D_CPP
+    "${PROJECT_SOURCE_DIR}/Projects/Sandbox/Sandbox2D/*.cpp")
+  file(GLOB_RECURSE SANDBOX2D_H
+    "${PROJECT_SOURCE_DIR}/Projects/Sandbox/Sandbox2D/*.h")
+  add_library(SANDBOX2D STATIC ${SANDBOX2D_CPP})
+  target_include_directories(SANDBOX2D PUBLIC
+    ${SANDBOX2D_H}
+    ${MPE_PUBLIC_INCLUDES}
+  )
 
-  # COMPILER DEFINITIONS FOR SANDBOX 2D
-  target_compile_definitions(SANDBOX2D PUBLIC MPE_PLATFORM_WINDOWS)
+  target_link_libraries(SANDBOX2D PUBLIC MPE)
+
+  # COMPILER DEFINITIONS FOR SANDBOX2D
+  # THIS IS NEEDED AS CMAKE IGNORES PUBLIC/PRIVATE/INTERFACE FOR DEFINITIONS FOR SOME REASON
+  # TODO: FIND A WAY TO FIX THIS ISSUE
+  if(COMPILATION_PLATFORM STREQUAL "WIN32")
+    target_compile_definitions(SANDBOX2D PUBLIC MPE_PLATFORM_WINDOWS)
+  elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
+    target_compile_definitions(SANDBOX2D PUBLIC MPE_PLATFORM_LINUX)
+  elseif(COMPILATION_PLATFORM STREQUAL "OSX")
+    target_compile_definitions(SANDBOX2D PUBLIC MPE_PLATFORM_OSX)
+  endif()
+
+  target_compile_definitions(SANDBOX2D PUBLIC MPE_ENABLE_ASSERTS)
+  target_compile_definitions(SANDBOX2D PUBLIC MPE_COMPILER_${CURRENT_COMPILER})
+
+  if(CMAKE_BUILD_TYPE STREQUAL Debug)
+    target_compile_definitions(SANDBOX2D PUBLIC MPE_CORE_DEBUG_PROFILING)
+    target_compile_definitions(SANDBOX2D PUBLIC MPE_DEBUG_PROFILING)
+    target_compile_definitions(SANDBOX2D PUBLIC MPE_ENABLE_DEBUG_LOG)
+  endif(CMAKE_BUILD_TYPE STREQUAL Debug)
+
+  if(MPE_LIBRARY_TYPE STREQUAL SHARED)
+    target_compile_definitions(SANDBOX2D PUBLIC MPE_DYNAMIC_LIBRARY)
+  else()
+    target_compile_definitions(SANDBOX2D PUBLIC MPE_STATIC_LIBRARY)
+  endif()
+
+  if(${VERBOSE})
+    get_target_property(DEFINITIONS_LIST SANDBOX2D COMPILE_DEFINITIONS)
+    message(STATUS "SANDBOX2D COMPILE DEFINITIONS: ${DEFINITIONS_LIST}")
+  endif()
+
+  target_link_libraries(SANDBOX PUBLIC SANDBOX2D)
+
+  # target_compile_features(SANDBOX PUBLIC ${CXX_VERSION_NAME})
+  set_target_properties(SANDBOX PROPERTIES VERSION ${PROJECT_FULL_VERSION})
+  set_target_properties(SANDBOX PROPERTIES OUTPUT_NAME "MPE-SANDBOX")
+
+  # Copy the /Project/*/Data folder to the build directory
+  add_custom_command(
+    TARGET SANDBOX
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${PROJECT_SOURCE_DIR}/Projects/Sandbox/Data
+    $<TARGET_FILE_DIR:SANDBOX>/Data
+  )
+
+  # Copy the /Project/*/Data folder to the install directory
+  install(
+    DIRECTORY ${PROJECT_SOURCE_DIR}/Projects/Sandbox/Data
+    DESTINATION bin
+  )
 
   # INSTALLATION PROCEDURE
   install(
@@ -1076,56 +1137,56 @@ endif(${MPE_PROJECTS})
 # ##############################################################################
 # PROJECTS PONG
 if(${MPE_PROJECTS})
-  add_executable(PONG
-    "${PROJECT_SOURCE_DIR}/Projects/Pong/ProjectSelector.cpp")
+  # add_executable(PONG
+  # "${PROJECT_SOURCE_DIR}/Projects/Pong/ProjectSelector.cpp")
 
-  file(GLOB_RECURSE PONG_CPP
-    "${PROJECT_SOURCE_DIR}/Projects/Pong/*.cpp"
-    "${PROJECT_SOURCE_DIR}/Projects/Pong/Core/*.cpp")
+  # file(GLOB_RECURSE PONG_CPP
+  # "${PROJECT_SOURCE_DIR}/Projects/Pong/*.cpp"
+  # "${PROJECT_SOURCE_DIR}/Projects/Pong/Core/*.cpp")
 
-  file(GLOB_RECURSE PONG_H
-    "${PROJECT_SOURCE_DIR}/Projects/Pong/*.h"
-    "${PROJECT_SOURCE_DIR}/Projects/Pong/Core/*.h")
+  # file(GLOB_RECURSE PONG_H
+  # "${PROJECT_SOURCE_DIR}/Projects/Pong/*.h"
+  # "${PROJECT_SOURCE_DIR}/Projects/Pong/Core/*.h")
 
-  add_library(PONG_SRC STATIC ${PONG_CPP})
-  target_include_directories(PONG_SRC PUBLIC ${PONG_H})
-  target_link_libraries(PONG_SRC PUBLIC MPE)
-  target_link_libraries(PONG PUBLIC MPE)
-  target_link_libraries(PONG PUBLIC PONG_SRC)
+  # add_library(PONG_SRC STATIC ${PONG_CPP})
+  # target_include_directories(PONG_SRC PUBLIC ${PONG_H})
+  # target_link_libraries(PONG_SRC PUBLIC MPE)
+  # target_link_libraries(PONG PUBLIC MPE)
+  # target_link_libraries(PONG PUBLIC PONG_SRC)
 
-  target_compile_features(PONG PUBLIC ${CXX_VERSION_NAME})
-  set_target_properties(PONG PROPERTIES VERSION ${PROJECT_FULL_VERSION})
-  set_target_properties(PONG PROPERTIES OUTPUT_NAME "MPE-PONG")
+  # target_compile_features(PONG PUBLIC ${CXX_VERSION_NAME})
+  # set_target_properties(PONG PROPERTIES VERSION ${PROJECT_FULL_VERSION})
+  # set_target_properties(PONG PROPERTIES OUTPUT_NAME "MPE-PONG")
 
-  # COMPILER DEFINITIONS FOR PONG
-  target_compile_definitions(PONG PUBLIC PONG_PLATFORM_WINDOWS)
+  # # COMPILER DEFINITIONS FOR PONG
+  # target_compile_definitions(PONG PUBLIC PONG_PLATFORM_WINDOWS)
 
-  target_compile_definitions(PONG PUBLIC PONG_ENABLE_ASSERTS)
-  target_compile_definitions(PONG PUBLIC PONG_COMPILER_${CURRENT_COMPILER})
+  # target_compile_definitions(PONG PUBLIC PONG_ENABLE_ASSERTS)
+  # target_compile_definitions(PONG PUBLIC PONG_COMPILER_${CURRENT_COMPILER})
 
-  # ENABLE PROFILING FOR DEBUG BUILDS
-  if(CMAKE_BUILD_TYPE STREQUAL Debug)
-    target_compile_definitions(PONG PUBLIC PONG_DEBUG_PROFILING)
-    target_compile_definitions(PONG PUBLIC PONG_ENABLE_DEBUG_LOG)
-  endif(CMAKE_BUILD_TYPE STREQUAL Debug)
+  # # ENABLE PROFILING FOR DEBUG BUILDS
+  # if(CMAKE_BUILD_TYPE STREQUAL Debug)
+  # target_compile_definitions(PONG PUBLIC PONG_DEBUG_PROFILING)
+  # target_compile_definitions(PONG PUBLIC PONG_ENABLE_DEBUG_LOG)
+  # endif(CMAKE_BUILD_TYPE STREQUAL Debug)
 
-  if(${VERBOSE})
-    get_target_property(DEFINITIONS_LIST PONG COMPILE_DEFINITIONS)
-    message(STATUS "PONG COMPILE DEFINITIONS: ${DEFINITIONS_LIST}")
-  endif()
+  # if(${VERBOSE})
+  # get_target_property(DEFINITIONS_LIST PONG COMPILE_DEFINITIONS)
+  # message(STATUS "PONG COMPILE DEFINITIONS: ${DEFINITIONS_LIST}")
+  # endif()
 
-  # INSTALLATION PROCEDURE
-  install(
-    TARGETS PONG
-    LIBRARY DESTINATION bin
-    ARCHIVE DESTINATION bin
-    RUNTIME DESTINATION bin)
+  # # INSTALLATION PROCEDURE
+  # install(
+  # TARGETS PONG
+  # LIBRARY DESTINATION bin
+  # ARCHIVE DESTINATION bin
+  # RUNTIME DESTINATION bin)
 
-  install(FILES $<TARGET_RUNTIME_DLLS:PONG> DESTINATION bin)
+  # install(FILES $<TARGET_RUNTIME_DLLS:PONG> DESTINATION bin)
 
-  if(${VERBOSE})
-    message(STATUS "MPE-PONG ADDED.")
-  endif()
+  # if(${VERBOSE})
+  # message(STATUS "MPE-PONG ADDED.")
+  # endif()
 endif(${MPE_PROJECTS})
 
 # ##############################################################################
