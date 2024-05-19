@@ -19,14 +19,14 @@ void OpenGLContext::Init()
     int status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
     MPE_CORE_ASSERT(status, "FAILED TO INITIALIZE GLAD.")
 
-    MPE_CORE_INFO("OpenGL Info:");
+    std::string OpenGL_INFO = "\nOpenGL Info:\n";
 
     int OpenGLVersionMajor;
     int OpenGLVersionMinor;
     glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
     glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersionMinor);
 
-    MPE_CORE_INFO("OpenGL Version: {0}.{1}", OpenGLVersionMajor, OpenGLVersionMinor);
+    OpenGL_INFO += "\tOpenGL Version: " + std::to_string(OpenGLVersionMajor) + "." + std::to_string(OpenGLVersionMinor) + "\n";
 
 #ifdef MPE_PLATFORM_WINDOWS
     MPE_CORE_ASSERT(OpenGLVersionMajor > 4 || (OpenGLVersionMajor == 4 && OpenGLVersionMinor >= 6), "MPE REQUIRES OPENGL VERSION 4.6 OR GREATER.");
@@ -37,11 +37,13 @@ void OpenGLContext::Init()
 #endif
 
 #ifdef MPE_ENABLE_DEBUG_LOG
-    MPE_CORE_INFO("Vendor: {0}", reinterpret_cast<const char *>(glGetString(GL_VENDOR)));
-    MPE_CORE_INFO("Renderer: {0}", reinterpret_cast<const char *>(glGetString(GL_RENDERER)));
-    MPE_CORE_INFO("Version: {0}", reinterpret_cast<const char *>(glGetString(GL_VERSION)));
-    MPE_CORE_INFO("Hardcode shader type limit: {0}", OPENGL_SHADER_TYPE_AMOUNT);
+    OpenGL_INFO += "\tVendor: " + std::string(reinterpret_cast<const char *>(glGetString(GL_VENDOR))) + "\n";
+    OpenGL_INFO += "\tRenderer: " + std::string(reinterpret_cast<const char *>(glGetString(GL_RENDERER))) + "\n";
+    OpenGL_INFO += "\tVersion: " + std::string(reinterpret_cast<const char *>(glGetString(GL_VERSION))) + "\n";
+    OpenGL_INFO += "\tHardcode shader type limit: " + std::to_string(OPENGL_SHADER_TYPE_AMOUNT);
 #endif
+
+    MPE_CORE_INFO(OpenGL_INFO);
 }
 
 void OpenGLContext::SwapBuffers()
