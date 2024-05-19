@@ -27,7 +27,7 @@ set(MPE_LIBRARY_TYPE SHARED)
 set(PROJECT_VERSION_MAJOR 0)
 set(PROJECT_VERSION_MINOR 0)
 set(PROJECT_VERSION_PATCH 0)
-set(PROJECT_VERSION_TWEAK 0)
+set(PROJECT_VERSION_TWEAK 1)
 set(PROJECT_VERSION_SUFFIX "a")
 set(PROJECT_VERSION
   ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}.${PROJECT_VERSION_TWEAK}
@@ -252,7 +252,15 @@ if(WIN32)
 
     set(glm_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glm")
     set(GTest_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\gtest")
-    set(Stb_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\stb")
+
+    # STB
+    set(Stb_DIR ${PROJECT_SOURCE_DIR}/Vendor/stb)
+    add_library(Stb INTERFACE
+      "${Stb_DIR}"
+    )
+    target_include_directories(Stb INTERFACE
+      "${Stb_DIR}"
+    )
 
     if(${VERBOSE})
       message(STATUS "fmt_DIR: ${fmt_DIR}")
@@ -327,6 +335,15 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   find_package(PkgConfig REQUIRED)
   pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
+  # STB
+  set(Stb_DIR ${PROJECT_SOURCE_DIR}/Vendor/stb)
+  add_library(Stb INTERFACE
+    "${Stb_DIR}"
+  )
+  target_include_directories(Stb INTERFACE
+    "${Stb_DIR}"
+  )
+
   if(${VERBOSE})
     message(STATUS "glad_DIR: ${glad_DIR}")
     message(STATUS "imgui_DIR: ${imgui_DIR}")
@@ -380,9 +397,19 @@ elseif(COMPILATION_PLATFORM STREQUAL "OSX")
   )
   target_link_libraries(imgui PRIVATE glfw)
 
+  # STB
+  set(Stb_DIR ${PROJECT_SOURCE_DIR}/Vendor/stb)
+  add_library(Stb INTERFACE
+    "${Stb_DIR}"
+  )
+  target_include_directories(Stb INTERFACE
+    "${Stb_DIR}"
+  )
+
   if(${VERBOSE})
     message(STATUS "glad_DIR: ${glad_DIR}")
     message(STATUS "imgui_DIR: ${imgui_DIR}")
+    message(STATUS "Stb_DIR: ${Stb_DIR}")
 
     # message(STATUS "glfw3_DIR: ${glfw3_DIR}")
     # message(STATUS "glm_DIR: ${glm_DIR}")
@@ -755,6 +782,8 @@ if(CMAKE_BUILD_TYPE STREQUAL Debug)
   target_compile_definitions(MPE PUBLIC MPE_ENABLE_DEBUG_LOG)
 endif(CMAKE_BUILD_TYPE STREQUAL Debug)
 
+target_compile_definitions(MPE PUBLIC MPE_FULL_VERSION="${PROJECT_FULL_VERSION}")
+
 if(${VERBOSE})
   get_target_property(DEFINITIONS_LIST MPE COMPILE_DEFINITIONS)
   message(STATUS "MPE COMPILE DEFINITIONS: ${DEFINITIONS_LIST}")
@@ -787,6 +816,7 @@ target_link_libraries(
   PRIVATE glfw
   PUBLIC imgui
   PRIVATE glm::glm
+  PRIVATE Stb
 
   # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
 )
@@ -807,7 +837,9 @@ endif()
 
 # find_path(STB_INCLUDE_DIRS "stb_c_lexer.h")
 target_include_directories(MPE
-  PRIVATE ${Stb_INCLUDE_DIRS})
+  PRIVATE
+  ${Stb_INCLUDE_DIRS}
+)
 
 # ADD MPEPCH.H AS A PRECOMPILED HEADER FILE
 target_precompile_headers(MPE PUBLIC

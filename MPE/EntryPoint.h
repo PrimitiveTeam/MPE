@@ -11,6 +11,7 @@
 #ifdef MPE_PLATFORM_WINDOWS
 
 #    include "MPE/App/App.h"
+#    include "MPE/Core/_CORE.h"
 #    include "MPE/Core/_INIT.h"
 
 /**
@@ -31,6 +32,8 @@ extern MPE::App *MPE::CreateApp();
 int main(int argc, char **argv)
 {
     MPE_STARTUP();
+
+    MPE_CORE_INFO("MPE Engine {0}", MPE_VERSION);
 
     // Print out argc and argv
     for (int i = 0; i < argc; i++)

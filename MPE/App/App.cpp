@@ -50,8 +50,6 @@ void App::Run()
 {
     while (SYS_APP_Running)
     {
-        SYS_Log->info("Running...");
-
         // TODO: Platform::GetTime();
         float time = (float) glfwGetTime();
         Time deltaTime = time - SYS_LAST_FRAME_TIME;
