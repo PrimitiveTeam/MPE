@@ -24,7 +24,7 @@ class MPE_API ImGuiLayer : public Layer
     void End();
 
 #ifdef MPE_DYNAMIC_LIBRARY
-    ImGuiContext *GetImGuiContext() { return SYS_ImGuiContext; }
+    ImGuiContext* GetImGuiContext() { return SYS_ImGuiContext; }
 #endif
 
   private:

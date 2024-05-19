@@ -14,9 +14,11 @@ MPE/Platform/Windows/Input
 MPE/Platform/Linux
 MPE/Platform/Linux/App
 MPE/Platform/Linux/Errors
+MPE/Platform/Linux/Input
 MPE/Platform/macOS
 MPE/Platform/macOS/App
 MPE/Platform/macOS/Errors
+MPE/Platform/macOS/Input
 MPE/Profiling
 MPE/Test
 MPE/Time
