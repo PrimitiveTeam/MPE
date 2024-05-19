@@ -252,7 +252,16 @@ if(WIN32)
 
     set(glm_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glm")
     set(GTest_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\gtest")
-    set(Stb_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\stb")
+
+    set(imgui_DIR ${PROJECT_SOURCE_DIR}/Vendor/imgui)
+
+    set(Stb_DIR ${PROJECT_SOURCE_DIR}/Vendor/stb)
+    add_library(Stb INTERFACE
+      "${Stb_DIR}"
+    )
+    target_include_directories(Stb INTERFACE
+      "${Stb_DIR}"
+    )
 
     if(${VERBOSE})
       message(STATUS "fmt_DIR: ${fmt_DIR}")
@@ -789,6 +798,7 @@ target_link_libraries(
   PRIVATE glfw
   PUBLIC imgui
   PRIVATE glm::glm
+  PRIVATE Stb
 
   # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
 )
@@ -809,7 +819,9 @@ endif()
 
 # find_path(STB_INCLUDE_DIRS "stb_c_lexer.h")
 target_include_directories(MPE
-  PRIVATE ${Stb_INCLUDE_DIRS})
+  PRIVATE 
+  ${Stb_INCLUDE_DIRS}
+  )
 
 # ADD MPEPCH.H AS A PRECOMPILED HEADER FILE
 target_precompile_headers(MPE PUBLIC
