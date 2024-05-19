@@ -253,8 +253,7 @@ if(WIN32)
     set(glm_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\glm")
     set(GTest_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\gtest")
 
-    set(imgui_DIR ${PROJECT_SOURCE_DIR}/Vendor/imgui)
-
+    # STB
     set(Stb_DIR ${PROJECT_SOURCE_DIR}/Vendor/stb)
     add_library(Stb INTERFACE
       "${Stb_DIR}"
@@ -336,6 +335,15 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   find_package(PkgConfig REQUIRED)
   pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
+  # STB
+  set(Stb_DIR ${PROJECT_SOURCE_DIR}/Vendor/stb)
+  add_library(Stb INTERFACE
+    "${Stb_DIR}"
+  )
+  target_include_directories(Stb INTERFACE
+    "${Stb_DIR}"
+  )
+
   if(${VERBOSE})
     message(STATUS "glad_DIR: ${glad_DIR}")
     message(STATUS "imgui_DIR: ${imgui_DIR}")
@@ -389,9 +397,19 @@ elseif(COMPILATION_PLATFORM STREQUAL "OSX")
   )
   target_link_libraries(imgui PRIVATE glfw)
 
+  # STB
+  set(Stb_DIR ${PROJECT_SOURCE_DIR}/Vendor/stb)
+  add_library(Stb INTERFACE
+    "${Stb_DIR}"
+  )
+  target_include_directories(Stb INTERFACE
+    "${Stb_DIR}"
+  )
+
   if(${VERBOSE})
     message(STATUS "glad_DIR: ${glad_DIR}")
     message(STATUS "imgui_DIR: ${imgui_DIR}")
+    message(STATUS "Stb_DIR: ${Stb_DIR}")
 
     # message(STATUS "glfw3_DIR: ${glfw3_DIR}")
     # message(STATUS "glm_DIR: ${glm_DIR}")
@@ -819,9 +837,9 @@ endif()
 
 # find_path(STB_INCLUDE_DIRS "stb_c_lexer.h")
 target_include_directories(MPE
-  PRIVATE 
+  PRIVATE
   ${Stb_INCLUDE_DIRS}
-  )
+)
 
 # ADD MPEPCH.H AS A PRECOMPILED HEADER FILE
 target_precompile_headers(MPE PUBLIC
