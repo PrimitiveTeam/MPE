@@ -7,6 +7,15 @@ MPE/Events
 MPE/Log
 MPE/Log/CustomSinks
 MPE/Platform
+MPE/Platform/OpenGL
+MPE/Platform/OpenGL/Pipeline
+MPE/Platform/OpenGL/Shaders
+MPE/Platform/OpenGL/Textures
+MPE/Renderer
+MPE/Renderer/Cameras
+MPE/Renderer/Pipeline
+MPE/Renderer/Shaders
+MPE/Renderer/Textures
 MPE/Platform/Windows
 MPE/Platform/Windows/App
 MPE/Platform/Windows/Errors
@@ -23,4 +32,5 @@ MPE/Profiling
 MPE/Test
 MPE/Time
 MPE/Vendor/ImGui
+MPE/Vendor/STB
 DUMMY
