@@ -32,4 +32,13 @@ else
     git clone https://github.com/nothings/stb.git
 fi
 
+# renderdoc
+# If renderdoc already exists, cancel next step
+if [ -d "renderdoc" ]; then
+    echo "renderdoc already exists. Skipping..."
+else
+    echo "Cloning renderdoc..."
+    git clone https://github.com/baldurk/renderdoc.git
+fi
+
 echo "Setup complete."

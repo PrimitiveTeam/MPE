@@ -30,4 +30,13 @@ if exist "stb" (
     git clone https://github.com/nothings/stb.git
 )
 
+REM renderdoc
+REM If renderdoc already exists, cancel next step
+if exist "renderdoc" (
+    echo renderdoc already exists. Skipping...
+) else (
+    echo Cloning renderdoc...
+    git clone https://github.com/baldurk/renderdoc.git
+)
+
 echo Setup complete.
