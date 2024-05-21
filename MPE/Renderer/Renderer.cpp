@@ -20,6 +20,7 @@ void Renderer::OnWindowResize(uint32_t width, uint32_t height)
 }
 
 Renderer::SceneData *Renderer::SYS_SCENE = new Renderer::SceneData;
+REF<WINDOW_FPS_MS> Renderer::SYS_WINDOW_FPS_MS = NEWREF<WINDOW_FPS_MS>();
 
 void Renderer::BeginScene(OrthographicCamera &camera)
 {

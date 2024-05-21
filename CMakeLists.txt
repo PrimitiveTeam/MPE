@@ -14,6 +14,8 @@ set(INSTALL_DLLS OFF)
 
 # SWITCHES FOR PROJECTS
 set(MPE_PROJECTS ON)
+set(MPE_PROJECT_SANDBOX ON)
+set(MPE_PROJECT_PONG OFF)
 
 # TEMPORARY
 # DUMMY EXECUTABLE
@@ -514,6 +516,7 @@ file(
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.cpp"
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.cpp"
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderInformation/*.cpp"
 
   # /Platform/OpenGL
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.cpp"
@@ -575,6 +578,7 @@ file(
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderInformation/*.h"
 
   # /Platform/OpenGL
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.h"
@@ -998,7 +1002,7 @@ endif()
 
 # ##############################################################################
 # PROJECTS SANDBOX
-if(${MPE_PROJECTS})
+if(${MPE_PROJECTS} AND ${MPE_PROJECT_SANDBOX})
   # ADD "SANDBOX" EXECUTABLE - THE ENTRYPOINT TO MPE
   add_executable(SANDBOX "${PROJECT_SOURCE_DIR}/Projects/Sandbox/Sandbox.cpp")
 
@@ -1115,7 +1119,7 @@ if(${MPE_PROJECTS})
   if(${VERBOSE})
     message(STATUS "MPE-SANDBOX ADDED.")
   endif()
-endif(${MPE_PROJECTS})
+endif(${MPE_PROJECTS} AND ${MPE_PROJECT_SANDBOX})
 
 # ##############################################################################
 # TESTS add_executable(TEST "${PROJECT_SOURCE_DIR}/Tests/Unit.cpp")
@@ -1136,7 +1140,7 @@ endif(${MPE_PROJECTS})
 
 # ##############################################################################
 # PROJECTS PONG
-if(${MPE_PROJECTS})
+if(${MPE_PROJECTS} AND ${MPE_PROJECT_PONG})
   add_executable(PONG
     "${PROJECT_SOURCE_DIR}/Projects/Pong/ProjectSelector.cpp")
 
@@ -1252,7 +1256,7 @@ if(${MPE_PROJECTS})
   if(${VERBOSE})
     message(STATUS "MPE-PONG ADDED.")
   endif()
-endif(${MPE_PROJECTS})
+endif(${MPE_PROJECTS} AND ${MPE_PROJECT_PONG})
 
 # ##############################################################################
 

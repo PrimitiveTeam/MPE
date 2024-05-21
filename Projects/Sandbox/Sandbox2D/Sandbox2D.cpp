@@ -43,6 +43,8 @@ void Sandbox2D::OnImGuiRender()
     {
         SYS_CAMERA_CONTROLLER.Reset();
     }
+
+    ImGui::Text("%.3f ms/frame (%.1f FPS)", MPE::Renderer::GetFPS_MS().MS, MPE::Renderer::GetFPS_MS().FPS);
     ImGui::End();
 }
 

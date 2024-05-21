@@ -9,7 +9,7 @@ namespace MPE
 {
 OpenGLContext::OpenGLContext(GLFWwindow *window) : SYS_Window(window)
 {
-    MPE_CORE_ASSERT(SYS_Window, "WINDOW IS NULL.")
+    MPE_CORE_ASSERT(SYS_Window, "WINDOW IS NULL.");
 }
 
 void OpenGLContext::Init()

@@ -7,6 +7,7 @@
 #include "MPE/Log/Log.h"
 #include "MPE/Events/EventApp.h"
 #include "MPE/Vendor/ImGui/ImGuiLayer.h"
+#include "MPE/Renderer/Renderer.h"
 
 #include <memory>
 
@@ -51,6 +52,8 @@ class MPE_API App
 #endif
 
     inline void Shutdown() { SYS_APP_Running = false; }
+
+    inline static WINDOW_FPS_MS GetFPS_MS() { return Renderer::GetFPS_MS(); }
 
   private:
     bool OnWindowClose(WindowCloseEvent &e);

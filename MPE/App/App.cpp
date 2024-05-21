@@ -5,7 +5,6 @@
 #include "MPE/App/Layers/LayerStack.h"
 #include "MPE/Input/Input.h"
 #include "MPE/Platform/Windows/Input/WindowsInput.h"
-#include "MPE/Renderer/Renderer.h"
 
 // TEMP
 #include <GLFW/glfw3.h>
@@ -56,6 +55,8 @@ void App::Run()
         float time = (float) glfwGetTime();
         Time deltaTime = time - SYS_LAST_FRAME_TIME;
         SYS_LAST_FRAME_TIME = time;
+
+        Renderer::UpdateFPS_MS(deltaTime);
 
         if (!SYS_Minimized)
         {
