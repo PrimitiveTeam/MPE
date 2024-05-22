@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "name": "(Windows) Attach",
+      "type": "cppvsdbg",
+      "request": "attach"
+    },
+    {
+      "name": "MPE-SANDBOX",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/Build/Debug/MPE-SANDBOX.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${fileDirname}",
+      "environment": [],
+      "console": "externalTerminal"
+    }
+  ]
+}
