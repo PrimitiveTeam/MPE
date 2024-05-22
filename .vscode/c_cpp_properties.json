@@ -126,7 +126,11 @@
     },
     {
       "name": "macOS-Clang",
-      "includePath": ["${workspaceFolder}/**"],
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/usr/lib/",
+        "/usr/local/include/"
+      ],
       "defines": [
         "_DEBUG",
         "UNICODE",
@@ -148,7 +152,11 @@
     },
     {
       "name": "macOS-GCC",
-      "includePath": ["${workspaceFolder}/**"],
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/usr/lib/",
+        "/usr/local/include/"
+      ],
       "defines": [
         "_DEBUG",
         "UNICODE",

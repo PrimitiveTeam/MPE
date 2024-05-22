@@ -42,7 +42,11 @@ static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
 
 OpenGLVertexArray::OpenGLVertexArray()
 {
+#ifdef MPE_PLATFORM_OSX
+    glGenVertexArrays(1, &SYS_Renderer_ID);
+#else
     glCreateVertexArrays(1, &SYS_Renderer_ID);
+#endif
 }
 
 OpenGLVertexArray::~OpenGLVertexArray()
