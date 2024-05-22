@@ -8,7 +8,6 @@
 
 #include <imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include <glad/glad.h>
 
 #include "Sandbox2D/Sandbox2D.h"
 
