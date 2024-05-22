@@ -179,6 +179,12 @@ void LinuxWindow::SetVSync(bool enabled)
     SYS_Data.VSync = enabled;
 }
 
+void LinuxWindow::ToggleVSync()
+{
+    SYS_Data.VSync = !SYS_Data.VSync;
+    SetVSync(SYS_Data.VSync);
+}
+
 bool LinuxWindow::IsVSync() const
 {
     return SYS_Data.VSync;

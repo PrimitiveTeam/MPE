@@ -1,5 +1,7 @@
 #include "Sandbox2D.h"
 
+#include "MPE/App/Window.h"
+
 #include <imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -44,7 +46,14 @@ void Sandbox2D::OnImGuiRender()
         SYS_CAMERA_CONTROLLER.Reset();
     }
 
+    if (ImGui::Button("TOGGLE VSYNC"))
+    {
+        MPE::App::GetApp().GetWindow()->ToggleVSync();
+    }
+
+    ImGui::Text("VSYNC: %s", MPE::App::GetApp().GetWindow()->IsVSync() ? "ON" : "OFF");
     ImGui::Text("%.3f ms/frame (%.1f FPS)", MPE::Renderer::GetFPS_MS().MS, MPE::Renderer::GetFPS_MS().FPS);
+
     ImGui::End();
 }
 

@@ -53,7 +53,7 @@ void WindowsWindow::Init(const WindowProps &props)
     SYS_Context->Init();
 
     glfwSetWindowUserPointer(SYS_Window, &SYS_Data);
-    SetVSync(true);
+    SetVSync(false);
 
     // SET GLFW CALLBACKS
     glfwSetWindowSizeCallback(SYS_Window,
@@ -163,6 +163,12 @@ void WindowsWindow::OnUpdate()
     glfwPollEvents();
     SYS_Context->SwapBuffers();
     // glfwSwapBuffers(SYS_Window);
+}
+
+void WindowsWindow::ToggleVSync()
+{
+    SYS_Data.VSync = !SYS_Data.VSync;
+    SetVSync(SYS_Data.VSync);
 }
 
 void WindowsWindow::SetVSync(bool enabled)
