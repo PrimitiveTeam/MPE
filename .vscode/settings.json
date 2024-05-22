@@ -95,6 +95,12 @@
     "xutility": "cpp",
     "any": "cpp",
     "text_encoding": "cpp",
-    "*.ipp": "cpp"
+    "*.ipp": "cpp",
+    "codecvt": "cpp",
+    "coroutine": "cpp",
+    "future": "cpp",
+    "queue": "cpp",
+    "regex": "cpp",
+    "stack": "cpp"
   }
 }
