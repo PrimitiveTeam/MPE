@@ -1,0 +1,16 @@
+{
+    "configurations": [
+    {
+        "name": "MPE-SANDBOX",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/build/MPE-SANDBOX",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${fileDirname}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "lldb"
+    }
+    ]
+}
