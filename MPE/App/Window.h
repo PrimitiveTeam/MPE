@@ -1,5 +1,6 @@
 #pragma once
 
+#include "MPE/Core/_PTRS.h"
 #include "MPE/Core/_CORE.h"
 #include "MPE/Events/Event.h"
 #include "WindowProps.h"

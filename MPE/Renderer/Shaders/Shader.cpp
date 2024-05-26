@@ -1,6 +1,7 @@
 #include "Shader.h"
 #include "MPE/MPEPCH.h"
 
+#include "MPE/Core/_ASSERTS.h"
 #include "MPE/Renderer/Renderer.h"
 #include "MPE/Log/GlobalLog.h"
 #include "MPE/Platform/OpenGL/Shaders/OpenGLShader.h"

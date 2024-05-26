@@ -1,5 +1,6 @@
 #pragma once
 
+#include "MPE/Core/_PTRS.h"
 #include "MPE/Core/_CORE.h"
 #include "MPE/Renderer/Cameras/OrthographicCamera.h"
 #include "MPE/Renderer/Textures/Texture2D.h"

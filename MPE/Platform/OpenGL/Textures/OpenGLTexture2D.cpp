@@ -1,6 +1,7 @@
 #include "OpenGLTexture2D.h"
 #include "MPE/MPEPCH.h"
 
+#include "MPE/Core/_ASSERTS.h"
 #include "MPE/Log/GlobalLog.h"
 #include "MPE/Vendor/STB/stb_image.h"
 

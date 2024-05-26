@@ -1,6 +1,7 @@
 #include "OpenGLVertexArray.h"
 #include "MPE/MPEPCH.h"
 
+#include "MPE/Core/_ASSERTS.h"
 #include "MPE/Log/GlobalLog.h"
 
 #include <glad/glad.h>

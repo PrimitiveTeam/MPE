@@ -1,5 +1,6 @@
 #pragma once
 
+#include "MPE/Core/_PTRS.h"
 #include "MPE/Core/_CORE.h"
 #include "MPE/Renderer/Pipeline/IndexBuffer.h"
 #include "MPE/Renderer/Pipeline/VertexBuffer.h"

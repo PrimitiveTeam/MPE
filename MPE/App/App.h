@@ -1,9 +1,10 @@
 #pragma once
 
+#include "MPE/Core/_PTRS.h"
+#include "MPE/Core/_CORE.h"
 #include "MPE/App/Layers/Layer.h"
 #include "MPE/App/Layers/LayerStack.h"
 #include "MPE/App/Window.h"
-#include "MPE/Core/_CORE.h"
 #include "MPE/Log/Log.h"
 #include "MPE/Events/EventApp.h"
 #include "MPE/Vendor/ImGui/ImGuiLayer.h"

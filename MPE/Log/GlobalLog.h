@@ -1,5 +1,7 @@
 #pragma once
 
+#include "MPE/Core/_ASSERTS.h"
+#include "MPE/Core/_PTRS.h"
 #include "MPE/Core/_CORE.h"
 
 #include "spdlog/spdlog.h"

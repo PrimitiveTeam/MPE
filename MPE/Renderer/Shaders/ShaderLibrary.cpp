@@ -1,6 +1,7 @@
 #include "ShaderLibrary.h"
 #include "MPEPCH.h"
 
+#include "MPE/Core/_ASSERTS.h"
 #include "MPE/Log/GlobalLog.h"
 
 namespace MPE

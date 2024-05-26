@@ -1,5 +1,7 @@
 #include "WindowsWindow.h"
 
+#include "MPE/Core/_PTRS.h"
+#include "MPE/Core/_ASSERTS.h"
 #include "MPE/Log/GlobalLog.h"
 #include "MPE/Events/EventApp.h"
 #include "MPE/Events/EventKey.h"

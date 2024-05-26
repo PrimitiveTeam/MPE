@@ -1,6 +1,7 @@
 #include "WindowsInput.h"
-
 #include "MPE/MPEPCH.h"
+
+#include "MPE/Core/_PTRS.h"
 #include "MPE/App/App.h"
 
 #include <GLFW/glfw3.h>

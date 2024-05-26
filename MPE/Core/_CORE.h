@@ -1,9 +1,5 @@
 #pragma once
 
-#include "_ASSERTS.h"
-#include "_PTRS.h"
-#include "_CWD.h"
-
 /**
  * @file _CORE.h
  * @brief The Mere Primitive Engine (MPE) namespace.

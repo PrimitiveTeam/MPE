@@ -1,7 +1,5 @@
 #pragma once
 
-#include "MPE/Core/_CORE.h"
-
 #include "spdlog/sinks/base_sink.h"
 
 #include <mutex>

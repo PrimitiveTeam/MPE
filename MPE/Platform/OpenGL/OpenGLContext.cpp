@@ -1,6 +1,8 @@
 #include "OpenGLContext.h"
-#include "MPE/Log/GlobalLog.h"
 #include "MPE/MPEPCH.h"
+
+#include "MPE/Core/_ASSERTS.h"
+#include "MPE/Log/GlobalLog.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
