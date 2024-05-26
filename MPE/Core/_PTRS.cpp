@@ -8,33 +8,66 @@ namespace MPE
 void ReferenceTracker::addReference(const std::string &type, const std::string &tag)
 {
     std::lock_guard<std::mutex> lock(mutex_);
-    references_[tag]++;
+    references_[type + "::" + tag]++;
     totalReferences_[type]++;
 }
 
 void ReferenceTracker::removeReference(const std::string &type, const std::string &tag)
 {
     std::lock_guard<std::mutex> lock(mutex_);
-    if (--references_[tag] == 0)
-    {
-        references_.erase(tag);
-    }
+    references_[type + "::" + tag]--;
     totalReferences_[type]--;
+    if (references_[type + "::" + tag] == 0)
+    {
+        references_.erase(type + "::" + tag);
+    }
+    if (totalReferences_[type] == 0)
+    {
+        totalReferences_.erase(type);
+    }
 }
 
 void ReferenceTracker::displayReferences() const
 {
     std::lock_guard<std::mutex> lock(mutex_);
-    std::cout << "Reference counts by tag:\n";
-    for (const auto &entry : references_)
+
+    std::cout << "Current References:" << std::endl;
+    for (const auto &ref : references_)
     {
-        std::cout << entry.first << ": " << entry.second << std::endl;
+        if (ref.first.find("SCOPE") != std::string::npos)
+        {
+            std::cout << "SCOPE - " << ref.first << ": " << ref.second << std::endl;
+        }
+        else if (ref.first.find("REF") != std::string::npos)
+        {
+            std::cout << "REF - " << ref.first << ": " << ref.second << std::endl;
+        }
+        else
+        {
+            std::cout << ref.first << ": " << ref.second << std::endl;
+        }
     }
 
-    std::cout << "Total reference counts by type:\n";
-    for (const auto &entry : totalReferences_)
+    std::cout << "Total References by Type:" << std::endl;
+    int totalScopeReferences = 0;
+    int totalRefReferences = 0;
+    for (const auto &totalRef : totalReferences_)
     {
-        std::cout << entry.first << ": " << entry.second << std::endl;
+        if (totalRef.first.find("SCOPE") != std::string::npos)
+        {
+            totalScopeReferences += totalRef.second;
+        }
+        else if (totalRef.first.find("REF") != std::string::npos)
+        {
+            totalRefReferences += totalRef.second;
+        }
+        else
+        {
+            std::cout << totalRef.first << ": " << totalRef.second << std::endl;
+        }
     }
+
+    std::cout << "SCOPE: " << totalScopeReferences << std::endl;
+    std::cout << "REF: " << totalRefReferences << std::endl;
 }
 }

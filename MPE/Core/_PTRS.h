@@ -56,80 +56,44 @@ template <typename T>
 class TrackedSCOPE
 {
   public:
-    template <typename... Args>
-    static std::unique_ptr<T> create(Args &&...args)
+    struct Deleter
     {
-        std::cout << "Creating scope for " << typeid(T).name() << std::endl;
-        std::cout << "Demangled name: " << demangleTypeName(typeid(T).name()) << std::endl;
-        auto ptr = std::make_unique<T>(std::forward<Args>(args)...);
+        void operator()(T *ptr) const
+        {
+            ReferenceTracker::getInstance().removeReference("SCOPE", demangleTypeName(typeid(T).name()));
+            delete ptr;
+        }
+    };
+
+    template <typename... Args>
+    static std::unique_ptr<T, Deleter> create(Args &&...args)
+    {
+        auto ptr = std::unique_ptr<T, Deleter>(new T(std::forward<Args>(args)...));
         ReferenceTracker::getInstance().addReference("SCOPE", demangleTypeName(typeid(T).name()));
         return ptr;
     }
-
-    ~TrackedSCOPE()
-    {
-        std::cout << "Destroying scope for " << typeid(T).name() << std::endl;
-        ReferenceTracker::getInstance().removeReference("SCOPE", demangleTypeName(typeid(T).name()));
-        delete ptr_;
-    }
-
-    T *operator->() { return ptr_.get(); }
-    const T *operator->() const { return ptr_.get(); }
-    T &operator*() { return *ptr_; }
-    const T &operator*() const { return *ptr_; }
-
-  private:
-    TrackedSCOPE() = default;
-    TrackedSCOPE(const TrackedSCOPE &) = delete;
-    // template <typename... Args>
-    // TrackedSCOPE(Args &&...args) : ptr_(std::make_unique<T>(std::forward<Args>(args)...))
-    // {
-    //     std::cout << "Creating scope for " << typeid(T).name() << std::endl;
-    //     std::cout << "Demangled name: " << demangleTypeName(typeid(T).name()) << std::endl;
-    //     ReferenceTracker::getInstance().addReference("SCOPE", demangleTypeName(typeid(T).name()));
-    // }
-
-    std::unique_ptr<T> ptr_;
 };
 
 template <typename T>
 class TrackedREF
 {
   public:
+    struct Deleter
+    {
+        void operator()(T *ptr) const
+        {
+            ReferenceTracker::getInstance().removeReference("REF", demangleTypeName(typeid(T).name()));
+            delete ptr;
+        }
+    };
+
     template <typename... Args>
     static std::shared_ptr<T> create(Args &&...args)
     {
-        std::cout << "Creating reference to " << typeid(T).name() << std::endl;
-        std::cout << "Demangled name: " << demangleTypeName(typeid(T).name()) << std::endl;
-        auto ptr = std::make_shared<T>(std::forward<Args>(args)...);
+        auto ptr = std::shared_ptr<T>(new T(std::forward<Args>(args)...), Deleter());
         ReferenceTracker::getInstance().addReference("REF", demangleTypeName(typeid(T).name()));
         return ptr;
     }
-
-    ~TrackedREF()
-    {
-        std::cout << "Destroying reference to " << typeid(T).name() << std::endl;
-        ReferenceTracker::getInstance().removeReference("REF", demangleTypeName(typeid(T).name()));
-        delete ptr_;
-    }
-
-    T *operator->() { return ptr_.get(); }
-    const T *operator->() const { return ptr_.get(); }
-    T &operator*() { return *ptr_; }
-    const T &operator*() const { return *ptr_; }
-
-  private:
-    TrackedREF() = default;
-    TrackedREF(const TrackedREF &) = delete;
-    // template <typename... Args>
-    // TrackedREF(Args &&...args): ptr_(std::make_shared<T>(std::forward<Args>(args)...))
-    // {
-    //     std::cout << "Creating reference to " << typeid(T).name() << std::endl;
-    //     std::cout << "Demangled name: " << demangleTypeName(typeid(T).name()) << std::endl;
-    //     ReferenceTracker::getInstance().addReference("REF", demangleTypeName(typeid(T).name()));
-    // }
-
-    std::shared_ptr<T> ptr_;
 };
 
 /**
@@ -141,7 +105,7 @@ class TrackedREF
  * @author Sebastian Termen
  */
 template <typename T>
-using SCOPE = std::unique_ptr<T>;
+using SCOPE = std::unique_ptr<T, typename TrackedSCOPE<T>::Deleter>;
 
 /**
  * @brief Factory function to create a SCOPE smart pointer instance.
@@ -151,7 +115,7 @@ using SCOPE = std::unique_ptr<T>;
  * @author Sebastian Termen
  */
 template <typename T, typename... Args>
-constexpr SCOPE<T> NEWSCOPE(Args &&...args)
+SCOPE<T> NEWSCOPE(Args &&...args)
 {
     /**
      * @brief std::make_unique is used to construct an object and wrap it in a
@@ -187,7 +151,7 @@ using REF = std::shared_ptr<T>;
  * @author Sebastian Termen
  */
 template <typename T, typename... Args>
-constexpr REF<T> NEWREF(Args &&...args)
+REF<T> NEWREF(Args &&...args)
 {
     /**
      * @brief std::make_shared is used to construct an object and wrap it in a
