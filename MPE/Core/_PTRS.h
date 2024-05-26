@@ -8,6 +8,7 @@
 #include <string>
 #include <iostream>
 #include <typeinfo>
+#include <vector>
 
 /**
  * @file _PTRS.h
@@ -37,6 +38,10 @@ class MPE_API ReferenceTracker
 
     void displayReferences() const;
 
+    std::vector<std::string> GetReferences() const;
+    std::vector<std::string> GetScopeReferences() const;
+    size_t GetTotalReferences() const;
+
   private:
     ReferenceTracker() = default;
 
@@ -62,7 +67,7 @@ class TrackedSCOPE
     {
         void operator()(T *ptr) const
         {
-            std::cout << "Destroying scope for " << typeid(T).name() << " from " << getCallerFunctionName() << std::endl;
+            // std::cout << "Destroying scope for " << typeid(T).name() << " from " << getCallerFunctionName() << std::endl;
             ReferenceTracker::getInstance().removeReference("SCOPE", demangleTypeName(typeid(T).name()));
             delete ptr;
         }
@@ -71,8 +76,8 @@ class TrackedSCOPE
     template <typename... Args>
     static std::unique_ptr<T, Deleter> create(Args &&...args)
     {
-        std::cout << "Creating scope for " << typeid(T).name() << " from " << getCallerFunctionName() << std::endl;
-        std::cout << "Demangled name: " << demangleTypeName(typeid(T).name()) << std::endl;
+        // std::cout << "Creating scope for " << typeid(T).name() << " from " << getCallerFunctionName() << std::endl;
+        // std::cout << "Demangled name: " << demangleTypeName(typeid(T).name()) << std::endl;
         auto ptr = std::unique_ptr<T, Deleter>(new T(std::forward<Args>(args)...));
         ReferenceTracker::getInstance().addReference("SCOPE", demangleTypeName(typeid(T).name()));
         return ptr;
@@ -87,7 +92,7 @@ class TrackedREF
     {
         void operator()(T *ptr) const
         {
-            std::cout << "Destroying reference for " << typeid(T).name() << " from " << getCallerFunctionName() << std::endl;
+            // std::cout << "Destroying reference for " << typeid(T).name() << " from " << getCallerFunctionName() << std::endl;
             ReferenceTracker::getInstance().removeReference("REF", demangleTypeName(typeid(T).name()));
             delete ptr;
         }
@@ -96,8 +101,8 @@ class TrackedREF
     template <typename... Args>
     static std::shared_ptr<T> create(Args &&...args)
     {
-        std::cout << "Creating reference to " << typeid(T).name() << " from " << getCallerFunctionName() << std::endl;
-        std::cout << "Demangled name: " << demangleTypeName(typeid(T).name()) << std::endl;
+        // std::cout << "Creating reference to " << typeid(T).name() << " from " << getCallerFunctionName() << std::endl;
+        // std::cout << "Demangled name: " << demangleTypeName(typeid(T).name()) << std::endl;
         auto ptr = std::shared_ptr<T>(new T(std::forward<Args>(args)...), Deleter());
         ReferenceTracker::getInstance().addReference("REF", demangleTypeName(typeid(T).name()));
         return ptr;

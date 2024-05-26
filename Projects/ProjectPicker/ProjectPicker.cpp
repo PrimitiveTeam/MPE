@@ -32,6 +32,8 @@ class ProjectPickerGuiLayer : public MPE::Layer
 
         GuiButtons();
 
+        DisplayRefs();
+
         // Add more buttons for other layers here
 
         ImGui::End();
@@ -40,6 +42,31 @@ class ProjectPickerGuiLayer : public MPE::Layer
     void OnEvent(MPE::Event& event) override {}
 
   private:
+    void DisplayRefs()
+    {
+        ImGui::Text("Total References: %d", MPE::ReferenceTracker::getInstance().GetTotalReferences());
+
+        if (ImGui::BeginListBox("References"))
+        {
+            auto refs = MPE::ReferenceTracker::getInstance().GetReferences();
+            for (const auto& ref : refs)
+            {
+                ImGui::Text(ref.c_str());
+            }
+            ImGui::EndListBox();
+        }
+
+        if (ImGui::BeginListBox("Scope References"))
+        {
+            auto refs = MPE::ReferenceTracker::getInstance().GetScopeReferences();
+            for (const auto& ref : refs)
+            {
+                ImGui::Text(ref.c_str());
+            }
+            ImGui::EndListBox();
+        }
+    }
+
     void GuiButtons()
     {
         // If any layer is active then we only want to show the close button

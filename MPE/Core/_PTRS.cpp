@@ -72,21 +72,85 @@ void ReferenceTracker::displayReferences() const
     std::cout << "REF: " << totalRefReferences << std::endl;
 }
 
+std::vector<std::string> ReferenceTracker::GetReferences() const
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    std::vector<std::string> refs;
+    for (const auto &ref : references_)
+    {
+        refs.push_back(ref.first);
+    }
+    return refs;
+}
+
+std::vector<std::string> ReferenceTracker::GetScopeReferences() const
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    std::vector<std::string> refs;
+    for (const auto &ref : references_)
+    {
+        if (ref.first.find("SCOPE") != std::string::npos)
+        {
+            refs.push_back(ref.first);
+        }
+    }
+    return refs;
+}
+
+size_t ReferenceTracker::GetTotalReferences() const
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    size_t total = 0;
+    for (const auto &ref : references_)
+    {
+        total += ref.second;
+    }
+    return total;
+}
+
 std::string getCallerFunctionName()
 {
 #ifdef MPE_PLATFORM_WINDOWS
-    void *addr = _ReturnAddress();
     HANDLE process = GetCurrentProcess();
+    HANDLE thread = GetCurrentThread();
+    CONTEXT context;
+    RtlCaptureContext(&context);
+
+    STACKFRAME64 stackFrame;
+    ZeroMemory(&stackFrame, sizeof(STACKFRAME64));
+
+    DWORD machineType = IMAGE_FILE_MACHINE_AMD64;
+    stackFrame.AddrPC.Offset = context.Rip;
+    stackFrame.AddrPC.Mode = AddrModeFlat;
+    stackFrame.AddrFrame.Offset = context.Rbp;
+    stackFrame.AddrFrame.Mode = AddrModeFlat;
+    stackFrame.AddrStack.Offset = context.Rsp;
+    stackFrame.AddrStack.Mode = AddrModeFlat;
+
     SymInitialize(process, NULL, TRUE);
-    DWORD64 dwDisplacement = 0;
-    DWORD64 dwAddress = (DWORD64) addr;
-    char buffer[sizeof(SYMBOL_INFO) + MAX_SYM_NAME * sizeof(TCHAR)];
-    PSYMBOL_INFO pSymbol = (PSYMBOL_INFO) buffer;
-    pSymbol->SizeOfStruct = sizeof(SYMBOL_INFO);
-    pSymbol->MaxNameLen = MAX_SYM_NAME;
-    if (SymFromAddr(process, dwAddress, &dwDisplacement, pSymbol))
+    for (int i = 0; i < 3; ++i)
     {
-        return pSymbol->Name;
+        if (!StackWalk64(machineType, process, thread, &stackFrame, &context, NULL, SymFunctionTableAccess64, SymGetModuleBase64, NULL))
+        {
+            return "Unknown";
+        }
+    }
+
+    DWORD64 address = stackFrame.AddrPC.Offset;
+    if (address == 0)
+    {
+        return "Unknown";
+    }
+
+    char buffer[sizeof(SYMBOL_INFO) + MAX_SYM_NAME * sizeof(TCHAR)];
+    PSYMBOL_INFO symbol = (PSYMBOL_INFO) buffer;
+    symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
+    symbol->MaxNameLen = MAX_SYM_NAME;
+
+    DWORD64 displacement;
+    if (SymFromAddr(process, address, &displacement, symbol))
+    {
+        return symbol->Name;
     }
     return "Unknown";
 #elif MPE_PLATFORM_LINUX || MPE_PLATFORM_MACOS

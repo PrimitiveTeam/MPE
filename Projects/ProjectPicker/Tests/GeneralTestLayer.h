@@ -6,6 +6,7 @@
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
 
 #include <imgui.h>
+#include <string>
 
 class GeneralTestLayer : public MPE::Layer
 {
@@ -27,6 +28,7 @@ class GeneralTestLayer : public MPE::Layer
     void ComputeSquareScale();
 
   private:
+    MPE::SCOPE<std::string> m_LayerName;
     // TRIANGLE
     MPE::REF<MPE::Shader> SYS_Shader;
     MPE::REF<MPE::VertexArray> SYS_VertexArray;

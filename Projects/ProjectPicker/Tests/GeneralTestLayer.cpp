@@ -58,10 +58,18 @@ GeneralTestLayer::GeneralTestLayer()
 
     std::dynamic_pointer_cast<MPE::OpenGLShader>(TEXTURE_SHADER)->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLShader>(TEXTURE_SHADER)->InjectUniformInt1("UNI_TEXTURE", 0);
+
+    m_LayerName = MPE::NEWSCOPE<std::string>("GeneralTestLayer");
 }
 
 void GeneralTestLayer::OnUpdate(MPE::Time deltatime)
 {
+    {
+        // m_LayerName = MPE::NEWSCOPE<std::string>("GeneralTestLayer");
+    }
+    {
+        // m_LayerName = nullptr;
+    }
     // MPE_TRACE("Delta time: {0}s ({1}ms)", deltatime.GetSeconds(), deltatime.GetMilliSeconds());
 
     // OBJECT TRANSLATION
