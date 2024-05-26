@@ -69,9 +69,14 @@ void App::Run()
         }
 
         SYS_ImGuiLayer->Begin();
-        for (REF<Layer> layer : *SYS_LayerStack)
+        for (size_t i = 0; i < SYS_LayerStack->size(); ++i)
         {
-            layer->OnImGuiRender();
+            REF<Layer> layer = SYS_LayerStack->GetLayers()[i];
+
+            if (layer) layer->OnImGuiRender();
+
+            // Recalculate the index bounds in case the stack has been modified
+            if (i >= SYS_LayerStack->GetLayers().size()) break;
         }
         SYS_ImGuiLayer->End();
 
@@ -118,6 +123,14 @@ void App::PopLayer()
     }
 }
 
+void App::PopLayer(const REF<Layer> &Layer)
+{
+    if (!SYS_LayerStack->empty())
+    {
+        SYS_LayerStack->PopLayer(Layer);
+    }
+}
+
 void App::PopAllLayers()
 {
     while (!SYS_LayerStack->empty())
@@ -137,6 +150,14 @@ void App::PopOverlay()
     if (!SYS_LayerStack->empty())
     {
         SYS_LayerStack->PopOverlay();
+    }
+}
+
+void App::PopOverlay(const REF<Layer> &Overlay)
+{
+    if (!SYS_LayerStack->empty())
+    {
+        SYS_LayerStack->PopOverlay(Overlay);
     }
 }
 

@@ -38,10 +38,12 @@ class MPE_API App
 
     void PushLayer(const REF<Layer> &Layer);
     void PopLayer();
+    void PopLayer(const REF<Layer> &Layer);
     void PopAllLayers();
 
     void PushOverlay(const REF<Layer> &Overlay);
     void PopOverlay();
+    void PopOverlay(const REF<Layer> &Overlay);
     void PopAllOverlays();
 
     inline static App &GetApp() { return *SYS_APP_Instance; }

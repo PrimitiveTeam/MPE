@@ -30,6 +30,17 @@ void LayerStack::PopLayer()
     }
 }
 
+void LayerStack::PopLayer(const REF<Layer> &layer)
+{
+    auto it = std::find(SYS_Layers.begin(), SYS_Layers.begin() + SYS_LayerInsertIndex, layer);
+    if (it != SYS_Layers.begin() + SYS_LayerInsertIndex)
+    {
+        (*it)->OnDetach();
+        SYS_Layers.erase(it);
+        SYS_LayerInsertIndex--;
+    }
+}
+
 void LayerStack::PushOverlay(const REF<Layer> &overlay)
 {
     SYS_Layers.emplace_back(overlay);
@@ -42,6 +53,16 @@ void LayerStack::PopOverlay()
         auto it = SYS_Layers.end() - 1;
         (*it)->OnDetach();
         SYS_Layers.pop_back();
+    }
+}
+
+void LayerStack::PopOverlay(const REF<Layer> &overlay)
+{
+    auto it = std::find(SYS_Layers.begin() + SYS_LayerInsertIndex, SYS_Layers.end(), overlay);
+    if (it != SYS_Layers.end())
+    {
+        (*it)->OnDetach();
+        SYS_Layers.erase(it);
     }
 }
 }
