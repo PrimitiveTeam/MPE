@@ -16,6 +16,7 @@ set(INSTALL_DLLS OFF)
 set(MPE_PROJECTS ON)
 set(MPE_PROJECT_SANDBOX ON)
 set(MPE_PROJECT_PONG OFF)
+set(MPE_PROJECT_PROJECTPICKER ON)
 
 # TEMPORARY
 # DUMMY EXECUTABLE
@@ -23,7 +24,7 @@ set(DUMMY_EXECUTABLE ON)
 
 # SHARED OR STATIC LIBRARY
 # ONLY 'STATIC' OR 'SHARED'
-set(MPE_LIBRARY_TYPE SHARED)
+set(MPE_LIBRARY_TYPE STATIC)
 
 # SETTING PROJECT VERSION
 set(PROJECT_VERSION_MAJOR 0)
@@ -1120,6 +1121,127 @@ if(${MPE_PROJECTS} AND ${MPE_PROJECT_SANDBOX})
     message(STATUS "MPE-SANDBOX ADDED.")
   endif()
 endif(${MPE_PROJECTS} AND ${MPE_PROJECT_SANDBOX})
+
+# ##############################################################################
+
+if(${MPE_PROJECTS} AND ${MPE_PROJECT_PROJECTPICKER})
+  # ADD "ProjectPicker" EXECUTABLE - THE ENTRYPOINT TO MPE
+  add_executable(ProjectPicker "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/ProjectPicker.cpp")
+
+  target_link_libraries(ProjectPicker PRIVATE
+    MPE
+  )
+  target_include_directories(ProjectPicker PRIVATE ${MPE_PUBLIC_INCLUDES})
+
+  # COMPILER DEFINITIONS FOR ProjectPicker
+  # THIS IS NEEDED AS CMAKE IGNORES PUBLIC/PRIVATE/INTERFACE FOR DEFINITIONS FOR SOME REASON
+  # TODO: FIND A WAY TO FIX THIS ISSUE
+  if(COMPILATION_PLATFORM STREQUAL "WIN32")
+    target_compile_definitions(ProjectPicker PUBLIC MPE_PLATFORM_WINDOWS)
+  elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
+    target_compile_definitions(ProjectPicker PUBLIC MPE_PLATFORM_LINUX)
+  elseif(COMPILATION_PLATFORM STREQUAL "OSX")
+    target_compile_definitions(ProjectPicker PUBLIC MPE_PLATFORM_OSX)
+  endif()
+
+  target_compile_definitions(ProjectPicker PUBLIC MPE_ENABLE_ASSERTS)
+  target_compile_definitions(ProjectPicker PUBLIC MPE_COMPILER_${CURRENT_COMPILER})
+
+  if(CMAKE_BUILD_TYPE STREQUAL Debug)
+    target_compile_definitions(ProjectPicker PUBLIC MPE_CORE_DEBUG_PROFILING)
+    target_compile_definitions(ProjectPicker PUBLIC MPE_DEBUG_PROFILING)
+    target_compile_definitions(ProjectPicker PUBLIC MPE_ENABLE_DEBUG_LOG)
+  endif(CMAKE_BUILD_TYPE STREQUAL Debug)
+
+  if(MPE_LIBRARY_TYPE STREQUAL SHARED)
+    target_compile_definitions(ProjectPicker PUBLIC MPE_DYNAMIC_LIBRARY)
+  else()
+    target_compile_definitions(ProjectPicker PUBLIC MPE_STATIC_LIBRARY)
+  endif()
+
+  if(${VERBOSE})
+    get_target_property(DEFINITIONS_LIST ProjectPicker COMPILE_DEFINITIONS)
+    message(STATUS "ProjectPicker COMPILE DEFINITIONS: ${DEFINITIONS_LIST}")
+  endif()
+
+  # ADDING TEST LAYERS
+  file(GLOB_RECURSE TEST_LAYERS_CPP
+    "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/*.cpp")
+  file(GLOB_RECURSE TEST_LAYERS_H
+    "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/*.h")
+  add_library(TEST_LAYERS STATIC ${TEST_LAYERS_CPP})
+  target_include_directories(TEST_LAYERS PUBLIC
+    ${TEST_LAYERS_H}
+    ${MPE_PUBLIC_INCLUDES}
+  )
+
+  target_link_libraries(TEST_LAYERS PUBLIC MPE)
+
+  # COMPILER DEFINITIONS FOR TEST_LAYERS
+  # THIS IS NEEDED AS CMAKE IGNORES PUBLIC/PRIVATE/INTERFACE FOR DEFINITIONS FOR SOME REASON
+  # TODO: FIND A WAY TO FIX THIS ISSUE
+  if(COMPILATION_PLATFORM STREQUAL "WIN32")
+    target_compile_definitions(TEST_LAYERS PUBLIC MPE_PLATFORM_WINDOWS)
+  elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
+    target_compile_definitions(TEST_LAYERS PUBLIC MPE_PLATFORM_LINUX)
+  elseif(COMPILATION_PLATFORM STREQUAL "OSX")
+    target_compile_definitions(TEST_LAYERS PUBLIC MPE_PLATFORM_OSX)
+  endif()
+
+  target_compile_definitions(TEST_LAYERS PUBLIC MPE_ENABLE_ASSERTS)
+  target_compile_definitions(TEST_LAYERS PUBLIC MPE_COMPILER_${CURRENT_COMPILER})
+
+  if(CMAKE_BUILD_TYPE STREQUAL Debug)
+    target_compile_definitions(TEST_LAYERS PUBLIC MPE_CORE_DEBUG_PROFILING)
+    target_compile_definitions(TEST_LAYERS PUBLIC MPE_DEBUG_PROFILING)
+    target_compile_definitions(TEST_LAYERS PUBLIC MPE_ENABLE_DEBUG_LOG)
+  endif(CMAKE_BUILD_TYPE STREQUAL Debug)
+
+  if(MPE_LIBRARY_TYPE STREQUAL SHARED)
+    target_compile_definitions(TEST_LAYERS PUBLIC MPE_DYNAMIC_LIBRARY)
+  else()
+    target_compile_definitions(TEST_LAYERS PUBLIC MPE_STATIC_LIBRARY)
+  endif()
+
+  if(${VERBOSE})
+    get_target_property(DEFINITIONS_LIST TEST_LAYERS COMPILE_DEFINITIONS)
+    message(STATUS "TEST_LAYERS COMPILE DEFINITIONS: ${DEFINITIONS_LIST}")
+  endif()
+
+  target_link_libraries(ProjectPicker PUBLIC TEST_LAYERS)
+
+  # target_compile_features(SANDBOX PUBLIC ${CXX_VERSION_NAME})
+  set_target_properties(ProjectPicker PROPERTIES VERSION ${PROJECT_FULL_VERSION})
+  set_target_properties(ProjectPicker PROPERTIES OUTPUT_NAME "MPE-ProjectPicker")
+
+  # Copy the /Project/*/Data folder to the build directory
+  add_custom_command(
+    TARGET ProjectPicker
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Data
+    $<TARGET_FILE_DIR:ProjectPicker>/Data
+  )
+
+  # Copy the /Project/*/Data folder to the install directory
+  install(
+    DIRECTORY ${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Data
+    DESTINATION bin
+  )
+
+  # INSTALLATION PROCEDURE
+  install(
+    TARGETS ProjectPicker
+    LIBRARY DESTINATION bin
+    ARCHIVE DESTINATION bin
+    RUNTIME DESTINATION bin)
+
+  install(FILES $<TARGET_RUNTIME_DLLS:ProjectPicker> DESTINATION bin)
+
+  if(${VERBOSE})
+    message(STATUS "MPE-ProjectPicker ADDED.")
+  endif()
+endif(${MPE_PROJECTS} AND ${MPE_PROJECT_PROJECTPICKER})
 
 # ##############################################################################
 # TESTS add_executable(TEST "${PROJECT_SOURCE_DIR}/Tests/Unit.cpp")
