@@ -1,6 +1,11 @@
 #pragma once
 
+#include "_CORE.h"
+
 #include <memory>
+#include <unordered_map>
+#include <mutex>
+#include <string>
 
 /**
  * @file _PTRS.h
@@ -15,6 +20,71 @@
  */
 namespace MPE
 {
+class MPE_API ReferenceTracker
+{
+  public:
+    static ReferenceTracker &getInstance()
+    {
+        static ReferenceTracker instance;
+        return instance;
+    }
+
+    void addReference(const std::string &type, const std::string &tag);
+
+    void removeReference(const std::string &type, const std::string &tag);
+
+    void displayReferences() const;
+
+  private:
+    ReferenceTracker() = default;
+
+    mutable std::mutex mutex_;
+    std::unordered_map<std::string, int> references_;
+    std::unordered_map<std::string, int> totalReferences_;
+};
+
+template <typename T>
+class TrackedSCOPE
+{
+  public:
+    template <typename... Args>
+    TrackedSCOPE(Args &&...args) : ptr_(std::make_unique<T>(std::forward<Args>(args)...))
+    {
+        ReferenceTracker::getInstance().addReference("SCOPE", typeid(T).name());
+    }
+
+    ~TrackedSCOPE() { ReferenceTracker::getInstance().removeReference("SCOPE", typeid(T).name()); }
+
+    T *operator->() { return ptr_.get(); }
+    const T *operator->() const { return ptr_.get(); }
+    T &operator*() { return *ptr_; }
+    const T &operator*() const { return *ptr_; }
+
+  private:
+    std::unique_ptr<T> ptr_;
+};
+
+template <typename T>
+class TrackedREF
+{
+  public:
+    template <typename... Args>
+    TrackedREF(Args &&...args) : ptr_(std::make_shared<T>(std::forward<Args>(args)...))
+    {
+        ReferenceTracker::getInstance().addReference("REF", typeid(T).name());
+    }
+
+    ~TrackedREF() { ReferenceTracker::getInstance().removeReference("REF", typeid(T).name()); }
+
+    T *operator->() { return ptr_.get(); }
+    const T *operator->() const { return ptr_.get(); }
+    T &operator*() { return *ptr_; }
+    const T &operator*() const { return *ptr_; }
+
+  private:
+    std::shared_ptr<T> ptr_;
+};
+
 /**
  * @brief Alias template for std::unique_ptr to manage the lifecycle of
  * individual objects.
@@ -43,7 +113,8 @@ constexpr SCOPE<T> NEWSCOPE(Args &&...args)
      * and object construction are atomic operations.
      * @see https://en.cppreference.com/w/cpp/memory/unique_ptr/make_unique
      */
-    return std::make_unique<T>(std::forward<Args>(args)...);
+    // return std::make_unique<T>(std::forward<Args>(args)...);
+    return TrackedSCOPE<T>(std::forward<Args>(args)...);
 }
 
 /**
@@ -75,6 +146,7 @@ constexpr REF<T> NEWREF(Args &&...args)
      * block.
      * @see https://en.cppreference.com/w/cpp/memory/shared_ptr/make_shared
      */
-    return std::make_shared<T>(std::forward<Args>(args)...);
+    // return std::make_shared<T>(std::forward<Args>(args)...);
+    return TrackedREF<T>(std::forward<Args>(args)...);
 }
 }
