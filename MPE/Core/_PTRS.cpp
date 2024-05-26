@@ -1,6 +1,8 @@
 #include "_PTRS.h"
 #include "MPEPCH.h"
 
+#include "MPE/Log/GlobalLog.h"
+
 namespace MPE
 {
 void ReferenceTracker::addReference(const std::string &type, const std::string &tag)
@@ -26,13 +28,13 @@ void ReferenceTracker::displayReferences() const
     std::cout << "Reference counts by tag:\n";
     for (const auto &entry : references_)
     {
-        std::cout << entry.first << ": " << entry.second << "\n";
+        std::cout << entry.first << ": " << entry.second << std::endl;
     }
 
     std::cout << "Total reference counts by type:\n";
     for (const auto &entry : totalReferences_)
     {
-        std::cout << entry.first << ": " << entry.second << "\n";
+        std::cout << entry.first << ": " << entry.second << std::endl;
     }
 }
 }

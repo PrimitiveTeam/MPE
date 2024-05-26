@@ -6,6 +6,8 @@
 #include <unordered_map>
 #include <mutex>
 #include <string>
+#include <iostream>
+#include <typeinfo>
 
 /**
  * @file _PTRS.h
@@ -43,17 +45,33 @@ class MPE_API ReferenceTracker
     std::unordered_map<std::string, int> totalReferences_;
 };
 
+inline std::string demangleTypeName(const char *name)
+{
+    // Platform-specific demangling logic can be added here if needed
+    // For simplicity, we return the mangled name as-is
+    return std::string(name);
+}
+
 template <typename T>
 class TrackedSCOPE
 {
   public:
     template <typename... Args>
-    TrackedSCOPE(Args &&...args) : ptr_(std::make_unique<T>(std::forward<Args>(args)...))
+    static std::unique_ptr<T> create(Args &&...args)
     {
-        ReferenceTracker::getInstance().addReference("SCOPE", typeid(T).name());
+        std::cout << "Creating scope for " << typeid(T).name() << std::endl;
+        std::cout << "Demangled name: " << demangleTypeName(typeid(T).name()) << std::endl;
+        auto ptr = std::make_unique<T>(std::forward<Args>(args)...);
+        ReferenceTracker::getInstance().addReference("SCOPE", demangleTypeName(typeid(T).name()));
+        return ptr;
     }
 
-    ~TrackedSCOPE() { ReferenceTracker::getInstance().removeReference("SCOPE", typeid(T).name()); }
+    ~TrackedSCOPE()
+    {
+        std::cout << "Destroying scope for " << typeid(T).name() << std::endl;
+        ReferenceTracker::getInstance().removeReference("SCOPE", demangleTypeName(typeid(T).name()));
+        delete ptr_;
+    }
 
     T *operator->() { return ptr_.get(); }
     const T *operator->() const { return ptr_.get(); }
@@ -61,6 +79,16 @@ class TrackedSCOPE
     const T &operator*() const { return *ptr_; }
 
   private:
+    TrackedSCOPE() = default;
+    TrackedSCOPE(const TrackedSCOPE &) = delete;
+    // template <typename... Args>
+    // TrackedSCOPE(Args &&...args) : ptr_(std::make_unique<T>(std::forward<Args>(args)...))
+    // {
+    //     std::cout << "Creating scope for " << typeid(T).name() << std::endl;
+    //     std::cout << "Demangled name: " << demangleTypeName(typeid(T).name()) << std::endl;
+    //     ReferenceTracker::getInstance().addReference("SCOPE", demangleTypeName(typeid(T).name()));
+    // }
+
     std::unique_ptr<T> ptr_;
 };
 
@@ -69,12 +97,21 @@ class TrackedREF
 {
   public:
     template <typename... Args>
-    TrackedREF(Args &&...args) : ptr_(std::make_shared<T>(std::forward<Args>(args)...))
+    static std::shared_ptr<T> create(Args &&...args)
     {
-        ReferenceTracker::getInstance().addReference("REF", typeid(T).name());
+        std::cout << "Creating reference to " << typeid(T).name() << std::endl;
+        std::cout << "Demangled name: " << demangleTypeName(typeid(T).name()) << std::endl;
+        auto ptr = std::make_shared<T>(std::forward<Args>(args)...);
+        ReferenceTracker::getInstance().addReference("REF", demangleTypeName(typeid(T).name()));
+        return ptr;
     }
 
-    ~TrackedREF() { ReferenceTracker::getInstance().removeReference("REF", typeid(T).name()); }
+    ~TrackedREF()
+    {
+        std::cout << "Destroying reference to " << typeid(T).name() << std::endl;
+        ReferenceTracker::getInstance().removeReference("REF", demangleTypeName(typeid(T).name()));
+        delete ptr_;
+    }
 
     T *operator->() { return ptr_.get(); }
     const T *operator->() const { return ptr_.get(); }
@@ -82,6 +119,16 @@ class TrackedREF
     const T &operator*() const { return *ptr_; }
 
   private:
+    TrackedREF() = default;
+    TrackedREF(const TrackedREF &) = delete;
+    // template <typename... Args>
+    // TrackedREF(Args &&...args): ptr_(std::make_shared<T>(std::forward<Args>(args)...))
+    // {
+    //     std::cout << "Creating reference to " << typeid(T).name() << std::endl;
+    //     std::cout << "Demangled name: " << demangleTypeName(typeid(T).name()) << std::endl;
+    //     ReferenceTracker::getInstance().addReference("REF", demangleTypeName(typeid(T).name()));
+    // }
+
     std::shared_ptr<T> ptr_;
 };
 
@@ -114,7 +161,11 @@ constexpr SCOPE<T> NEWSCOPE(Args &&...args)
      * @see https://en.cppreference.com/w/cpp/memory/unique_ptr/make_unique
      */
     // return std::make_unique<T>(std::forward<Args>(args)...);
-    return TrackedSCOPE<T>(std::forward<Args>(args)...);
+
+    // TrackedSCOPE<T> trackedScope(std::forward<Args>(args)...);
+    // return trackedScope.get();
+
+    return TrackedSCOPE<T>::create(std::forward<Args>(args)...);
 }
 
 /**
@@ -147,6 +198,10 @@ constexpr REF<T> NEWREF(Args &&...args)
      * @see https://en.cppreference.com/w/cpp/memory/shared_ptr/make_shared
      */
     // return std::make_shared<T>(std::forward<Args>(args)...);
-    return TrackedREF<T>(std::forward<Args>(args)...);
+
+    // TrackedREF<T> trackedRef(std::forward<Args>(args)...);
+    // return trackedRef.get();
+
+    return TrackedREF<T>::create(std::forward<Args>(args)...);
 }
 }
