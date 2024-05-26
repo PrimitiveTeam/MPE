@@ -12,8 +12,10 @@
 // ----- CORE INTERNAL -----
 // #include "MPE/Core/App.h"
 // #include "MPE/Core/Layers/Layer.h"
-#include "MPE/Core/_CORE.h"
+#include "MPE/Core/_ASSERTS.h"
+#include "MPE/Core/_PTRS.h"
 #include "MPE/Core/_CWD.h"
+#include "MPE/Core/_CORE.h"
 // ----- CORE INTERNAL -----
 
 // ----- LOG -----
