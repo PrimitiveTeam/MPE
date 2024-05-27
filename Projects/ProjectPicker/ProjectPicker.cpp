@@ -26,7 +26,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
 
     void OnImGuiRender() override
     {
-        PrintLayerStatus();
+        // PrintLayerStatus();
 
         ImGui::Begin("Main Menu");
 
