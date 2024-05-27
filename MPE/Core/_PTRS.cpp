@@ -1,6 +1,6 @@
 #include "_PTRS.h"
 #include "MPEPCH.h"
-#include "MPEPLAT.h"
+// #include "MPEPLAT.h"
 
 #include "MPE/Log/GlobalLog.h"
 
@@ -108,80 +108,80 @@ size_t ReferenceTracker::GetTotalReferences() const
     return total;
 }
 
-std::string getCallerFunctionName()
-{
-#ifdef MPE_PLATFORM_WINDOWS
-    HANDLE process = GetCurrentProcess();
-    HANDLE thread = GetCurrentThread();
-    CONTEXT context;
-    RtlCaptureContext(&context);
+// std::string getCallerFunctionName()
+// {
+// #ifdef MPE_PLATFORM_WINDOWS
+//     HANDLE process = GetCurrentProcess();
+//     HANDLE thread = GetCurrentThread();
+//     CONTEXT context;
+//     RtlCaptureContext(&context);
 
-    STACKFRAME64 stackFrame;
-    ZeroMemory(&stackFrame, sizeof(STACKFRAME64));
+//     STACKFRAME64 stackFrame;
+//     ZeroMemory(&stackFrame, sizeof(STACKFRAME64));
 
-    DWORD machineType = IMAGE_FILE_MACHINE_AMD64;
-    stackFrame.AddrPC.Offset = context.Rip;
-    stackFrame.AddrPC.Mode = AddrModeFlat;
-    stackFrame.AddrFrame.Offset = context.Rbp;
-    stackFrame.AddrFrame.Mode = AddrModeFlat;
-    stackFrame.AddrStack.Offset = context.Rsp;
-    stackFrame.AddrStack.Mode = AddrModeFlat;
+//     DWORD machineType = IMAGE_FILE_MACHINE_AMD64;
+//     stackFrame.AddrPC.Offset = context.Rip;
+//     stackFrame.AddrPC.Mode = AddrModeFlat;
+//     stackFrame.AddrFrame.Offset = context.Rbp;
+//     stackFrame.AddrFrame.Mode = AddrModeFlat;
+//     stackFrame.AddrStack.Offset = context.Rsp;
+//     stackFrame.AddrStack.Mode = AddrModeFlat;
 
-    SymInitialize(process, NULL, TRUE);
-    for (int i = 0; i < 3; ++i)
-    {
-        if (!StackWalk64(machineType, process, thread, &stackFrame, &context, NULL, SymFunctionTableAccess64, SymGetModuleBase64, NULL))
-        {
-            return "Unknown";
-        }
-    }
+//     SymInitialize(process, NULL, TRUE);
+//     for (int i = 0; i < 3; ++i)
+//     {
+//         if (!StackWalk64(machineType, process, thread, &stackFrame, &context, NULL, SymFunctionTableAccess64, SymGetModuleBase64, NULL))
+//         {
+//             return "Unknown";
+//         }
+//     }
 
-    DWORD64 address = stackFrame.AddrPC.Offset;
-    if (address == 0)
-    {
-        return "Unknown";
-    }
+//     DWORD64 address = stackFrame.AddrPC.Offset;
+//     if (address == 0)
+//     {
+//         return "Unknown";
+//     }
 
-    char buffer[sizeof(SYMBOL_INFO) + MAX_SYM_NAME * sizeof(TCHAR)];
-    PSYMBOL_INFO symbol = (PSYMBOL_INFO) buffer;
-    symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
-    symbol->MaxNameLen = MAX_SYM_NAME;
+//     char buffer[sizeof(SYMBOL_INFO) + MAX_SYM_NAME * sizeof(TCHAR)];
+//     PSYMBOL_INFO symbol = (PSYMBOL_INFO) buffer;
+//     symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
+//     symbol->MaxNameLen = MAX_SYM_NAME;
 
-    DWORD64 displacement;
-    if (SymFromAddr(process, address, &displacement, symbol))
-    {
-        return symbol->Name;
-    }
-    return "Unknown";
-#elif MPE_PLATFORM_LINUX || MPE_PLATFORM_MACOS
-    void *array[2];
-    size_t size = backtrace(array, 2);
-    if (size < 2) return "Unknown";
+//     DWORD64 displacement;
+//     if (SymFromAddr(process, address, &displacement, symbol))
+//     {
+//         return symbol->Name;
+//     }
+//     return "Unknown";
+// #elif MPE_PLATFORM_LINUX || MPE_PLATFORM_MACOS
+//     void *array[2];
+//     size_t size = backtrace(array, 2);
+//     if (size < 2) return "Unknown";
 
-    char **strings = backtrace_symbols(array, size);
-    if (!strings) return "Unknown";
+//     char **strings = backtrace_symbols(array, size);
+//     if (!strings) return "Unknown";
 
-    std::string caller = strings[1];
-    free(strings);
+//     std::string caller = strings[1];
+//     free(strings);
 
-    // Demangle the function name
-    size_t begin = caller.find('(');
-    size_t end = caller.find('+', begin);
-    if (begin != std::string::npos && end != std::string::npos)
-    {
-        std::string func_name = caller.substr(begin + 1, end - begin - 1);
-        int status;
-        char *demangled = abi::__cxa_demangle(func_name.c_str(), 0, 0, &status);
-        if (status == 0 && demangled)
-        {
-            std::string demangled_name = demangled;
-            free(demangled);
-            return demangled_name;
-        }
-        return func_name;
-    }
+//     // Demangle the function name
+//     size_t begin = caller.find('(');
+//     size_t end = caller.find('+', begin);
+//     if (begin != std::string::npos && end != std::string::npos)
+//     {
+//         std::string func_name = caller.substr(begin + 1, end - begin - 1);
+//         int status;
+//         char *demangled = abi::__cxa_demangle(func_name.c_str(), 0, 0, &status);
+//         if (status == 0 && demangled)
+//         {
+//             std::string demangled_name = demangled;
+//             free(demangled);
+//             return demangled_name;
+//         }
+//         return func_name;
+//     }
 
-    return "Unknown";
-#endif
-}
+//     return "Unknown";
+// #endif
+// }
 }

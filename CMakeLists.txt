@@ -603,6 +603,9 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     GLOB_RECURSE
     MPE_WIN32_CPP
 
+    # /Platform/Windows/Core
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/Core/*.cpp"
+
     # /Platform/Windows/App
     "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/App/*.cpp"
 
@@ -616,6 +619,9 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
   file(
     GLOB_RECURSE
     MPE_WIN32_H
+
+    # /Platform/Windows/Core
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/Core/*.h"
 
     # /Platform/Windows/App
     "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/App/*.h"
@@ -639,6 +645,9 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
     GLOB_RECURSE
     MPE_Linux_CPP
 
+    # /Platform/Linux/Core
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Core/*.cpp"
+
     # /Platform/Linux/App
     "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/App/*.cpp"
 
@@ -652,6 +661,9 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   file(
     GLOB_RECURSE
     MPE_Linux_H
+
+    # /Platform/Linux/Core
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Core/*.h"
 
     # /Platform/Linux/App
     "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/App/*.h"
@@ -675,6 +687,9 @@ elseif(COMPILATION_PLATFORM STREQUAL "OSX")
     GLOB_RECURSE
     MPE_macOS_CPP
 
+    # /Platform/macOS/Core
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/Core/*.mm"
+
     # /Platform/macOS/App
     "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/App/*.cpp"
 
@@ -688,6 +703,9 @@ elseif(COMPILATION_PLATFORM STREQUAL "OSX")
   file(
     GLOB_RECURSE
     MPE_macOS_H
+
+    # /Platform/macOS/Core
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/Core/*.h"
 
     # /Platform/macOS/App
     "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/App/*.h"
@@ -1123,7 +1141,6 @@ if(${MPE_PROJECTS} AND ${MPE_PROJECT_SANDBOX})
 endif(${MPE_PROJECTS} AND ${MPE_PROJECT_SANDBOX})
 
 # ##############################################################################
-
 if(${MPE_PROJECTS} AND ${MPE_PROJECT_PROJECTPICKER})
   # ADD "ProjectPicker" EXECUTABLE - THE ENTRYPOINT TO MPE
   add_executable(ProjectPicker "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/ProjectPicker.cpp")
