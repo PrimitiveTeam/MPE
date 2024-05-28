@@ -68,17 +68,21 @@ void App::Run()
             }
         }
 
-        SYS_ImGuiLayer->Begin();
-        for (size_t i = 0; i < SYS_LayerStack->size(); ++i)
+        // TODO: If ImGui window is outside of the main window bounds it will be rendered but not interactable. Fix this.
+        if (SYS_GUI)
         {
-            REF<Layer> layer = SYS_LayerStack->GetLayers()[i];
+            SYS_ImGuiLayer->Begin();
+            for (size_t i = 0; i < SYS_LayerStack->size(); ++i)
+            {
+                REF<Layer> layer = SYS_LayerStack->GetLayers()[i];
 
-            if (layer) layer->OnImGuiRender();
+                if (layer) layer->OnImGuiRender();
 
-            // Recalculate the index bounds in case the stack has been modified
-            if (i >= SYS_LayerStack->GetLayers().size()) break;
+                // Recalculate the index bounds in case the stack has been modified
+                if (i >= SYS_LayerStack->GetLayers().size()) break;
+            }
+            SYS_ImGuiLayer->End();
         }
-        SYS_ImGuiLayer->End();
 
         // EVENT POLLING
         // auto[x, y] = Input::GetMousePosition();
@@ -86,10 +90,9 @@ void App::Run()
 
         SYS_APP_Window->OnUpdate();
 
-        if (Input::IsKeyPressed(MPE_KEY_ESCAPE))
-        {
-            Shutdown();
-        }
+        if (Input::IsKeyPressed(MPE_KEY_ESCAPE)) Shutdown();
+
+        if (Input::IsKeyPressed(MPE_KEY_F11)) ToggleGUI();
     }
 }
 

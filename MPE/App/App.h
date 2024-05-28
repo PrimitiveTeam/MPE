@@ -58,6 +58,9 @@ class MPE_API App
 
     inline static WINDOW_FPS_MS GetFPS_MS() { return Renderer::GetFPS_MS(); }
 
+    inline void ToggleGUI() { SYS_GUI = !SYS_GUI; }
+    inline bool IsGUIEnabled() { return SYS_GUI; }
+
   private:
     bool OnWindowClose(WindowCloseEvent &e);
     bool OnWindowResize(WindowResizeEvent &e);
@@ -70,6 +73,7 @@ class MPE_API App
 
     bool SYS_APP_Running = true;
     bool SYS_Minimized = false;
+    bool SYS_GUI = true;
 
     float SYS_LAST_FRAME_TIME = 0.0f;
 };
