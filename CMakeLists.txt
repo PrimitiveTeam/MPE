@@ -14,9 +14,10 @@ set(INSTALL_DLLS OFF)
 
 # SWITCHES FOR PROJECTS
 set(MPE_PROJECTS ON)
-set(MPE_PROJECT_SANDBOX ON)
+set(MPE_PROJECT_SANDBOX OFF)
 set(MPE_PROJECT_PONG OFF)
 set(MPE_PROJECT_PROJECTPICKER ON)
+set(MPE_PROJECT_OPENCVTEST ON)
 
 # TEMPORARY
 # DUMMY EXECUTABLE
@@ -66,6 +67,10 @@ elseif(UNIX)
     OUTPUT_STRIP_TRAILING_WHITESPACE)
   set(CMAKE_BUILD_TYPE ${BUILD_TYPE_SETUP_OUTPUT})
 endif()
+
+# SET AVAILABLE BUILD TYPES TO DEBUG AND RELEASE
+# TODO: OpenCV throws generation errors if other build types are used
+set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
 # SET INSTALLATION PATH CoreD ON BUILD TYPE SETTING BUILD TYPE TOGGLING CUSTOM
 # VERBOSITY
@@ -265,6 +270,20 @@ if(WIN32)
       "${Stb_DIR}"
     )
 
+    # OPENCV
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+      set(OpenCV_DIR ${PROJECT_SOURCE_DIR}/Vendor/opencv/Install/Debug)
+    elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+      set(OpenCV_DIR ${PROJECT_SOURCE_DIR}/Vendor/opencv/Install/Release)
+    endif()
+
+    file(GLOB_RECURSE OpenCV_DLLs
+      ${OpenCV_DIR}/x64/vc17/bin/*.dll)
+
+    find_package(OpenCV REQUIRED)
+
+    message(STATUS "OpenCV DLLs: ${OpenCV_DLLs}")
+
     if(${VERBOSE})
       message(STATUS "fmt_DIR: ${fmt_DIR}")
       message(STATUS "spdlog_DIR: ${spdlog_DIR}")
@@ -280,6 +299,8 @@ if(WIN32)
       message(STATUS "glm_DIR: ${glm_DIR}")
       message(STATUS "GTest_DIR: ${GTest_DIR}")
       message(STATUS "Stb_DIR: ${Stb_DIR}")
+
+      message(STATUS "OpenCV_DIR: ${OpenCV_DIR}")
 
       message(STATUS "VCPKG CUSTOM PATHS SET.")
     endif()
@@ -840,6 +861,7 @@ target_link_libraries(
   PUBLIC imgui
   PRIVATE glm::glm
   PRIVATE Stb
+  ${OpenCV_LIBS}
 
   # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
 )
@@ -862,6 +884,7 @@ endif()
 target_include_directories(MPE
   PRIVATE
   ${Stb_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 # ADD MPEPCH.H AS A PRECOMPILED HEADER FILE
@@ -926,6 +949,15 @@ install(
   LIBRARY DESTINATION bin
   ARCHIVE DESTINATION bin
   RUNTIME DESTINATION bin)
+
+add_custom_command(
+  TARGET MPE
+  PRE_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy
+  ${OpenCV_DLLs}
+  $<TARGET_FILE_DIR:MPE>
+  COMMENT "Copying OpenCV DLLs to MPE build..."
+)
 
 if(${INSTALL_DLLS})
   if(CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -1396,6 +1428,78 @@ if(${MPE_PROJECTS} AND ${MPE_PROJECT_PONG})
     message(STATUS "MPE-PONG ADDED.")
   endif()
 endif(${MPE_PROJECTS} AND ${MPE_PROJECT_PONG})
+
+# ##############################################################################
+
+# ADDING OPENCV_TEST EXECUTABLE
+if(${MPE_PROJECTS} AND ${MPE_PROJECT_OPENCVTEST})
+  add_executable(OPENCV_TEST "${PROJECT_SOURCE_DIR}/Projects/OpenCVTest/OpenCVTest.cpp")
+
+  target_link_libraries(OPENCV_TEST PRIVATE
+    MPE
+    ${OpenCV_LIBS}
+  )
+
+  target_include_directories(OPENCV_TEST PRIVATE
+    ${MPE_PUBLIC_INCLUDES}
+    ${OpenCV_LIBS}
+  )
+
+  # COMPILER DEFINITIONS FOR OPENCV_TEST
+  # THIS IS NEEDED AS CMAKE IGNORES PUBLIC/PRIVATE/INTERFACE FOR DEFINITIONS FOR SOME REASON
+  # TODO: FIND A WAY TO FIX THIS ISSUE
+  if(COMPILATION_PLATFORM STREQUAL "WIN32")
+    target_compile_definitions(OPENCV_TEST PUBLIC MPE_PLATFORM_WINDOWS)
+  elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
+    target_compile_definitions(OPENCV_TEST PUBLIC MPE_PLATFORM_LINUX)
+  elseif(COMPILATION_PLATFORM STREQUAL "OSX")
+    target_compile_definitions(OPENCV_TEST PUBLIC MPE_PLATFORM_OSX)
+  endif()
+
+  target_compile_definitions(OPENCV_TEST PUBLIC MPE_ENABLE_ASSERTS)
+  target_compile_definitions(OPENCV_TEST PUBLIC MPE_COMPILER_${CURRENT_COMPILER})
+
+  if(CMAKE_BUILD_TYPE STREQUAL Debug)
+    target_compile_definitions(OPENCV_TEST PUBLIC MPE_CORE_DEBUG_PROFILING)
+    target_compile_definitions(OPENCV_TEST PUBLIC MPE_DEBUG_PROFILING)
+    target_compile_definitions(OPENCV_TEST PUBLIC MPE_ENABLE_DEBUG_LOG)
+  endif(CMAKE_BUILD_TYPE STREQUAL Debug)
+
+  if(MPE_LIBRARY_TYPE STREQUAL SHARED)
+    target_compile_definitions(OPENCV_TEST PUBLIC MPE_DYNAMIC_LIBRARY)
+  else()
+    target_compile_definitions(OPENCV_TEST PUBLIC MPE_STATIC_LIBRARY)
+  endif()
+
+  if(${VERBOSE})
+    get_target_property(DEFINITIONS_LIST OPENCV_TEST COMPILE_DEFINITIONS)
+    message(STATUS "OPENCV_TEST COMPILE DEFINITIONS: ${DEFINITIONS_LIST}")
+  endif()
+
+  # Copy the /Project/*/Data folder to the build directory
+  add_custom_command(
+    TARGET OPENCV_TEST
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${PROJECT_SOURCE_DIR}/Projects/OpenCVTest/Data
+    $<TARGET_FILE_DIR:OPENCV_TEST>/Data
+  )
+
+  # Copy the /Project/*/Data folder to the install directory
+  install(
+    DIRECTORY ${PROJECT_SOURCE_DIR}/Projects/OpenCVTest/Data
+    DESTINATION bin
+  )
+
+  # INSTALLATION PROCEDURE
+  install(
+    TARGETS OPENCV_TEST
+    LIBRARY DESTINATION bin
+    ARCHIVE DESTINATION bin
+    RUNTIME DESTINATION bin)
+
+  install(FILES $<TARGET_RUNTIME_DLLS:OPENCV_TEST> DESTINATION bin)
+endif(${MPE_PROJECTS} AND ${MPE_PROJECT_OPENCVTEST})
 
 # ##############################################################################
 
