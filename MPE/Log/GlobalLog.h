@@ -53,11 +53,13 @@ class MPE_API GlobalLog
      * @date 2024-05-05
      * @return The debug logger.
      */
+#ifdef MPE_ENABLE_DEBUG_LOG
     inline static REF<spdlog::logger> &GetDebugLogger()
     {
         if (DebugLogger == nullptr) throw std::runtime_error("Debug logger is not initialized.");
         return DebugLogger;
     }
+#endif
 
     /**
      * @brief Gets the client logger.
@@ -85,7 +87,9 @@ class MPE_API GlobalLog
      * @date 2024-05-05
      * @see GetDebugLogger()
      */
+#ifdef MPE_ENABLE_DEBUG_LOG
     static REF<spdlog::logger> DebugLogger;
+#endif
 
     /**
      * @brief The client logger.
