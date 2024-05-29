@@ -101,6 +101,7 @@
     "future": "cpp",
     "queue": "cpp",
     "regex": "cpp",
-    "stack": "cpp"
+    "stack": "cpp",
+    "cinttypes": "cpp"
   }
 }
