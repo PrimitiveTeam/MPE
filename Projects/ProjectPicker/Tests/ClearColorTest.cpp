@@ -3,7 +3,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-ClearColorTest::ClearColorTest() : Layer("Test"), CLEAR_COLOR{0.5f, 0.25f, 0.5f} {}
+ClearColorTest::ClearColorTest() : Layer("ClearColorTest"), CLEAR_COLOR{0.5f, 0.25f, 0.5f} {}
 
 void ClearColorTest::OnUpdate(MPE::Time deltatime)
 {

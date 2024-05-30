@@ -8,12 +8,12 @@
 #include <imgui.h>
 #include <string>
 
-class ClearColorTest : public MPE::Layer
+class SimpleTriangleTest : public MPE::Layer
 {
   public:
-    ClearColorTest();
+    SimpleTriangleTest();
 
-    virtual ~ClearColorTest() = default;
+    virtual ~SimpleTriangleTest() = default;
 
     virtual void OnUpdate(MPE::Time deltatime) override;
 
@@ -28,4 +28,19 @@ class ClearColorTest : public MPE::Layer
 
     // Scene
     float CLEAR_COLOR[4];
+
+    // Camera
+    MPE::StaticOrthographicCamera SYS_CAMERA_CONTROLLER;
+
+    // Triangle
+    MPE::REF<MPE::Shader> SYS_Shader;
+    MPE::REF<MPE::VertexArray> SYS_VertexArray;
+
+    glm::vec3 TRIANGLE_POSITION;
+    float TRIANGLE_SCALE_FACTOR;
+    glm::vec3 TRIANGLE_VECTOR_SCALE;
+    glm::mat4 TRIANGLE_SCALE;
+
+    // Shader Library
+    MPE::ShaderLibrary SYS_SHADER_LIBRARY;
 };

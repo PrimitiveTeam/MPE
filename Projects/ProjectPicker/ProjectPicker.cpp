@@ -11,6 +11,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Tests/ClearColorTest.h"
+#include "Tests/SimpleTriangleTest.h"
+
 #include "Tests/TexturesTest.h"
 #include "Tests/GeneralTest.h"
 
@@ -95,6 +97,13 @@ class ProjectPickerGuiLayer : public MPE::Layer
                 MPE::App::GetApp().PushLayer(m_LayerRefs[0]);
             }
 
+            if (ImGui::Button("Open Triangle Layer"))
+            {
+                m_Layers[1] = true;
+                m_LayerRefs[1] = MPE::NEWREF<SimpleTriangleTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[1]);
+            }
+
             // if (ImGui::Button("Open General Layer"))
             // {
             //     m_Layers[1] = true;
@@ -122,12 +131,12 @@ class ProjectPickerGuiLayer : public MPE::Layer
     void PrintLayerStatus()
     {
         // Using array
-        MPE_CORE_INFO("General Layer: {0}", m_Layers[0] ? "true" : "false");
-        MPE_CORE_INFO("Textures Layer: {0}", m_Layers[1] ? "true" : "false");
+        // MPE_CORE_INFO("General Layer: {0}", m_Layers[0] ? "true" : "false");
+        // MPE_CORE_INFO("Textures Layer: {0}", m_Layers[1] ? "true" : "false");
     }
 
-    std::array<bool, 3> m_Layers = {false};
-    MPE::REF<MPE::Layer> m_LayerRefs[3];
+    std::array<bool, 2> m_Layers = {false};
+    MPE::REF<MPE::Layer> m_LayerRefs[2];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();
 };
 

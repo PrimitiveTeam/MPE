@@ -4,7 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 GeneralTest::GeneralTest()
-    : Layer("Test"),
+    : Layer("GeneralTest"),
       SYS_CAMERA_CONTROLLER(1280.0f / 720.0f, true),
       // SCENE VARIABLES
       CLEAR_COLOR{0.5f, 0.25f, 0.5f},
