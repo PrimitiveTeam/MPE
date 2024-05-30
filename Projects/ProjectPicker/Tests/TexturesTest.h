@@ -2,7 +2,7 @@
 
 #include "MPE.h"
 
-class TexturesTestLayer : public MPE::Layer
+class TexturesTest : public MPE::Layer
 {
   private:
     MPE::REF<MPE::VertexArray> SYS_VertexArray;
@@ -23,9 +23,9 @@ class TexturesTestLayer : public MPE::Layer
     // float CLEAR_COLOR[4] = {0.5f, 0.25f, 0.5f, 1.0f};
 
   public:
-    TexturesTestLayer();
+    TexturesTest();
 
-    virtual ~TexturesTestLayer() = default;
+    virtual ~TexturesTest() = default;
 
     virtual void OnAttach() override;
 

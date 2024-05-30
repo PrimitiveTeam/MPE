@@ -1,9 +1,9 @@
-#include "GeneralTestLayer.h"
+#include "GeneralTest.h"
 #include "MPE/MPEPCH.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
-GeneralTestLayer::GeneralTestLayer()
+GeneralTest::GeneralTest()
     : Layer("Test"),
       SYS_CAMERA_CONTROLLER(1280.0f / 720.0f, true),
       // SCENE VARIABLES
@@ -59,13 +59,13 @@ GeneralTestLayer::GeneralTestLayer()
     std::dynamic_pointer_cast<MPE::OpenGLShader>(TEXTURE_SHADER)->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLShader>(TEXTURE_SHADER)->InjectUniformInt1("UNI_TEXTURE", 0);
 
-    m_LayerName = MPE::NEWSCOPE<std::string>("GeneralTestLayer");
+    m_LayerName = MPE::NEWSCOPE<std::string>("GeneralTest");
 }
 
-void GeneralTestLayer::OnUpdate(MPE::Time deltatime)
+void GeneralTest::OnUpdate(MPE::Time deltatime)
 {
     {
-        // m_LayerName = MPE::NEWSCOPE<std::string>("GeneralTestLayer");
+        // m_LayerName = MPE::NEWSCOPE<std::string>("GeneralTest");
     }
     {
         // m_LayerName = nullptr;
@@ -155,7 +155,7 @@ void GeneralTestLayer::OnUpdate(MPE::Time deltatime)
     // MPE_INFO("TestLayer::Update");
 }
 
-void GeneralTestLayer::OnImGuiRender()
+void GeneralTest::OnImGuiRender()
 {
     ImGui::Begin("TEST");
 
@@ -232,25 +232,25 @@ void GeneralTestLayer::OnImGuiRender()
     ImGui::End();
 }
 
-void GeneralTestLayer::OnEvent(MPE::Event &event)
+void GeneralTest::OnEvent(MPE::Event &event)
 {
     SYS_CAMERA_CONTROLLER.OnEvent(event);
 
     MPE::EventDispatcher dispatcher(event);
-    dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(GeneralTestLayer::OnKeyPressedEvent));
+    dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(GeneralTest::OnKeyPressedEvent));
 }
 
-bool GeneralTestLayer::OnKeyPressedEvent(MPE::KeyPressedEvent &event)
+bool GeneralTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)
 {
     return false;
 }
 
-void GeneralTestLayer::ComputeTriangleScale()
+void GeneralTest::ComputeTriangleScale()
 {
     TRIANGLE_SCALE = glm::scale(glm::mat4(1.0f), glm::vec3(TRIANGLE_VECTOR_SCALE) * TRIANGLE_SCALE_FACTOR);
 }
 
-void GeneralTestLayer::ComputeSquareScale()
+void GeneralTest::ComputeSquareScale()
 {
     SQ_SCALE = glm::scale(glm::mat4(1.0f), glm::vec3(SQ_VECTOR_SCALE) * SQ_SCALE_FACTOR);
 }

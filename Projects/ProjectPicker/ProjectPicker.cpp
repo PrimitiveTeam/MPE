@@ -10,8 +10,9 @@
 #include <imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "Tests/TexturesTestLayer.h"
-#include "Tests/GeneralTestLayer.h"
+#include "Tests/ClearColorTest.h"
+#include "Tests/TexturesTest.h"
+#include "Tests/GeneralTest.h"
 
 class ProjectPickerGuiLayer : public MPE::Layer
 {
@@ -28,7 +29,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
     {
         // PrintLayerStatus();
 
-        ImGui::Begin("Main Menu");
+        ImGui::Begin("Main Menu", nullptr, ImGuiWindowFlags_NoSavedSettings);
 
         GuiButtons();
 
@@ -87,19 +88,26 @@ class ProjectPickerGuiLayer : public MPE::Layer
         }
         else
         {
-            if (ImGui::Button("Open General Layer"))
+            if (ImGui::Button("Open Clear Color Layer"))
             {
                 m_Layers[0] = true;
-                m_LayerRefs[0] = MPE::NEWREF<GeneralTestLayer>();
+                m_LayerRefs[0] = MPE::NEWREF<ClearColorTest>();
                 MPE::App::GetApp().PushLayer(m_LayerRefs[0]);
             }
 
-            if (ImGui::Button("Open Textures Layer"))
-            {
-                m_Layers[1] = true;
-                m_LayerRefs[1] = MPE::NEWREF<TexturesTestLayer>();
-                MPE::App::GetApp().PushLayer(m_LayerRefs[1]);
-            }
+            // if (ImGui::Button("Open General Layer"))
+            // {
+            //     m_Layers[1] = true;
+            //     m_LayerRefs[1] = MPE::NEWREF<GeneralTest>();
+            //     MPE::App::GetApp().PushLayer(m_LayerRefs[0]);
+            // }
+
+            // if (ImGui::Button("Open Textures Layer"))
+            // {
+            //     m_Layers[2] = true;
+            //     m_LayerRefs[2] = MPE::NEWREF<TexturesTest>();
+            //     MPE::App::GetApp().PushLayer(m_LayerRefs[1]);
+            // }
         }
     }
 
@@ -118,8 +126,8 @@ class ProjectPickerGuiLayer : public MPE::Layer
         MPE_CORE_INFO("Textures Layer: {0}", m_Layers[1] ? "true" : "false");
     }
 
-    std::array<bool, 2> m_Layers = {false};
-    MPE::REF<MPE::Layer> m_LayerRefs[2];
+    std::array<bool, 3> m_Layers = {false};
+    MPE::REF<MPE::Layer> m_LayerRefs[3];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();
 };
 

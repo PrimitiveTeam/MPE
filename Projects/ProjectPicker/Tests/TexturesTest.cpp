@@ -1,4 +1,4 @@
-#include "TexturesTestLayer.h"
+#include "TexturesTest.h"
 
 #include "MPE/App/Window.h"
 
@@ -6,16 +6,16 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-TexturesTestLayer::TexturesTestLayer() : Layer("TexturesTestLayer"), SYS_CAMERA_CONTROLLER(1280.0f / 720.0f, true) {}
+TexturesTest::TexturesTest() : Layer("TexturesTest"), SYS_CAMERA_CONTROLLER(1280.0f / 720.0f, true) {}
 
-void TexturesTestLayer::OnAttach()
+void TexturesTest::OnAttach()
 {
     TEST_TEXTURE = MPE::Texture2D::Create("Data/Textures/TEST_TEXTURE.png");
 }
 
-void TexturesTestLayer::OnDetach() {}
+void TexturesTest::OnDetach() {}
 
-void TexturesTestLayer::OnUpdate(MPE::Time deltatime)
+void TexturesTest::OnUpdate(MPE::Time deltatime)
 {
     MPE_PROFILE_FUNCTION();
 
@@ -36,7 +36,7 @@ void TexturesTestLayer::OnUpdate(MPE::Time deltatime)
     MPE::Renderer2D::EndScene();
 }
 
-void TexturesTestLayer::OnImGuiRender()
+void TexturesTest::OnImGuiRender()
 {
     ImGui::Begin("SANDBOX 2D");
     ImGui::ColorEdit4("CLEAR COLOR", glm::value_ptr(CLEAR_COLOR));
@@ -57,7 +57,7 @@ void TexturesTestLayer::OnImGuiRender()
     ImGui::End();
 }
 
-void TexturesTestLayer::OnEvent(MPE::Event &event)
+void TexturesTest::OnEvent(MPE::Event &event)
 {
     SYS_CAMERA_CONTROLLER.OnEvent(event);
 }

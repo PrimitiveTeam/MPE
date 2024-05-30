@@ -8,12 +8,12 @@
 #include <imgui.h>
 #include <string>
 
-class GeneralTestLayer : public MPE::Layer
+class GeneralTest : public MPE::Layer
 {
   public:
-    GeneralTestLayer();
+    GeneralTest();
 
-    virtual ~GeneralTestLayer() = default;
+    virtual ~GeneralTest() = default;
 
     virtual void OnUpdate(MPE::Time deltatime) override;
 
