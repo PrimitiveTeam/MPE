@@ -37,10 +37,6 @@ void SimpleTriangleTest::OnUpdate(MPE::Time deltatime)
 
     MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER.GetCamera());
 
-    auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Get("FlatColor");
-
-    std::dynamic_pointer_cast<MPE::OpenGLShader>(FLAT_COLOR_SHADER)->Bind();
-
     auto VERTEX_BASED_COLOR_SHADER = SYS_SHADER_LIBRARY.Get("VertexBasedColor");
     glm::mat4 TRIANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), TRIANGLE_POSITION) * TRIANGLE_SCALE;
     MPE::Renderer::Submit(VERTEX_BASED_COLOR_SHADER, SYS_VertexArray, TRIANGLE_TRANSFORM);

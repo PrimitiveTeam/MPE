@@ -529,9 +529,6 @@ file(
   # /Events
   "${PROJECT_SOURCE_DIR}/MPE/Events/*.cpp"
 
-  # /OpenGL
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.cpp"
-
   # /Renderer
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.cpp"
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.cpp"
@@ -545,6 +542,7 @@ file(
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.cpp"
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.cpp"
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Utilities/*.cpp"
 
   # /Vendor
   "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.cpp"
@@ -591,9 +589,6 @@ file(
   # /Events
   "${PROJECT_SOURCE_DIR}/MPE/Events/*.h"
 
-  # /OpenGL
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.h"
-
   # /Renderer
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.h"
@@ -607,6 +602,7 @@ file(
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Utilities/*.cpp"
 
   # /Vendor
   "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.h"

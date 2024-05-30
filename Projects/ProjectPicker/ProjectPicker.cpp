@@ -6,9 +6,12 @@
 #include "MPE/Platform/OpenGL/Shaders/OpenGLShader.h"
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
 #include "MPE/Renderer/RendererUtilities.h"
+#include "MPE/Platform/OpenGL/Utilities/OpenGLUtilities.h"
 
 #include <imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glad/glad.h>
+#include <glfw/glfw3.h>
 
 #include "Tests/ClearColorTest.h"
 #include "Tests/SimpleTriangleTest.h"
@@ -19,7 +22,7 @@
 class ProjectPickerGuiLayer : public MPE::Layer
 {
   public:
-    ProjectPickerGuiLayer() : Layer("ProjectPickerGuiLayer") {}
+    ProjectPickerGuiLayer() : Layer("ProjectPickerGuiLayer"), m_OpenGLUtilities(MPE::OpenGLUtilities::getInstance()) {}
 
     void OnAttach() override {}
 
@@ -33,7 +36,9 @@ class ProjectPickerGuiLayer : public MPE::Layer
 
         ImGui::Begin("Main Menu", nullptr, ImGuiWindowFlags_NoSavedSettings);
 
-        GuiButtons();
+        SceneControl();
+
+        DebugMenu();
 
         DisplayRefs();
 
@@ -45,32 +50,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
     void OnEvent(MPE::Event& event) override {}
 
   private:
-    void DisplayRefs()
-    {
-        ImGui::Text("Total References: %d", MPE::ReferenceTracker::getInstance().GetTotalReferences());
-
-        if (ImGui::BeginListBox("References"))
-        {
-            auto refs = MPE::ReferenceTracker::getInstance().GetReferences();
-            for (const auto& ref : refs)
-            {
-                ImGui::Text(ref.c_str());
-            }
-            ImGui::EndListBox();
-        }
-
-        if (ImGui::BeginListBox("Scope References"))
-        {
-            auto refs = MPE::ReferenceTracker::getInstance().GetScopeReferences();
-            for (const auto& ref : refs)
-            {
-                ImGui::Text(ref.c_str());
-            }
-            ImGui::EndListBox();
-        }
-    }
-
-    void GuiButtons()
+    void SceneControl()
     {
         // If any layer is active then we only want to show the close button
         if (std::any_of(m_Layers.begin(), m_Layers.end(), [](bool layer) { return layer; }))
@@ -120,6 +100,41 @@ class ProjectPickerGuiLayer : public MPE::Layer
         }
     }
 
+    void DebugMenu()
+    {
+        ImGui::Separator();
+
+        ImGui::Text("GL Polygon Mode: %s", m_OpenGLUtilities.GetGlPolygonMode() ? "Enabled" : "Disabled");
+        if (ImGui::Button("Toggle GL Polygon Mode")) m_OpenGLUtilities.ToggleGlPolygonMode();
+
+        ImGui::Separator();
+    }
+
+    void DisplayRefs()
+    {
+        ImGui::Text("Total References: %d", MPE::ReferenceTracker::getInstance().GetTotalReferences());
+
+        if (ImGui::BeginListBox("References"))
+        {
+            auto refs = MPE::ReferenceTracker::getInstance().GetReferences();
+            for (const auto& ref : refs)
+            {
+                ImGui::Text(ref.c_str());
+            }
+            ImGui::EndListBox();
+        }
+
+        if (ImGui::BeginListBox("Scope References"))
+        {
+            auto refs = MPE::ReferenceTracker::getInstance().GetScopeReferences();
+            for (const auto& ref : refs)
+            {
+                ImGui::Text(ref.c_str());
+            }
+            ImGui::EndListBox();
+        }
+    }
+
     void RenderClearColorScene()
     {
         // If any layer is active, do not execute this
@@ -138,6 +153,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
     std::array<bool, 2> m_Layers = {false};
     MPE::REF<MPE::Layer> m_LayerRefs[2];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();
+    MPE::OpenGLUtilities& m_OpenGLUtilities;
 };
 
 class ProjectPicker : public MPE::App
