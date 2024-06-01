@@ -15,6 +15,7 @@
 
 #include "Tests/ClearColorTest.h"
 #include "Tests/SimpleTriangleTest.h"
+#include "Tests/SimpleRectangleTest.h"
 
 #include "Tests/TexturesTest.h"
 #include "Tests/GeneralTest.h"
@@ -70,18 +71,25 @@ class ProjectPickerGuiLayer : public MPE::Layer
         }
         else
         {
-            if (ImGui::Button("Open Clear Color Layer"))
+            if (ImGui::Button("Open Clear Color Test"))
             {
                 m_Layers[0] = true;
                 m_LayerRefs[0] = MPE::NEWREF<ClearColorTest>();
                 MPE::App::GetApp().PushLayer(m_LayerRefs[0]);
             }
 
-            if (ImGui::Button("Open Triangle Layer"))
+            if (ImGui::Button("Open Simple Triangle Test"))
             {
                 m_Layers[1] = true;
                 m_LayerRefs[1] = MPE::NEWREF<SimpleTriangleTest>();
                 MPE::App::GetApp().PushLayer(m_LayerRefs[1]);
+            }
+
+            if (ImGui::Button("Open Simple Rectangle Test"))
+            {
+                m_Layers[2] = true;
+                m_LayerRefs[2] = MPE::NEWREF<SimpleRectangleTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[2]);
             }
 
             // if (ImGui::Button("Open General Layer"))
@@ -150,8 +158,8 @@ class ProjectPickerGuiLayer : public MPE::Layer
         // MPE_CORE_INFO("Textures Layer: {0}", m_Layers[1] ? "true" : "false");
     }
 
-    std::array<bool, 2> m_Layers = {false};
-    MPE::REF<MPE::Layer> m_LayerRefs[2];
+    std::array<bool, 3> m_Layers = {false};
+    MPE::REF<MPE::Layer> m_LayerRefs[3];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();
     MPE::OpenGLUtilities& m_OpenGLUtilities;
 };
