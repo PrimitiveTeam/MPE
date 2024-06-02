@@ -16,6 +16,7 @@
 #include "Tests/ClearColorTest.h"
 #include "Tests/SimpleTriangleTest.h"
 #include "Tests/SimpleRectangleTest.h"
+#include "Tests/ColorTriangleTest.h"
 
 #include "Tests/TexturesTest.h"
 #include "Tests/GeneralTest.h"
@@ -92,6 +93,13 @@ class ProjectPickerGuiLayer : public MPE::Layer
                 MPE::App::GetApp().PushLayer(m_LayerRefs[2]);
             }
 
+            if (ImGui::Button("Open Color Triangle Test"))
+            {
+                m_Layers[3] = true;
+                m_LayerRefs[3] = MPE::NEWREF<ColorTriangleTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[3]);
+            }
+
             // if (ImGui::Button("Open General Layer"))
             // {
             //     m_Layers[1] = true;
@@ -158,8 +166,8 @@ class ProjectPickerGuiLayer : public MPE::Layer
         // MPE_CORE_INFO("Textures Layer: {0}", m_Layers[1] ? "true" : "false");
     }
 
-    std::array<bool, 3> m_Layers = {false};
-    MPE::REF<MPE::Layer> m_LayerRefs[3];
+    std::array<bool, 4> m_Layers = {false};
+    MPE::REF<MPE::Layer> m_LayerRefs[4];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();
     MPE::OpenGLUtilities& m_OpenGLUtilities;
 };
