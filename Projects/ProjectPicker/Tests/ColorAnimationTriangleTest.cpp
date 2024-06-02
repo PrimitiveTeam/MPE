@@ -1,9 +1,9 @@
-#include "ColorTriangleTest.h"
+#include "ColorAnimationTriangleTest.h"
 #include "MPE/MPEPCH.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
-ColorTriangleTest::ColorTriangleTest()
+ColorAnimationTriangleTest::ColorAnimationTriangleTest()
     : Layer("Test"),
       CLEAR_COLOR{0.5f, 0.25f, 0.5f},
       SYS_CAMERA_CONTROLLER(1280.0f / 720.0f, true),
@@ -31,8 +31,10 @@ ColorTriangleTest::ColorTriangleTest()
     auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/FlatColor.glsl");
 }
 
-void ColorTriangleTest::OnUpdate(MPE::Time deltatime)
+void ColorAnimationTriangleTest::OnUpdate(MPE::Time deltatime)
 {
+    UpdateColor(deltatime);
+
     MPE::RenderPrimitive::SetClearColor(glm::vec4(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]));
     MPE::RenderPrimitive::Clear();
 
@@ -50,7 +52,7 @@ void ColorTriangleTest::OnUpdate(MPE::Time deltatime)
     MPE::Renderer::EndScene();
 }
 
-void ColorTriangleTest::OnImGuiRender()
+void ColorAnimationTriangleTest::OnImGuiRender()
 {
     ImGui::Begin("TEST");
 
@@ -61,18 +63,72 @@ void ColorTriangleTest::OnImGuiRender()
     ImGui::Separator();
 
     ImGui::Text("TRIANGLE VARIABLES");
-    ImGui::ColorEdit4("TRIANGLE COLOR", TRIANGLE_COLOR);
+    ImGui::Text("R: %f, G: %f, B: %f", TRIANGLE_COLOR[0], TRIANGLE_COLOR[1], TRIANGLE_COLOR[2]);
 
     ImGui::End();
 }
 
-void ColorTriangleTest::OnEvent(MPE::Event &event)
+void ColorAnimationTriangleTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
-    dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(ColorTriangleTest::OnKeyPressedEvent));
+    dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(ColorAnimationTriangleTest::OnKeyPressedEvent));
 }
 
-bool ColorTriangleTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)
+bool ColorAnimationTriangleTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)
 {
     return false;
+}
+
+void ColorAnimationTriangleTest::UpdateColor(MPE::Time deltaTime)
+{
+    if (!istimeset)
+    {
+        settime = deltaTime.GetSeconds();
+        istimeset = true;
+    }
+    float &r = TRIANGLE_COLOR[0];
+    float &g = TRIANGLE_COLOR[1];
+    float &b = TRIANGLE_COLOR[2];
+
+    if (br)
+    {
+        if (r >= 1.0f)
+        {
+            incrR = -incrementValue;
+        }
+        else if (r <= 0.0f)
+        {
+            incrR = incrementValue;
+        }
+        r += incrR / settime;
+        r = std::clamp(r, 0.0f, 1.0f);
+    }
+
+    if (bg)
+    {
+        if (g >= 1.0f)
+        {
+            incrG = -incrementValue;
+        }
+        else if (g <= 0.0f)
+        {
+            incrG = incrementValue;
+        }
+        g += incrG / settime;
+        g = std::clamp(g, 0.0f, 1.0f);
+    }
+
+    if (bb)
+    {
+        if (b >= 1.0f)
+        {
+            incrB = -incrementValue;
+        }
+        else if (b <= 0.0f)
+        {
+            incrB = incrementValue;
+        }
+        b += incrB / settime;
+        b = std::clamp(b, 0.0f, 1.0f);
+    }
 }

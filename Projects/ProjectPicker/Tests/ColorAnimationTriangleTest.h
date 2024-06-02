@@ -8,12 +8,12 @@
 #include <imgui.h>
 #include <string>
 
-class ColorTriangleTest : public MPE::Layer
+class ColorAnimationTriangleTest : public MPE::Layer
 {
   public:
-    ColorTriangleTest();
+    ColorAnimationTriangleTest();
 
-    virtual ~ColorTriangleTest() = default;
+    virtual ~ColorAnimationTriangleTest() = default;
 
     virtual void OnUpdate(MPE::Time deltatime) override;
 
@@ -22,6 +22,9 @@ class ColorTriangleTest : public MPE::Layer
     virtual void OnEvent(MPE::Event &event) override;
 
     bool OnKeyPressedEvent(MPE::KeyPressedEvent &event);
+
+  private:
+    void UpdateColor(MPE::Time deltaTime);
 
   private:
     MPE::SCOPE<std::string> m_LayerName;
@@ -44,4 +47,14 @@ class ColorTriangleTest : public MPE::Layer
 
     // Shader Library
     MPE::ShaderLibrary SYS_SHADER_LIBRARY;
+
+    // Color Animation
+    float incrementValue = 0.00001f;
+    bool br = true;
+    bool bg = true;
+    bool bb = true;
+    float incrR, incrG, incrB;
+
+    float settime = 0.0f;
+    bool istimeset = false;
 };
