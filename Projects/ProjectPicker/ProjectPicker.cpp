@@ -18,6 +18,7 @@
 #include "Tests/SimpleRectangleTest.h"
 #include "Tests/ColorTriangleTest.h"
 #include "Tests/ColorAnimationTriangleTest.h"
+#include "Tests/TextureRectangleTest.h"
 
 #include "Tests/TexturesTest.h"
 #include "Tests/GeneralTest.h"
@@ -108,6 +109,13 @@ class ProjectPickerGuiLayer : public MPE::Layer
                 MPE::App::GetApp().PushLayer(m_LayerRefs[4]);
             }
 
+            if (ImGui::Button("Open Texture Rectangle Test"))
+            {
+                m_Layers[5] = true;
+                m_LayerRefs[5] = MPE::NEWREF<TextureRectangleTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[5]);
+            }
+
             // if (ImGui::Button("Open General Layer"))
             // {
             //     m_Layers[1] = true;
@@ -175,7 +183,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
     }
 
   private:
-    static const size_t MAX_LAYERS = 5;
+    static const size_t MAX_LAYERS = 6;
     std::array<bool, MAX_LAYERS> m_Layers = {false};
     MPE::REF<MPE::Layer> m_LayerRefs[MAX_LAYERS];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();
