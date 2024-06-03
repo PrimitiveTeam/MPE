@@ -8,12 +8,12 @@
 #include <imgui.h>
 #include <string>
 
-class TriangleTransformationTest : public MPE::Layer
+class RectangleTransformationTest : public MPE::Layer
 {
   public:
-    TriangleTransformationTest();
+    RectangleTransformationTest();
 
-    virtual ~TriangleTransformationTest() = default;
+    virtual ~RectangleTransformationTest() = default;
 
     virtual void OnUpdate(MPE::Time deltatime) override;
 
@@ -26,7 +26,7 @@ class TriangleTransformationTest : public MPE::Layer
   private:
     void UpdateColor(MPE::Time deltaTime);
     void UpdateRotation(MPE::Time deltaTime);
-    void ComputeTriangleScale();
+    void ComputeRectangleScale();
 
   private:
     MPE::SCOPE<std::string> m_LayerName;
@@ -37,15 +37,15 @@ class TriangleTransformationTest : public MPE::Layer
     // Camera
     MPE::OrthographicCameraController SYS_CAMERA_CONTROLLER;
 
-    // Triangle
+    // Rectangle
     MPE::REF<MPE::Shader> SYS_Shader;
     MPE::REF<MPE::VertexArray> SYS_VertexArray;
 
-    glm::vec3 TRIANGLE_POSITION;
-    float TRIANGLE_SCALE_FACTOR;
-    glm::vec3 TRIANGLE_VECTOR_SCALE;
-    glm::mat4 TRIANGLE_SCALE;
-    float TRIANGLE_COLOR[4];
+    glm::vec3 RECTANGLE_POSITION;
+    float RECTANGLE_SCALE_FACTOR;
+    glm::vec3 RECTANGLE_VECTOR_SCALE;
+    glm::mat4 RECTANGLE_SCALE;
+    float RECTANGLE_COLOR[4];
 
     // Shader Library
     MPE::ShaderLibrary SYS_SHADER_LIBRARY;

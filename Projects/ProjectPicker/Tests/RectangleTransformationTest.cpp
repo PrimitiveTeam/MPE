@@ -1,42 +1,43 @@
-#include "TriangleTransformationTest.h"
+#include "RectangleTransformationTest.h"
 #include "MPE/MPEPCH.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/trigonometric.hpp>
 
-TriangleTransformationTest::TriangleTransformationTest()
+RectangleTransformationTest::RectangleTransformationTest()
     : Layer("Test"),
       CLEAR_COLOR{0.5f, 0.25f, 0.5f},
       SYS_CAMERA_CONTROLLER(1280.0f / 720.0f, true),
-      TRIANGLE_POSITION(0.0f),
-      TRIANGLE_SCALE_FACTOR(1.0f),
-      TRIANGLE_VECTOR_SCALE{1.0f, 1.0f, 1.0f},
-      TRIANGLE_SCALE(glm::scale(glm::mat4(1.0f), glm::vec3(TRIANGLE_VECTOR_SCALE) * TRIANGLE_SCALE_FACTOR)),
-      TRIANGLE_COLOR{1.0f, 0.2f, 0.2f, 1.0f},
+      RECTANGLE_POSITION(0.0f),
+      RECTANGLE_SCALE_FACTOR(1.0f),
+      RECTANGLE_VECTOR_SCALE{1.0f, 1.0f, 1.0f},
+      RECTANGLE_SCALE(glm::scale(glm::mat4(1.0f), glm::vec3(RECTANGLE_VECTOR_SCALE) * RECTANGLE_SCALE_FACTOR)),
+      RECTANGLE_COLOR{1.0f, 0.2f, 0.2f, 1.0f},
       autorotate(false),
       rotatespeed(10),
       rpm(0.0f),
       radians(0.0f)
 {
 
+    // SQUARE
     SYS_VertexArray = MPE::VertexArray::Create();
-    float vertices[3 * 7] = {-0.5f, -0.5f, 0.0f, 1.0f, 0.2f, 1.0f, 1.0f, 0.5f, -0.5f, 0.0f, 0.2f, 1.0f, 1.0f, 1.0f, 0.0f, 0.5f, 0.0f, 1.0f, 1.0f, 0.2f, 1.0f};
+    float SQV[5 * 4] = {-0.75f, -0.75f, 0.0f, 0.0f, 0.0f, 0.75f, -0.75f, 0.0f, 1.0f, 0.0f, 0.75f, 0.75f, 0.0f, 1.0f, 1.0f, -0.75f, 0.75f, 0.0f, 0.0f, 1.0f};
 
     MPE::REF<MPE::VertexBuffer> vertexBuffer;
-    vertexBuffer = MPE::VertexBuffer::Create(vertices, sizeof(vertices));
-    vertexBuffer->SetLayout({{MPE::ShaderDataType::Vec3, "ATTR_POS"}, {MPE::ShaderDataType::Vec4, "ATTR_COLOR"}});
+    vertexBuffer = MPE::VertexBuffer::Create(SQV, sizeof(SQV));
+    vertexBuffer->SetLayout({{MPE::ShaderDataType::Vec3, "ATTR_POS"}, {MPE::ShaderDataType::Vec2, "ATTR_TEXCOORD"}});
     SYS_VertexArray->AddVertexBuffer(vertexBuffer);
 
-    uint32_t indices[3] = {0, 1, 2};
-    MPE::REF<MPE::IndexBuffer> indexBuffer;
-    indexBuffer = MPE::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
-    SYS_VertexArray->SetIndexBuffer(indexBuffer);
+    uint32_t SQI[6] = {0, 1, 2, 2, 3, 0};
+    MPE::REF<MPE::IndexBuffer> SQIB;
+    SQIB = MPE::IndexBuffer::Create(SQI, sizeof(SQI) / sizeof(uint32_t));
+    SYS_VertexArray->SetIndexBuffer(SQIB);
 
     // SHADERS
     auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/FlatColor.glsl");
 }
 
-void TriangleTransformationTest::OnUpdate(MPE::Time deltatime)
+void RectangleTransformationTest::OnUpdate(MPE::Time deltatime)
 {
     UpdateColor(deltatime);
     UpdateRotation(deltatime);
@@ -50,18 +51,18 @@ void TriangleTransformationTest::OnUpdate(MPE::Time deltatime)
 
     std::dynamic_pointer_cast<MPE::OpenGLShader>(FLAT_COLOR_SHADER)->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLShader>(FLAT_COLOR_SHADER)
-        ->InjectUniformFloat4("UNI_COLOR", glm::vec4(TRIANGLE_COLOR[0], TRIANGLE_COLOR[1], TRIANGLE_COLOR[2], TRIANGLE_COLOR[3]));
+        ->InjectUniformFloat4("UNI_COLOR", glm::vec4(RECTANGLE_COLOR[0], RECTANGLE_COLOR[1], RECTANGLE_COLOR[2], RECTANGLE_COLOR[3]));
 
-    glm::mat4 TRIANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), TRIANGLE_POSITION);
-    TRIANGLE_TRANSFORM = glm::rotate(TRIANGLE_TRANSFORM, fmod(radians, 2.0f * glm::pi<float>()), glm::vec3(0.0f, 0.0f, 1.0f));
-    TRIANGLE_TRANSFORM = TRIANGLE_TRANSFORM * TRIANGLE_SCALE;
+    glm::mat4 RECTANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), RECTANGLE_POSITION);
+    RECTANGLE_TRANSFORM = glm::rotate(RECTANGLE_TRANSFORM, fmod(radians, 2.0f * glm::pi<float>()), glm::vec3(0.0f, 0.0f, 1.0f));
+    RECTANGLE_TRANSFORM = RECTANGLE_TRANSFORM * RECTANGLE_SCALE;
 
-    MPE::Renderer::Submit(FLAT_COLOR_SHADER, SYS_VertexArray, TRIANGLE_TRANSFORM);
+    MPE::Renderer::Submit(FLAT_COLOR_SHADER, SYS_VertexArray, RECTANGLE_TRANSFORM);
 
     MPE::Renderer::EndScene();
 }
 
-void TriangleTransformationTest::OnImGuiRender()
+void RectangleTransformationTest::OnImGuiRender()
 {
     // Allow manipulation up to 0.001% of the screen width and height
     auto screen_width = MPE::App::GetApp().GetWindow().get()->GetWidth() * 0.001f;
@@ -76,40 +77,40 @@ void TriangleTransformationTest::OnImGuiRender()
 
     ImGui::Separator();
 
-    ImGui::Text("TRIANGLE VARIABLES");
-    ImGui::Text("R: %f, G: %f, B: %f", TRIANGLE_COLOR[0], TRIANGLE_COLOR[1], TRIANGLE_COLOR[2]);
-    ImGui::ColorEdit4("Triangle Color", TRIANGLE_COLOR);
+    ImGui::Text("RECTANGLE VARIABLES");
+    ImGui::Text("R: %f, G: %f, B: %f", RECTANGLE_COLOR[0], RECTANGLE_COLOR[1], RECTANGLE_COLOR[2]);
+    ImGui::ColorEdit4("RECTANGLE Color", RECTANGLE_COLOR);
 
     ImGui::Separator();
-    ImGui::Text("2D TRIANGLE TRANSFORMATION");
-    ImGui::SliderFloat3("Triangle X Position", &TRIANGLE_POSITION.x, screen_width * -1.0f, screen_width);
-    // ImGui::SliderFloat3("Triangle Y Position", &TRIANGLE_POSITION.y, screen_width * -1.0f, screen_width);
+    ImGui::Text("2D RECTANGLE TRANSFORMATION");
+    ImGui::SliderFloat3("RECTANGLE X Position", &RECTANGLE_POSITION.x, screen_width * -1.0f, screen_width);
+    // ImGui::SliderFloat3("RECTANGLE Y Position", &RECTANGLE_POSITION.y, screen_width * -1.0f, screen_width);
     if (ImGui::Button("RESET TRANSLATIONS"))
     {
-        TRIANGLE_POSITION[0] = 0;
-        TRIANGLE_POSITION[1] = 0;
-        TRIANGLE_POSITION[2] = 0;
+        RECTANGLE_POSITION[0] = 0;
+        RECTANGLE_POSITION[1] = 0;
+        RECTANGLE_POSITION[2] = 0;
     }
 
-    ImGui::Checkbox("Toggle Automatic Triangle Rotation", &autorotate);
+    ImGui::Checkbox("Toggle Automatic RECTANGLE Rotation", &autorotate);
     ImGui::SliderInt("Rotation Speed", &rotatespeed, -500, 500);
     float degrees = glm::degrees(radians);
-    ImGui::SliderFloat("Triangle Rotation", &degrees, -360.0f, 360.0f, "%.1f", ImGuiSliderFlags_NoInput);
+    ImGui::SliderFloat("RECTANGLE Rotation", &degrees, -360.0f, 360.0f, "%.1f", ImGuiSliderFlags_NoInput);
 
     ImGui::Text("%.1f RPM", rpm);
-    if (ImGui::Button("Reset Triangle Rotation")) radians = 0.0f;
+    if (ImGui::Button("Reset RECTANGLE Rotation")) radians = 0.0f;
 
-    ImGui::SliderFloat3("Triangle Vector Scale", &TRIANGLE_VECTOR_SCALE.x, 0.0f, 50.0f);
-    if (ImGui::Button("RESET SCALE FACTOR")) TRIANGLE_SCALE_FACTOR = 1.0f;
+    ImGui::SliderFloat3("RECTANGLE Vector Scale", &RECTANGLE_VECTOR_SCALE.x, 0.0f, 50.0f);
+    if (ImGui::Button("RESET SCALE FACTOR")) RECTANGLE_SCALE_FACTOR = 1.0f;
 
-    ImGui::SliderFloat("Trinagle Ratio Scale", &TRIANGLE_SCALE_FACTOR, -0.0f, 10.0f);
+    ImGui::SliderFloat("Trinagle Ratio Scale", &RECTANGLE_SCALE_FACTOR, -0.0f, 10.0f);
     if (ImGui::Button("RESET VECTORS"))
     {
-        TRIANGLE_VECTOR_SCALE[0] = 1.0f;
-        TRIANGLE_VECTOR_SCALE[1] = 1.0f;
-        TRIANGLE_VECTOR_SCALE[2] = 1.0f;
+        RECTANGLE_VECTOR_SCALE[0] = 1.0f;
+        RECTANGLE_VECTOR_SCALE[1] = 1.0f;
+        RECTANGLE_VECTOR_SCALE[2] = 1.0f;
     }
-    ComputeTriangleScale();
+    ComputeRectangleScale();
 
     ImGui::Separator();
     ImGui::Text("2D CAMERA CONTROLLER");
@@ -126,27 +127,27 @@ void TriangleTransformationTest::OnImGuiRender()
     ImGui::End();
 }
 
-void TriangleTransformationTest::OnEvent(MPE::Event &event)
+void RectangleTransformationTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
-    dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(TriangleTransformationTest::OnKeyPressedEvent));
+    dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(RectangleTransformationTest::OnKeyPressedEvent));
 }
 
-bool TriangleTransformationTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)
+bool RectangleTransformationTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)
 {
     return false;
 }
 
-void TriangleTransformationTest::UpdateColor(MPE::Time deltaTime)
+void RectangleTransformationTest::UpdateColor(MPE::Time deltaTime)
 {
     if (!istimeset)
     {
         settime = deltaTime.GetSeconds();
         istimeset = true;
     }
-    float &r = TRIANGLE_COLOR[0];
-    float &g = TRIANGLE_COLOR[1];
-    float &b = TRIANGLE_COLOR[2];
+    float &r = RECTANGLE_COLOR[0];
+    float &g = RECTANGLE_COLOR[1];
+    float &b = RECTANGLE_COLOR[2];
 
     if (br)
     {
@@ -191,7 +192,7 @@ void TriangleTransformationTest::UpdateColor(MPE::Time deltaTime)
     }
 }
 
-void TriangleTransformationTest::UpdateRotation(MPE::Time deltaTime)
+void RectangleTransformationTest::UpdateRotation(MPE::Time deltaTime)
 {
     // if (autorotate)
     // {
@@ -217,7 +218,7 @@ void TriangleTransformationTest::UpdateRotation(MPE::Time deltaTime)
     }
 }
 
-void TriangleTransformationTest::ComputeTriangleScale()
+void RectangleTransformationTest::ComputeRectangleScale()
 {
-    TRIANGLE_SCALE = glm::scale(glm::mat4(1.0f), glm::vec3(TRIANGLE_VECTOR_SCALE) * TRIANGLE_SCALE_FACTOR);
+    RECTANGLE_SCALE = glm::scale(glm::mat4(1.0f), glm::vec3(RECTANGLE_VECTOR_SCALE) * RECTANGLE_SCALE_FACTOR);
 }
