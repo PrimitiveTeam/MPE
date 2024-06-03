@@ -27,6 +27,8 @@ class MPE_API OrthographicCamera
     void SetRotation(float rotation);
 
     const glm::vec3 &GetPosition() const { return CAMERA_POSITION; }
+    // get position but allow to modify it
+    glm::vec3 &ManipulatePosition() { return CAMERA_POSITION; }
     float GetRotation() const { return CAMERA_Z_AXIS_ROTATION; }
 
     const glm::mat4 &GetProjectionMatrix() const { return PROJECTION_MATRIX; }
