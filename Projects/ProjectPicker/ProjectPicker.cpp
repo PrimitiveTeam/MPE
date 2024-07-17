@@ -26,10 +26,84 @@
 #include "Tests/TexturesTest.h"
 #include "Tests/GeneralTest.h"
 
+class DebugGuiLayer : public MPE::Layer
+{
+  public:
+    DebugGuiLayer() : Layer("DebugGuiLayer"), m_OpenGLUtilities(MPE::OpenGLUtilities::getInstance()) {}
+
+    void OnAttach() override {}
+
+    void OnDetach() override {}
+
+    void OnUpdate(MPE::Time deltaTime) override {}
+
+    void OnImGuiRender() override
+    {
+        ImGui::Begin("Main Menu", nullptr, ImGuiWindowFlags_NoSavedSettings);
+
+        DebugMenu();
+
+        DisplayRefs();
+
+        ImGui::End();
+    }
+
+    void OnEvent(MPE::Event& event) override {}
+
+  private:
+    void DebugMenu()
+    {
+        ImGui::Separator();
+
+        // GetFPS_MS from App/Renderer
+        // Display FPS/ms
+        auto fps_ms = MPE::App::GetFPS_MS();
+        ImGui::Text("FPS: %.1f", fps_ms.FPS);
+        ImGui::Text("MS: %.3f", fps_ms.MS);
+
+        ImGui::Separator();
+
+        ImGui::Text("GL Polygon Mode: %s", m_OpenGLUtilities.GetGlPolygonMode() ? "Enabled" : "Disabled");
+        if (ImGui::Button("Toggle GL Polygon Mode")) m_OpenGLUtilities.ToggleGlPolygonMode();
+
+        ImGui::Separator();
+    }
+
+    void DisplayRefs()
+    {
+        ImGui::Text("Total References: %d", MPE::ReferenceTracker::getInstance().GetTotalReferences());
+
+        if (ImGui::BeginListBox("References"))
+        {
+            auto refs = MPE::ReferenceTracker::getInstance().GetReferences();
+            for (const auto& ref : refs)
+            {
+                ImGui::Text(ref.c_str());
+            }
+            ImGui::EndListBox();
+        }
+
+        if (ImGui::BeginListBox("Scope References"))
+        {
+            auto refs = MPE::ReferenceTracker::getInstance().GetScopeReferences();
+            for (const auto& ref : refs)
+            {
+                ImGui::Text(ref.c_str());
+            }
+            ImGui::EndListBox();
+        }
+    }
+
+  private:
+    MPE::OpenGLUtilities& m_OpenGLUtilities;
+};
+
 class ProjectPickerGuiLayer : public MPE::Layer
 {
   public:
-    ProjectPickerGuiLayer() : Layer("ProjectPickerGuiLayer"), m_OpenGLUtilities(MPE::OpenGLUtilities::getInstance()) {}
+    ProjectPickerGuiLayer() : Layer("ProjectPickerGuiLayer")  //, m_OpenGLUtilities(MPE::OpenGLUtilities::getInstance())
+    {
+    }
 
     void OnAttach() override {}
 
@@ -41,13 +115,9 @@ class ProjectPickerGuiLayer : public MPE::Layer
     {
         // PrintLayerStatus();
 
-        ImGui::Begin("Main Menu", nullptr, ImGuiWindowFlags_NoSavedSettings);
+        ImGui::Begin("Scene Selection", nullptr, ImGuiWindowFlags_NoSavedSettings);
 
         SceneControl();
-
-        DebugMenu();
-
-        DisplayRefs();
 
         // Add more buttons for other layers here
 
@@ -156,41 +226,6 @@ class ProjectPickerGuiLayer : public MPE::Layer
         }
     }
 
-    void DebugMenu()
-    {
-        ImGui::Separator();
-
-        ImGui::Text("GL Polygon Mode: %s", m_OpenGLUtilities.GetGlPolygonMode() ? "Enabled" : "Disabled");
-        if (ImGui::Button("Toggle GL Polygon Mode")) m_OpenGLUtilities.ToggleGlPolygonMode();
-
-        ImGui::Separator();
-    }
-
-    void DisplayRefs()
-    {
-        ImGui::Text("Total References: %d", MPE::ReferenceTracker::getInstance().GetTotalReferences());
-
-        if (ImGui::BeginListBox("References"))
-        {
-            auto refs = MPE::ReferenceTracker::getInstance().GetReferences();
-            for (const auto& ref : refs)
-            {
-                ImGui::Text(ref.c_str());
-            }
-            ImGui::EndListBox();
-        }
-
-        if (ImGui::BeginListBox("Scope References"))
-        {
-            auto refs = MPE::ReferenceTracker::getInstance().GetScopeReferences();
-            for (const auto& ref : refs)
-            {
-                ImGui::Text(ref.c_str());
-            }
-            ImGui::EndListBox();
-        }
-    }
-
     void RenderClearColorScene()
     {
         // If any layer is active, do not execute this
@@ -211,7 +246,6 @@ class ProjectPickerGuiLayer : public MPE::Layer
     std::array<bool, MAX_LAYERS> m_Layers = {false};
     MPE::REF<MPE::Layer> m_LayerRefs[MAX_LAYERS];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();
-    MPE::OpenGLUtilities& m_OpenGLUtilities;
 };
 
 class ProjectPicker : public MPE::App
@@ -223,6 +257,7 @@ class ProjectPicker : public MPE::App
         ImGui::SetCurrentContext(this->GetImGuiContext());
 #endif
         // PushLayer(MPE::NEWREF<MainMenuLayer>());
+        PushLayer(MPE::NEWREF<DebugGuiLayer>());
         PushOverlay(MPE::NEWREF<ProjectPickerGuiLayer>());
     }
 
