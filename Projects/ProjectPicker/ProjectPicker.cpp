@@ -43,6 +43,8 @@ class DebugGuiLayer : public MPE::Layer
 
         DebugMenu();
 
+        GraphicsSettings();
+
         DisplayRefs();
 
         ImGui::End();
@@ -65,6 +67,38 @@ class DebugGuiLayer : public MPE::Layer
 
         ImGui::Text("GL Polygon Mode: %s", m_OpenGLUtilities.GetGlPolygonMode() ? "Enabled" : "Disabled");
         if (ImGui::Button("Toggle GL Polygon Mode")) m_OpenGLUtilities.ToggleGlPolygonMode();
+
+        ImGui::Separator();
+    }
+
+    void GraphicsSettings()
+    {
+        ImGui::Separator();
+
+        ImGui::Text("Graphics Settings");
+        // Retrieve RenderSettings object
+        auto settings = MPE::RenderPrimitive::GetSettings();
+        // Display RenderSettings (vsync, blend, depthTest)
+
+        ImGui::Text("Current Vsync: %s", settings->GetVsync() ? "Enabled" : "Disabled");
+
+        bool vsync = settings->GetVsync();
+        if (ImGui::Checkbox("VSync", &vsync))
+        {
+            settings->SetVsync(vsync);
+        }
+
+        bool blend = settings->GetBlend();
+        if (ImGui::Checkbox("Blend", &blend))
+        {
+            settings->SetBlend(blend);
+        }
+
+        bool depthTest = settings->GetDepthTest();
+        if (ImGui::Checkbox("Depth Test", &depthTest))
+        {
+            settings->SetDepthTest(depthTest);
+        }
 
         ImGui::Separator();
     }

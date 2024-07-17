@@ -3,6 +3,7 @@
 #include "MPE/Core/_PTRS.h"
 #include "MPE/Core/_CORE.h"
 #include "MPE/Renderer/Pipeline/VertexArray.h"
+#include "MPE/Renderer/RenderSettings.h"
 
 #include <glm/glm.hpp>
 
@@ -30,6 +31,8 @@ class MPE_API RendererAPI
     virtual void Clear() = 0;
 
     virtual void DrawIndexed(const REF<VertexArray> &vertexArray) = 0;
+
+    virtual RenderSettings *GetSettings() = 0;
 
     inline static API GetGraphicsAPI() { return GRAPHICS_API; }
 };

@@ -34,4 +34,9 @@ void OpenGLRendererAPI::DrawIndexed(const REF<VertexArray> &vertexArray)
 {
     glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 }
+
+RenderSettings *OpenGLRendererAPI::GetSettings()
+{
+    return SYS_Settings;
+}
 }

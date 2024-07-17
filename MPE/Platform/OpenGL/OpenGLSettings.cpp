@@ -34,7 +34,7 @@ void OpenGLSettings::ToggleVsync()
 
 bool OpenGLSettings::GetVsync() const
 {
-    return false;
+    return _VSYNC;
 }
 
 void OpenGLSettings::SetVsync(bool vsync)

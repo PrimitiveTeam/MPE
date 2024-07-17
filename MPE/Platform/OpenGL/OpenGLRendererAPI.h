@@ -18,6 +18,8 @@ class MPE_API OpenGLRendererAPI : public RendererAPI
 
     virtual void DrawIndexed(const REF<VertexArray> &vertexArray) override;
 
+    virtual RenderSettings *GetSettings() override;
+
   private:
     OpenGLSettings *SYS_Settings;
 };

@@ -19,14 +19,14 @@ class MPE_API OpenGLSettings : public RenderSettings
     virtual void SetVsync(bool vsync) override;
 
     // BLEND
-    void ToggleBlend();
-    bool GetBlend() const;
-    void SetBlend(bool blend);
+    virtual void ToggleBlend() override;
+    virtual bool GetBlend() const override;
+    virtual void SetBlend(bool blend) override;
 
     // DEPTH TEST
-    void ToggleDepthTest();
-    bool GetDepthTest() const;
-    void SetDepthTest(bool depthTest);
+    virtual void ToggleDepthTest() override;
+    virtual bool GetDepthTest() const override;
+    virtual void SetDepthTest(bool depthTest) override;
 
     virtual std::string GetSettings() const override;
 
