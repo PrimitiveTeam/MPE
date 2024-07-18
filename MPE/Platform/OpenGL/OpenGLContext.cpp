@@ -44,7 +44,7 @@ void OpenGLContext::Init()
     SYS_Props.Renderer = std::string(reinterpret_cast<const char *>(glGetString(GL_RENDERER)));
     SYS_Props.ShaderTypeAmount = OPENGL_SHADER_TYPE_AMOUNT;
 
-    MPE_CORE_INFO(SYS_Props.ToString());
+    MPE_CORE_INFO('\n' + SYS_Props.ToString());
 }
 
 void OpenGLContext::SwapBuffers()
