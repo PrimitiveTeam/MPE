@@ -17,14 +17,18 @@ class MPE_API Window
 
     virtual void OnUpdate() = 0;
 
-    virtual unsigned int GetWidth() const = 0;
-    virtual unsigned int GetHeight() const = 0;
+    virtual int GetWidth() const = 0;
+    virtual int GetHeight() const = 0;
 
     virtual void SetEventCallback(const EventCallbackFn &callback) = 0;
-    virtual void ToggleVSync() = 0;
-    virtual void SetVSync(bool enabled) = 0;
-    virtual bool IsVSync() const = 0;
-    virtual void SetFrameRate(unsigned int frameRate) = 0;
+
+    virtual void ToggleFullScreen() = 0;
+    virtual void GoFullScreen() = 0;
+    virtual void GoWindowed() = 0;
+
+    virtual void SetLastWindowSize(int width, int height) = 0;
+    virtual void SaveWindowSizeAndPosition() = 0;
+    virtual void RestoreWindowSizeAndPosition() = 0;
 
     virtual void *GetNativeWindow() const = 0;
 

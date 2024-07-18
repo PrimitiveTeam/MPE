@@ -35,11 +35,15 @@ WindowsWindow::~WindowsWindow()
 
 void WindowsWindow::Init(const WindowProps &props)
 {
+    SYS_Monitors = WindowMonitors();
+
     SYS_Data.Title = props.Title;
     SYS_Data.Width = props.Width;
     SYS_Data.Height = props.Height;
+    SYS_Data.WindowPositionX = props.WindowPositionX;
+    SYS_Data.WindowPositionY = props.WindowPositionY;
 
-    MPE_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
+    MPE_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height, props.WindowPositionX, props.WindowPositionY);
 
     if (!SYS_GLFWInitialized)
     {
@@ -50,12 +54,12 @@ void WindowsWindow::Init(const WindowProps &props)
     }
 
     SYS_Window = glfwCreateWindow((int) props.Width, (int) props.Height, SYS_Data.Title.c_str(), nullptr, nullptr);
+    SaveWindowSizeAndPosition();
 
     SYS_Context = new OpenGLContext(SYS_Window);
     SYS_Context->Init();
 
     glfwSetWindowUserPointer(SYS_Window, &SYS_Data);
-    SetVSync(false);
 
     // SET GLFW CALLBACKS
     glfwSetWindowSizeCallback(SYS_Window,
@@ -167,33 +171,48 @@ void WindowsWindow::OnUpdate()
     // glfwSwapBuffers(SYS_Window);
 }
 
-void WindowsWindow::ToggleVSync()
+void WindowsWindow::ToggleFullScreen()
 {
-    SYS_Data.VSync = !SYS_Data.VSync;
-    SetVSync(SYS_Data.VSync);
-}
+    SYS_Monitors.UpdateMonitors();
 
-void WindowsWindow::SetVSync(bool enabled)
-{
-    if (enabled)
+    if (glfwGetWindowMonitor(SYS_Window))
     {
-        glfwSwapInterval(1);
+        GoWindowed();
     }
     else
     {
-        glfwSwapInterval(0);
+        GoFullScreen();
     }
-
-    SYS_Data.VSync = enabled;
 }
 
-bool WindowsWindow::IsVSync() const
+void WindowsWindow::GoFullScreen()
 {
-    return SYS_Data.VSync;
+    SaveWindowSizeAndPosition();
+
+    glfwSetWindowMonitor(SYS_Window, SYS_Monitors.GetMonitors().at(0).monitor, 0, 0, SYS_Monitors.GetMonitors().at(0).mode->width,
+                         SYS_Monitors.GetMonitors().at(0).mode->height, SYS_Monitors.GetMonitors().at(0).mode->refreshRate);
 }
 
-void WindowsWindow::SetFrameRate(unsigned int frameRate)
+void WindowsWindow::GoWindowed()
 {
-    glfwSwapInterval(frameRate);
+    glfwSetWindowMonitor(SYS_Window, nullptr, SYS_Data.PrevWindowPositionX, SYS_Data.PrevWindowPositionY, SYS_Data.PrevWidth, SYS_Data.PrevHeight, 0);
+}
+
+void WindowsWindow::SetLastWindowSize(int width, int height)
+{
+    SYS_Data.PrevWidth = width;
+    SYS_Data.PrevHeight = height;
+}
+
+void WindowsWindow::SaveWindowSizeAndPosition()
+{
+    glfwGetWindowSize(SYS_Window, &SYS_Data.PrevWidth, &SYS_Data.PrevHeight);
+    glfwGetWindowPos(SYS_Window, &SYS_Data.PrevWindowPositionX, &SYS_Data.PrevWindowPositionY);
+}
+
+void WindowsWindow::RestoreWindowSizeAndPosition()
+{
+    glfwSetWindowSize(SYS_Window, SYS_Data.PrevWidth, SYS_Data.PrevHeight);
+    glfwSetWindowPos(SYS_Window, SYS_Data.PrevWindowPositionX, SYS_Data.PrevWindowPositionY);
 }
 }
