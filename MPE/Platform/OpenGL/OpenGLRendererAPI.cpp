@@ -9,7 +9,7 @@ void OpenGLRendererAPI::Init()
 {
     SYS_Settings = new OpenGLSettings();
 
-    SYS_Settings->SetVsync(true);
+    SYS_Settings->SetVsync(false);
     SYS_Settings->SetBlend(true);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     SYS_Settings->SetDepthTest(true);
