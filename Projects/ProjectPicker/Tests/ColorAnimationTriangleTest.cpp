@@ -86,9 +86,12 @@ void ColorAnimationTriangleTest::UpdateColor(MPE::Time deltaTime)
         settime = deltaTime.GetSeconds();
         istimeset = true;
     }
+
     float &r = TRIANGLE_COLOR[0];
     float &g = TRIANGLE_COLOR[1];
     float &b = TRIANGLE_COLOR[2];
+
+    float delta = deltaTime.GetSeconds();
 
     if (br)
     {
@@ -100,7 +103,7 @@ void ColorAnimationTriangleTest::UpdateColor(MPE::Time deltaTime)
         {
             incrR = incrementValue;
         }
-        r += incrR / settime;
+        r += incrR * delta;
         r = std::clamp(r, 0.0f, 1.0f);
     }
 
@@ -114,7 +117,7 @@ void ColorAnimationTriangleTest::UpdateColor(MPE::Time deltaTime)
         {
             incrG = incrementValue;
         }
-        g += incrG / settime;
+        g += incrG * delta;
         g = std::clamp(g, 0.0f, 1.0f);
     }
 
@@ -128,7 +131,7 @@ void ColorAnimationTriangleTest::UpdateColor(MPE::Time deltaTime)
         {
             incrB = incrementValue;
         }
-        b += incrB / settime;
+        b += incrB * delta;
         b = std::clamp(b, 0.0f, 1.0f);
     }
 }

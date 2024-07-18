@@ -51,7 +51,7 @@ class RectangleTransformationTest : public MPE::Layer
     MPE::ShaderLibrary SYS_SHADER_LIBRARY;
 
     // Color Animation
-    float incrementValue = 0.00001f;
+    float incrementValue = 0.5f;
     bool br = true;
     bool bg = true;
     bool bb = true;
