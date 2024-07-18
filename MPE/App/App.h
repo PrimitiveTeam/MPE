@@ -64,6 +64,7 @@ class MPE_API App
   private:
     bool OnWindowClose(WindowCloseEvent &e);
     bool OnWindowResize(WindowResizeEvent &e);
+    void ToggleFullscreen();
 
     static App *SYS_APP_Instance;
     REF<ImGuiLayer> SYS_ImGuiLayer;

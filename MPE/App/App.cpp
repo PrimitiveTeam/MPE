@@ -58,6 +58,8 @@ void App::Run()
 
         Renderer::UpdateFPS_MS(deltaTime);
 
+        Input::Update();
+
         if (!SYS_Minimized)
         {
             // Using the ref system to iterate through the layers
@@ -93,6 +95,8 @@ void App::Run()
         if (Input::IsKeyPressed(MPE_KEY_ESCAPE)) Shutdown();
 
         if (Input::IsKeyPressed(MPE_KEY_F11)) ToggleGUI();
+
+        if (Input::IsKeyJustPressed(MPE_KEY_F)) ToggleFullscreen();
     }
 }
 
@@ -188,7 +192,16 @@ bool App::OnWindowResize(WindowResizeEvent &e)
     SYS_Minimized = false;
 
     // Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+    // SYS_APP_Window->SetLastWindowSize(e.GetWidth(), e.GetHeight());
 
     return false;
+}
+
+void App::ToggleFullscreen()
+{
+    if (SYS_APP_Window != nullptr)
+    {
+        SYS_APP_Window->ToggleFullScreen();
+    }
 }
 }
