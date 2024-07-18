@@ -136,6 +136,47 @@ void OpenGLSettings::SetDepthTest(bool depthTest)
     UpdateSettings();
 }
 
+// POLYGON MODE
+
+void OpenGLSettings::TogglePolygonMode()
+{
+    _POLYGON_MODE = !_POLYGON_MODE;
+
+    switch (_POLYGON_MODE)
+    {
+        case true:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+            break;
+        case false:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            break;
+    }
+
+    UpdateSettings();
+}
+
+bool OpenGLSettings::GetPolygonMode() const
+{
+    return _POLYGON_MODE;
+}
+
+void OpenGLSettings::SetPolygonMode(bool polygonMode)
+{
+    _POLYGON_MODE = polygonMode;
+
+    switch (_POLYGON_MODE)
+    {
+        case true:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+            break;
+        case false:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            break;
+    }
+
+    UpdateSettings();
+}
+
 // SETTINGS
 
 std::string OpenGLSettings::GetSettings() const

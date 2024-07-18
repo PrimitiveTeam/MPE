@@ -28,6 +28,11 @@ class MPE_API OpenGLSettings : public RenderSettings
     virtual bool GetDepthTest() const override;
     virtual void SetDepthTest(bool depthTest) override;
 
+    // POLYGON MODE
+    void TogglePolygonMode();
+    bool GetPolygonMode() const;
+    void SetPolygonMode(bool polygonMode);
+
     virtual std::string GetSettings() const override;
 
   private:
@@ -39,5 +44,6 @@ class MPE_API OpenGLSettings : public RenderSettings
 
     bool _BLEND;
     bool _DEPTH_TEST;
+    bool _POLYGON_MODE;
 };
 }

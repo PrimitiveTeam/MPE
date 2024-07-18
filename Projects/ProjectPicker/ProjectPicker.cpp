@@ -7,11 +7,12 @@
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
 #include "MPE/Renderer/RendererUtilities.h"
 #include "MPE/Platform/OpenGL/Utilities/OpenGLUtilities.h"
+#include "MPE/Platform/OpenGL/OpenGLSettings.h"
 
 #include <imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include <glad/glad.h>
-#include <glfw/glfw3.h>
+// #include <glad/glad.h>
+// #include <glfw/glfw3.h>
 
 #include "Tests/ClearColorTest.h"
 #include "Tests/SimpleTriangleTest.h"
@@ -64,11 +65,6 @@ class DebugGuiLayer : public MPE::Layer
         ImGui::Text("MS: %.3f", fps_ms.MS);
 
         ImGui::Separator();
-
-        ImGui::Text("GL Polygon Mode: %s", m_OpenGLUtilities.GetGlPolygonMode() ? "Enabled" : "Disabled");
-        if (ImGui::Button("Toggle GL Polygon Mode")) m_OpenGLUtilities.ToggleGlPolygonMode();
-
-        ImGui::Separator();
     }
 
     void GraphicsSettings()
@@ -77,7 +73,7 @@ class DebugGuiLayer : public MPE::Layer
 
         ImGui::Text("Graphics Settings");
         // Retrieve RenderSettings object
-        auto settings = MPE::RenderPrimitive::GetSettings();
+        auto settings = dynamic_cast<MPE::OpenGLSettings*>(MPE::RenderPrimitive::GetSettings());
         // Display RenderSettings (vsync, blend, depthTest)
 
         ImGui::Text("Current Vsync: %s", settings->GetVsync() ? "Enabled" : "Disabled");
@@ -98,6 +94,12 @@ class DebugGuiLayer : public MPE::Layer
         if (ImGui::Checkbox("Depth Test", &depthTest))
         {
             settings->SetDepthTest(depthTest);
+        }
+
+        bool polygonMode = settings->GetPolygonMode();
+        if (ImGui::Checkbox("Polygon Mode", &polygonMode))
+        {
+            settings->SetPolygonMode(polygonMode);
         }
 
         ImGui::Separator();
