@@ -19,15 +19,10 @@ void OpenGLSettings::ToggleVsync()
 {
     _VSYNC = !_VSYNC;
 
-    switch (_VSYNC)
-    {
-        case true:
-            glfwSwapInterval(1);
-            break;
-        case false:
-            glfwSwapInterval(0);
-            break;
-    }
+    if (_VSYNC)
+        glfwSwapInterval(1);
+    else
+        glfwSwapInterval(0);
 
     UpdateSettings();
 }
@@ -41,15 +36,10 @@ void OpenGLSettings::SetVsync(bool vsync)
 {
     _VSYNC = vsync;
 
-    switch (_VSYNC)
-    {
-        case true:
-            glfwSwapInterval(1);
-            break;
-        case false:
-            glfwSwapInterval(0);
-            break;
-    }
+    if (_VSYNC)
+        glfwSwapInterval(1);
+    else
+        glfwSwapInterval(0);
 
     UpdateSettings();
 }
@@ -60,15 +50,10 @@ void OpenGLSettings::ToggleBlend()
 {
     _BLEND = !_BLEND;
 
-    switch (_BLEND)
-    {
-        case true:
-            glEnable(GL_BLEND);
-            break;
-        case false:
-            glDisable(GL_BLEND);
-            break;
-    }
+    if (_BLEND)
+        glEnable(GL_BLEND);
+    else
+        glDisable(GL_BLEND);
 
     UpdateSettings();
 }
@@ -82,15 +67,10 @@ void OpenGLSettings::SetBlend(bool blend)
 {
     _BLEND = blend;
 
-    switch (_BLEND)
-    {
-        case true:
-            glEnable(GL_BLEND);
-            break;
-        case false:
-            glDisable(GL_BLEND);
-            break;
-    }
+    if (_BLEND)
+        glEnable(GL_BLEND);
+    else
+        glDisable(GL_BLEND);
 
     UpdateSettings();
 }
@@ -101,15 +81,10 @@ void OpenGLSettings::ToggleDepthTest()
 {
     _DEPTH_TEST = !_DEPTH_TEST;
 
-    switch (_DEPTH_TEST)
-    {
-        case true:
-            glEnable(GL_DEPTH_TEST);
-            break;
-        case false:
-            glDisable(GL_DEPTH_TEST);
-            break;
-    }
+    if (_DEPTH_TEST)
+        glEnable(GL_DEPTH_TEST);
+    else
+        glDisable(GL_DEPTH_TEST);
 
     UpdateSettings();
 }
@@ -123,15 +98,10 @@ void OpenGLSettings::SetDepthTest(bool depthTest)
 {
     _DEPTH_TEST = depthTest;
 
-    switch (_DEPTH_TEST)
-    {
-        case true:
-            glEnable(GL_DEPTH_TEST);
-            break;
-        case false:
-            glDisable(GL_DEPTH_TEST);
-            break;
-    }
+    if (_DEPTH_TEST)
+        glEnable(GL_DEPTH_TEST);
+    else
+        glDisable(GL_DEPTH_TEST);
 
     UpdateSettings();
 }
@@ -142,15 +112,10 @@ void OpenGLSettings::TogglePolygonMode()
 {
     _POLYGON_MODE = !_POLYGON_MODE;
 
-    switch (_POLYGON_MODE)
-    {
-        case true:
-            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-            break;
-        case false:
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            break;
-    }
+    if (_POLYGON_MODE)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    else
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     UpdateSettings();
 }
@@ -164,15 +129,10 @@ void OpenGLSettings::SetPolygonMode(bool polygonMode)
 {
     _POLYGON_MODE = polygonMode;
 
-    switch (_POLYGON_MODE)
-    {
-        case true:
-            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-            break;
-        case false:
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            break;
-    }
+    if (_POLYGON_MODE)
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    else
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     UpdateSettings();
 }
