@@ -3,6 +3,7 @@
 #include "MPE/Core/_PTRS.h"
 #include "MPE/Input/KeyCodes.h"
 #include "MPE/Input/MouseButtonCodes.h"
+#include "MPE/Input/KeyState.h"
 
 namespace MPE
 {
@@ -20,9 +21,12 @@ class MPE_API Input
 
   public:
     inline static bool IsKeyPressed(int keycode) { return SYS_Input_Instance->IsKeyPressedImpl(keycode); }
+    inline static bool IsKeyJustPressed(int keycode) { return KeyState::IsKeyJustPressed(keycode); }
     inline static bool IsMouseButtonPressed(int button) { return SYS_Input_Instance->IsMouseButtonPressedImpl(button); }
     inline static std::pair<float, float> GetMousePosition() { return SYS_Input_Instance->GetMousePositionImpl(); }
     inline static float GetMouseX() { return SYS_Input_Instance->GetMouseXImpl(); }
     inline static float GetMouseY() { return SYS_Input_Instance->GetMouseYImpl(); }
+
+    static void Update() { KeyState::Update(); }
 };
 }

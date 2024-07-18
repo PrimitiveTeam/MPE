@@ -3,6 +3,7 @@
 
 #include "MPE/Core/_PTRS.h"
 #include "MPE/App/App.h"
+#include "MPE/Input/KeyState.h"
 
 #include <GLFW/glfw3.h>
 
@@ -14,7 +15,9 @@ bool WindowsInput::IsKeyPressedImpl(int keycode)
 {
     auto window = static_cast<GLFWwindow *>(App::GetApp().GetWindow()->GetNativeWindow());
     auto state = glfwGetKey(window, keycode);
-    return state == GLFW_PRESS || state == GLFW_REPEAT;
+    bool isPressed = state == GLFW_PRESS || state == GLFW_REPEAT;
+    MPE::KeyState::SetKeyPressed(keycode, isPressed);
+    return isPressed;
 }
 
 bool WindowsInput::IsMouseButtonPressedImpl(int button)
