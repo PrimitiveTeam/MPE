@@ -48,7 +48,6 @@ class MPE_API WindowsWindow : public Window
         int WindowPositionX, WindowPositionY;
         int PrevWidth, PrevHeight;
         int PrevWindowPositionX, PrevWindowPositionY;
-        bool VSync;
 
         EventCallbackFn EventCallback;
     };
