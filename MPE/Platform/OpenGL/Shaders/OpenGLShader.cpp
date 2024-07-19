@@ -4,7 +4,6 @@
 #include "MPE/Core/_ASSERTS.h"
 #include "MPE/Log/GlobalLog.h"
 
-#include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
 
 /*
@@ -252,65 +251,89 @@ void OpenGLShader::SetMat4(const std::string &name, const glm::mat4 &matrix)
 
 void OpenGLShader::InjectUniformInt1(const std::string &name, int value)
 {
-    GLint location = glGetUniformLocation(SYS_Renderer_ID, name.c_str());
+    GLint location = CheckUniform(name);
     glUniform1i(location, value);
 }
 
 void OpenGLShader::InjectUniformInt2(const std::string &name, int values[2])
 {
     MPE_CORE_ASSERT(0, "MORE THAN 1 INT IS NOT SUPPORTED");
-    // GLint location = glGetUniformLocation(SYS_Renderer_ID, name.c_str());
+    // GLint location = CheckUniform(name);
     // glUniform2i(location, values);
 }
 
 void OpenGLShader::InjectUniformInt3(const std::string &name, int values[3])
 {
     MPE_CORE_ASSERT(0, "MORE THAN 1 INT IS NOT SUPPORTED");
-    // GLint location = glGetUniformLocation(SYS_Renderer_ID, name.c_str());
+    // GLint location = CheckUniform(name);
     // glUniform3i(location, values);
 }
 
 void OpenGLShader::InjectUniformInt4(const std::string &name, int values[4])
 {
     MPE_CORE_ASSERT(0, "MORE THAN 1 INT IS NOT SUPPORTED");
-    // GLint location = glGetUniformLocation(SYS_Renderer_ID, name.c_str());
+    // GLint location = CheckUniform(name);
     // glUniform4i(location, values);
 }
 
 void OpenGLShader::InjectUniformFloat1(const std::string &name, float value)
 {
-    GLint location = glGetUniformLocation(SYS_Renderer_ID, name.c_str());
+    GLint location = CheckUniform(name);
     glUniform1f(location, value);
 }
 
 void OpenGLShader::InjectUniformFloat2(const std::string &name, const glm::vec2 &vector2)
 {
-    GLint location = glGetUniformLocation(SYS_Renderer_ID, name.c_str());
+    GLint location = CheckUniform(name);
     glUniform2f(location, vector2.x, vector2.y);
 }
 
 void OpenGLShader::InjectUniformFloat3(const std::string &name, const glm::vec3 &vector3)
 {
-    GLint location = glGetUniformLocation(SYS_Renderer_ID, name.c_str());
+    GLint location = CheckUniform(name);
     glUniform3f(location, vector3.x, vector3.y, vector3.z);
 }
 
 void OpenGLShader::InjectUniformFloat4(const std::string &name, const glm::vec4 &vector4)
 {
-    GLint location = glGetUniformLocation(SYS_Renderer_ID, name.c_str());
+    GLint location = CheckUniform(name);
     glUniform4f(location, vector4.x, vector4.y, vector4.z, vector4.w);
 }
 
 void OpenGLShader::InjectUniformMat3(const std::string &name, const glm::mat3 &matrix)
 {
-    GLint location = glGetUniformLocation(SYS_Renderer_ID, name.c_str());
+    GLint location = CheckUniform(name);
     glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 void OpenGLShader::InjectUniformMat4(const std::string &name, const glm::mat4 &matrix)
 {
-    GLint location = glGetUniformLocation(SYS_Renderer_ID, name.c_str());
+    CheckIfBound(name);
+    GLint location = CheckUniform(name);
+
     glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
+void OpenGLShader::CheckIfBound(const std::string &name) const
+{
+    // Check if the shader program is bound
+    GLint currentProgram = 0;
+    glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
+    if (currentProgram != SYS_Renderer_ID)
+    {
+        std::cerr << "ERROR::SHADER::INJECT_UNIFORM::SHADER_PROGRAM_NOT_BOUND" << std::endl;
+        return;
+    }
+}
+
+GLint OpenGLShader::CheckUniform(const std::string &name) const
+{
+    GLint location = glGetUniformLocation(SYS_Renderer_ID, name.c_str());
+    if (location == -1)
+    {
+        std::cerr << "ERROR::SHADER::INJECT_UNIFORM::UNIFORM_LOCATION_NOT_FOUND: " << name << std::endl;
+        return -1;
+    }
+    return location;
+}
 }

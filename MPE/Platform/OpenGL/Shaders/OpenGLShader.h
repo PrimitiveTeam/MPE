@@ -3,6 +3,7 @@
 #include "MPE/Core/_CORE.h"
 #include "MPE/Renderer/Shaders/Shader.h"
 
+#include <glad/glad.h>
 #include <glm/glm.hpp>
 
 // TEMP
@@ -13,14 +14,6 @@ namespace MPE
 {
 class MPE_API OpenGLShader : public Shader
 {
-  private:
-    uint32_t SYS_Renderer_ID;
-    std::string SHADER_NAME;
-
-    std::string ValidateFile(const std::string &filepath);
-    std::unordered_map<GLenum, std::string> PreProcess(const std::string &source);
-    void Compile(std::unordered_map<GLenum, std::string> &shaders);
-
   public:
     OpenGLShader(const std::string &filepath);
     OpenGLShader(const std::string &name, const std::string &vertexSource, const std::string &fragmentSource);
@@ -56,5 +49,17 @@ class MPE_API OpenGLShader : public Shader
 
     void InjectUniformMat3(const std::string &name, const glm::mat3 &matrix);
     void InjectUniformMat4(const std::string &name, const glm::mat4 &matrix);
+
+  private:
+    void CheckIfBound(const std::string &name) const;
+    GLint CheckUniform(const std::string &name) const;
+
+  private:
+    uint32_t SYS_Renderer_ID;
+    std::string SHADER_NAME;
+
+    std::string ValidateFile(const std::string &filepath);
+    std::unordered_map<GLenum, std::string> PreProcess(const std::string &source);
+    void Compile(std::unordered_map<GLenum, std::string> &shaders);
 };
 }

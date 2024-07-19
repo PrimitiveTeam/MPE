@@ -31,6 +31,7 @@ class MPE_API RendererAPI
     virtual void Clear() = 0;
 
     virtual void DrawIndexed(const REF<VertexArray> &vertexArray) = 0;
+    virtual void DrawLines(const REF<VertexArray> &vertexArray, uint32_t vertexCount) = 0;
 
     virtual RenderSettings *GetSettings() = 0;
 

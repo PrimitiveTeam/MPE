@@ -17,6 +17,7 @@ class MPE_API OpenGLRendererAPI : public RendererAPI
     virtual void Clear() override;
 
     virtual void DrawIndexed(const REF<VertexArray> &vertexArray) override;
+    virtual void DrawLines(const REF<VertexArray> &vertexArray, uint32_t vertexCount) override;
 
     virtual RenderSettings *GetSettings() override;
 

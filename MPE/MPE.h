@@ -84,3 +84,7 @@
 #include "MPE/Renderer/Cameras/OrthographicCameraController.h"
 #include "MPE/Renderer/Cameras/StaticOrthographicCamera.h"
 // ----- CAMERAS -----
+
+// ----- EDITOR -----
+#include "MPE/Editor/Grid/Grid.h"
+// ----- EDITOR -----

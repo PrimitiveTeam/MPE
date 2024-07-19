@@ -36,6 +36,11 @@ void OpenGLRendererAPI::DrawIndexed(const REF<VertexArray> &vertexArray)
     glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 }
 
+void OpenGLRendererAPI::DrawLines(const REF<VertexArray> &vertexArray, uint32_t vertexCount)
+{
+    glDrawArrays(GL_LINES, 0, static_cast<uint32_t>(vertexArray->GetVertexBuffers()[0]->GetSize() / sizeof(float) / vertexCount));
+}
+
 RenderSettings *OpenGLRendererAPI::GetSettings()
 {
     return SYS_Settings;

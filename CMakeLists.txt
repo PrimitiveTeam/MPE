@@ -537,12 +537,17 @@ file(
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.cpp"
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderInformation/*.cpp"
 
+  # /Editor
+  "${PROJECT_SOURCE_DIR}/MPE/Editor/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/*.cpp"
+
   # /Platform/OpenGL
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.cpp"
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.cpp"
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.cpp"
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.cpp"
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Utilities/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Editor/Grid/*.cpp"
 
   # /Vendor
   "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.cpp"
@@ -597,12 +602,17 @@ file(
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderInformation/*.h"
 
+  # /Editor
+  "${PROJECT_SOURCE_DIR}/MPE/Editor/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/*.h"
+
   # /Platform/OpenGL
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Utilities/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Utilities/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Editor/Grid/*.h"
 
   # /Vendor
   "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.h"
@@ -953,6 +963,16 @@ add_custom_command(
   ${OpenCV_DLLs}
   $<TARGET_FILE_DIR:MPE>
   COMMENT "Copying OpenCV DLLs to MPE build..."
+)
+
+# Copy the /MPE/Resources folder to /bin/Data
+add_custom_command(
+  TARGET MPE
+  POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  ${PROJECT_SOURCE_DIR}/MPE/Resources
+  $<TARGET_FILE_DIR:MPE>/Data
+  COMMENT "Copying MPE Resources DLLs to MPE build..."
 )
 
 if(${INSTALL_DLLS})

@@ -20,6 +20,7 @@ class MPE_API RenderPrimitive
     inline static void Clear() { SYS_API->Clear(); }
 
     inline static void DrawIndexed(const REF<VertexArray> &vertexArray) { SYS_API->DrawIndexed(vertexArray); }
+    inline static void DrawLines(const REF<VertexArray> &vertexArray, uint32_t vertexCount) { SYS_API->DrawLines(vertexArray, vertexCount); }
 
     inline static RenderSettings *GetSettings() { return SYS_API->GetSettings(); }
 };
