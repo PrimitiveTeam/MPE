@@ -51,7 +51,7 @@ static GLenum ShaderTypeFromString(const std::string &type)
     }
 }
 
-OpenGLShader::OpenGLShader(const std::string &filepath)
+OpenGLShader::OpenGLShader(const std::string &filepath) : SYS_Renderer_ID(0)
 {
     std::string SHADER_SOURCE = ValidateFile(filepath);
     auto SHADER_TYPE_SOURCES = PreProcess(SHADER_SOURCE);
@@ -62,11 +62,18 @@ OpenGLShader::OpenGLShader(const std::string &filepath)
     SHADER_NAME = path.stem().string();
 }
 
-OpenGLShader::OpenGLShader(const std::string &name, const std::string &vertexSource, const std::string &fragmentSource) : SHADER_NAME(name)
+OpenGLShader::OpenGLShader(const std::string &name, const std::string &vertexSource, const std::string &fragmentSource) : SHADER_NAME(name), SYS_Renderer_ID(0)
 {
     std::unordered_map<GLenum, std::string> SHADER_SOURCES;
+
+#if MPE_PLATFORM_LINUX
+    SHADER_SOURCES.insert(std::make_pair(GL_VERTEX_SHADER, vertexSource));
+    SHADER_SOURCES.insert(std::make_pair(GL_FRAGMENT_SHADER, fragmentSource));
+#else
     SHADER_SOURCES[GL_VERTEX_SHADER] = vertexSource;
     SHADER_SOURCES[GL_FRAGMENT_SHADER] = fragmentSource;
+#endif
+
     Compile(SHADER_SOURCES);
 }
 
@@ -110,7 +117,12 @@ std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::stri
 
         size_t nextLinePos = source.find_first_not_of("\r\n", eol);
         pos = source.find(typeToken, nextLinePos);
+#if MPE_PLATFORM_LINUX
+        shaderSources.insert(
+            std::make_pair(ShaderTypeFromString(type), source.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos))));
+#else
         shaderSources[ShaderTypeFromString(type)] = source.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
+#endif
     }
 
     return shaderSources;
