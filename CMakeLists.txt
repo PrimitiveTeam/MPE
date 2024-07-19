@@ -956,6 +956,12 @@ install(
   ARCHIVE DESTINATION bin
   RUNTIME DESTINATION bin)
 
+# Copy the /MPE/Resources folder to Install/bin/Data
+install(
+  DIRECTORY ${PROJECT_SOURCE_DIR}/MPE/Resources/Shaders
+  DESTINATION bin/Data
+)
+
 add_custom_command(
   TARGET MPE
   PRE_BUILD
