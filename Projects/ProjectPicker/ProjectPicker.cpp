@@ -27,6 +27,8 @@
 #include "Tests/TexturesTest.h"
 #include "Tests/GeneralTest.h"
 
+#include "Tests/GridTest.h"
+
 class DebugGuiLayer : public MPE::Layer
 {
   public:
@@ -246,6 +248,13 @@ class ProjectPickerGuiLayer : public MPE::Layer
                 MPE::App::GetApp().PushLayer(m_LayerRefs[8]);
             }
 
+            if (ImGui::Button("Open Grid Test"))
+            {
+                m_Layers[9] = true;
+                m_LayerRefs[9] = MPE::NEWREF<GridTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[9]);
+            }
+
             // if (ImGui::Button("Open General Layer"))
             // {
             //     m_Layers[1] = true;
@@ -278,7 +287,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
     }
 
   private:
-    static const size_t MAX_LAYERS = 9;
+    static const size_t MAX_LAYERS = 10;
     std::array<bool, MAX_LAYERS> m_Layers = {false};
     MPE::REF<MPE::Layer> m_LayerRefs[MAX_LAYERS];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();
