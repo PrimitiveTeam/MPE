@@ -867,10 +867,16 @@ target_link_libraries(
   PUBLIC imgui
   PRIVATE glm::glm
   PRIVATE Stb
-  ${OpenCV_LIBS}
 
   # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
 )
+
+if(COMPILATION_PLATFORM STREQUAL "WIN32")
+  target_link_libraries(
+    MPE
+    ${OpenCV_LIBS}
+  )
+endif()
 
 if(COMPILATION_PLATFORM STREQUAL "OSX")
   target_link_libraries(
@@ -890,8 +896,14 @@ endif()
 target_include_directories(MPE
   PRIVATE
   ${Stb_INCLUDE_DIRS}
-  ${OpenCV_INCLUDE_DIRS}
 )
+
+if(COMPILATION_PLATFORM STREQUAL "WIN32")
+  target_include_directories(MPE
+    PRIVATE
+    ${OpenCV_INCLUDE_DIRS}
+  )
+endif()
 
 # ADD MPEPCH.H AS A PRECOMPILED HEADER FILE
 target_precompile_headers(MPE PUBLIC
@@ -962,14 +974,16 @@ install(
   DESTINATION bin/Data
 )
 
-add_custom_command(
-  TARGET MPE
-  PRE_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy
-  ${OpenCV_DLLs}
-  $<TARGET_FILE_DIR:MPE>
-  COMMENT "Copying OpenCV DLLs to MPE build..."
-)
+if(COMPILATION_PLATFORM STREQUAL "WIN32")
+  add_custom_command(
+    TARGET MPE
+    PRE_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    ${OpenCV_DLLs}
+    $<TARGET_FILE_DIR:MPE>
+    COMMENT "Copying OpenCV DLLs to MPE build..."
+  )
+endif()
 
 # Copy the /MPE/Resources folder to /bin/Data
 add_custom_command(
