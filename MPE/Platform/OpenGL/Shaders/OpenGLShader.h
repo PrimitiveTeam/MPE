@@ -3,7 +3,11 @@
 #include "MPE/Core/_CORE.h"
 #include "MPE/Renderer/Shaders/Shader.h"
 
-#include <glad/glad.h>
+#if MPE_PLATFORM_LINUX
+typedef int GLint;
+#else
+#    include <glad/glad.h>
+#endif
 #include <glm/glm.hpp>
 
 // TEMP

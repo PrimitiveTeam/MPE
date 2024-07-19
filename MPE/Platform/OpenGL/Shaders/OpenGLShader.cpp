@@ -4,6 +4,9 @@
 #include "MPE/Core/_ASSERTS.h"
 #include "MPE/Log/GlobalLog.h"
 
+#if MPE_PLATFORM_LINUX
+#    include <glad/glad.h>
+#endif
 #include <glm/gtc/type_ptr.hpp>
 
 /*
