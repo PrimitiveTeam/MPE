@@ -92,9 +92,9 @@ void App::Run()
 
         SYS_APP_Window->OnUpdate();
 
-        if (Input::IsKeyPressed(MPE_KEY_ESCAPE)) Shutdown();
+        if (Input::IsKeyJustPressed(MPE_KEY_ESCAPE)) Shutdown();
 
-        if (Input::IsKeyPressed(MPE_KEY_F11)) ToggleGUI();
+        if (Input::IsKeyJustPressed(MPE_KEY_F11)) ToggleGUI();
 
         if (Input::IsKeyJustPressed(MPE_KEY_F)) ToggleFullscreen();
     }
