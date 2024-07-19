@@ -8,9 +8,16 @@ namespace MPE
 {
 OpenGLSettings::OpenGLSettings()
 {
+    #if MPE_PLATFORM_LINUX
+    _SETTINGS.insert(std::make_pair("VSYNC", std::make_pair("VSYNC", _VSYNC)));
+    _SETTINGS.insert(std::make_pair("BLEND", std::make_pair("BLEND", _BLEND)));
+    _SETTINGS.insert(std::make_pair("DEPTH_TEST", std::make_pair("DEPTH_TEST", _DEPTH_TEST)));
+    _SETTINGS.insert(std::make_pair("POLYGON_MODE", std::make_pair("POLYGON_MODE", _POLYGON_MODE)));
+    #else
     _SETTINGS["VSYNC"] = std::make_pair("VSYNC", _VSYNC);
     _SETTINGS["BLEND"] = std::make_pair("BLEND", _BLEND);
     _SETTINGS["DEPTH_TEST"] = std::make_pair("DEPTH_TEST", _DEPTH_TEST);
+    #endif
 }
 
 // VSYNC
@@ -151,8 +158,23 @@ std::string OpenGLSettings::GetSettings() const
 
 void OpenGLSettings::UpdateSettings()
 {
+#if MPE_PLATFORM_LINUX
+    auto vsyncIt = _SETTINGS.find("VSYNC");
+    if (vsyncIt != _SETTINGS.end()) vsyncIt->second.second = _VSYNC;
+
+    auto blendIt = _SETTINGS.find("BLEND");
+    if (blendIt != _SETTINGS.end()) blendIt->second.second = _BLEND;
+
+    auto depthTestIt = _SETTINGS.find("DEPTH_TEST");
+    if (depthTestIt != _SETTINGS.end()) depthTestIt->second.second = _DEPTH_TEST;
+
+    auto polygonModeIt = _SETTINGS.find("POLYGON_MODE");
+    if (polygonModeIt != _SETTINGS.end()) polygonModeIt->second.second = _POLYGON_MODE;
+#else
     _SETTINGS["VSYNC"].second = _VSYNC;
     _SETTINGS["BLEND"].second = _BLEND;
     _SETTINGS["DEPTH_TEST"].second = _DEPTH_TEST;
+    _SETTINGS["POLYGON_MODE"].second = _POLYGON_MODE;
+#endif
 }
 }
