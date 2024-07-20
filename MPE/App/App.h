@@ -65,6 +65,7 @@ class MPE_API App
     bool OnWindowClose(WindowCloseEvent &e);
     bool OnWindowResize(WindowResizeEvent &e);
     void ToggleFullscreen();
+    void ToggleDeltaTime();
 
     static App *SYS_APP_Instance;
     REF<ImGuiLayer> SYS_ImGuiLayer;
@@ -77,6 +78,7 @@ class MPE_API App
     bool SYS_GUI = true;
 
     float SYS_LAST_FRAME_TIME = 0.0f;
+    bool IsDeltaTimePaused = false;
 };
 
 App *CreateApp();

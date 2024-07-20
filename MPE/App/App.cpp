@@ -58,6 +58,11 @@ void App::Run()
 
         Renderer::UpdateFPS_MS(deltaTime);
 
+        if (IsDeltaTimePaused)
+        {
+            deltaTime = 0.0f;
+        }
+
         Input::Update();
 
         if (!SYS_Minimized)
@@ -97,6 +102,8 @@ void App::Run()
         if (Input::IsKeyJustPressed(MPE_KEY_F11)) ToggleGUI();
 
         if (Input::IsKeyJustPressed(MPE_KEY_F)) ToggleFullscreen();
+
+        if (Input::IsKeyJustPressed(MPE_KEY_SPACE)) ToggleDeltaTime();
     }
 }
 
@@ -203,5 +210,10 @@ void App::ToggleFullscreen()
     {
         SYS_APP_Window->ToggleFullScreen();
     }
+}
+
+void App::ToggleDeltaTime()
+{
+    IsDeltaTimePaused = !IsDeltaTimePaused;
 }
 }
