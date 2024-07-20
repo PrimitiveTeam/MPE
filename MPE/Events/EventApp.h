@@ -4,6 +4,24 @@
 
 namespace MPE
 {
+// WindowMovedEvent
+class MPE_API WindowMovedEvent : public Event
+{
+  public:
+    WindowMovedEvent(int x, int y);
+
+    inline int GetX() const { return X; }
+    inline int GetY() const { return Y; }
+
+    std::string ToString() const override;
+
+    EVENT_CLASS_TYPE(WindowMoved)
+    EVENT_CLASS_CATEGORY(EventCategoryApp)
+
+  private:
+    int X, Y;
+};
+
 class MPE_API WindowResizeEvent : public Event
 {
   public:

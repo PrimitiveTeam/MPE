@@ -16,7 +16,7 @@ enum class MPE_API EventType
     WindowResize,
     WindowFocus,
     WindowLostFocus,
-    WindowMoves,
+    WindowMoved,
     // APP EVENTS
     AppTick,
     AppUpdate,
