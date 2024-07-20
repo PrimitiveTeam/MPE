@@ -879,7 +879,7 @@ target_link_libraries(
 if(COMPILATION_PLATFORM STREQUAL "WIN32")
   target_link_libraries(
     MPE
-    ${OpenCV_LIBS}
+    PRIVATE ${OpenCV_LIBS}
   )
 endif()
 
