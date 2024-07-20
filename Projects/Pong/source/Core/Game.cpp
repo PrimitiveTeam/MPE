@@ -30,6 +30,10 @@ void Game::OnUpdate(MPE::Time deltatime)
     CheckPlayerBounds();
 
     PlayerCollider();
+
+    MPE_INFO("Ball Position: ({0}, {1})", BALL->GetPosition().x, BALL->GetPosition().y);
+    MPE_INFO("Left Player Position: ({0}, {1})", leftPlayer->GetPosition().x, leftPlayer->GetPosition().y);
+    MPE_INFO("Right Player Position: ({0}, {1})", rightPlayer->GetPosition().x, rightPlayer->GetPosition().y);
 }
 // BALL
 
@@ -247,35 +251,43 @@ void Game::PlayerCollider()
 
     if (collisionLeft != whichCollider::NOCOLLISION)
     {
-        SwitchBallX();  // Reverse ball direction if collision with left player
-    }
-    if (collisionRight != whichCollider::NOCOLLISION)
-    {
-        SwitchBallX();  // Reverse ball direction if collision with right player
+        SwitchBallX();
+        if (!enableY)
+        {
+            SwitchBallY();
+            enableY = true;
+        }
     }
 
-    // if (BALL->GetPosition().x + BALL->GetSize().x >= leftPlayer->GetPosition().x &&
-    // leftPlayer->GetPosition().x + leftPlayer->GetSize().x >= BALL->GetPosition().x)
-    // {
-    //     SwitchBallX();
-    // }
-    // if (BALL->GetPosition().x + BALL->GetSize().x >= rightPlayer->GetPosition().x &&
-    // rightPlayer->GetPosition().x + rightPlayer->GetSize().x >= BALL->GetPosition().x)
-    // {
-    //     SwitchBallX();
-    // }
+    if (collisionRight != whichCollider::NOCOLLISION)
+    {
+        SwitchBallX();
+        if (!enableY)
+        {
+            SwitchBallY();
+            enableY = true;
+        }
+    }
 }
 
 whichCollider Game::PlayerCollider(Player *player, Ball *ball)
 {
-    bool collisionX =
-        player->GetPosition().x + player->GetSize().x >= ball->GetPosition().x && ball->GetPosition().x + ball->GetSize().x >= player->GetPosition().x;
-    bool collisionY =
-        player->GetPosition().y + player->GetSize().y >= ball->GetPosition().y && ball->GetPosition().y + ball->GetSize().y >= player->GetPosition().y;
+    float playerLeft = player->GetPosition().x - player->GetSize().x / 2;
+    float playerRight = player->GetPosition().x + player->GetSize().x / 2;
+    float playerTop = player->GetPosition().y + player->GetSize().y / 2;
+    float playerBottom = player->GetPosition().y - player->GetSize().y / 2;
 
-    if (collisionX && collisionY)  // Check for full collision
+    float ballLeft = ball->GetPosition().x - ball->GetSize().x / 2;
+    float ballRight = ball->GetPosition().x + ball->GetSize().x / 2;
+    float ballTop = ball->GetPosition().y + ball->GetSize().y / 2;
+    float ballBottom = ball->GetPosition().y - ball->GetSize().y / 2;
+
+    bool collisionX = playerLeft <= ballRight && ballLeft <= playerRight;
+    bool collisionY = playerBottom <= ballTop && ballBottom <= playerTop;
+
+    if (collisionX && collisionY)
     {
-        return whichCollider::XBall;  // Assume horizontal collision for simplicity
+        return whichCollider::XBall;
     }
 
     return whichCollider::NOCOLLISION;
