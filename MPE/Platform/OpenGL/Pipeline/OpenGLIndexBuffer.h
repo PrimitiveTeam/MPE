@@ -7,10 +7,6 @@ namespace MPE
 {
 class MPE_API OpenGLIndexBuffer : public IndexBuffer
 {
-  private:
-    uint32_t SYS_Renderer_ID;
-    uint32_t SYS_COUNT;
-
   public:
     OpenGLIndexBuffer(uint32_t *indices, uint32_t count);
     virtual ~OpenGLIndexBuffer();
@@ -21,5 +17,9 @@ class MPE_API OpenGLIndexBuffer : public IndexBuffer
     virtual void Unbind() const override;
 
     virtual uint32_t GetCount() const override { return SYS_COUNT; }
+
+  private:
+    uint32_t SYS_Renderer_ID;
+    uint32_t SYS_COUNT;
 };
 }

@@ -10,7 +10,6 @@ namespace MPE
 {
 class MPE_API VertexArray
 {
-  private:
   public:
     virtual ~VertexArray() = default;
 

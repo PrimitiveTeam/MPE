@@ -8,9 +8,6 @@ namespace MPE
 {
 class MPE_API RenderPrimitive
 {
-  private:
-    static RendererAPI *SYS_API;
-
   public:
     inline static void Init() { SYS_API->Init(); }
 
@@ -23,5 +20,8 @@ class MPE_API RenderPrimitive
     inline static void DrawLines(const REF<VertexArray> &vertexArray, uint32_t vertexCount) { SYS_API->DrawLines(vertexArray, vertexCount); }
 
     inline static RenderSettings *GetSettings() { return SYS_API->GetSettings(); }
+
+  private:
+    static RendererAPI *SYS_API;
 };
 }

@@ -11,16 +11,6 @@ namespace MPE
 {
 class MPE_API Renderer
 {
-  private:
-    struct SceneData
-    {
-        glm::mat4 PROJECTION_VIEW_MATRIX;
-    };
-
-    static SceneData *SYS_SCENE;
-
-    static REF<WINDOW_FPS_MS> SYS_WINDOW_FPS_MS;
-
   public:
     static void Init();
     static void OnWindowResize(uint32_t width, uint32_t height);
@@ -36,5 +26,15 @@ class MPE_API Renderer
     inline static void UpdateFPS_MS(Time deltaTime) { SYS_WINDOW_FPS_MS->Update(deltaTime); }
     // Get the FPSMS struct
     inline static WINDOW_FPS_MS GetFPS_MS() { return *SYS_WINDOW_FPS_MS; }
+
+  private:
+    struct SceneData
+    {
+        glm::mat4 PROJECTION_VIEW_MATRIX;
+    };
+
+    static SceneData *SYS_SCENE;
+
+    static REF<WINDOW_FPS_MS> SYS_WINDOW_FPS_MS;
 };
 }

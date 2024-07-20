@@ -20,10 +20,6 @@ class MPE_API RendererAPI
         // Vulcan
     };
 
-  private:
-    static API GRAPHICS_API;
-
-  public:
     virtual void Init() = 0;
     virtual void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height) = 0;
 
@@ -36,5 +32,8 @@ class MPE_API RendererAPI
     virtual RenderSettings *GetSettings() = 0;
 
     inline static API GetGraphicsAPI() { return GRAPHICS_API; }
+
+  private:
+    static API GRAPHICS_API;
 };
 }

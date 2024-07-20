@@ -68,9 +68,6 @@ enum MPE_API EventCategory
 
 class MPE_API Event
 {
-  private:
-    friend class EventDispatcher;
-
   public:
     bool SYS_Handled = false;
     virtual EventType GetEventType() const = 0;
@@ -81,6 +78,9 @@ class MPE_API Event
     virtual std::string ToString() const { return GetName(); }
 
     inline bool IsInCategory(EventCategory category) { return GetCategoryFlags() & category; }
+
+  private:
+    friend class EventDispatcher;
 };
 
 class MPE_API EventDispatcher

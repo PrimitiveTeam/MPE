@@ -8,16 +8,6 @@ namespace MPE
 {
 class MPE_API OrthographicCamera
 {
-  private:
-    glm::mat4 PROJECTION_MATRIX;
-    glm::mat4 VIEW_MATRIX;
-    glm::mat4 PROJECTION_VIEW_MATRIX;
-
-    glm::vec3 CAMERA_POSITION = {0.0f, 0.0f, 0.0f};
-    float CAMERA_Z_AXIS_ROTATION = 0.0f;
-
-    void COMPUTE_VIEW_MATRIX();
-
   public:
     // float near, float far
     OrthographicCamera(float left, float right, float bottom, float top);
@@ -34,5 +24,15 @@ class MPE_API OrthographicCamera
     const glm::mat4 &GetProjectionMatrix() const { return PROJECTION_MATRIX; }
     const glm::mat4 &GetViewMatrix() const { return VIEW_MATRIX; }
     const glm::mat4 &GetProjectionViewMatrix() const { return PROJECTION_VIEW_MATRIX; }
+
+  private:
+    glm::mat4 PROJECTION_MATRIX;
+    glm::mat4 VIEW_MATRIX;
+    glm::mat4 PROJECTION_VIEW_MATRIX;
+
+    glm::vec3 CAMERA_POSITION = {0.0f, 0.0f, 0.0f};
+    float CAMERA_Z_AXIS_ROTATION = 0.0f;
+
+    void COMPUTE_VIEW_MATRIX();
 };
 }

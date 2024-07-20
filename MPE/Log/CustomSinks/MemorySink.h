@@ -23,21 +23,6 @@ namespace MPE
 template <typename Mutex>
 class MemorySink : public spdlog::sinks::base_sink<Mutex>
 {
-  protected:
-    /**
-     * @brief Log the message to memory.
-     * @param msg The message to log.
-     * @date 2024-05-09
-     */
-    void sink_it_(const spdlog::details::log_msg &msg) override
-    {
-        spdlog::memory_buf_t formatted;
-        spdlog::sinks::base_sink<Mutex>::formatter_->format(msg, formatted);
-        stream << fmt::to_string(formatted);
-    }
-
-    void flush_() override { stream.flush(); }
-
   public:
     std::string get_contents_and_clear()
     {
@@ -53,6 +38,21 @@ class MemorySink : public spdlog::sinks::base_sink<Mutex>
         stream.str("");
         stream.clear();
     }
+
+  protected:
+    /**
+     * @brief Log the message to memory.
+     * @param msg The message to log.
+     * @date 2024-05-09
+     */
+    void sink_it_(const spdlog::details::log_msg &msg) override
+    {
+        spdlog::memory_buf_t formatted;
+        spdlog::sinks::base_sink<Mutex>::formatter_->format(msg, formatted);
+        stream << fmt::to_string(formatted);
+    }
+
+    void flush_() override { stream.flush(); }
 
   private:
     std::stringstream stream;

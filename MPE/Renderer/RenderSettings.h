@@ -12,9 +12,6 @@ namespace MPE
 {
 class MPE_API RenderSettings
 {
-  protected:
-    bool _VSYNC;
-
   public:
     // VSYNC
     virtual void ToggleVsync() = 0;
@@ -32,5 +29,8 @@ class MPE_API RenderSettings
     virtual void SetDepthTest(bool depthTest) = 0;
 
     virtual std::string GetSettings() const = 0;
+
+  protected:
+    bool _VSYNC;
 };
 }

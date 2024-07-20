@@ -8,11 +8,6 @@ namespace MPE
 {
 class MPE_API OpenGLVertexBuffer : public VertexBuffer
 {
-  private:
-    uint32_t SYS_Renderer_ID;
-    BufferLayout SYS_LAYOUT;
-    uint32_t m_Size;
-
   public:
     OpenGLVertexBuffer(float *vertices, uint32_t size);
     virtual ~OpenGLVertexBuffer();
@@ -26,5 +21,10 @@ class MPE_API OpenGLVertexBuffer : public VertexBuffer
     virtual void SetLayout(const BufferLayout &layout) override { SYS_LAYOUT = layout; };
 
     virtual uint32_t GetSize() const override { return m_Size; }
+
+  private:
+    uint32_t SYS_Renderer_ID;
+    BufferLayout SYS_LAYOUT;
+    uint32_t m_Size;
 };
 }

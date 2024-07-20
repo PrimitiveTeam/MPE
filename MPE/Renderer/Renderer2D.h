@@ -9,7 +9,6 @@ namespace MPE
 {
 class MPE_API Renderer2D
 {
-  private:
   public:
     static void Init();
     static void Shutdown();

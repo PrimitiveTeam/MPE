@@ -7,7 +7,6 @@ namespace MPE
 {
 class MPE_API IndexBuffer
 {
-  private:
   public:
     virtual ~IndexBuffer() = default;
 

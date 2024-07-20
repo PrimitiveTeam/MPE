@@ -6,9 +6,6 @@ namespace MPE
 {
 class MPE_API MouseMovedEvent : public Event
 {
-  private:
-    float MouseX, MouseY;
-
   public:
     MouseMovedEvent(float x, float y);
 
@@ -19,13 +16,13 @@ class MPE_API MouseMovedEvent : public Event
 
     EVENT_CLASS_TYPE(MouseMoved)
     EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+
+  private:
+    float MouseX, MouseY;
 };
 
 class MPE_API MouseScrolledEvent : public Event
 {
-  private:
-    float XOffset, YOffset;
-
   public:
     MouseScrolledEvent(float xoffset, float yoffset);
     inline float GetXOffset() const { return XOffset; }
@@ -35,19 +32,22 @@ class MPE_API MouseScrolledEvent : public Event
 
     EVENT_CLASS_TYPE(MouseScrolled)
     EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+
+  private:
+    float XOffset, YOffset;
 };
 
 class MPE_API MouseButtonEvent : public Event
 {
-  protected:
-    MouseButtonEvent(int button);
-
-    int Button;
-
   public:
     inline int GetMouseButton() const { return Button; }
 
     EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+
+  protected:
+    MouseButtonEvent(int button);
+
+    int Button;
 };
 
 class MPE_API MouseButtonPressedEvent : public MouseButtonEvent

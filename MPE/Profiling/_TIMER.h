@@ -26,33 +26,6 @@ namespace MPE
 template <typename FN = std::function<void(const char *, float)>>
 class _TIMER
 {
-  private:
-    /**
-     * @brief The name of the timer.
-     * @date 2024-05-05
-     */
-    const char *NAME;
-    /**
-     * @brief The function to call on stopping the timer.
-     * @date 2024-05-05
-     */
-    FN FUNC;
-    /**
-     * @brief The starting point of the timer.
-     * @date 2024-05-05
-     */
-    std::chrono::time_point<std::chrono::high_resolution_clock> START_POINT;
-    /**
-     * @brief The stopping flag of the timer.
-     * @date 2024-05-05
-     */
-    bool STOPPED;
-    /**
-     * @brief The logging flag of the timer.
-     * @date 2024-05-05
-     */
-    bool LOG;
-
   public:
     /**
      * @brief Construct a new _TIMER object.
@@ -124,6 +97,33 @@ class _TIMER
             }
         }
     }
+
+  private:
+    /**
+     * @brief The name of the timer.
+     * @date 2024-05-05
+     */
+    const char *NAME;
+    /**
+     * @brief The function to call on stopping the timer.
+     * @date 2024-05-05
+     */
+    FN FUNC;
+    /**
+     * @brief The starting point of the timer.
+     * @date 2024-05-05
+     */
+    std::chrono::time_point<std::chrono::high_resolution_clock> START_POINT;
+    /**
+     * @brief The stopping flag of the timer.
+     * @date 2024-05-05
+     */
+    bool STOPPED;
+    /**
+     * @brief The logging flag of the timer.
+     * @date 2024-05-05
+     */
+    bool LOG;
 };
 }
 

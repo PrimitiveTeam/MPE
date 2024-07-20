@@ -6,9 +6,6 @@ namespace MPE
 {
 class MPE_API WindowResizeEvent : public Event
 {
-  private:
-    unsigned int Width, Height;
-
   public:
     WindowResizeEvent(unsigned int width, unsigned int height);
 
@@ -19,6 +16,9 @@ class MPE_API WindowResizeEvent : public Event
 
     EVENT_CLASS_TYPE(WindowResize)
     EVENT_CLASS_CATEGORY(EventCategoryApp)
+
+  private:
+    unsigned int Width, Height;
 };
 
 class MPE_API WindowCloseEvent : public Event

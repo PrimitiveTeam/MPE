@@ -10,15 +10,6 @@ namespace MPE
 {
 class MPE_API OpenGLTexture2D : public Texture2D
 {
-  private:
-    std::string FILEPATH;
-    uint32_t WIDTH;
-    uint32_t HEIGHT;
-    uint32_t SYS_RENDERER_ID;
-
-    GLenum INTERNAL_FORMAT;
-    GLenum DATA_FORMAT;
-
   public:
     OpenGLTexture2D(uint32_t width, uint32_t height);
     OpenGLTexture2D(const std::string& filepath);
@@ -30,5 +21,14 @@ class MPE_API OpenGLTexture2D : public Texture2D
     virtual void SetData(void* data, uint32_t size) override;
 
     virtual void Bind(uint32_t slot = 0) const override;
+
+  private:
+    std::string FILEPATH;
+    uint32_t WIDTH;
+    uint32_t HEIGHT;
+    uint32_t SYS_RENDERER_ID;
+
+    GLenum INTERNAL_FORMAT;
+    GLenum DATA_FORMAT;
 };
 }

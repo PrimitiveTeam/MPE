@@ -9,16 +9,6 @@ namespace MPE
 {
 class MPE_API Input
 {
-  private:
-    static REF<Input> SYS_Input_Instance;
-
-  protected:
-    virtual bool IsKeyPressedImpl(int keycode) = 0;
-    virtual bool IsMouseButtonPressedImpl(int button) = 0;
-    virtual std::pair<float, float> GetMousePositionImpl() = 0;
-    virtual float GetMouseXImpl() = 0;
-    virtual float GetMouseYImpl() = 0;
-
   public:
     inline static bool IsKeyPressed(int keycode) { return SYS_Input_Instance->IsKeyPressedImpl(keycode); }
     inline static bool IsKeyJustPressed(int keycode) { return KeyState::IsKeyJustPressed(keycode); }
@@ -28,5 +18,15 @@ class MPE_API Input
     inline static float GetMouseY() { return SYS_Input_Instance->GetMouseYImpl(); }
 
     static void Update() { KeyState::Update(); }
+
+  private:
+    static REF<Input> SYS_Input_Instance;
+
+  protected:
+    virtual bool IsKeyPressedImpl(int keycode) = 0;
+    virtual bool IsMouseButtonPressedImpl(int button) = 0;
+    virtual std::pair<float, float> GetMousePositionImpl() = 0;
+    virtual float GetMouseXImpl() = 0;
+    virtual float GetMouseYImpl() = 0;
 };
 }

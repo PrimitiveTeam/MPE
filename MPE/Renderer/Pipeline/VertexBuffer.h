@@ -8,7 +8,6 @@ namespace MPE
 {
 class MPE_API VertexBuffer
 {
-  private:
   public:
     virtual ~VertexBuffer() = default;
 
