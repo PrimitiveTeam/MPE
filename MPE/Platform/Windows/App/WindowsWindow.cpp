@@ -62,6 +62,18 @@ void WindowsWindow::Init(const WindowProps &props)
     glfwSetWindowUserPointer(SYS_Window, &SYS_Data);
 
     // SET GLFW CALLBACKS
+    // Window moved
+    glfwSetWindowPosCallback(SYS_Window,
+                             [](GLFWwindow *window, int xPos, int yPos)
+                             {
+                                 WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
+                                 data.WindowPositionX = xPos;
+                                 data.WindowPositionY = yPos;
+
+                                 WindowMovedEvent event(xPos, yPos);
+                                 data.EventCallback(event);
+                             });
+
     glfwSetWindowSizeCallback(SYS_Window,
                               [](GLFWwindow *window, int width, int height)
                               {
@@ -213,6 +225,22 @@ void WindowsWindow::SaveWindowSizeAndPosition()
 void WindowsWindow::RestoreWindowSizeAndPosition()
 {
     glfwSetWindowSize(SYS_Window, SYS_Data.PrevWidth, SYS_Data.PrevHeight);
+    glfwSetWindowPos(SYS_Window, SYS_Data.PrevWindowPositionX, SYS_Data.PrevWindowPositionY);
+}
+
+void WindowsWindow::SetLastWindowPosition(int x, int y)
+{
+    SYS_Data.PrevWindowPositionX = x;
+    SYS_Data.PrevWindowPositionY = y;
+}
+
+void WindowsWindow::SaveWindowPosition()
+{
+    glfwGetWindowPos(SYS_Window, &SYS_Data.PrevWindowPositionX, &SYS_Data.PrevWindowPositionY);
+}
+
+void WindowsWindow::RestoreWindowPosition()
+{
     glfwSetWindowPos(SYS_Window, SYS_Data.PrevWindowPositionX, SYS_Data.PrevWindowPositionY);
 }
 }
