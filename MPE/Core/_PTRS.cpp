@@ -9,13 +9,58 @@ namespace MPE
 void ReferenceTracker::addReference(const std::string &type, const std::string &tag)
 {
     std::lock_guard<std::mutex> lock(mutex_);
+
+#if MPE_PLATFORM_LINUX
+    auto refKey = type + "::" + tag;
+    auto refIt = references_.find(refKey);
+    if (refIt != references_.end())
+    {
+        refIt->second++;
+    }
+    else
+    {
+        references_.emplace(refKey, 1);
+    }
+
+    auto totalRefIt = totalReferences_.find(type);
+    if (totalRefIt != totalReferences_.end())
+    {
+        totalRefIt->second++;
+    }
+    else
+    {
+        totalReferences_.emplace(type, 1);
+    }
+#else
     references_[type + "::" + tag]++;
     totalReferences_[type]++;
+#endif
 }
 
 void ReferenceTracker::removeReference(const std::string &type, const std::string &tag)
 {
     std::lock_guard<std::mutex> lock(mutex_);
+
+#if MPE_PLATFORM_LINUX
+    auto refKey = type + "::" + tag;
+    auto refIt = references_.find(refKey);
+    if (refIt != references_.end())
+    {
+        if (--refIt->second == 0)
+        {
+            references_.erase(refIt);
+        }
+    }
+
+    auto totalRefIt = totalReferences_.find(type);
+    if (totalRefIt != totalReferences_.end())
+    {
+        if (--totalRefIt->second == 0)
+        {
+            totalReferences_.erase(totalRefIt);
+        }
+    }
+#else
     references_[type + "::" + tag]--;
     totalReferences_[type]--;
     if (references_[type + "::" + tag] == 0)
@@ -26,6 +71,7 @@ void ReferenceTracker::removeReference(const std::string &type, const std::strin
     {
         totalReferences_.erase(type);
     }
+#endif
 }
 
 void ReferenceTracker::displayReferences() const

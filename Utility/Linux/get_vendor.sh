@@ -15,7 +15,6 @@ glad --quiet --api gl:compatibility=4.6 --out-path ./Glad c
 # If imgui already exists, cancel next step
 if [ -d "imgui" ]; then
     echo "imgui already exists. Skipping..."
-    exit 0
 else
     echo "Cloning imgui..."
     git clone https://github.com/ocornut/imgui.git

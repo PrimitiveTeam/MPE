@@ -34,6 +34,7 @@
       "name": "Linux-Clang",
       "includePath": [
         "${workspaceFolder}/**",
+        "${workspaceFolder}/Vendor/",
         "/usr/include/",
         "/usr/local/include/",
         "/usr/include/gtk-3.0",
@@ -81,6 +82,7 @@
       "name": "Linux-GCC",
       "includePath": [
         "${workspaceFolder}/**",
+        "${workspaceFolder}/Vendor/",
         "/usr/include/",
         "/usr/local/include/",
         "/usr/include/gtk-3.0",

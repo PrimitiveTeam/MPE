@@ -36,7 +36,9 @@ void LinuxWindow::Init(const WindowProps &props)
     SYS_Data.Title = props.Title;
     SYS_Data.Width = props.Width;
     SYS_Data.Height = props.Height;
-
+    SYS_Data.WindowPositionX = props.WindowPositionX;
+    SYS_Data.WindowPositionY = props.WindowPositionY;
+    
     MPE_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
     if (!SYS_GLFWInitialized)
@@ -48,12 +50,12 @@ void LinuxWindow::Init(const WindowProps &props)
     }
 
     SYS_Window = glfwCreateWindow((int) props.Width, (int) props.Height, SYS_Data.Title.c_str(), nullptr, nullptr);
+    SaveWindowSizeAndPosition();
 
     SYS_Context = new OpenGLContext(SYS_Window);
     SYS_Context->Init();
 
     glfwSetWindowUserPointer(SYS_Window, &SYS_Data);
-    SetVSync(true);
 
     // SET GLFW CALLBACKS
     glfwSetWindowSizeCallback(SYS_Window,
@@ -165,33 +167,48 @@ void LinuxWindow::OnUpdate()
     // glfwSwapBuffers(SYS_Window);
 }
 
-void LinuxWindow::SetVSync(bool enabled)
+void LinuxWindow::ToggleFullScreen()
 {
-    if (enabled)
+    SYS_Monitors.UpdateMonitors();
+
+    if (glfwGetWindowMonitor(SYS_Window))
     {
-        glfwSwapInterval(1);
+        GoWindowed();
     }
     else
     {
-        glfwSwapInterval(0);
+        GoFullScreen();
     }
-
-    SYS_Data.VSync = enabled;
 }
 
-void LinuxWindow::ToggleVSync()
+void LinuxWindow::GoFullScreen()
 {
-    SYS_Data.VSync = !SYS_Data.VSync;
-    SetVSync(SYS_Data.VSync);
+    SaveWindowSizeAndPosition();
+
+    glfwSetWindowMonitor(SYS_Window, SYS_Monitors.GetMonitors().at(0).monitor, 0, 0, SYS_Monitors.GetMonitors().at(0).mode->width,
+                         SYS_Monitors.GetMonitors().at(0).mode->height, SYS_Monitors.GetMonitors().at(0).mode->refreshRate);
 }
 
-bool LinuxWindow::IsVSync() const
+void LinuxWindow::GoWindowed()
 {
-    return SYS_Data.VSync;
+    glfwSetWindowMonitor(SYS_Window, nullptr, SYS_Data.PrevWindowPositionX, SYS_Data.PrevWindowPositionY, SYS_Data.PrevWidth, SYS_Data.PrevHeight, 0);
 }
 
-void LinuxWindow::SetFrameRate(unsigned int frameRate)
+void LinuxWindow::SetLastWindowSize(int width, int height)
 {
-    glfwSwapInterval(frameRate);
+    SYS_Data.PrevWidth = width;
+    SYS_Data.PrevHeight = height;
+}
+
+void LinuxWindow::SaveWindowSizeAndPosition()
+{
+    glfwGetWindowSize(SYS_Window, &SYS_Data.PrevWidth, &SYS_Data.PrevHeight);
+    glfwGetWindowPos(SYS_Window, &SYS_Data.PrevWindowPositionX, &SYS_Data.PrevWindowPositionY);
+}
+
+void LinuxWindow::RestoreWindowSizeAndPosition()
+{
+    glfwSetWindowSize(SYS_Window, SYS_Data.PrevWidth, SYS_Data.PrevHeight);
+    glfwSetWindowPos(SYS_Window, SYS_Data.PrevWindowPositionX, SYS_Data.PrevWindowPositionY);
 }
 }

@@ -102,6 +102,16 @@
     "queue": "cpp",
     "regex": "cpp",
     "stack": "cpp",
-    "cinttypes": "cpp"
+    "cinttypes": "cpp",
+    "hash_map": "cpp",
+    "*.tcc": "cpp",
+    "string_view": "cpp",
+    "numbers": "cpp",
+    "semaphore": "cpp",
+    "__bit_reference": "cpp",
+    "__config": "cpp",
+    "__locale": "cpp",
+    "__threading_support": "cpp",
+    "__verbose_abort": "cpp"
   }
 }

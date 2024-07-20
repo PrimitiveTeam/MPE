@@ -3,8 +3,11 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+#if MPE_PLATFORM_LINUX
+#else
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#endif
 
 GridTest::GridTest()
     : Layer("Test"),

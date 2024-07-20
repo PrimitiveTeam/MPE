@@ -53,7 +53,11 @@ void TriangleTransformationTest::OnUpdate(MPE::Time deltatime)
         ->InjectUniformFloat4("UNI_COLOR", glm::vec4(TRIANGLE_COLOR[0], TRIANGLE_COLOR[1], TRIANGLE_COLOR[2], TRIANGLE_COLOR[3]));
 
     glm::mat4 TRIANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), TRIANGLE_POSITION);
+    #if MPE_PLATFORM_LINUX
+    TRIANGLE_TRANSFORM = glm::rotate(TRIANGLE_TRANSFORM, (float)fmod(radians, 2.0f * glm::pi<float>()), glm::vec3(0.0f, 0.0f, 1.0f));
+    #else
     TRIANGLE_TRANSFORM = glm::rotate(TRIANGLE_TRANSFORM, fmod(radians, 2.0f * glm::pi<float>()), glm::vec3(0.0f, 0.0f, 1.0f));
+    #endif
     TRIANGLE_TRANSFORM = TRIANGLE_TRANSFORM * TRIANGLE_SCALE;
 
     MPE::Renderer::Submit(FLAT_COLOR_SHADER, SYS_VertexArray, TRIANGLE_TRANSFORM);

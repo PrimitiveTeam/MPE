@@ -54,7 +54,11 @@ void RectangleTransformationTest::OnUpdate(MPE::Time deltatime)
         ->InjectUniformFloat4("UNI_COLOR", glm::vec4(RECTANGLE_COLOR[0], RECTANGLE_COLOR[1], RECTANGLE_COLOR[2], RECTANGLE_COLOR[3]));
 
     glm::mat4 RECTANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), RECTANGLE_POSITION);
+    #if MPE_PLATFORM_LINUX
+    RECTANGLE_TRANSFORM = glm::rotate(RECTANGLE_TRANSFORM, (float)fmod(radians, 2.0f * glm::pi<float>()), glm::vec3(0.0f, 0.0f, 1.0f));
+    #else
     RECTANGLE_TRANSFORM = glm::rotate(RECTANGLE_TRANSFORM, fmod(radians, 2.0f * glm::pi<float>()), glm::vec3(0.0f, 0.0f, 1.0f));
+    #endif
     RECTANGLE_TRANSFORM = RECTANGLE_TRANSFORM * RECTANGLE_SCALE;
 
     MPE::Renderer::Submit(FLAT_COLOR_SHADER, SYS_VertexArray, RECTANGLE_TRANSFORM);
