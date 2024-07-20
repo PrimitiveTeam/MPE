@@ -64,6 +64,7 @@ class MPE_API App
   private:
     bool OnWindowClose(WindowCloseEvent &e);
     bool OnWindowResize(WindowResizeEvent &e);
+    bool OnWindowMoved(WindowMovedEvent &e);
     void ToggleFullscreen();
     void ToggleDeltaTime();
 
@@ -79,6 +80,7 @@ class MPE_API App
 
     float SYS_LAST_FRAME_TIME = 0.0f;
     bool IsDeltaTimePaused = false;
+    bool SYS_AppPaused = false;
 };
 
 App *CreateApp();

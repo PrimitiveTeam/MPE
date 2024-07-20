@@ -51,6 +51,8 @@ void App::Run()
 {
     while (SYS_APP_Running)
     {
+        if (SYS_AppPaused) continue;
+
         // TODO: Platform::GetTime();
         float time = (float) glfwGetTime();
         Time deltaTime = time - SYS_LAST_FRAME_TIME;
@@ -112,6 +114,7 @@ void App::OnEvent(Event &SYS_Event)
     EventDispatcher dispatcher(SYS_Event);
     dispatcher.Dispatch<WindowCloseEvent>(MPE_BIND_EVENT_FUNCTION(App::OnWindowClose));
     dispatcher.Dispatch<WindowResizeEvent>(MPE_BIND_EVENT_FUNCTION(App::OnWindowResize));
+    dispatcher.Dispatch<WindowMovedEvent>(MPE_BIND_EVENT_FUNCTION(App::OnWindowMoved));
 
     for (auto it = SYS_LayerStack->end(); it != SYS_LayerStack->begin();)
     {
@@ -200,6 +203,23 @@ bool App::OnWindowResize(WindowResizeEvent &e)
 
     // Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
     // SYS_APP_Window->SetLastWindowSize(e.GetWidth(), e.GetHeight());
+
+    return false;
+}
+
+bool App::OnWindowMoved(WindowMovedEvent &e)
+{
+    // While window is moved SYS_AppPaused = true;
+
+    if (e.GetX() == SYS_APP_Window->GetWindowPositionX() && e.GetY() == SYS_APP_Window->GetWindowPositionY())
+    {
+        SYS_AppPaused = false;
+    }
+    else
+    {
+        SYS_AppPaused = true;
+    }
+    SYS_APP_Window->SetLastWindowPosition(e.GetX(), e.GetY());
 
     return false;
 }
