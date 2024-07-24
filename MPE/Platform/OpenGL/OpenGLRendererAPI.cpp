@@ -14,6 +14,8 @@ void OpenGLRendererAPI::Init()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     SYS_Settings->SetDepthTest(true);
     SYS_Settings->SetPolygonMode(false);
+    SYS_Settings->SetLimitFPS(false);
+    SYS_Settings->SetMaxFPS(60);
 }
 
 void OpenGLRendererAPI::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)

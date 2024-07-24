@@ -16,11 +16,13 @@ enum class MPE_API EventType
     WindowResize,
     WindowFocus,
     WindowLostFocus,
-    WindowMoves,
+    WindowMoved,
     // APP EVENTS
     AppTick,
     AppUpdate,
     AppRender,
+    // GRAPHICS EVENTS
+    GraphicsSettingsChanged,
     // KEY EVENTS
     KeyPressed,
     KeyReleased,
@@ -39,11 +41,12 @@ enum MPE_API EventCategory
 {
     None = 0,
     EventCategoryApp = BIT(0),
-    EventCategoryInput = BIT(1),
-    EventCategoryKeyboard = BIT(2),
-    EventCategoryMouse = BIT(3),
-    EventCategoryMouseButton = BIT(4),
-    EventCategoryFunctions = BIT(5)
+    EventCategoryGraphics = BIT(1),
+    EventCategoryInput = BIT(2),
+    EventCategoryKeyboard = BIT(3),
+    EventCategoryMouse = BIT(4),
+    EventCategoryMouseButton = BIT(5),
+    EventCategoryFunctions = BIT(6)
 };
 
 #define EVENT_CLASS_TYPE(type)                      \

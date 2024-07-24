@@ -19,6 +19,8 @@ class MPE_API Window
 
     virtual int GetWidth() const = 0;
     virtual int GetHeight() const = 0;
+    virtual int GetWindowPositionX() const = 0;
+    virtual int GetWindowPositionY() const = 0;
 
     virtual void SetEventCallback(const EventCallbackFn &callback) = 0;
 
@@ -29,6 +31,10 @@ class MPE_API Window
     virtual void SetLastWindowSize(int width, int height) = 0;
     virtual void SaveWindowSizeAndPosition() = 0;
     virtual void RestoreWindowSizeAndPosition() = 0;
+
+    virtual void SetLastWindowPosition(int x, int y) = 0;
+    virtual void SaveWindowPosition() = 0;
+    virtual void RestoreWindowPosition() = 0;
 
     virtual void *GetNativeWindow() const = 0;
 

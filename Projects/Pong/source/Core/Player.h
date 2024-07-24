@@ -25,11 +25,10 @@ class Player
     int Score;
     glm::vec2 Position;
     glm::vec2 Size;
+    glm::vec2 Velocity;
 
     uint32_t Up;
     uint32_t Down;
-
-    // glm::vec4 Bounds;
 
     glm::vec4 Color;
 
@@ -42,9 +41,13 @@ class Player
     void IterateScore();
 
     glm::vec2 GetPosition() { return Position; }
+    void SetPosition(glm::vec2 position);
     void SetX(float x);
     void SetY(float y);
     glm::vec2 GetSize() { return Size; }
+
+    glm::vec2 GetVelocity() { return Velocity; }
+    void SetVelocity(glm::vec2 velocity) { Velocity = velocity; }
 
     glm::vec4 GetColor() { return Color; }
     void SetColor(glm::vec4 rgba);

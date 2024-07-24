@@ -20,6 +20,8 @@ class MPE_API WindowsWindow : public Window
 
     virtual inline int GetWidth() const override { return SYS_Data.Width; }
     virtual inline int GetHeight() const override { return SYS_Data.Height; }
+    virtual inline int GetWindowPositionX() const override { return SYS_Data.WindowPositionX; }
+    virtual inline int GetWindowPositionY() const override { return SYS_Data.WindowPositionY; }
 
     virtual inline void SetEventCallback(const EventCallbackFn &callback) override { SYS_Data.EventCallback = callback; }
 
@@ -30,6 +32,10 @@ class MPE_API WindowsWindow : public Window
     virtual void SetLastWindowSize(int width, int height) override;
     virtual void SaveWindowSizeAndPosition() override;
     virtual void RestoreWindowSizeAndPosition() override;
+
+    virtual void SetLastWindowPosition(int x, int y) override;
+    virtual void SaveWindowPosition() override;
+    virtual void RestoreWindowPosition() override;
 
     inline virtual void *GetNativeWindow() const override { return SYS_Window; }
 

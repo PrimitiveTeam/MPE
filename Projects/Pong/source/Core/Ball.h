@@ -13,6 +13,7 @@ class Ball
   private:
     glm::vec2 Position;
     glm::vec2 Size;
+    glm::vec2 Velocity;
     MPE::REF<MPE::Texture2D> Texture;
     float Radius;
 
@@ -30,6 +31,9 @@ class Ball
 
     glm::vec2 GetSize() const { return Size; }
     void SetSize(glm::vec2 size);
+
+    glm::vec2 GetVelocity() const { return Velocity; }
+    void SetVelocity(glm::vec2 velocity) { Velocity = velocity; }
 
     MPE::REF<MPE::Texture2D> GetTexture() const { return Texture; }
     // void SetTexture(const std::string& texture);
