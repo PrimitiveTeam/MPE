@@ -58,6 +58,18 @@ class DebugGuiLayer : public MPE::Layer
             settings->SetVsync(vsync);
         }
 
+        bool limitFPS = settings->GetLimitFPS();
+        if (ImGui::Checkbox("Limit FPS", &limitFPS))
+        {
+            settings->SetLimitFPS(limitFPS);
+        }
+
+        int maxFPS = settings->GetMaxFPS();
+        if (ImGui::SliderInt("Max FPS", &maxFPS, 1, 120))
+        {
+            settings->SetMaxFPS(maxFPS);
+        }
+
         bool blend = settings->GetBlend();
         if (ImGui::Checkbox("Blend", &blend))
         {
