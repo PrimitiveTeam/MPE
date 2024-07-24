@@ -4,7 +4,7 @@
 
 namespace PONG
 {
-Ball::Ball(glm::vec2 position, glm::vec2 size, const std::string &texture, float radius) : Position(position), Size(size), Radius(radius)
+Ball::Ball(glm::vec2 position, glm::vec2 size, const std::string &texture, float radius) : Position(position), Size(size), Velocity(0.0f), Radius(radius)
 {
     Texture = MPE::Texture2D::Create(texture);
 }

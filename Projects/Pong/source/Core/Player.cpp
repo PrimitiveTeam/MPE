@@ -5,7 +5,7 @@
 namespace PONG
 {
 Player::Player(glm::vec2 position, glm::vec2 size, const KeyMap controls, glm::vec4 color)
-    : Score(0), Position(position), Size(size), Up(controls.UP), Down(controls.DOWN), Color(color)
+    : Score(0), Position(position), Size(size), Up(controls.UP), Down(controls.DOWN), Color(color), Velocity{0.0f, 5.0f}
 {
 }
 
@@ -19,6 +19,11 @@ void Player::SetScore(int value)
 void Player::IterateScore()
 {
     Score++;
+}
+
+void Player::SetPosition(glm::vec2 position)
+{
+    Position = position;
 }
 
 void Player::SetX(float x)

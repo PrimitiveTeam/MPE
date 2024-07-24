@@ -6,7 +6,7 @@
 
 namespace PONG
 {
-Pong::Pong() : Layer("Sandbox2D"), SYS_CAMERA_CONTROLLER(1280.0f / 720.0f, true)
+Pong::Pong() : Layer("Sandbox2D"), SYS_CAMERA_CONTROLLER(1920.0f / 1080.0f, true)
 // LEFT_PLAYER(nullptr), RIGHT_PLAYER(nullptr),
 // BALL(glm::vec2(0.0f, 0.0f), glm::vec2(0.25f, 0.25f), "Data/Textures/Ball.png"),
 // LEFT_PLAYER(glm::vec2(-22.0f, 0.0f), glm::vec2(0.5f, 5.0f), PONG::KeyMap(MPE_KEY_W, MPE_KEY_S)),
@@ -71,25 +71,25 @@ void Pong::OnImGuiRender()
     ImGui::Separator();
 
     ImGui::Text("LEFT PLAYER");
-    ImGui::Text("POSITION: (%.2f, %.2f)", LEFT_PLAYER->GetPosition().x, LEFT_PLAYER->GetPosition().y);
-    ImGui::Text("SIZE: (%.2f, %.2f)", LEFT_PLAYER->GetSize().x, LEFT_PLAYER->GetSize().y);
-    // ImGui::Text("COLOR: (%.2f, %.2f, %.2f, %.2f)", LEFT_PLAYER->GetColor().r, LEFT_PLAYER->GetColor().g, LEFT_PLAYER->GetColor().b,
+    ImGui::Text("POSITION: (%.5f, %.5f)", LEFT_PLAYER->GetPosition().x, LEFT_PLAYER->GetPosition().y);
+    ImGui::Text("SIZE: (%.5f, %.5f)", LEFT_PLAYER->GetSize().x, LEFT_PLAYER->GetSize().y);
+    // ImGui::Text("COLOR: (%.5f, %.5f, %.5f, %.5f)", LEFT_PLAYER->GetColor().r, LEFT_PLAYER->GetColor().g, LEFT_PLAYER->GetColor().b,
     // LEFT_PLAYER->GetColor().a);
 
     ImGui::Separator();
 
     ImGui::Text("RIGHT PLAYER");
-    ImGui::Text("POSITION: (%.2f, %.2f)", RIGHT_PLAYER->GetPosition().x, RIGHT_PLAYER->GetPosition().y);
-    ImGui::Text("SIZE: (%.2f, %.2f)", RIGHT_PLAYER->GetSize().x, RIGHT_PLAYER->GetSize().y);
-    // ImGui::Text("COLOR: (%.2f, %.2f, %.2f, %.2f)", RIGHT_PLAYER->GetColor().r, RIGHT_PLAYER->GetColor().g, RIGHT_PLAYER->GetColor().b,
+    ImGui::Text("POSITION: (%.5f, %.5f)", RIGHT_PLAYER->GetPosition().x, RIGHT_PLAYER->GetPosition().y);
+    ImGui::Text("SIZE: (%.5f, %.5f)", RIGHT_PLAYER->GetSize().x, RIGHT_PLAYER->GetSize().y);
+    // ImGui::Text("COLOR: (%.5f, %.5f, %.5f, %.5f)", RIGHT_PLAYER->GetColor().r, RIGHT_PLAYER->GetColor().g, RIGHT_PLAYER->GetColor().b,
     // RIGHT_PLAYER->GetColor().a);
 
     ImGui::Separator();
 
     ImGui::Text("BALL");
-    ImGui::Text("POSITION: (%.2f, %.2f)", BALL->GetPosition().x, BALL->GetPosition().y);
-    ImGui::Text("SIZE: (%.2f, %.2f)", BALL->GetSize().x, BALL->GetSize().y);
-    ImGui::Text("RADIUS: %.2f", BALL->GetRadius());
+    ImGui::Text("POSITION: (%.5f, %.5f)", BALL->GetPosition().x, BALL->GetPosition().y);
+    ImGui::Text("SIZE: (%.5f, %.5f)", BALL->GetSize().x, BALL->GetSize().y);
+    ImGui::Text("RADIUS: %.5f", BALL->GetRadius());
 
     ImGui::End();
 }
