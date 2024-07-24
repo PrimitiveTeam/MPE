@@ -53,6 +53,8 @@ void App::Run()
     {
         if (SYS_AppPaused) continue;
 
+        auto frameStart = std::chrono::high_resolution_clock::now();
+
         // TODO: Platform::GetTime();
         float time = (float) glfwGetTime();
         Time deltaTime = time - SYS_LAST_FRAME_TIME;
@@ -106,6 +108,16 @@ void App::Run()
         if (Input::IsKeyJustPressed(MPE_KEY_F)) ToggleFullscreen();
 
         if (Input::IsKeyJustPressed(MPE_KEY_SPACE)) ToggleDeltaTime();
+
+        // Calculate frame time
+        auto frameEnd = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double, std::milli> frameDuration = frameEnd - frameStart;
+
+        // If frame completed too fast, delay to maintain target frame time
+        if (SYS_TargetFPS != -1 && (frameDuration.count() < SYS_Frame_Time_MS))
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(SYS_Frame_Time_MS) - frameDuration);
+        }
     }
 }
 
@@ -115,6 +127,7 @@ void App::OnEvent(Event &SYS_Event)
     dispatcher.Dispatch<WindowCloseEvent>(MPE_BIND_EVENT_FUNCTION(App::OnWindowClose));
     dispatcher.Dispatch<WindowResizeEvent>(MPE_BIND_EVENT_FUNCTION(App::OnWindowResize));
     dispatcher.Dispatch<WindowMovedEvent>(MPE_BIND_EVENT_FUNCTION(App::OnWindowMoved));
+    dispatcher.Dispatch<GraphicsSettingsChangedEvent>(MPE_BIND_EVENT_FUNCTION(App::OnGraphicsSettingsUpdate));
 
     for (auto it = SYS_LayerStack->end(); it != SYS_LayerStack->begin();)
     {
@@ -235,5 +248,27 @@ void App::ToggleFullscreen()
 void App::ToggleDeltaTime()
 {
     IsDeltaTimePaused = !IsDeltaTimePaused;
+}
+
+bool App::OnGraphicsSettingsUpdate(GraphicsSettingsChangedEvent &e)
+{
+    // Get settings from renderer then update appropriate settings like frame lock
+
+    auto rendererSettings = RenderPrimitive::GetSettings();
+
+    if (e.GetSettingName() == "LIMIT_FPS" || e.GetSettingName() == "MAX_FPS")
+    {
+        if (rendererSettings->GetLimitFPS())
+        {
+            SYS_TargetFPS = rendererSettings->GetMaxFPS();
+            SYS_Frame_Time_MS = 1000.0f / SYS_TargetFPS;
+        }
+        else
+        {
+            SYS_TargetFPS = -1;
+        }
+    }
+
+    return false;
 }
 }

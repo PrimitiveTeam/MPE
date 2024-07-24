@@ -7,6 +7,7 @@
 #include "MPE/App/Window.h"
 #include "MPE/Log/Log.h"
 #include "MPE/Events/EventApp.h"
+#include "MPE/Events/EventGraphics.h"
 #include "MPE/Vendor/ImGui/ImGuiLayer.h"
 #include "MPE/Renderer/Renderer.h"
 
@@ -61,12 +62,15 @@ class MPE_API App
     inline void ToggleGUI() { SYS_GUI = !SYS_GUI; }
     inline bool IsGUIEnabled() { return SYS_GUI; }
 
+
   private:
     bool OnWindowClose(WindowCloseEvent &e);
     bool OnWindowResize(WindowResizeEvent &e);
     bool OnWindowMoved(WindowMovedEvent &e);
+    bool OnGraphicsSettingsUpdate(GraphicsSettingsChangedEvent &e);
     void ToggleFullscreen();
     void ToggleDeltaTime();
+    void ChangeTargetFPS(int FPS);
 
     static App *SYS_APP_Instance;
     REF<ImGuiLayer> SYS_ImGuiLayer;
@@ -81,6 +85,9 @@ class MPE_API App
     float SYS_LAST_FRAME_TIME = 0.0f;
     bool IsDeltaTimePaused = false;
     bool SYS_AppPaused = false;
+
+    int SYS_TargetFPS = -1;
+    int SYS_Frame_Time_MS = 1000 / SYS_TargetFPS;
 };
 
 App *CreateApp();

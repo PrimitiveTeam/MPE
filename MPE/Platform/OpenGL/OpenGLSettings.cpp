@@ -1,6 +1,9 @@
 #include "OpenGLSettings.h"
 #include "MPEPCH.h"
 
+#include "MPE/App/App.h"
+#include "MPE/Events/EventGraphics.h"
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -8,16 +11,19 @@ namespace MPE
 {
 OpenGLSettings::OpenGLSettings()
 {
-    #if MPE_PLATFORM_LINUX
+#if MPE_PLATFORM_LINUX
     _SETTINGS.insert(std::make_pair("VSYNC", std::make_pair("VSYNC", _VSYNC)));
     _SETTINGS.insert(std::make_pair("BLEND", std::make_pair("BLEND", _BLEND)));
     _SETTINGS.insert(std::make_pair("DEPTH_TEST", std::make_pair("DEPTH_TEST", _DEPTH_TEST)));
     _SETTINGS.insert(std::make_pair("POLYGON_MODE", std::make_pair("POLYGON_MODE", _POLYGON_MODE)));
-    #else
+#else
     _SETTINGS["VSYNC"] = std::make_pair("VSYNC", _VSYNC);
+    _SETTINGS["LIMIT_FPS"] = std::make_pair("LIMIT_FPS", _LIMIT_FPS);
+    _SETTINGS["MAX_FPS"] = std::make_pair("MAX_FPS", _MAX_FPS);
     _SETTINGS["BLEND"] = std::make_pair("BLEND", _BLEND);
     _SETTINGS["DEPTH_TEST"] = std::make_pair("DEPTH_TEST", _DEPTH_TEST);
-    #endif
+    _SETTINGS["POLYGON_MODE"] = std::make_pair("POLYGON_MODE", _POLYGON_MODE);
+#endif
 }
 
 // VSYNC
@@ -31,7 +37,7 @@ void OpenGLSettings::ToggleVsync()
     else
         glfwSwapInterval(0);
 
-    UpdateSettings();
+    UpdateSettingsAndSendEvent(_SETTINGS["VSYNC"].first, _VSYNC);
 }
 
 bool OpenGLSettings::GetVsync() const
@@ -48,7 +54,42 @@ void OpenGLSettings::SetVsync(bool vsync)
     else
         glfwSwapInterval(0);
 
-    UpdateSettings();
+    UpdateSettingsAndSendEvent(_SETTINGS["VSYNC"].first, _VSYNC);
+}
+
+// LIMIT FPS
+
+void OpenGLSettings::ToggleLimitFPS()
+{
+    _LIMIT_FPS = !_LIMIT_FPS;
+
+    UpdateSettingsAndSendEvent(_SETTINGS["LIMIT_FPS"].first, _LIMIT_FPS);
+}
+
+bool OpenGLSettings::GetLimitFPS() const
+{
+    return _LIMIT_FPS;
+}
+
+void OpenGLSettings::SetLimitFPS(bool limitFPS)
+{
+    _LIMIT_FPS = limitFPS;
+
+    UpdateSettingsAndSendEvent(_SETTINGS["LIMIT_FPS"].first, _LIMIT_FPS);
+}
+
+// MAX FPS
+
+void OpenGLSettings::SetMaxFPS(uint8_t maxFPS)
+{
+    _MAX_FPS = maxFPS;
+
+    UpdateSettingsAndSendEvent(_SETTINGS["MAX_FPS"].first, _MAX_FPS);
+}
+
+uint8_t OpenGLSettings::GetMaxFPS() const
+{
+    return _MAX_FPS;
 }
 
 // BLEND
@@ -62,7 +103,7 @@ void OpenGLSettings::ToggleBlend()
     else
         glDisable(GL_BLEND);
 
-    UpdateSettings();
+    UpdateSettingsAndSendEvent(_SETTINGS["BLEND"].first, _BLEND);
 }
 
 bool OpenGLSettings::GetBlend() const
@@ -79,7 +120,7 @@ void OpenGLSettings::SetBlend(bool blend)
     else
         glDisable(GL_BLEND);
 
-    UpdateSettings();
+    UpdateSettingsAndSendEvent(_SETTINGS["BLEND"].first, _BLEND);
 }
 
 // DEPTH TEST
@@ -93,7 +134,7 @@ void OpenGLSettings::ToggleDepthTest()
     else
         glDisable(GL_DEPTH_TEST);
 
-    UpdateSettings();
+    UpdateSettingsAndSendEvent(_SETTINGS["DEPTH_TEST"].first, _DEPTH_TEST);
 }
 
 bool OpenGLSettings::GetDepthTest() const
@@ -110,7 +151,7 @@ void OpenGLSettings::SetDepthTest(bool depthTest)
     else
         glDisable(GL_DEPTH_TEST);
 
-    UpdateSettings();
+    UpdateSettingsAndSendEvent(_SETTINGS["DEPTH_TEST"].first, _DEPTH_TEST);
 }
 
 // POLYGON MODE
@@ -124,7 +165,7 @@ void OpenGLSettings::TogglePolygonMode()
     else
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    UpdateSettings();
+    UpdateSettingsAndSendEvent(_SETTINGS["POLYGON_MODE"].first, _POLYGON_MODE);
 }
 
 bool OpenGLSettings::GetPolygonMode() const
@@ -141,7 +182,7 @@ void OpenGLSettings::SetPolygonMode(bool polygonMode)
     else
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    UpdateSettings();
+    UpdateSettingsAndSendEvent(_SETTINGS["POLYGON_MODE"].first, _POLYGON_MODE);
 }
 
 // SETTINGS
@@ -172,9 +213,23 @@ void OpenGLSettings::UpdateSettings()
     if (polygonModeIt != _SETTINGS.end()) polygonModeIt->second.second = _POLYGON_MODE;
 #else
     _SETTINGS["VSYNC"].second = _VSYNC;
+    _SETTINGS["LIMIT_FPS"].second = _LIMIT_FPS;
+    _SETTINGS["MAX_FPS"].second = _MAX_FPS;
     _SETTINGS["BLEND"].second = _BLEND;
     _SETTINGS["DEPTH_TEST"].second = _DEPTH_TEST;
     _SETTINGS["POLYGON_MODE"].second = _POLYGON_MODE;
 #endif
+}
+
+void OpenGLSettings::UpdateSettingsAndSendEvent(std::string name, int32_t value)
+{
+    UpdateSettings();
+    SendEvent(name, value);
+}
+
+void OpenGLSettings::SendEvent(std::string name, int32_t value)
+{
+    MPE::GraphicsSettingsChangedEvent event(name, value);
+    MPE::App::GetApp().OnEvent(event);
 }
 }
