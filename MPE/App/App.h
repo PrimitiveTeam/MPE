@@ -62,7 +62,6 @@ class MPE_API App
     inline void ToggleGUI() { SYS_GUI = !SYS_GUI; }
     inline bool IsGUIEnabled() { return SYS_GUI; }
 
-
   private:
     bool OnWindowClose(WindowCloseEvent &e);
     bool OnWindowResize(WindowResizeEvent &e);

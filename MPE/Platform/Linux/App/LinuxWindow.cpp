@@ -38,7 +38,7 @@ void LinuxWindow::Init(const WindowProps &props)
     SYS_Data.Height = props.Height;
     SYS_Data.WindowPositionX = props.WindowPositionX;
     SYS_Data.WindowPositionY = props.WindowPositionY;
-    
+
     MPE_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
     if (!SYS_GLFWInitialized)

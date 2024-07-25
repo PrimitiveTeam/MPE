@@ -21,6 +21,10 @@ App::App()
     MPE_CORE_ASSERT(!SYS_APP_Instance, "APP ALREADY EXISTS.");
     SYS_APP_Instance = this;
 
+    // Set RenderAPI before creating window
+    Renderer::SetGraphicsAPI(RendererAPI::API::OpenGLES);
+    // Renderer::SetGraphicsAPI(RendererAPI::API::OpenGL);
+
     SYS_APP_Window = Window::CreateNativeWindow(WindowProps("MPE Engine", 1280, 720));
     SYS_APP_Window->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));
 

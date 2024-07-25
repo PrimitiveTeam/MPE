@@ -54,9 +54,21 @@ static GLenum ShaderTypeFromString(const std::string &type)
     }
 }
 
-OpenGLShader::OpenGLShader(const std::string &filepath) : SYS_Renderer_ID(0)
+OpenGLShader::OpenGLShader(const std::string &filepath, bool useEditorResource) : SYS_Renderer_ID(0)
 {
-    std::string SHADER_SOURCE = ValidateFile(filepath);
+    std::string SHADER_SOURCE = "";
+    if (useEditorResource)
+    {
+        SHADER_SOURCE = this->ParseEditorResourcePath(filepath);
+        MPE_WARN("Attempting to load shader: {0}", SHADER_SOURCE);
+        SHADER_SOURCE = ValidateFile(SHADER_SOURCE);
+    }
+    else
+    {
+        SHADER_SOURCE = ValidateFile(filepath);
+        MPE_WARN("Attempting to load shader: {0}", filepath);
+    }
+
     auto SHADER_TYPE_SOURCES = PreProcess(SHADER_SOURCE);
     Compile(SHADER_TYPE_SOURCES);
     MPE_CORE_INFO("SHADER FILE {0} LOADED SUCCESSFULLY", filepath);
