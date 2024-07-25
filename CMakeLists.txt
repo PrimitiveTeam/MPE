@@ -570,6 +570,7 @@ file(
   # /Editor
   "${PROJECT_SOURCE_DIR}/MPE/Editor/*.cpp"
   "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Editor/Dialog/*.cpp"
 
   # /Platform/OpenGL
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.cpp"
@@ -643,6 +644,7 @@ file(
   # /Editor
   "${PROJECT_SOURCE_DIR}/MPE/Editor/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Editor/Dialog/*.h"
 
   # /Platform/OpenGL
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.h"
@@ -687,6 +689,9 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
 
     # /Platform/Windows/Input
     "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/Input/*.cpp"
+
+    # /Platform/Windows/Editor/Prompts
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/Editor/Prompts/*.cpp"
   )
 
   file(
