@@ -73,3 +73,17 @@ For windows [VCPKG](https://vcpkg.io/) is __required__.
 2\~\* CPM MIGHT FAIL TO INSTALL ALL LIBRARIES DUE TO SOME ISSUE WITH ALPHA VERSION. IF THIS HAPPENS CHECK [cpm_install.json](cpm_install.json) AND INSTALL THE MISSING LIBRARIES.
 
 3\~\* SINCE ONLY WINDOWS AND MSVC IS SUPPORTED THEN JUST RUN ``./cpm build -dg nt/msvc``
+
+### BUILDING WITH OPENGLES
+
+#### Dependencies For OpenGLES/Angle
+
+Supported only on Windows
+
+1. All of the above
+2. [Python 3](https://www.python.org/downloads/) (also add to path)
+3. You might also need to make a smybolic link of python3, e.g. 'mklink "C:\Dev\Tools\symlink\python3.exe" "C:\Program Files\Python312\python.exe"'
+4. [depot_tools](https://commondatastorage.googleapis.com/chrome-infra-docs/flat/depot_tools/docs/html/depot_tools_tutorial.html#_setting_up) (also add to path)
+5. Set DEPOT_TOOLS_WIN_TOOLCHAIN=0 in your environment if you are not a Googler
+6. Windows SDK (10.0.22621.0)
+7. Run .\Utility\Windows\setup_angle.bat
