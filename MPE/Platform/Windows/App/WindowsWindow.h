@@ -3,6 +3,7 @@
 #include "MPE/Core/_CORE.h"
 #include "MPE/App/Window.h"
 #include "MPE/Platform/OpenGL/OpenGLContext.h"
+#include "MPE/Platform/OpenGLES/OpenGLESContext.h"
 #include "MPE/Platform/Windows/App/WindowMonitors.h"
 
 #include <glad/glad.h>
@@ -46,6 +47,7 @@ class MPE_API WindowsWindow : public Window
   private:
     GLFWwindow *SYS_Window;
     OpenGLContext *SYS_Context;
+    OpenGLESContext *SYS_ESContext;
 
     struct WindowData
     {

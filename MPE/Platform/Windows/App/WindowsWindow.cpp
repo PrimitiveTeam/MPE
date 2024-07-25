@@ -7,6 +7,7 @@
 #include "MPE/Events/EventKey.h"
 #include "MPE/Events/EventMouse.h"
 
+#include "MPE/Renderer/RendererAPI.h"
 namespace MPE
 {
 static bool SYS_GLFWInitialized = false;
@@ -53,11 +54,32 @@ void WindowsWindow::Init(const WindowProps &props)
         SYS_GLFWInitialized = true;
     }
 
+    auto api = MPE::RendererAPI::GetGraphicsAPI();
+
+    if (api == RendererAPI::API::OpenGLES)
+    {
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
+    }
+
     SYS_Window = glfwCreateWindow((int) props.Width, (int) props.Height, SYS_Data.Title.c_str(), nullptr, nullptr);
     SaveWindowSizeAndPosition();
 
-    SYS_Context = new OpenGLContext(SYS_Window);
-    SYS_Context->Init();
+    switch (api)
+    {
+        case RendererAPI::API::OpenGL:
+            SYS_Context = new OpenGLContext(SYS_Window);
+            SYS_Context->Init();
+            break;
+        case RendererAPI::API::OpenGLES:
+            SYS_ESContext = new OpenGLESContext(SYS_Window);
+            SYS_ESContext->Init();
+            break;
+        default:
+            MPE_CORE_ASSERT(false, "NO RENDERER API SELECTED.");
+    }
 
     glfwSetWindowUserPointer(SYS_Window, &SYS_Data);
 
@@ -179,7 +201,19 @@ void WindowsWindow::Shutdown()
 void WindowsWindow::OnUpdate()
 {
     glfwPollEvents();
-    SYS_Context->SwapBuffers();
+
+    auto api = MPE::RendererAPI::GetGraphicsAPI();
+    switch (api)
+    {
+        case RendererAPI::API::OpenGL:
+            SYS_Context->SwapBuffers();
+            break;
+        case RendererAPI::API::OpenGLES:
+            SYS_ESContext->SwapBuffers();
+            break;
+        default:
+            MPE_CORE_ASSERT(false, "NO RENDERER API SELECTED.");
+    }
     // glfwSwapBuffers(SYS_Window);
 }
 

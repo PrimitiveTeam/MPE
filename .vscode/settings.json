@@ -112,6 +112,12 @@
     "__config": "cpp",
     "__locale": "cpp",
     "__threading_support": "cpp",
-    "__verbose_abort": "cpp"
+    "__verbose_abort": "cpp",
+    "__assertion_handler": "cpp",
+    "execution": "cpp",
+    "scoped_allocator": "cpp",
+    "*.inc": "cpp",
+    "print": "cpp",
+    "*.hpp11": "cpp"
   }
 }

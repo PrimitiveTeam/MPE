@@ -43,7 +43,7 @@ void Renderer2D::Init()
     uint32_t WhiteTexData = 0xffffffff;
     SYS_DATA->WHITE_TEXTURE->SetData(&WhiteTexData, sizeof(WhiteTexData));
 
-    SYS_DATA->TEXTURE_SHADER = Shader::Create("Data/Shaders/ColoredTexture.glsl");
+    SYS_DATA->TEXTURE_SHADER = Shader::Create("Data/Shaders/ColoredTexture.glsl", true);
     SYS_DATA->TEXTURE_SHADER->Bind();
     SYS_DATA->TEXTURE_SHADER->SetInt1("UNI_TEXTURE", 0);
 }

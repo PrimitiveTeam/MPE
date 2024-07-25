@@ -9,6 +9,7 @@ REM CD into Vendor
 cd %SCRIPT_DIR%..\..\Vendor
 echo Generating GLAD for OpenGL version 4.6...
 glad --quiet --api gl:compatibility=4.6 --out-path .\Glad c
+@REM glad --quiet --api gles2=3.0 --out-path .\Glad c
 
 REM imgui
 REM If imgui already exists, cancel next step

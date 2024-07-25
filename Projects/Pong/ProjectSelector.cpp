@@ -46,8 +46,21 @@ class DebugGuiLayer : public MPE::Layer
         ImGui::Separator();
 
         ImGui::Text("Graphics Settings");
-        // Retrieve RenderSettings object
-        auto settings = dynamic_cast<MPE::OpenGLSettings*>(MPE::RenderPrimitive::GetSettings());
+        // Retrieve RenderSettings
+        auto api = MPE::RendererAPI::GetGraphicsAPI();
+        switch (api)
+        {
+            case MPE::RendererAPI::API::OpenGL:
+                ImGui::Text("Graphics API: OpenGL");
+                break;
+            case MPE::RendererAPI::API::OpenGLES:
+                ImGui::Text("Graphics API: OpenGLES");
+                break;
+            default:
+                MPE_CORE_ASSERT(false, "NO RENDERER API SELECTED.");
+        }
+        // auto settings = dynamic_cast<MPE::OpenGLSettings*>(MPE::RenderPrimitive::GetSettings());
+        auto settings = MPE::RenderPrimitive::GetSettings();
         // Display RenderSettings (vsync, blend, depthTest)
 
         ImGui::Text("Current Vsync: %s", settings->GetVsync() ? "Enabled" : "Disabled");
@@ -82,10 +95,13 @@ class DebugGuiLayer : public MPE::Layer
             settings->SetDepthTest(depthTest);
         }
 
-        bool polygonMode = settings->GetPolygonMode();
-        if (ImGui::Checkbox("Polygon Mode", &polygonMode))
+        if (api == MPE::RendererAPI::API::OpenGL)
         {
-            settings->SetPolygonMode(polygonMode);
+            bool polygonMode = dynamic_cast<MPE::OpenGLSettings*>(settings)->GetPolygonMode();
+            if (ImGui::Checkbox("Polygon Mode", &polygonMode))
+            {
+                dynamic_cast<MPE::OpenGLSettings*>(settings)->SetPolygonMode(polygonMode);
+            }
         }
     }
 

@@ -2,6 +2,7 @@
 #include "MPE/MPEPCH.h"
 
 #include "MPE/Platform/OpenGL/Shaders/OpenGLShader.h"
+#include "MPE/Platform/OpenGLES/Shaders/OpenGLESShader.h"
 #include "MPE/Renderer/Renderer2D.h"
 
 namespace MPE
@@ -32,8 +33,24 @@ void Renderer::EndScene() {}
 void Renderer::Submit(const REF<Shader> &shader, const REF<VertexArray> &vertexArray, const glm::mat4 &transform)
 {
     shader->Bind();
-    std::dynamic_pointer_cast<OpenGLShader>(shader)->InjectUniformMat4("UNI_VPM", SYS_SCENE->PROJECTION_VIEW_MATRIX);
-    std::dynamic_pointer_cast<OpenGLShader>(shader)->InjectUniformMat4("UNI_MODELMAT", transform);
+
+    auto api = RendererAPI::GetGraphicsAPI();
+
+    switch (api)
+    {
+        case RendererAPI::API::OpenGL:
+            std::dynamic_pointer_cast<OpenGLShader>(shader)->InjectUniformMat4("UNI_VPM", SYS_SCENE->PROJECTION_VIEW_MATRIX);
+            std::dynamic_pointer_cast<OpenGLShader>(shader)->InjectUniformMat4("UNI_MODELMAT", transform);
+            break;
+        case RendererAPI::API::OpenGLES:
+            std::dynamic_pointer_cast<OpenGLESShader>(shader)->InjectUniformMat4("UNI_VPM", SYS_SCENE->PROJECTION_VIEW_MATRIX);
+            std::dynamic_pointer_cast<OpenGLESShader>(shader)->InjectUniformMat4("UNI_MODELMAT", transform);
+            break;
+
+        default:
+            MPE_CORE_ASSERT(false, "UNKOWN RENDERER API.");
+            break;
+    }
 
     vertexArray->Bind();
     RenderPrimitive::DrawIndexed(vertexArray);

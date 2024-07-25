@@ -15,7 +15,8 @@ class MPE_API RendererAPI
     enum class API
     {
         None = 0,
-        OpenGL = 1
+        OpenGL = 1,
+        OpenGLES = 2
         // Direct3D
         // Vulcan
     };
@@ -31,7 +32,35 @@ class MPE_API RendererAPI
 
     virtual RenderSettings *GetSettings() = 0;
 
-    inline static API GetGraphicsAPI() { return GRAPHICS_API; }
+    inline static API GetGraphicsAPI()
+    {
+        if (!APISelected) throw std::runtime_error("No graphics API selected.");
+        return GRAPHICS_API;
+    }
+    inline static void SetGraphicsAPI(API api)
+    {
+        GRAPHICS_API = api;
+        APISelected = true;
+    }
+
+    static std::string APIToString(API api)
+    {
+        switch (api)
+        {
+            case API::None:
+                return "None";
+            case API::OpenGL:
+                return "OpenGL";
+            case API::OpenGLES:
+                return "OpenGLES";
+            default:
+                MPE_ASSERT(false, "Unknown API.");
+                return "Unknown";
+        }
+    }
+
+  protected:
+    inline static bool APISelected = false;
 
   private:
     static API GRAPHICS_API;

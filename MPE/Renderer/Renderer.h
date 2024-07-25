@@ -27,6 +27,9 @@ class MPE_API Renderer
     // Get the FPSMS struct
     inline static WINDOW_FPS_MS GetFPS_MS() { return *SYS_WINDOW_FPS_MS; }
 
+    // Set API
+    inline static void SetGraphicsAPI(RendererAPI::API api) { RenderPrimitive::SetGraphicsAPI(api); }
+
   private:
     struct SceneData
     {

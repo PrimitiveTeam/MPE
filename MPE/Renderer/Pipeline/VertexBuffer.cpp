@@ -4,6 +4,7 @@
 #include "MPE/Core/_ASSERTS.h"
 #include "MPE/Renderer/Renderer.h"
 #include "MPE/Platform/OpenGL/Pipeline/OpenGLVertexBuffer.h"
+#include "MPE/Platform/OpenGLES/Pipeline/OpenGLESVertexBuffer.h"
 #include "MPE/Log/GlobalLog.h"
 
 namespace MPE
@@ -18,8 +19,13 @@ REF<VertexBuffer> VertexBuffer::Create(float *vertices, uint32_t size)
 
         case RendererAPI::API::OpenGL:
             return NEWREF<OpenGLVertexBuffer>(vertices, size);
+
+        case RendererAPI::API::OpenGLES:
+            return NEWREF<OpenGLESVertexBuffer>(vertices, size);
+
+        default:
+            MPE_CORE_ASSERT(false, "UNKOWN RENDERER API.");
+            return nullptr;
     }
-    MPE_CORE_ASSERT(false, "UNKOWN RENDERER API.");
-    return nullptr;
 }
 }

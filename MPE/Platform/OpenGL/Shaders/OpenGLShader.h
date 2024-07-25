@@ -19,7 +19,7 @@ namespace MPE
 class MPE_API OpenGLShader : public Shader
 {
   public:
-    OpenGLShader(const std::string &filepath);
+    OpenGLShader(const std::string &filepath, bool useEditorResource = false);
     OpenGLShader(const std::string &name, const std::string &vertexSource, const std::string &fragmentSource);
     virtual ~OpenGLShader();
 

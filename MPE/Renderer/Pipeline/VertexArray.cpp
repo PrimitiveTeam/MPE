@@ -4,6 +4,7 @@
 #include "MPE/Core/_ASSERTS.h"
 #include "MPE/Renderer/Renderer.h"
 #include "MPE/Platform/OpenGL/Pipeline/OpenGLVertexArray.h"
+#include "MPE/Platform/OpenGLES/Pipeline/OpenGLESVertexArray.h"
 #include "MPE/Log/GlobalLog.h"
 
 namespace MPE
@@ -18,8 +19,13 @@ REF<VertexArray> VertexArray::Create()
 
         case RendererAPI::API::OpenGL:
             return NEWREF<OpenGLVertexArray>();
+
+        case RendererAPI::API::OpenGLES:
+            return NEWREF<OpenGLESVertexArray>();
+
+        default:
+            MPE_CORE_ASSERT(false, "UNKOWN RENDERER API.");
+            return nullptr;
     }
-    MPE_CORE_ASSERT(false, "UNKOWN RENDERER API.");
-    return nullptr;
 }
 }

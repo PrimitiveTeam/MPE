@@ -4,8 +4,7 @@
 
 namespace MPE
 {
-OpenGLVertexBuffer::OpenGLVertexBuffer(float *vertices, uint32_t size)
-: m_Size(size)
+OpenGLVertexBuffer::OpenGLVertexBuffer(float *vertices, uint32_t size) : m_Size(size)
 {
 // TODO: Add a check for OpenGL version using compiler defines.
 #ifdef MPE_PLATFORM_OSX
