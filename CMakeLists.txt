@@ -16,8 +16,11 @@ set(INSTALL_DLLS OFF)
 set(MPE_PROJECTS ON)
 set(MPE_PROJECT_SANDBOX OFF)
 set(MPE_PROJECT_PONG ON)
-set(MPE_PROJECT_PROJECTPICKER ON)
+set(MPE_PROJECT_PROJECTPICKER OFF)
 set(MPE_PROJECT_OPENCVTEST OFF)
+
+# ANGLE
+set(MPE_ANGLE ON)
 
 # TEMPORARY
 # DUMMY EXECUTABLE
@@ -222,10 +225,11 @@ if(WIN32)
     set(spdlog_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\spdlog")
 
     # GLAD
-    set(glad_DIR "${PROJECT_SOURCE_DIR}/Vendor/Glad")
+    set(glad_DIR "${PROJECT_SOURCE_DIR}/Vendor/glad")
 
     file(GLOB_RECURSE GLAD_S
-      "${glad_DIR}/src/glad.c")
+      "${glad_DIR}/src/glad.c"
+    )
 
     add_library(glad STATIC ${GLAD_S})
     target_include_directories(glad PUBLIC "${glad_DIR}/include")
@@ -450,6 +454,27 @@ if(COMPILATION_PLATFORM STREQUAL "UNIX")
   set(MPE_LIBRARY_TYPE STATIC)
 endif(COMPILATION_PLATFORM STREQUAL "UNIX")
 
+if(MPE_ANGLE)
+  if(VERBOSE)
+    message(STATUS "ADDING ANGLE DEPENDENCY...")
+  endif()
+
+  set(angle_DIR ${PROJECT_SOURCE_DIR}/Vendor/angle)
+  set(angle_Include ${angle_DIR}/include)
+  set(angle_Lib ${angle_DIR}/out/Release)
+
+  include_directories(${angle_Include})
+  link_directories(${angle_Lib})
+
+  find_library(ANGLE_GLESv2_LIBRARY libGLESv2.dll.lib PATHS ${angle_Lib})
+  find_library(ANGLE_EGL_LIBRARY libEGL.dll.lib PATHS ${angle_Lib})
+
+  set(ANGLE_DLLS
+    ${angle_Lib}/libGLESv2.dll
+    ${angle_Lib}/libEGL.dll
+  )
+endif(MPE_ANGLE)
+
 # ADDING DEPENDENCIES
 if(${VERBOSE})
   message(STATUS "LOOKING FOR DEPENDENCIES...")
@@ -554,6 +579,14 @@ file(
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Utilities/*.cpp"
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Editor/Grid/*.cpp"
 
+  # /Platform/OpenGLES
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Shaders/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Textures/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Utilities/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Editor/Grid/*.cpp"
+
   # /Vendor
   "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.cpp"
   "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.cpp"
@@ -618,6 +651,14 @@ file(
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Utilities/*.h"
   "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Editor/Grid/*.h"
+
+  # /Platform/OpenGLES
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Shaders/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Textures/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Utilities/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Editor/Grid/*.h"
 
   # /Vendor
   "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.h"
@@ -881,6 +922,17 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     MPE
     PRIVATE ${OpenCV_LIBS}
   )
+
+  if(MPE_ANGLE)
+    target_include_directories(MPE
+      PRIVATE ${angle_Include}
+    )
+
+    target_link_libraries(
+      MPE
+      PRIVATE ${ANGLE_GLESv2_LIBRARY}
+    )
+  endif(MPE_ANGLE)
 endif()
 
 if(COMPILATION_PLATFORM STREQUAL "OSX")
@@ -988,6 +1040,17 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
     $<TARGET_FILE_DIR:MPE>
     COMMENT "Copying OpenCV DLLs to MPE build..."
   )
+
+  if(MPE_ANGLE)
+    add_custom_command(
+      TARGET MPE
+      PRE_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy
+      ${ANGLE_DLLS}
+      $<TARGET_FILE_DIR:MPE>
+      COMMENT "Copying ANGLE DLLs to MPE build..."
+    )
+  endif(MPE_ANGLE)
 endif()
 
 # Copy the /MPE/Resources folder to /bin/Data
