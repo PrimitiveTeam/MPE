@@ -42,6 +42,10 @@
                 {
                     "library": "gtest",
                     "triplet": "x64-windows"
+                },
+                {
+                    "library": "freetype[glad]",
+                    "triplet": "x64-windows"
                 }
             ],
             "post_install": [
@@ -91,6 +95,10 @@
                 {
                     "library": "gtk3",
                     "distribution": "arch"
+                },
+                {
+                    "library": "freetype",
+                    "distribution": "arch"
                 }
             ],
             "instructions": []
@@ -136,6 +144,10 @@
                 },
                 {
                     "package": "gtest",
+                    "tool": "brew"
+                },
+                {
+                    "package": "freetype",
                     "tool": "brew"
                 }
             ],
