@@ -46,4 +46,22 @@ else
     git clone https://github.com/baldurk/renderdoc.git
 fi
 
+# opencv
+# If opencv already exists, cancel next step
+if [ -d "opencv" ]; then
+    echo "opencv already exists. Skipping..."
+else
+    echo "Cloning opencv..."
+    git clone https://github.com/opencv/opencv.git
+fi
+
+cd opencv
+echo "Generating and building OpenCV with Visual Studio 2022 - RELEASE"
+cmake -S . -B ./Build -G "Xcode" -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=./Install/Release
+cmake --build ./Build --config Release --target INSTALL
+echo "Generating and building OpenCV with Visual Studio 2022 - DEBUG"
+
+# cmake --build ./Build --config Debug --target INSTALL
+cd ..
+
 echo "Setup complete."
