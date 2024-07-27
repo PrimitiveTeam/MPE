@@ -179,8 +179,8 @@ bool OpenGLESSettings::GetPolygonMode() const
 
 void OpenGLESSettings::SetPolygonMode(bool polygonMode)
 {
-    // MPE_WARN("'glPolygonMode' NOT AVAILABLE ON OpenGLES.");
-    // return;
+    MPE_WARN("'glPolygonMode' NOT AVAILABLE ON OpenGLES.");
+    return;
 
     _POLYGON_MODE = polygonMode;
 
