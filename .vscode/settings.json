@@ -128,6 +128,8 @@
     "syncstream": "cpp",
     "__split_buffer": "cpp",
     "__tree": "cpp",
-    "propagate_const": "cpp"
+    "propagate_const": "cpp",
+    "__hash_table": "cpp",
+    "__node_handle": "cpp"
   }
 }
