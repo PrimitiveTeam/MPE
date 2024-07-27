@@ -23,8 +23,8 @@ App::App()
 
     // TODO: Add a dialog to select the graphics API
     // Set RenderAPI before creating window
-    Renderer::SetGraphicsAPI(RendererAPI::API::OpenGLES);
-    // Renderer::SetGraphicsAPI(RendererAPI::API::OpenGL);
+    // Renderer::SetGraphicsAPI(RendererAPI::API::OpenGLES);
+    Renderer::SetGraphicsAPI(RendererAPI::API::OpenGL);
 
     SYS_APP_Window = Window::CreateNativeWindow(WindowProps("MPE Engine", 1280, 720));
     SYS_APP_Window->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));
