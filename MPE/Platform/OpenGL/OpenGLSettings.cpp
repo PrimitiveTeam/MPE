@@ -13,6 +13,8 @@ OpenGLSettings::OpenGLSettings()
 {
 #if MPE_PLATFORM_LINUX
     _SETTINGS.insert(std::make_pair("VSYNC", std::make_pair("VSYNC", _VSYNC)));
+    _SETTINGS.insert(std::make_pair("LIMIT_FPS", std::make_pair("LIMIT_FPS", _LIMIT_FPS)));
+    _SETTINGS.insert(std::make_pair("MAX_FPS", std::make_pair("MAX_FPS", _MAX_FPS)));
     _SETTINGS.insert(std::make_pair("BLEND", std::make_pair("BLEND", _BLEND)));
     _SETTINGS.insert(std::make_pair("DEPTH_TEST", std::make_pair("DEPTH_TEST", _DEPTH_TEST)));
     _SETTINGS.insert(std::make_pair("POLYGON_MODE", std::make_pair("POLYGON_MODE", _POLYGON_MODE)));
@@ -37,7 +39,11 @@ void OpenGLSettings::ToggleVsync()
     else
         glfwSwapInterval(0);
 
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("VSYNC", _VSYNC);
+#else
     UpdateSettingsAndSendEvent(_SETTINGS["VSYNC"].first, _VSYNC);
+#endif
 }
 
 bool OpenGLSettings::GetVsync() const
@@ -54,7 +60,11 @@ void OpenGLSettings::SetVsync(bool vsync)
     else
         glfwSwapInterval(0);
 
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("VSYNC", _VSYNC);
+#else
     UpdateSettingsAndSendEvent(_SETTINGS["VSYNC"].first, _VSYNC);
+#endif
 }
 
 // LIMIT FPS
@@ -63,7 +73,11 @@ void OpenGLSettings::ToggleLimitFPS()
 {
     _LIMIT_FPS = !_LIMIT_FPS;
 
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("LIMIT_FPS", _LIMIT_FPS);
+#else
     UpdateSettingsAndSendEvent(_SETTINGS["LIMIT_FPS"].first, _LIMIT_FPS);
+#endif
 }
 
 bool OpenGLSettings::GetLimitFPS() const
@@ -75,7 +89,11 @@ void OpenGLSettings::SetLimitFPS(bool limitFPS)
 {
     _LIMIT_FPS = limitFPS;
 
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("LIMIT_FPS", _LIMIT_FPS);
+#else
     UpdateSettingsAndSendEvent(_SETTINGS["LIMIT_FPS"].first, _LIMIT_FPS);
+#endif
 }
 
 // MAX FPS
@@ -84,7 +102,11 @@ void OpenGLSettings::SetMaxFPS(uint8_t maxFPS)
 {
     _MAX_FPS = maxFPS;
 
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("MAX_FPS", _MAX_FPS);
+#else
     UpdateSettingsAndSendEvent(_SETTINGS["MAX_FPS"].first, _MAX_FPS);
+#endif
 }
 
 uint8_t OpenGLSettings::GetMaxFPS() const
@@ -103,7 +125,11 @@ void OpenGLSettings::ToggleBlend()
     else
         glDisable(GL_BLEND);
 
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("BLEND", _BLEND);
+#else
     UpdateSettingsAndSendEvent(_SETTINGS["BLEND"].first, _BLEND);
+#endif
 }
 
 bool OpenGLSettings::GetBlend() const
@@ -120,7 +146,11 @@ void OpenGLSettings::SetBlend(bool blend)
     else
         glDisable(GL_BLEND);
 
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("BLEND", _BLEND);
+#else
     UpdateSettingsAndSendEvent(_SETTINGS["BLEND"].first, _BLEND);
+#endif
 }
 
 // DEPTH TEST
@@ -134,7 +164,11 @@ void OpenGLSettings::ToggleDepthTest()
     else
         glDisable(GL_DEPTH_TEST);
 
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("DEPTH_TEST", _DEPTH_TEST);
+#else
     UpdateSettingsAndSendEvent(_SETTINGS["DEPTH_TEST"].first, _DEPTH_TEST);
+#endif
 }
 
 bool OpenGLSettings::GetDepthTest() const
@@ -151,7 +185,11 @@ void OpenGLSettings::SetDepthTest(bool depthTest)
     else
         glDisable(GL_DEPTH_TEST);
 
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("DEPTH_TEST", _DEPTH_TEST);
+#else
     UpdateSettingsAndSendEvent(_SETTINGS["DEPTH_TEST"].first, _DEPTH_TEST);
+#endif
 }
 
 // POLYGON MODE
@@ -165,7 +203,12 @@ void OpenGLSettings::TogglePolygonMode()
     else
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("POLYGON_MODE", _POLYGON_MODE);
+#else
+
     UpdateSettingsAndSendEvent(_SETTINGS["POLYGON_MODE"].first, _POLYGON_MODE);
+#endif
 }
 
 bool OpenGLSettings::GetPolygonMode() const
@@ -182,7 +225,11 @@ void OpenGLSettings::SetPolygonMode(bool polygonMode)
     else
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("POLYGON_MODE", _POLYGON_MODE);
+#else
     UpdateSettingsAndSendEvent(_SETTINGS["POLYGON_MODE"].first, _POLYGON_MODE);
+#endif
 }
 
 // SETTINGS
@@ -202,6 +249,12 @@ void OpenGLSettings::UpdateSettings()
 #if MPE_PLATFORM_LINUX
     auto vsyncIt = _SETTINGS.find("VSYNC");
     if (vsyncIt != _SETTINGS.end()) vsyncIt->second.second = _VSYNC;
+
+    auto limitFPSIt = _SETTINGS.find("LIMIT_FPS");
+    if (limitFPSIt != _SETTINGS.end()) limitFPSIt->second.second = _LIMIT_FPS;
+
+    auto maxFPSIt = _SETTINGS.find("MAX_FPS");
+    if (maxFPSIt != _SETTINGS.end()) maxFPSIt->second.second = _MAX_FPS;
 
     auto blendIt = _SETTINGS.find("BLEND");
     if (blendIt != _SETTINGS.end()) blendIt->second.second = _BLEND;
