@@ -33,3 +33,10 @@ cpm.sh
 .cache
 .vs
 # ------------------------------------------------------------------------------
+# CROSS-COMPILATION SPECIFIC
+[Uu]tility/[Rr][Pp][Ii]/*.img
+[Uu]tility/[Rr][Pp][Ii]/*.iso
+[Uu]tility/[Rr][Pp][Ii]/*.dtb
+[Uu]tility/[Rr][Pp][Ii]/kernel-qemu-4.4.34-jessie
+[Uu]tility/[Rr][Pp][Ii]/kernel-qemu-5.4.51-buster
+# ------------------------------------------------------------------------------
