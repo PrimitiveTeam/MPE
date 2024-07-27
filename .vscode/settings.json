@@ -118,6 +118,16 @@
     "scoped_allocator": "cpp",
     "*.inc": "cpp",
     "print": "cpp",
-    "*.hpp11": "cpp"
+    "*.hpp11": "cpp",
+    "csetjmp": "cpp",
+    "barrier": "cpp",
+    "cuchar": "cpp",
+    "expected": "cpp",
+    "latch": "cpp",
+    "mdspan": "cpp",
+    "syncstream": "cpp",
+    "__split_buffer": "cpp",
+    "__tree": "cpp",
+    "propagate_const": "cpp"
   }
 }
