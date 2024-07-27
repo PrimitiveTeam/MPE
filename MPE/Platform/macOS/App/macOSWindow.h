@@ -3,6 +3,7 @@
 #include "MPE/Core/_CORE.h"
 #include "MPE/App/Window.h"
 #include "MPE/Platform/OpenGL/OpenGLContext.h"
+#include "MPE/Platform/OpenGLES/OpenGLESContext.h"
 #include "MPE/Platform/macOS/App/WindowMonitors.h"
 
 #include <glad/glad.h>
@@ -20,6 +21,8 @@ class MPE_API macOSWindow : public Window
 
     inline int GetWidth() const override { return SYS_Data.Width; }
     inline int GetHeight() const override { return SYS_Data.Height; }
+    virtual inline int GetWindowPositionX() const override { return SYS_Data.WindowPositionX; }
+    virtual inline int GetWindowPositionY() const override { return SYS_Data.WindowPositionY; }
 
     inline void SetEventCallback(const EventCallbackFn &callback) override { SYS_Data.EventCallback = callback; }
 
@@ -31,6 +34,10 @@ class MPE_API macOSWindow : public Window
     virtual void SaveWindowSizeAndPosition() override;
     virtual void RestoreWindowSizeAndPosition() override;
 
+    virtual void SetLastWindowPosition(int x, int y) override;
+    virtual void SaveWindowPosition() override;
+    virtual void RestoreWindowPosition() override;
+
     inline virtual void *GetNativeWindow() const override { return SYS_Window; }
 
   private:
@@ -40,6 +47,7 @@ class MPE_API macOSWindow : public Window
   private:
     GLFWwindow *SYS_Window;
     OpenGLContext *SYS_Context;
+    OpenGLESContext *SYS_ESContext;
 
     struct WindowData
     {

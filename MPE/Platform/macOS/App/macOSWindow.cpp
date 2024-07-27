@@ -217,4 +217,20 @@ void macOSWindow::RestoreWindowSizeAndPosition()
     glfwSetWindowSize(SYS_Window, SYS_Data.PrevWidth, SYS_Data.PrevHeight);
     glfwSetWindowPos(SYS_Window, SYS_Data.PrevWindowPositionX, SYS_Data.PrevWindowPositionY);
 }
+
+void macOSWindow::SetLastWindowPosition(int x, int y)
+{
+    SYS_Data.PrevWindowPositionX = x;
+    SYS_Data.PrevWindowPositionY = y;
+}
+
+void macOSWindow::SaveWindowPosition()
+{
+    glfwGetWindowPos(SYS_Window, &SYS_Data.PrevWindowPositionX, &SYS_Data.PrevWindowPositionY);
+}
+
+void macOSWindow::RestoreWindowPosition()
+{
+    glfwSetWindowPos(SYS_Window, SYS_Data.PrevWindowPositionX, SYS_Data.PrevWindowPositionY);
+}
 }
