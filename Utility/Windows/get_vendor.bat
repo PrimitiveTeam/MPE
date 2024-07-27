@@ -7,6 +7,11 @@ mkdir %SCRIPT_DIR%..\..\Vendor
 
 REM CD into Vendor
 cd %SCRIPT_DIR%..\..\Vendor
+
+@REM Create WIN32 dir and cd into it
+mkdir WIN32
+cd WIN32
+
 echo Generating GLAD for OpenGL version 4.6...
 glad --quiet --api gl:compatibility=4.6 --out-path .\Glad c
 @REM glad --quiet --api gles2=3.0 --out-path .\Glad c
@@ -20,6 +25,7 @@ if exist "imgui" (
     git clone https://github.com/ocornut/imgui.git
     cd imgui
     git checkout docking
+    cd ..
 )
 
 REM stb
