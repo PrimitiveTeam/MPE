@@ -44,7 +44,7 @@
                     "triplet": "x64-windows"
                 },
                 {
-                    "library": "freetype[glad]",
+                    "library": "freetype-gl[glad]",
                     "triplet": "x64-windows"
                 }
             ],
