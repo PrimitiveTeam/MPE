@@ -90,5 +90,6 @@
 // GRID
 #include "MPE/Editor/Grid/Grid.h"
 // PROMPTS
+#include "MPE/Editor/Prompts/AdvancedDialog.h"
 #include "MPE/Editor/Prompts/SimpleDialog.h"
 // ----- EDITOR -----
