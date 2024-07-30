@@ -40,7 +40,7 @@ set(PROJECT_VERSION
   ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}.${PROJECT_VERSION_TWEAK}
 )
 set(PROJECT_FULL_VERSION
-  ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}.${PROJECT_VERSION_TWEAK}.${PROJECT_VERSION_SUFFIX}
+  ${PROJECT_VERSION_MAJOR}${PROJECT_VERSION_MINOR}${PROJECT_VERSION_PATCH}${PROJECT_VERSION_TWEAK}${PROJECT_VERSION_SUFFIX}
 )
 
 # CREATING PROJECT
@@ -436,7 +436,7 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   endif()
 
   # GLAD
-  set(glad_DIR "${VENDOR_DIR}/Glad")
+  set(glad_DIR "${VENDOR_DIR}/glad")
   add_library(glad STATIC "${glad_DIR}/src/glad.c")
   target_include_directories(glad PUBLIC "${glad_DIR}/include")
 
@@ -505,7 +505,7 @@ elseif(COMPILATION_PLATFORM STREQUAL "OSX")
   endif()
 
   # GLAD
-  set(glad_DIR "${VENDOR_DIR}/Glad")
+  set(glad_DIR "${VENDOR_DIR}/glad")
   add_library(glad STATIC "${glad_DIR}/src/glad.c")
   target_include_directories(glad PUBLIC "${glad_DIR}/include")
 
@@ -567,7 +567,7 @@ elseif(COMPILATION_PLATFORM STREQUAL "PI4")
   endif()
 
   # GLAD
-  set(glad_DIR "${VENDOR_DIR}/Glad")
+  set(glad_DIR "${VENDOR_DIR}/glad")
   add_library(glad STATIC "${glad_DIR}/src/glad.c")
   target_include_directories(glad PUBLIC "${glad_DIR}/include")
 

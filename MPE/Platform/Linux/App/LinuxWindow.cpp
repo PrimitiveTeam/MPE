@@ -211,4 +211,20 @@ void LinuxWindow::RestoreWindowSizeAndPosition()
     glfwSetWindowSize(SYS_Window, SYS_Data.PrevWidth, SYS_Data.PrevHeight);
     glfwSetWindowPos(SYS_Window, SYS_Data.PrevWindowPositionX, SYS_Data.PrevWindowPositionY);
 }
+
+void LinuxWindow::SetLastWindowPosition(int x, int y)
+{
+    SYS_Data.PrevWindowPositionX = x;
+    SYS_Data.PrevWindowPositionY = y;
+}
+
+void LinuxWindow::SaveWindowPosition()
+{
+    glfwGetWindowPos(SYS_Window, &SYS_Data.PrevWindowPositionX, &SYS_Data.PrevWindowPositionY);
+}
+
+void LinuxWindow::RestoreWindowPosition()
+{
+    glfwSetWindowPos(SYS_Window, SYS_Data.PrevWindowPositionX, SYS_Data.PrevWindowPositionY);
+}
 }
