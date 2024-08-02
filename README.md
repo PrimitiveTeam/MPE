@@ -53,6 +53,8 @@ For windows [VCPKG](https://vcpkg.io/) is __required__.
 
 ### BUILDING
 
+[QUICK SETUP](./Documentation/QUICK_SETUP.md)
+
 1. Download the repo
 2. Execute ``git submodule init``
 3. CD into the __repo root__
