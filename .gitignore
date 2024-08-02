@@ -10,6 +10,9 @@ cpm.sh
 # ------------------------------------------------------------------------------
 # VENDOR / DEPENDENCIES
 # WIN32
+[Vv]endor/[Uu][Nn][Ii][Vv][Ee][Rr][Ss][Aa][Ll]/[Ii][Mm][Gg][Uu][Ii]
+[Vv]endor/[Uu][Nn][Ii][Vv][Ee][Rr][Ss][Aa][Ll]/[Ss][Tt][Bb]
+# WIN32
 [Vv]endor/[Ww][Ii][Nn]32/[Ii][Mm][Gg][Uu][Ii]
 [Vv]endor/[Ww][Ii][Nn]32/[Ss][Tt][Bb]
 [Vv]endor/[Ww][Ii][Nn]32/[Rr]ender[Dd]oc
@@ -27,6 +30,8 @@ cpm.sh
 [Vv]endor/[Oo][Ss][Xx]/[Rr]ender[Dd]oc
 [Vv]endor/[Oo][Ss][Xx]/[Oo]pen[Cc][Vv]
 [Vv]endor/[Oo][Ss][Xx]/[Aa][Nn][Gg][Ll][Ee]
+# RPI4
+[Vv]endor/[Rr][Pp][Ii][12345]/[Ss][Pp][Dd][Ll][Oo][Gg]
 # ------------------------------------------------------------------------------
 # PROJECT FILES
 [Pp]roject[Ff]iles
@@ -37,6 +42,7 @@ cpm.sh
 [Uu]tility/[Rr][Pp][Ii]/*.img
 [Uu]tility/[Rr][Pp][Ii]/*.iso
 [Uu]tility/[Rr][Pp][Ii]/*.dtb
-[Uu]tility/[Rr][Pp][Ii]/kernel-qemu-4.4.34-jessie
-[Uu]tility/[Rr][Pp][Ii]/kernel-qemu-5.4.51-buster
+[Uu]tility/[Rr][Pp][Ii]/*.xz
+[Uu]tility/[Rr][Pp][Ii]/*.tar
+[Uu]tility/[Rr][Pp][Ii]/linux-*.*.**/
 # ------------------------------------------------------------------------------
