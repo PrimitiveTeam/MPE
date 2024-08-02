@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.10)
+project(rpi_test_project)
+set(CMAKE_VERBOSE_MAKEFILE ON)
+set(CMAKE_CXX_STANDARD 17)
+add_executable(rpi_test_project main.cpp)
