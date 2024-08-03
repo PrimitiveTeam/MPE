@@ -348,7 +348,7 @@ endif()
 # ##############################################################################
 # PROJECTS
 if(MPE_PROJECTS)
-  add_subdirectory("${PROJECT_SOURCE_DIR}/Projects")
+  include("${PROJECT_SOURCE_DIR}/Projects/projects.cmake")
 endif(MPE_PROJECTS)
 
 # ##############################################################################
