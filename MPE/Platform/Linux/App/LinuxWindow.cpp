@@ -16,7 +16,7 @@ static void GLFWErrorCallback(int error, const char *description)
 
 REF<Window> Window::CreateNativeWindow(const WindowProps &props)
 {
-    MPE_CORE_WARN("Creating Native Window for macOS.");
+    MPE_CORE_WARN("Creating Native Window for Linux.");
 
     return NEWREF<LinuxWindow>(props);
 }
