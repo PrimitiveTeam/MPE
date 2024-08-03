@@ -1,6 +1,15 @@
 {
   "C_Cpp.clang_format_style": "file:${workspaceFolder}/.vscode/.clang-format",
 
+  "cmake.pinnedCommands": [
+    "workbench.action.tasks.configureTaskRunner",
+    "workbench.action.tasks.runTask"
+  ],
+  "cmake.automaticReconfigure": false,
+  "cmake.buildDirectory": "${workspaceFolder}/Build",
+  "cmake.configureOnEdit": false,
+  "cmake.configureOnOpen": false,
+
   "files.associations": {
     "fstream": "cpp",
     "xlocmes": "cpp",
