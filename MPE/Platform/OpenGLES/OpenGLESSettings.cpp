@@ -179,6 +179,9 @@ bool OpenGLESSettings::GetDepthTest() const
 
 void OpenGLESSettings::SetDepthTest(bool depthTest)
 {
+    MPE_WARN("'glPolygonMode' NOT AVAILABLE ON OpenGLES.");
+    return;
+
     _DEPTH_TEST = depthTest;
 
     if (_DEPTH_TEST)
