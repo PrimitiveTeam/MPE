@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
+set(CMAKE_CXX_STANDARD 23)
 
 # TOGGLE TESTING
 set(MAIN_TEST OFF)
@@ -11,17 +12,15 @@ set(INSTALL_DLLS OFF)
 
 # SWITCHES FOR PROJECTS
 set(MPE_PROJECTS ON)
+
+set(MPE_PROJECT_DUMMY ON)
 set(MPE_PROJECT_SANDBOX OFF)
-set(MPE_PROJECT_PONG ON)
 set(MPE_PROJECT_PROJECTPICKER OFF)
+set(MPE_PROJECT_PONG ON)
 set(MPE_PROJECT_OPENCVTEST OFF)
 
 # ANGLE
 set(MPE_ANGLE ON)
-
-# TEMPORARY
-# DUMMY EXECUTABLE
-set(DUMMY_EXECUTABLE ON)
 
 # SHARED OR STATIC LIBRARY
 # ONLY 'STATIC' OR 'SHARED'
@@ -74,11 +73,9 @@ if(EXISTS ${CROSS_COMPILE_FILE})
   if(CROSS_COMPILATION_TARGET STREQUAL "")
     set(CROSS_COMPILATION OFF)
     cmake_minimum_required(VERSION 3.28)
-    set(CMAKE_CXX_STANDARD 23)
   else()
     set(CROSS_COMPILATION ON)
     cmake_minimum_required(VERSION 3.22.1)
-    set(CMAKE_CXX_STANDARD 17)
   endif()
 else()
   message(STATUS "CROSS-COMPILATION NOT DETECTED.")
@@ -217,6 +214,8 @@ if(${VERBOSE})
 * CURRENT COMPILER PATH: ${CMAKE_CXX_COMPILER}
 * CURRENT COMPILER: ${CURRENT_COMPILER}
 * CURRENT COMPILER VERSION: ${CMAKE_CXX_COMPILER_VERSION}
+* CXX VERSION: ${CXX_VERSION_NAME}
+* CXX STANDARD: ${CMAKE_CXX_STANDARD}
 * CURRENT PLATFORM: ${COMPILATION_PLATFORM}
 * CURRENT SYSTEM: ${CURRENT_PLATFORM}
 * COMPILER SETUP COMPLETE.
@@ -1776,47 +1775,6 @@ if(${EXAMPLES})
   add_subdirectory("${PROJECT_SOURCE_DIR}/Examples")
 endif()
 
-# TEMPORARY
-
-# ADDING DUMMY EXECUTABLE
-if(DUMMY_EXECUTABLE)
-  add_executable(DUMMY "${PROJECT_SOURCE_DIR}/DUMMY/main.cpp")
-
-  target_link_libraries(DUMMY
-    PRIVATE MPE
-  )
-  target_include_directories(DUMMY PRIVATE ${MPE_PUBLIC_INCLUDES})
-
-  # COMPILER DEFINITIONS FOR DUMMY
-  target_compile_definitions(DUMMY PUBLIC ${MPE_PUBLIC_DEFINITIONS})
-
-  if(${VERBOSE})
-    get_target_property(DUMMY_DEFINITIONS_LIST DUMMY COMPILE_DEFINITIONS)
-
-    message("
------------------------------------------------------------
-DUMMY COMPILE DEFINITIONS:\n")
-
-    foreach(DEFINITION ${DUMMY_DEFINITIONS_LIST})
-      message(STATUS "${DEFINITION}")
-    endforeach()
-
-    message("
------------------------------------------------------------")
-  endif()
-
-  # INSTALLATION PROCEDURE
-  install(
-    TARGETS DUMMY
-    LIBRARY DESTINATION bin
-    ARCHIVE DESTINATION bin
-    RUNTIME DESTINATION bin)
-
-  install(FILES $<TARGET_RUNTIME_DLLS:DUMMY> DESTINATION bin)
-endif(DUMMY_EXECUTABLE)
-
-# TEMPORARY
-
 # DOUBLE CHECKS IF THE SYSTEM IS RUNNING ON WINDOWS-X64 SYSTEM
 if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
   message(STATUS "SIZE OF VOID POINTER: ${CMAKE_SIZEOF_VOID_P}")
@@ -1833,195 +1791,6 @@ endif()
 # TODO: Find a way to fix this issue without having to run a script or manually
 # copying the dlls. install(SCRIPT
 # "${CMAKE_CURRENT_SOURCE_DIR}/utils/core_copy_missing_dlls.cmake")
-
-# ##############################################################################
-# PROJECTS SANDBOX
-if(${MPE_PROJECTS} AND ${MPE_PROJECT_SANDBOX})
-  # ADD "SANDBOX" EXECUTABLE - THE ENTRYPOINT TO MPE
-  add_executable(SANDBOX "${PROJECT_SOURCE_DIR}/Projects/Sandbox/Sandbox.cpp")
-
-  target_link_libraries(SANDBOX PRIVATE
-    MPE
-  )
-  target_include_directories(SANDBOX PRIVATE ${MPE_PUBLIC_INCLUDES})
-
-  # COMPILER DEFINITIONS FOR SANDBOX
-  target_compile_definitions(SANDBOX PUBLIC ${MPE_PUBLIC_DEFINITIONS})
-
-  if(${VERBOSE})
-    get_target_property(SANDBOX_DEFINITIONS_LIST SANDBOX COMPILE_DEFINITIONS)
-
-    message("
------------------------------------------------------------
-SANDBOX COMPILE DEFINITIONS:\n")
-
-    foreach(DEFINITION ${SANDBOX_DEFINITIONS_LIST})
-      message(STATUS "${DEFINITION}")
-    endforeach()
-
-    message("
------------------------------------------------------------")
-  endif()
-
-  # ADDING SANDBOX 2D LAYER
-  file(GLOB_RECURSE SANDBOX2D_CPP
-    "${PROJECT_SOURCE_DIR}/Projects/Sandbox/Sandbox2D/*.cpp")
-  file(GLOB_RECURSE SANDBOX2D_H
-    "${PROJECT_SOURCE_DIR}/Projects/Sandbox/Sandbox2D/*.h")
-  add_library(SANDBOX2D STATIC ${SANDBOX2D_CPP})
-  target_include_directories(SANDBOX2D PUBLIC
-    ${SANDBOX2D_H}
-    ${MPE_PUBLIC_INCLUDES}
-  )
-
-  target_link_libraries(SANDBOX2D PUBLIC MPE)
-
-  # COMPILER DEFINITIONS FOR SANDBOX2D
-  target_compile_definitions(SANDBOX2D PUBLIC ${MPE_PUBLIC_DEFINITIONS})
-
-  if(${VERBOSE})
-    get_target_property(SANDBOX2D_DEFINITIONS_LIST SANDBOX2D COMPILE_DEFINITIONS)
-
-    message("
------------------------------------------------------------
-SANDBOX2D COMPILE DEFINITIONS:\n")
-
-    foreach(DEFINITION ${SANDBOX2D_DEFINITIONS_LIST})
-      message(STATUS "${DEFINITION}")
-    endforeach()
-
-    message("
------------------------------------------------------------")
-  endif()
-
-  target_link_libraries(SANDBOX PUBLIC SANDBOX2D)
-
-  # target_compile_features(SANDBOX PUBLIC ${CXX_VERSION_NAME})
-  set_target_properties(SANDBOX PROPERTIES VERSION ${PROJECT_FULL_VERSION})
-  set_target_properties(SANDBOX PROPERTIES OUTPUT_NAME "MPE-SANDBOX")
-
-  # Copy the /Project/*/Data folder to the build directory
-  add_custom_command(
-    TARGET SANDBOX
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${PROJECT_SOURCE_DIR}/Projects/Sandbox/Data
-    $<TARGET_FILE_DIR:SANDBOX>/Data
-  )
-
-  # Copy the /Project/*/Data folder to the install directory
-  install(
-    DIRECTORY ${PROJECT_SOURCE_DIR}/Projects/Sandbox/Data
-    DESTINATION bin
-  )
-
-  # INSTALLATION PROCEDURE
-  install(
-    TARGETS SANDBOX
-    LIBRARY DESTINATION bin
-    ARCHIVE DESTINATION bin
-    RUNTIME DESTINATION bin)
-
-  install(FILES $<TARGET_RUNTIME_DLLS:SANDBOX> DESTINATION bin)
-
-  if(${VERBOSE})
-    message(STATUS "MPE-SANDBOX ADDED.")
-  endif()
-endif(${MPE_PROJECTS} AND ${MPE_PROJECT_SANDBOX})
-
-# ##############################################################################
-if(${MPE_PROJECTS} AND ${MPE_PROJECT_PROJECTPICKER})
-  # ADD "ProjectPicker" EXECUTABLE - THE ENTRYPOINT TO MPE
-  add_executable(ProjectPicker "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/ProjectPicker.cpp")
-
-  target_link_libraries(ProjectPicker PRIVATE
-    MPE
-  )
-  target_include_directories(ProjectPicker PRIVATE ${MPE_PUBLIC_INCLUDES})
-
-  # COMPILER DEFINITIONS FOR ProjectPicker
-  target_compile_definitions(ProjectPicker PUBLIC ${MPE_PUBLIC_DEFINITIONS})
-
-  if(${VERBOSE})
-    get_target_property(ProjectPicker_DEFINITIONS_LIST ProjectPicker COMPILE_DEFINITIONS)
-
-    message("
------------------------------------------------------------
-ProjectPicker COMPILE DEFINITIONS:\n")
-
-    foreach(DEFINITION ${ProjectPicker_DEFINITIONS_LIST})
-      message(STATUS "${DEFINITION}")
-    endforeach()
-
-    message("
------------------------------------------------------------")
-  endif()
-
-  # ADDING TEST LAYERS
-  file(GLOB_RECURSE TEST_LAYERS_CPP
-    "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/*.cpp")
-  file(GLOB_RECURSE TEST_LAYERS_H
-    "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/*.h")
-  add_library(TEST_LAYERS STATIC ${TEST_LAYERS_CPP})
-  target_include_directories(TEST_LAYERS PUBLIC
-    ${TEST_LAYERS_H}
-    ${MPE_PUBLIC_INCLUDES}
-  )
-
-  target_link_libraries(TEST_LAYERS PUBLIC MPE)
-
-  # COMPILER DEFINITIONS FOR TEST_LAYERS
-  target_compile_definitions(TEST_LAYERS PUBLIC ${MPE_PUBLIC_DEFINITIONS})
-
-  if(${VERBOSE})
-    get_target_property(TEST_LAYERS_DEFINITIONS_LIST TEST_LAYERS COMPILE_DEFINITIONS)
-
-    message("
------------------------------------------------------------
-TEST_LAYERS COMPILE DEFINITIONS:\n")
-
-    foreach(DEFINITION ${TEST_LAYERS_DEFINITIONS_LIST})
-      message(STATUS "${DEFINITION}")
-    endforeach()
-
-    message("
------------------------------------------------------------")
-  endif()
-
-  target_link_libraries(ProjectPicker PUBLIC TEST_LAYERS)
-
-  # target_compile_features(SANDBOX PUBLIC ${CXX_VERSION_NAME})
-  set_target_properties(ProjectPicker PROPERTIES VERSION ${PROJECT_FULL_VERSION})
-  set_target_properties(ProjectPicker PROPERTIES OUTPUT_NAME "MPE-ProjectPicker")
-
-  # Copy the /Project/*/Data folder to the build directory
-  add_custom_command(
-    TARGET ProjectPicker
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Data
-    $<TARGET_FILE_DIR:ProjectPicker>/Data
-  )
-
-  # Copy the /Project/*/Data folder to the install directory
-  install(
-    DIRECTORY ${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Data
-    DESTINATION bin
-  )
-
-  # INSTALLATION PROCEDURE
-  install(
-    TARGETS ProjectPicker
-    LIBRARY DESTINATION bin
-    ARCHIVE DESTINATION bin
-    RUNTIME DESTINATION bin)
-
-  install(FILES $<TARGET_RUNTIME_DLLS:ProjectPicker> DESTINATION bin)
-
-  if(${VERBOSE})
-    message(STATUS "MPE-ProjectPicker ADDED.")
-  endif()
-endif(${MPE_PROJECTS} AND ${MPE_PROJECT_PROJECTPICKER})
 
 # ##############################################################################
 # TESTS add_executable(TEST "${PROJECT_SOURCE_DIR}/Tests/Unit.cpp")
@@ -2041,158 +1810,10 @@ endif(${MPE_PROJECTS} AND ${MPE_PROJECT_PROJECTPICKER})
 # ${TEST_CPP} ${TEST_H})
 
 # ##############################################################################
-# PROJECTS PONG
-if(${MPE_PROJECTS} AND ${MPE_PROJECT_PONG})
-  add_executable(PONG
-    "${PROJECT_SOURCE_DIR}/Projects/Pong/ProjectSelector.cpp")
-
-  target_include_directories(PONG PRIVATE ${MPE_PUBLIC_INCLUDES})
-
-  file(GLOB_RECURSE PONG_CPP
-    "${PROJECT_SOURCE_DIR}/Projects/Pong/*.cpp"
-    "${PROJECT_SOURCE_DIR}/Projects/Pong/Core/*.cpp")
-
-  file(GLOB_RECURSE PONG_H
-    "${PROJECT_SOURCE_DIR}/Projects/Pong/*.h"
-    "${PROJECT_SOURCE_DIR}/Projects/Pong/Core/*.h")
-
-  add_library(PONG_SRC STATIC ${PONG_CPP})
-  target_include_directories(PONG_SRC PUBLIC
-    ${PONG_H}
-    ${MPE_PUBLIC_INCLUDES}
-  )
-
-  # COMPILER DEFINITIONS FOR PONG_SRC
-  target_compile_definitions(PONG_SRC PUBLIC ${MPE_PUBLIC_DEFINITIONS})
-
-  if(${VERBOSE})
-    get_target_property(PONG_SRC_DEFINITIONS_LIST PONG_SRC COMPILE_DEFINITIONS)
-
-    message("
------------------------------------------------------------
-PONG_SRC COMPILE DEFINITIONS:\n")
-
-    foreach(DEFINITION ${PONG_SRC_DEFINITIONS_LIST})
-      message(STATUS "${DEFINITION}")
-    endforeach()
-
-    message("
------------------------------------------------------------")
-  endif()
-
-  target_link_libraries(PONG_SRC PUBLIC MPE)
-  target_link_libraries(PONG PUBLIC MPE)
-  target_link_libraries(PONG PUBLIC PONG_SRC)
-
-  set_target_properties(PONG PROPERTIES VERSION ${PROJECT_FULL_VERSION})
-  set_target_properties(PONG PROPERTIES OUTPUT_NAME "MPE-PONG")
-
-  # COMPILER DEFINITIONS FOR PONG
-  target_compile_definitions(PONG PUBLIC ${MPE_PUBLIC_DEFINITIONS})
-
-  if(${VERBOSE})
-    get_target_property(PONG_DEFINITIONS_LIST PONG COMPILE_DEFINITIONS)
-
-    message("
------------------------------------------------------------
-PONG COMPILE DEFINITIONS:\n")
-
-    foreach(DEFINITION ${PONG_DEFINITIONS_LIST})
-      message(STATUS "${DEFINITION}")
-    endforeach()
-
-    message("
------------------------------------------------------------")
-  endif()
-
-  # Copy the /Project/*/Data folder to the build directory
-  add_custom_command(
-    TARGET PONG
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${PROJECT_SOURCE_DIR}/Projects/Pong/Data
-    $<TARGET_FILE_DIR:PONG>/Data
-  )
-
-  # Copy the /Project/*/Data folder to the install directory
-  install(
-    DIRECTORY ${PROJECT_SOURCE_DIR}/Projects/Pong/Data
-    DESTINATION bin
-  )
-
-  # INSTALLATION PROCEDURE
-  install(
-    TARGETS PONG
-    LIBRARY DESTINATION bin
-    ARCHIVE DESTINATION bin
-    RUNTIME DESTINATION bin)
-
-  install(FILES $<TARGET_RUNTIME_DLLS:PONG> DESTINATION bin)
-
-  if(${VERBOSE})
-    message(STATUS "MPE-PONG ADDED.")
-  endif()
-endif(${MPE_PROJECTS} AND ${MPE_PROJECT_PONG})
+# PROJECTS
+if(MPE_PROJECTS)
+  add_subdirectory("${PROJECT_SOURCE_DIR}/Projects")
+endif(MPE_PROJECTS)
 
 # ##############################################################################
-
-# ADDING OPENCV_TEST EXECUTABLE
-if(${MPE_PROJECTS} AND ${MPE_PROJECT_OPENCVTEST})
-  add_executable(OPENCV_TEST "${PROJECT_SOURCE_DIR}/Projects/OpenCVTest/OpenCVTest.cpp")
-
-  target_link_libraries(OPENCV_TEST PRIVATE
-    MPE
-    ${OpenCV_LIBS}
-  )
-
-  target_include_directories(OPENCV_TEST PRIVATE
-    ${MPE_PUBLIC_INCLUDES}
-    ${OpenCV_LIBS}
-  )
-
-  # COMPILER DEFINITIONS FOR OPENCV_TEST
-  target_compile_definitions(OPENCV_TEST PUBLIC ${MPE_PUBLIC_DEFINITIONS})
-
-  if(${VERBOSE})
-    get_target_property(OPENCV_TEST_DEFINITIONS_LIST OPENCV_TEST COMPILE_DEFINITIONS)
-
-    message("
------------------------------------------------------------
-OPENCV_TEST COMPILE DEFINITIONS:\n")
-
-    foreach(DEFINITION ${OPENCV_TEST_DEFINITIONS_LIST})
-      message(STATUS "${DEFINITION}")
-    endforeach()
-
-    message("
------------------------------------------------------------")
-  endif()
-
-  # Copy the /Project/*/Data folder to the build directory
-  add_custom_command(
-    TARGET OPENCV_TEST
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${PROJECT_SOURCE_DIR}/Projects/OpenCVTest/Data
-    $<TARGET_FILE_DIR:OPENCV_TEST>/Data
-  )
-
-  # Copy the /Project/*/Data folder to the install directory
-  install(
-    DIRECTORY ${PROJECT_SOURCE_DIR}/Projects/OpenCVTest/Data
-    DESTINATION bin
-  )
-
-  # INSTALLATION PROCEDURE
-  install(
-    TARGETS OPENCV_TEST
-    LIBRARY DESTINATION bin
-    ARCHIVE DESTINATION bin
-    RUNTIME DESTINATION bin)
-
-  install(FILES $<TARGET_RUNTIME_DLLS:OPENCV_TEST> DESTINATION bin)
-endif(${MPE_PROJECTS} AND ${MPE_PROJECT_OPENCVTEST})
-
-# ##############################################################################
-
 message(STATUS "MPE/CMAKE SUCCESSFULLY FINISHED.")
