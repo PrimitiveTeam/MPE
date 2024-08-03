@@ -8,10 +8,10 @@
         "${workspaceFolder}/Platform/**",
         "${vcpkgRoot}/x64-windows/include",
         "${vcpkgRoot}/x64-windows-static/include",
-        "${workspaceFolder}/Vendor/imgui",
-        "${workspaceFolder}/Vendor/imgui/backends",
-        "${workspaceFolder}/Vendor/glad/include",
-        "${workspaceFolder}/Vendor/angle/include"
+        "${workspaceFolder}/Vendor/WIN32/imgui",
+        "${workspaceFolder}/Vendor/WIN32/imgui/backends",
+        "${workspaceFolder}/Vendor/UNIVERSAL/glad/include",
+        "${workspaceFolder}/Vendor/WIN32/angle/include"
       ],
       "defines": [
         "_DEBUG",
