@@ -60,7 +60,9 @@ NOTE: When building the kernel there are specific commands to make rendering wor
 To successfully cross-compile a project we need respective compilers but we also need the sysroot of the system to acquire all the libraries (like cpp standard library).
 Sysroot is essentially '/' copy of the whole system.
 
-### Packages (Windows)
+### Building with Windows-WSL
+
+This could also work with UNIX systems (probably...)
 
 TODO: Investigate the package section as it looks like the RPI system might not actually need any packages and we instead we can provide local source and the compiler should build it for our target.
 
@@ -95,6 +97,19 @@ TODO: Investigate the package section as it looks like the RPI system might not 
 10. `$ ./make.sh`
 
 If the build is successful then you are ready for cross-compilation!
+
+### Cross-Compiling MPE
+
+If running Windows-WSL make sure to run these commands from WSL
+
+1. `$ cd /CPM/cpm`
+2. `$ cargo build --release`
+3. `$ cd ../..`
+4. `$ ./CPM/cpm/target/release/cpm init -f`
+5. `$ ./cpm.sh setup -a`
+6. `$ ./cpm.sh cross-build -c -dg "rpi4/umake" --processor "aarch64" --sysroot "/opt/rpi-sysroot" -b`
+7. Using SCP copy the contents of /build into the RPI machine
+8. Run executable
 
 ### Windows Native QEMU or WSL-Ubuntu QEMU Display
 
