@@ -1357,41 +1357,41 @@ macOS HEADER FILES:\n")
 elseif(COMPILATION_PLATFORM STREQUAL "RPI4")
   file(
     GLOB_RECURSE
-    MPE_PI4_CPP
+    MPE_RPI4_CPP
 
-    # /Platform/Linux/Core
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Core/*.cpp"
+    # /Platform/RPI/Core
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/Core/*.cpp"
 
-    # /Platform/Linux/App
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/App/*.cpp"
+    # /Platform/RPI/App
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/App/*.cpp"
 
-    # /Platform/Linux/Errors
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Errors/*.cpp"
+    # /Platform/RPI/Errors
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/Errors/*.cpp"
 
-    # /Platform/Linux/Input
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Input/*.cpp"
+    # /Platform/RPI/Input
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/Input/*.cpp"
   )
 
   file(
     GLOB_RECURSE
-    MPE_PI4_H
+    MPE_RPI4_H
 
-    # /Platform/Linux/Core
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Core/*.h"
+    # /Platform/RPI/Core
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/Core/*.h"
 
-    # /Platform/Linux/App
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/App/*.h"
+    # /Platform/RPI/App
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/App/*.h"
 
-    # /Platform/Linux/Input
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Input/*.h"
+    # /Platform/RPI/Input
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/Input/*.h"
   )
 
-  # ADD MPE Linux SOURCE FILES
-  list(APPEND MPE_CPP ${MPE_PI4_CPP})
+  # ADD MPE RPI SOURCE FILES
+  list(APPEND MPE_CPP ${MPE_RPI4_CPP})
 
-  list(APPEND MPE_H ${MPE_PI4_H})
+  list(APPEND MPE_H ${MPE_RPI4_H})
 
-  # PRINT MPE Linux SOURCE FILES
+  # PRINT MPE RPI SOURCE FILES
   if(${VERBOSE})
     message("
 MPE RPI4 SOURCE AND HEADER FILES
