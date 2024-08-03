@@ -3,8 +3,13 @@
 #include "MPE/Core/_PTRS.h"
 #include "MPE/Core/_CORE.h"
 #include "MPE/Renderer/RendererAPI.h"
-#include "Platform/OpenGL/OpenGLRendererAPI.h"
-#include "Platform/OpenGLES/OpenGLESRendererAPI.h"
+
+#ifdef MPE_OPENGL
+#    include "Platform/OpenGL/OpenGLRendererAPI.h"
+#endif
+#ifdef MPE_OPENGLES
+#    include "Platform/OpenGLES/OpenGLESRendererAPI.h"
+#endif
 
 namespace MPE
 {
@@ -34,11 +39,19 @@ class MPE_API RenderPrimitive
         switch (api)
         {
             case RendererAPI::API::OpenGL:
+#ifdef MPE_OPENGL
                 SYS_API = new OpenGLRendererAPI();
                 break;
+#else
+                throw std::runtime_error("OpenGL not supported.");
+#endif
             case RendererAPI::API::OpenGLES:
+#ifdef MPE_OPENGLES
                 SYS_API = new OpenGLESRendererAPI();
                 break;
+#else
+                throw std::runtime_error("OpenGLES not supported.");
+#endif
             default:
                 throw std::runtime_error("Invalid graphics API.");
         }

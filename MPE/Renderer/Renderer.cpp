@@ -1,10 +1,14 @@
 #include "Renderer.h"
 #include "MPE/MPEPCH.h"
 
-#include "Platform/OpenGL/Shaders/OpenGLShader.h"
-#include "Platform/OpenGLES/Shaders/OpenGLESShader.h"
 #include "MPE/Renderer/Renderer2D.h"
 
+#ifdef MPE_OPENGL
+#    include "Platform/OpenGL/Shaders/OpenGLShader.h"
+#endif
+#ifdef MPE_OPENGLES
+#    include "Platform/OpenGLES/Shaders/OpenGLESShader.h"
+#endif
 namespace MPE
 {
 // GRAPHICS_API Renderer::SYS_RENDERER_API = GRAPHICS_API::OpenGL;
@@ -39,14 +43,23 @@ void Renderer::Submit(const REF<Shader> &shader, const REF<VertexArray> &vertexA
     switch (api)
     {
         case RendererAPI::API::OpenGL:
+#ifdef MPE_OPENGL
             std::dynamic_pointer_cast<OpenGLShader>(shader)->InjectUniformMat4("UNI_VPM", SYS_SCENE->PROJECTION_VIEW_MATRIX);
             std::dynamic_pointer_cast<OpenGLShader>(shader)->InjectUniformMat4("UNI_MODELMAT", transform);
             break;
+#else
+            MPE_CORE_ASSERT(false, "OPENGL IS NOT SUPPORTED.");
+            break;
+#endif
         case RendererAPI::API::OpenGLES:
+#ifdef MPE_OPENGLES
             std::dynamic_pointer_cast<OpenGLESShader>(shader)->InjectUniformMat4("UNI_VPM", SYS_SCENE->PROJECTION_VIEW_MATRIX);
             std::dynamic_pointer_cast<OpenGLESShader>(shader)->InjectUniformMat4("UNI_MODELMAT", transform);
             break;
-
+#else
+            MPE_CORE_ASSERT(false, "OPENGLES IS NOT SUPPORTED.");
+            break;
+#endif
         default:
             MPE_CORE_ASSERT(false, "UNKOWN RENDERER API.");
             break;
