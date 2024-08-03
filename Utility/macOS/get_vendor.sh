@@ -5,10 +5,12 @@ SCRIPT_DIR=$(cd $(dirname "$0") && pwd)
 
 echo "Setting up directories..."
 mkdir -p $SCRIPT_DIR/../../Vendor/OSX
+mkdir -p $SCRIPT_DIR/../../Vendor/Universal
 
 # CD into Vendor
 # Can't find GLAD for macOS
-cd $SCRIPT_DIR/../../Vendor/OSX
+cd $SCRIPT_DIR/../../Vendor
+cd ./Universal
 # echo "Generating GLAD for OpenGL version 4.6..."
 # glad --quiet --api gl:compatibility=4.6 --out-path ./Glad c
 
@@ -32,6 +34,8 @@ else
     echo "Cloning stb..."
     git clone https://github.com/nothings/stb.git
 fi
+
+cd ../OSX
 
 # renderdoc
 # If renderdoc already exists, cancel next step

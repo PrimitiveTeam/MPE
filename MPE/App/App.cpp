@@ -21,10 +21,17 @@ App::App()
     MPE_CORE_ASSERT(!SYS_APP_Instance, "APP ALREADY EXISTS.");
     SYS_APP_Instance = this;
 
-    // TODO: Add a dialog to select the graphics API
-    // Set RenderAPI before creating window
-    // Renderer::SetGraphicsAPI(RendererAPI::API::OpenGLES);
+// TODO: Add a dialog to select the graphics API
+// Set RenderAPI before creating window
+// Renderer::SetGraphicsAPI(RendererAPI::API::OpenGLES);
+#if MPE_PLATFORM_RPI4
+    Renderer::SetGraphicsAPI(RendererAPI::API::OpenGLES);
+#else
     Renderer::SetGraphicsAPI(RendererAPI::API::OpenGL);
+#endif
+
+    // Critical log to show which API we are using
+    MPE_WARN("Using {0} API", RendererAPI::APIToString(RendererAPI::GetGraphicsAPI()));
 
     SYS_APP_Window = Window::CreateNativeWindow(WindowProps("MPE Engine", 1280, 720));
     SYS_APP_Window->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));

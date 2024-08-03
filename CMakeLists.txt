@@ -1,7 +1,4 @@
 cmake_minimum_required(VERSION 3.28)
-set(CMAKE_CXX_STANDARD 23)
-set(CXX_VERSION_NAME "cxx_std_${CMAKE_CXX_STANDARD}")
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # TOGGLE TESTING
 set(MAIN_TEST OFF)
@@ -76,8 +73,12 @@ if(EXISTS ${CROSS_COMPILE_FILE})
   # IF EMPTY THEN SET CROSS_COMPILATION TO OFF
   if(CROSS_COMPILATION_TARGET STREQUAL "")
     set(CROSS_COMPILATION OFF)
+    cmake_minimum_required(VERSION 3.28)
+    set(CMAKE_CXX_STANDARD 23)
   else()
     set(CROSS_COMPILATION ON)
+    cmake_minimum_required(VERSION 3.22.1)
+    set(CMAKE_CXX_STANDARD 17)
   endif()
 else()
   message(STATUS "CROSS-COMPILATION NOT DETECTED.")
@@ -87,6 +88,9 @@ endif()
 if(CROSS_COMPILATION)
   message(STATUS "CROSS COMPILATION: ${CROSS_COMPILATION_TARGET}")
 endif()
+
+set(CXX_VERSION_NAME "cxx_std_${CMAKE_CXX_STANDARD}")
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # SET AVAILABLE BUILD TYPES TO DEBUG AND RELEASE
 # TODO: OpenCV throws generation errors if other build types are used
@@ -164,9 +168,9 @@ endif()
 if(${CROSS_COMPILATION})
   string(TOLOWER "${CROSS_COMPILATION_TARGET}" LOVER_CROSS_COMPILATION_TARGET)
 
-  if(LOVER_CROSS_COMPILATION_TARGET STREQUAL "pi4")
+  if(LOVER_CROSS_COMPILATION_TARGET STREQUAL "rpi4")
     set(CURRENT_COMPILER "GNU")
-    set(COMPILATION_PLATFORM "PI4")
+    set(COMPILATION_PLATFORM "RPI4")
   else()
     message(FATAL_ERROR "COMPILER: {${CMAKE_CXX_COMPILER_ID}} NOT SUPPORTED.")
   endif()
@@ -219,15 +223,13 @@ if(${VERBOSE})
 -----------------------------------------------------------")
 endif(${VERBOSE})
 
-if(${COMPILATION_PLATFORM} STREQUAL "PI4")
-  set(VENDOR_DIR ${PROJECT_SOURCE_DIR}/Vendor/UNIX)
-else()
-  set(VENDOR_DIR ${PROJECT_SOURCE_DIR}/Vendor/${COMPILATION_PLATFORM})
-endif()
+set(VENDOR_DIR ${PROJECT_SOURCE_DIR}/Vendor/${COMPILATION_PLATFORM})
+set(UNIVERSAL_VENDOR_DIR ${PROJECT_SOURCE_DIR}/Vendor/Universal)
 
 message("
 -----------------------------------------------------------
 * CURRENT VENDOR DIRECTORY: ${VENDOR_DIR}
+* UNIVERSAL VENDOR DIRECTORY: ${UNIVERSAL_VENDOR_DIR}
 -----------------------------------------------------------")
 
 # DEPENDENCY MANAGEMENT
@@ -308,7 +310,7 @@ VCPKG CUSTOM PATHS STATUS: ${VCPKG_CUSTOM_PATHS}\n")
     set(spdlog_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\spdlog")
 
     # SETTING GLAD
-    set(glad_DIR "${VENDOR_DIR}/glad")
+    set(glad_DIR "${UNIVERSAL_VENDOR_DIR}/glad")
 
     file(GLOB_RECURSE GLAD_S
       "${glad_DIR}/src/glad.c"
@@ -323,7 +325,7 @@ VCPKG CUSTOM PATHS STATUS: ${VCPKG_CUSTOM_PATHS}\n")
     # SETTING IMGUI
 
     # set(imgui_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\imgui")
-    set(imgui_DIR ${VENDOR_DIR}/imgui)
+    set(imgui_DIR ${UNIVERSAL_VENDOR_DIR}/imgui)
 
     file(GLOB_RECURSE IMGUI_S
       "${imgui_DIR}/imgui.cpp"
@@ -352,7 +354,7 @@ VCPKG CUSTOM PATHS STATUS: ${VCPKG_CUSTOM_PATHS}\n")
     set(GTest_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\gtest")
 
     # SETTING STB
-    set(Stb_DIR ${VENDOR_DIR}/stb)
+    set(Stb_DIR ${UNIVERSAL_VENDOR_DIR}/stb)
     add_library(Stb INTERFACE
       "${Stb_DIR}"
     )
@@ -436,7 +438,7 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   endif()
 
   # GLAD
-  set(glad_DIR "${VENDOR_DIR}/glad")
+  set(glad_DIR "${UNIVERSAL_VENDOR_DIR}/glad")
   add_library(glad STATIC "${glad_DIR}/src/glad.c")
   target_include_directories(glad PUBLIC "${glad_DIR}/include")
 
@@ -444,7 +446,7 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   set_target_properties(glad PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
   # IMGUI
-  set(imgui_DIR ${VENDOR_DIR}/imgui)
+  set(imgui_DIR ${UNIVERSAL_VENDOR_DIR}/imgui)
 
   file(GLOB_RECURSE IMGUI_S
     "${imgui_DIR}/imgui.cpp"
@@ -473,7 +475,7 @@ elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
   # STB
-  set(Stb_DIR ${VENDOR_DIR}/stb)
+  set(Stb_DIR ${UNIVERSAL_VENDOR_DIR}/stb)
   add_library(Stb INTERFACE
     "${Stb_DIR}"
   )
@@ -505,12 +507,12 @@ elseif(COMPILATION_PLATFORM STREQUAL "OSX")
   endif()
 
   # GLAD
-  set(glad_DIR "${VENDOR_DIR}/glad")
+  set(glad_DIR "${UNIVERSAL_VENDOR_DIR}/glad")
   add_library(glad STATIC "${glad_DIR}/src/glad.c")
   target_include_directories(glad PUBLIC "${glad_DIR}/include")
 
   # IMGUI
-  set(imgui_DIR ${VENDOR_DIR}/imgui)
+  set(imgui_DIR ${UNIVERSAL_VENDOR_DIR}/imgui)
 
   file(GLOB_RECURSE IMGUI_S
     "${imgui_DIR}/imgui.cpp"
@@ -535,7 +537,7 @@ elseif(COMPILATION_PLATFORM STREQUAL "OSX")
   target_link_libraries(imgui PRIVATE glfw)
 
   # STB
-  set(Stb_DIR ${VENDOR_DIR}/stb)
+  set(Stb_DIR ${UNIVERSAL_VENDOR_DIR}/stb)
   add_library(Stb INTERFACE
     "${Stb_DIR}"
   )
@@ -554,12 +556,18 @@ elseif(COMPILATION_PLATFORM STREQUAL "OSX")
     message(STATUS "CUSTOM LIBRARY PATHS SET.")
   endif()
 
-elseif(COMPILATION_PLATFORM STREQUAL "PI4")
+elseif(COMPILATION_PLATFORM STREQUAL "RPI4")
   set(USE_VCPKG OFF)
 
   if(${VERBOSE})
     message(STATUS "VCPKG STATUS: ${USE_VCPKG}")
   endif()
+
+  # Set pkg-config environment variables
+  set(ENV{PKG_CONFIG_SYSROOT_DIR} "${CMAKE_SYSROOT}")
+  message(STATUS "PKG_CONFIG_SYSROOT_DIR: $ENV{PKG_CONFIG_SYSROOT_DIR}")
+  set(ENV{PKG_CONFIG_PATH} "${CMAKE_SYSROOT}/usr/lib/aarch64-linux-gnu/pkgconfig")
+  message(STATUS "PKG_CONFIG_PATH: $ENV{PKG_CONFIG_PATH}")
 
   # message(STATUS "VCPKG NOT SUPPORTED ON UNIX SYSTEMS.")
   if(${VERBOSE})
@@ -567,7 +575,7 @@ elseif(COMPILATION_PLATFORM STREQUAL "PI4")
   endif()
 
   # GLAD
-  set(glad_DIR "${VENDOR_DIR}/glad")
+  set(glad_DIR "${UNIVERSAL_VENDOR_DIR}/glad")
   add_library(glad STATIC "${glad_DIR}/src/glad.c")
   target_include_directories(glad PUBLIC "${glad_DIR}/include")
 
@@ -594,7 +602,7 @@ elseif(COMPILATION_PLATFORM STREQUAL "PI4")
   pkg_check_modules(GLFW3 REQUIRED glfw3)
 
   if(GLFW3_FOUND)
-    set(GLFW3_INCLUDE_DIRS "/usr/include/GLFW")
+    # set(GLFW3_INCLUDE_DIRS "/usr/include/GLFW")
 
     # set(GLFW3_LIBRARIES "/usr/lib/x86_64-linux-gnu/libglfw.so")
     include_directories(${GLFW3_INCLUDE_DIRS})
@@ -608,7 +616,7 @@ elseif(COMPILATION_PLATFORM STREQUAL "PI4")
   endif()
 
   # IMGUI
-  set(imgui_DIR ${VENDOR_DIR}/imgui)
+  set(imgui_DIR ${UNIVERSAL_VENDOR_DIR}/imgui)
 
   file(GLOB_RECURSE IMGUI_S
     "${imgui_DIR}/imgui.cpp"
@@ -633,11 +641,10 @@ elseif(COMPILATION_PLATFORM STREQUAL "PI4")
   target_link_libraries(imgui PRIVATE ${GLFW3_LIBRARIES})
 
   # GTK#
-  find_package(PkgConfig REQUIRED)
   pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
   # STB
-  set(Stb_DIR ${VENDOR_DIR}/stb)
+  set(Stb_DIR ${UNIVERSAL_VENDOR_DIR}/stb)
   add_library(Stb INTERFACE
     "${Stb_DIR}"
   )
@@ -645,6 +652,85 @@ elseif(COMPILATION_PLATFORM STREQUAL "PI4")
     "${Stb_DIR}"
   )
 
+  if(GTK3_FOUND)
+    include_directories(${GTK3_INCLUDE_DIRS})
+    link_directories(${GTK3_LIBRARY_DIRS})
+    add_definitions(${GTK3_CFLAGS_OTHER})
+    message(STATUS "Found gtk3: ${GTK3_LIBRARIES}")
+    message(STATUS "GTK3 include directories: ${GTK3_INCLUDE_DIRS}")
+    message(STATUS "GTK3 library directories: ${GTK3_LIBRARY_DIRS}")
+  else()
+    message(FATAL_ERROR "gtk3 library not found")
+  endif()
+
+  # fmt
+  # pkg_check_modules(FMT REQUIRED fmt)
+
+  # if(FMT_FOUND)
+  # set(FMT_LIBRARY_DIRS "/opt/rpi-sysroot/usr/lib/aarch64-linux-gnu")
+
+  # # set(GLFW3_LIBRARIES "/usr/lib/x86_64-linux-gnu/libglfw.so")
+  # include_directories(${FMT_INCLUDE_DIRS})
+  # link_directories(${FMT_LIBRARY_DIRS})
+  # add_definitions(${FMT_CFLAGS_OTHER})
+  # message(STATUS "Found fmt: ${FMT_LIBRARIES}")
+  # message(STATUS "fmt include directories: ${FMT_INCLUDE_DIRS}")
+  # message(STATUS "fmt library directories: ${FMT_LIBRARY_DIRS}")
+  # else()
+  # message(FATAL_ERROR "fmt library not found")
+  # endif()
+
+  # spdlog
+  # pkg_check_modules(SPDLOG REQUIRED spdlog)
+
+  # if(SPDLOG_FOUND)
+  # # set(SPDLOG_LIBRARY_DIRS "/opt/rpi-sysroot/usr/local/lib")
+  # # set(SPDLOG_INCLUDE_DIRS "/opt/rpi-sysroot/usr/local/include")
+
+  # include_directories(${SPDLOG_INCLUDE_DIRS})
+  # link_directories(${SPDLOG_LIBRARY_DIRS})
+  # add_definitions(${SPDLOG_CFLAGS_OTHER})
+  # message(STATUS "Found spdlog: ${SPDLOG_LIBRARIES}")
+  # message(STATUS "spdlog include directories: ${SPDLOG_INCLUDE_DIRS}")
+  # message(STATUS "spdlog library directories: ${SPDLOG_LIBRARY_DIRS}")
+  # else()
+  # message(FATAL_ERROR "spdlog library not found")
+  # endif()
+  set(spdlog_DIR ${VENDOR_DIR}/spdlog)
+
+  file(GLOB_RECURSE SPDLOG_S
+    "${spdlog_DIR}/src/spdlog.cpp"
+    "${spdlog_DIR}/src/bundled_fmtlib_format.cpp"
+    "${spdlog_DIR}/src/async.cpp"
+    "${spdlog_DIR}/src/cfg.cpp"
+    "${spdlog_DIR}/src/color_sinks.cpp"
+    "${spdlog_DIR}/src/file_sinks.cpp"
+    "${spdlog_DIR}/src/stdout_sinks.cpp"
+  )
+
+  add_definitions(-DSPDLOG_COMPILED_LIB)
+
+  add_library(spdlog STATIC
+    ${SPDLOG_S}
+  )
+  target_include_directories(spdlog
+    PUBLIC "${spdlog_DIR}/include"
+  )
+
+  message(STATUS "spdlog_DIR: ${spdlog_DIR}")
+  message(STATUS "SPDLOG_S: ${SPDLOG_S}")
+  message(STATUS "spdlog include directories: ${spdlog_DIR}/include")
+
+  # pkg_check_modules(GLM REQUIRED glm)
+
+  # if(GLM_FOUND)
+  # include_directories(${GLM_INCLUDE_DIRS})
+  # link_directories(${GLM_LIBRARY_DIRS})
+  # add_definitions(${GLM_CFLAGS_OTHER})
+  # message(STATUS "Found glm: ${GLM_LIBRARIES}")
+  # else()
+  # message(FATAL_ERROR "glm library not found")
+  # endif()
   if(${VERBOSE})
     message(STATUS "glad_DIR: ${glad_DIR}")
     message(STATUS "imgui_DIR: ${imgui_DIR}")
@@ -660,21 +746,22 @@ else()
   message(FATAL_ERROR "${COMPILATION_PLATFORM} NOT SUPPORTED.")
 endif()
 
-if(COMPILATION_PLATFORM STREQUAL "UNIX" OR COMPILATION_PLATFORM STREQUAL "PI4")
+if(COMPILATION_PLATFORM STREQUAL "UNIX" OR COMPILATION_PLATFORM STREQUAL "RPI4")
   message("
 -----------------------------------------------------------
 HARD SETTINGS LIBRARY AS STATIC ON UNIX SYSTEMS DUE TO FAILURE OF IMGUI
 -----------------------------------------------------------\n")
   set(MPE_LIBRARY_TYPE STATIC)
-endif(COMPILATION_PLATFORM STREQUAL "UNIX" OR COMPILATION_PLATFORM STREQUAL "PI4")
+endif(COMPILATION_PLATFORM STREQUAL "UNIX" OR COMPILATION_PLATFORM STREQUAL "RPI4")
 
-if(COMPILATION_PLATFORM STREQUAL "PI4")
+if(COMPILATION_PLATFORM STREQUAL "RPI4")
   message("
 -----------------------------------------------------------
 SETTING CMAKE_PREFIX_PATH TO '/usr/local'
 -----------------------------------------------------------\n")
-  set(CMAKE_PREFIX_PATH "/usr/local")
-endif(COMPILATION_PLATFORM STREQUAL "PI4")
+
+  # set(CMAKE_PREFIX_PATH "/usr/local")
+endif(COMPILATION_PLATFORM STREQUAL "RPI4")
 
 # ADDING DEPENDENCIES
 if(${VERBOSE})
@@ -739,42 +826,46 @@ if(COMPILATION_PLATFORM STREQUAL "OSX")
   endif()
 endif(COMPILATION_PLATFORM STREQUAL "OSX")
 
-# EXPLICITLY SET PACKAGE_DIR FOR PI4
-if(COMPILATION_PLATFORM STREQUAL "PI4")
-  find_package(PkgConfig REQUIRED)
-  pkg_check_modules(FMT REQUIRED fmt)
+# EXPLICITLY SET PACKAGE_DIR FOR RPI4
+if(COMPILATION_PLATFORM STREQUAL "RPI4")
+  # find_package(fmt CONFIG REQUIRED)
 
-  if(FMT_FOUND)
-    include_directories(${FMT_INCLUDE_DIRS})
-    link_directories(${FMT_LIBRARY_DIRS})
-    add_definitions(${FMT_CFLAGS_OTHER})
-    message(STATUS "Found fmt: ${FMT_LIBRARIES}")
-  else()
-    message(FATAL_ERROR "fmt library not found")
-  endif()
+  # find_package(spdlog CONFIG REQUIRED)
 
-  pkg_check_modules(SPDLOG REQUIRED spdlog)
+  # find_package(PkgConfig REQUIRED)
+  # pkg_check_modules(FMT REQUIRED fmt)
 
-  if(SPDLOG_FOUND)
-    include_directories(${SPDLOG_INCLUDE_DIRS})
-    link_directories(${SPDLOG_LIBRARY_DIRS})
-    add_definitions(${SPDLOG_CFLAGS_OTHER})
-    message(STATUS "Found spdlog: ${SPDLOG_LIBRARIES}")
-  else()
-    message(FATAL_ERROR "spdlog library not found")
-  endif()
+  # if(FMT_FOUND)
+  # include_directories(${FMT_INCLUDE_DIRS})
+  # link_directories(${FMT_LIBRARY_DIRS})
+  # add_definitions(${FMT_CFLAGS_OTHER})
+  # message(STATUS "Found fmt: ${FMT_LIBRARIES}")
+  # else()
+  # message(FATAL_ERROR "fmt library not found")
+  # endif()
 
-  pkg_check_modules(GLM REQUIRED glm)
+  # pkg_check_modules(SPDLOG REQUIRED spdlog)
 
-  if(GLM_FOUND)
-    include_directories(${GLM_INCLUDE_DIRS})
-    link_directories(${GLM_LIBRARY_DIRS})
-    add_definitions(${GLM_CFLAGS_OTHER})
-    message(STATUS "Found glm: ${GLM_LIBRARIES}")
-  else()
-    message(FATAL_ERROR "glm library not found")
-  endif()
-endif(COMPILATION_PLATFORM STREQUAL "PI4")
+  # if(SPDLOG_FOUND)
+  # include_directories(${SPDLOG_INCLUDE_DIRS})
+  # link_directories(${SPDLOG_LIBRARY_DIRS})
+  # add_definitions(${SPDLOG_CFLAGS_OTHER})
+  # message(STATUS "Found spdlog: ${SPDLOG_LIBRARIES}")
+  # else()
+  # message(FATAL_ERROR "spdlog library not found")
+  # endif()
+
+  # pkg_check_modules(GLM REQUIRED glm)
+
+  # if(GLM_FOUND)
+  # include_directories(${GLM_INCLUDE_DIRS})
+  # link_directories(${GLM_LIBRARY_DIRS})
+  # add_definitions(${GLM_CFLAGS_OTHER})
+  # message(STATUS "Found glm: ${GLM_LIBRARIES}")
+  # else()
+  # message(FATAL_ERROR "glm library not found")
+  # endif()
+endif(COMPILATION_PLATFORM STREQUAL "RPI4")
 
 if(COMPILATION_PLATFORM STREQUAL "OSX")
 endif()
@@ -819,66 +910,111 @@ file(
   MPE_CPP
 
   # TEST
-  "${PROJECT_SOURCE_DIR}/MPE/Test/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Test/Test.cpp"
 
   # /Core
-  # "${PROJECT_SOURCE_DIR}/MPE/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Core/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Core/_PTRS.cpp"
 
   # /Log
-  "${PROJECT_SOURCE_DIR}/MPE/Log/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Log/Log.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Log/GlobalLog.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Log/CustomSinks/MemorySink.cpp"
 
   # /Errors
-  "${PROJECT_SOURCE_DIR}/MPE/Errors/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Errors/Error.cpp"
 
   # /App
-  "${PROJECT_SOURCE_DIR}/MPE/App/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/App/Layers/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/App/App.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/App/Window.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/App/WindowProps.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/App/Layers/Layer.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/App/Layers/LayerStack.cpp"
 
   # /Profiling
-  "${PROJECT_SOURCE_DIR}/MPE/Profiling/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Profiling/_PROFILING.cpp"
 
   # /Physics
-  "${PROJECT_SOURCE_DIR}/MPE/Time/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Time/Time.cpp"
 
   # /Input
-  "${PROJECT_SOURCE_DIR}/MPE/Input/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Input/KeyState.cpp"
 
   # /Events
-  "${PROJECT_SOURCE_DIR}/MPE/Events/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Events/EventApp.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Events/EventFunction.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Events/EventGraphics.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Events/EventKey.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Events/EventMouse.cpp"
 
   # /Renderer
-  "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderInformation/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Renderer.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Renderer2D.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/RendererAPI.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/RendererUtilities.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderPrimitive.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderSettings.cpp"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCamera.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCameraController.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/StaticOrthographicCamera.cpp"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/BufferLayout.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/IndexBuffer.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/VertexArray.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/VertexBuffer.cpp"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderInformation/RenderInfo.cpp"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/Shader.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/ShaderLibrary.cpp"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/Texture.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/Texture2D.cpp"
 
   # /Editor
-  "${PROJECT_SOURCE_DIR}/MPE/Editor/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Editor/Dialog/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/Grid.cpp"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Editor/Dialog/SimpleDialog.cpp"
 
   # /Platform/OpenGL
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Utilities/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Editor/Grid/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLContext.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLContextProps.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLRendererAPI.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLSettings.cpp"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Editor/Grid/OpenGLGrid.cpp"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/OpenGLIndexBuffer.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/OpenGLVertexArray.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/OpenGLVertexBuffer.cpp"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/OpenGLShader.cpp"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/OpenGLTexture.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/OpenGLTexture2D.cpp"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Utilities/OpenGLUtilities.cpp"
 
   # /Platform/OpenGLES
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Shaders/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Textures/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Utilities/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Editor/Grid/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESContext.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESContextProps.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESRendererAPI.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESSettings.cpp"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Editor/Grid/OpenGLESGrid.cpp"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/OpenGLESIndexBuffer.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/OpenGLESVertexArray.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/OpenGLESVertexBuffer.cpp"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Shaders/OpenGLESShader.cpp"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Textures/OpenGLESTexture.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Textures/OpenGLESTexture2D.cpp"
 
   # /Vendor
-  "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.cpp"
-  "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/ImGuiLayer.cpp"
+  "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/stb_image_impl.cpp"
 )
 
 # MPE LIBRARY .H FILES
@@ -887,67 +1023,129 @@ file(
   MPE_H
 
   # TEST
-  "${PROJECT_SOURCE_DIR}/MPE/Test/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Test/Test.h"
+
+  # /
+  "${PROJECT_SOURCE_DIR}/MPE/EntryPoint.h"
+  "${PROJECT_SOURCE_DIR}/MPE/MPE.h"
+  "${PROJECT_SOURCE_DIR}/MPE/MPEPCH.h"
+  "${PROJECT_SOURCE_DIR}/MPE/MPEPLAT.h"
 
   # /Core
-  "${PROJECT_SOURCE_DIR}/MPE/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Core/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Core/_ASSERTS.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Core/_CORE.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Core/_CWD.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Core/_INIT.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Core/_PTRS.h"
 
   # /Log
-  "${PROJECT_SOURCE_DIR}/MPE/Log/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Log/CustomSinks/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Log/Log.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Log/GlobalLog.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Log/CustomSinks/MemorySink.h"
 
   # /Errors
-  "${PROJECT_SOURCE_DIR}/MPE/Errors/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Errors/Error.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Errors/Errors.h"
 
   # /App
-  "${PROJECT_SOURCE_DIR}/MPE/App/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/App/Layers/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/App/App.h"
+  "${PROJECT_SOURCE_DIR}/MPE/App/Window.h"
+  "${PROJECT_SOURCE_DIR}/MPE/App/WindowProps.h"
+  "${PROJECT_SOURCE_DIR}/MPE/App/Layers/Layer.h"
+  "${PROJECT_SOURCE_DIR}/MPE/App/Layers/LayerStack.h"
 
   # /Profiling
-  "${PROJECT_SOURCE_DIR}/MPE/Profiling/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Profiling/_PROFILING.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Profiling/_TIMER.h"
 
   # /Physics
-  "${PROJECT_SOURCE_DIR}/MPE/Time/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Time/Time.h"
 
   # /Input
-  "${PROJECT_SOURCE_DIR}/MPE/Input/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Input/Input.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Input/KeyCodes.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Input/KeyState.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Input/MouseButtonCodes.h"
 
   # /Events
-  "${PROJECT_SOURCE_DIR}/MPE/Events/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Events/Event.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Events/EventApp.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Events/EventFunction.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Events/EventGraphics.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Events/EventKey.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Events/EventMouse.h"
 
   # /Renderer
-  "${PROJECT_SOURCE_DIR}/MPE/Renderer/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderInformation/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/GraphicalContext.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/GraphicalContextProps.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Renderer.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Renderer2D.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/RendererAPI.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/RendererUtilities.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderPrimitive.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderSettings.h"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCamera.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCameraController.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/StaticOrthographicCamera.h"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/BufferLayout.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/IndexBuffer.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/VertexArray.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/VertexBuffer.h"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderInformation/RenderInfo.h"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/Shader.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/ShaderLibrary.h"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/Texture.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/Texture2D.h"
 
   # /Editor
-  "${PROJECT_SOURCE_DIR}/MPE/Editor/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Editor/Dialog/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/Grid.h"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Editor/Dialog/SimpleDialog.h"
 
   # /Platform/OpenGL
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Utilities/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Editor/Grid/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLContext.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLContextProps.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLRendererAPI.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLSettings.h"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Editor/Grid/OpenGLGrid.h"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/OpenGLIndexBuffer.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/OpenGLVertexArray.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/OpenGLVertexBuffer.h"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/OpenGLShader.h"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/OpenGLTexture.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/OpenGLTexture2D.h"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Utilities/OpenGLUtilities.h"
 
   # /Platform/OpenGLES
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Shaders/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Textures/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Utilities/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Editor/Grid/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESContext.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESContextProps.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESRendererAPI.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESSettings.h"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Editor/Grid/OpenGLESGrid.h"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/OpenGLESIndexBuffer.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/OpenGLESVertexArray.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/OpenGLESVertexBuffer.h"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Shaders/OpenGLESShader.h"
+
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Textures/OpenGLESTexture.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Textures/OpenGLESTexture2D.h"
 
   # /Vendor
-  "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/*.h"
-  "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/*.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/ImGuiLayer.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/stb_image.h"
 )
 
 # PRINT MPE SOURCE FILES
@@ -1162,59 +1360,59 @@ macOS HEADER FILES:\n")
   endif()
 
 # HYPERSPECIFIC PLATFORMS
-elseif(COMPILATION_PLATFORM STREQUAL "PI4")
+elseif(COMPILATION_PLATFORM STREQUAL "RPI4")
   file(
     GLOB_RECURSE
-    MPE_PI4_CPP
+    MPE_RPI4_CPP
 
-    # /Platform/Linux/Core
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Core/*.cpp"
+    # /Platform/RPI/Core
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/Core/*.cpp"
 
-    # /Platform/Linux/App
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/App/*.cpp"
+    # /Platform/RPI/App
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/App/*.cpp"
 
-    # /Platform/Linux/Errors
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Errors/*.cpp"
+    # /Platform/RPI/Errors
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/Errors/*.cpp"
 
-    # /Platform/Linux/Input
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Input/*.cpp"
+    # /Platform/RPI/Input
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/Input/*.cpp"
   )
 
   file(
     GLOB_RECURSE
-    MPE_PI4_H
+    MPE_RPI4_H
 
-    # /Platform/Linux/Core
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Core/*.h"
+    # /Platform/RPI/Core
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/Core/*.h"
 
-    # /Platform/Linux/App
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/App/*.h"
+    # /Platform/RPI/App
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/App/*.h"
 
-    # /Platform/Linux/Input
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Input/*.h"
+    # /Platform/RPI/Input
+    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/Input/*.h"
   )
 
-  # ADD MPE Linux SOURCE FILES
-  list(APPEND MPE_CPP ${MPE_PI4_CPP})
+  # ADD MPE RPI SOURCE FILES
+  list(APPEND MPE_CPP ${MPE_RPI4_CPP})
 
-  list(APPEND MPE_H ${MPE_PI4_H})
+  list(APPEND MPE_H ${MPE_RPI4_H})
 
-  # PRINT MPE Linux SOURCE FILES
+  # PRINT MPE RPI SOURCE FILES
   if(${VERBOSE})
     message("
-MPE PI4 SOURCE AND HEADER FILES
+MPE RPI4 SOURCE AND HEADER FILES
 
-PI4 SOURCE FILES:\n")
+RPI4 SOURCE FILES:\n")
 
-    foreach(MPE_PI4_CPP_FILE ${MPE_PI4_CPP})
-      message("${MPE_PI4_CPP_FILE}")
+    foreach(MPE_RPI4_CPP_FILE ${MPE_RPI4_CPP})
+      message("${MPE_RPI4_CPP_FILE}")
     endforeach()
 
     message("   
-PI4 HEADER FILES:\n")
+RPI4 HEADER FILES:\n")
 
-    foreach(MPE_PI4_H_FILE ${MPE_PI4_H})
-      message("${MPE_PI4_H_FILE}")
+    foreach(MPE_RPI4_H_FILE ${MPE_RPI4_H})
+      message("${MPE_RPI4_H_FILE}")
     endforeach()
 
     message("
@@ -1241,10 +1439,10 @@ if(${MPE_LIBRARY_TYPE} STREQUAL STATIC)
     )
 
   # HYPERSPECIFIC PLATFORMS
-  elseif(COMPILATION_PLATFORM STREQUAL "PI4")
+  elseif(COMPILATION_PLATFORM STREQUAL "RPI4")
     add_library(MPE STATIC
       ${MPE_CPP}
-      ${MPE_PI4_CPP}
+      ${MPE_RPI4_CPP}
     )
   endif()
 
@@ -1265,8 +1463,8 @@ elseif(${MPE_LIBRARY_TYPE} STREQUAL SHARED)
       ${MPE_CPP}
       ${MPE_OSX_CPP}
     )
-  elseif(COMPILATION_PLATFORM STREQUAL "PI4")
-    message(FATAL_ERROR "SHARED LIBRARY NOT SUPPORTED ON PI4.")
+  elseif(COMPILATION_PLATFORM STREQUAL "RPI4")
+    message(FATAL_ERROR "SHARED LIBRARY NOT SUPPORTED ON RPI4.")
   endif()
 
   target_compile_definitions(MPE PUBLIC MPE_DYNAMIC_LIBRARY)
@@ -1283,9 +1481,9 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
 elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   target_compile_definitions(MPE PUBLIC MPE_PLATFORM_LINUX)
 
-elseif(COMPILATION_PLATFORM STREQUAL "PI4")
+elseif(COMPILATION_PLATFORM STREQUAL "RPI4")
   target_compile_definitions(MPE PUBLIC MPE_PLATFORM_LINUX)
-  target_compile_definitions(MPE PUBLIC MPE_PLATFORM_PI4)
+  target_compile_definitions(MPE PUBLIC MPE_PLATFORM_RPI4)
 
 elseif(COMPILATION_PLATFORM STREQUAL "OSX")
   target_compile_definitions(MPE PUBLIC MPE_PLATFORM_OSX)
@@ -1316,8 +1514,8 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
   list(APPEND MPE_PUBLIC_DEFINITIONS MPE_PLATFORM_WINDOWS)
 elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
   list(APPEND MPE_PUBLIC_DEFINITIONS MPE_PLATFORM_LINUX)
-elseif(COMPILATION_PLATFORM STREQUAL "PI4")
-  list(APPEND MPE_PUBLIC_DEFINITIONS MPE_PLATFORM_LINUX MPE_PLATFORM_PI4)
+elseif(COMPILATION_PLATFORM STREQUAL "RPI4")
+  list(APPEND MPE_PUBLIC_DEFINITIONS MPE_PLATFORM_LINUX MPE_PLATFORM_RPI4)
 elseif(COMPILATION_PLATFORM STREQUAL "OSX")
   list(APPEND MPE_PUBLIC_DEFINITIONS MPE_PLATFORM_OSX)
 endif()
@@ -1406,11 +1604,11 @@ if(COMPILATION_PLATFORM STREQUAL "OSX")
   )
 endif()
 
-if(COMPILATION_PLATFORM STREQUAL "PI4")
+if(COMPILATION_PLATFORM STREQUAL "RPI4")
   target_link_libraries(
     MPE
     PUBLIC ${FMT_LIBRARIES}
-    PUBLIC ${SPDLOG_LIBRARIES}
+    PUBLIC spdlog
     PUBLIC ${OPENGL_LIBRARIES}
     PUBLIC glad
     PUBLIC ${GLFW3_LIBRARIES}
@@ -1446,7 +1644,7 @@ target_include_directories(MPE
   PUBLIC "${PROJECT_SOURCE_DIR}/MPE"
 )
 
-if(COMPILATION_PLATFORM STREQUAL "UNIX" OR COMPILATION_PLATFORM STREQUAL "PI4")
+if(COMPILATION_PLATFORM STREQUAL "UNIX" OR COMPILATION_PLATFORM STREQUAL "RPI4")
   target_include_directories(MPE
     PUBLIC "${GTK3_INCLUDE_DIRS}")
 endif()
