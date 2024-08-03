@@ -1,17 +1,20 @@
 if(${MPE_LIBRARY_TYPE} STREQUAL STATIC)
-  add_library(MPE STATIC
-    ${MPE_CPP}
-    ${MPE_RPI4_CPP}
-  )
+    add_library(MPE STATIC
+        ${MPE_CPP}
+        ${MPE_OSX_CPP}
+    )
 
-  target_compile_definitions(MPE PRIVATE MPE_STATIC_LIBRARY)
+    target_compile_definitions(MPE PRIVATE MPE_STATIC_LIBRARY)
 elseif(${MPE_LIBRARY_TYPE} STREQUAL SHARED)
-  message(FATAL_ERROR "SHARED LIBRARY NOT SUPPORTED ON RPI4.")
+    add_library(MPE SHARED
+        ${MPE_CPP}
+        ${MPE_OSX_CPP}
+    )
 
-# target_compile_definitions(MPE PUBLIC MPE_DYNAMIC_LIBRARY)
-# target_compile_definitions(MPE PRIVATE MPE_BUILD_DLL)
+    target_compile_definitions(MPE PUBLIC MPE_DYNAMIC_LIBRARY)
+    target_compile_definitions(MPE PRIVATE MPE_BUILD_DLL)
 else()
-  message(FATAL_ERROR "LIBRARY TYPE {${MPE_LIBRARY_TYPE}} NOT SUPPORTED.")
+    message(FATAL_ERROR "LIBRARY TYPE {${MPE_LIBRARY_TYPE}} NOT SUPPORTED.")
 endif()
 
 target_compile_definitions(MPE PUBLIC MPE_PLATFORM_OSX)
