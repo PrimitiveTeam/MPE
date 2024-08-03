@@ -1,7 +1,12 @@
 #include "source/Pong.h"
 #include "MPE/EntryPoint.h"
 
-#include "Platform/OpenGL/OpenGLSettings.h"
+#ifdef MPE_OPENGL
+#    include "Platform/OpenGL/OpenGLSettings.h"
+#endif
+#ifdef MPE_OPENGLES
+#    include "Platform/OpenGLES/OpenGLESSettings.h"
+#endif
 
 class DebugGuiLayer : public MPE::Layer
 {
@@ -97,11 +102,13 @@ class DebugGuiLayer : public MPE::Layer
 
         if (api == MPE::RendererAPI::API::OpenGL)
         {
+#ifdef MPE_OPENGL
             bool polygonMode = dynamic_cast<MPE::OpenGLSettings*>(settings)->GetPolygonMode();
             if (ImGui::Checkbox("Polygon Mode", &polygonMode))
             {
                 dynamic_cast<MPE::OpenGLSettings*>(settings)->SetPolygonMode(polygonMode);
             }
+#endif
         }
     }
 

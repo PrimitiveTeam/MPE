@@ -63,6 +63,11 @@ void WindowsWindow::Init(const WindowProps &props)
         glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
     }
+    else
+    {
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+    }
 
     SYS_Window = glfwCreateWindow((int) props.Width, (int) props.Height, SYS_Data.Title.c_str(), nullptr, nullptr);
     SaveWindowSizeAndPosition();
@@ -70,13 +75,21 @@ void WindowsWindow::Init(const WindowProps &props)
     switch (api)
     {
         case RendererAPI::API::OpenGL:
+#ifdef MPE_OPENGL
             SYS_Context = new OpenGLContext(SYS_Window);
             SYS_Context->Init();
             break;
+#else
+            MPE_CORE_ASSERT(false, "OPENGL IS NOT SUPPORTED.");
+#endif
         case RendererAPI::API::OpenGLES:
+#ifdef MPE_OPENGLES
             SYS_ESContext = new OpenGLESContext(SYS_Window);
             SYS_ESContext->Init();
             break;
+#else
+            MPE_CORE_ASSERT(false, "OPENGLES IS NOT SUPPORTED.");
+#endif
         default:
             MPE_CORE_ASSERT(false, "NO RENDERER API SELECTED.");
     }
@@ -206,11 +219,19 @@ void WindowsWindow::OnUpdate()
     switch (api)
     {
         case RendererAPI::API::OpenGL:
+#ifdef MPE_OPENGL
             SYS_Context->SwapBuffers();
             break;
+#else
+            MPE_CORE_ASSERT(false, "OPENGL IS NOT SUPPORTED.");
+#endif
         case RendererAPI::API::OpenGLES:
+#ifdef MPE_OPENGLES
             SYS_ESContext->SwapBuffers();
             break;
+#else
+            MPE_CORE_ASSERT(false, "OPENGLES IS NOT SUPPORTED.");
+#endif
         default:
             MPE_CORE_ASSERT(false, "NO RENDERER API SELECTED.");
     }

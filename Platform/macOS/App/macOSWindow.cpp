@@ -49,17 +49,48 @@ void macOSWindow::Init(const WindowProps &props)
         SYS_GLFWInitialized = true;
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    MPE_CORE_TRACE("Setting GLFW_OPENGL_FORWARD_COMPAT to GL_TRUE for macOS.");
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    auto api = MPE::RendererAPI::GetGraphicsAPI();
+
+    if (api == RendererAPI::API::OpenGLES)
+    {
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
+    }
+    else
+    {
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+        MPE_CORE_TRACE("Setting GLFW_OPENGL_FORWARD_COMPAT to GL_TRUE for macOS.");
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    }
 
     SYS_Window = glfwCreateWindow((int) props.Width, (int) props.Height, SYS_Data.Title.c_str(), nullptr, nullptr);
     SaveWindowSizeAndPosition();
 
-    SYS_Context = new OpenGLContext(SYS_Window);
-    SYS_Context->Init();
+    switch (api)
+    {
+        case RendererAPI::API::OpenGL:
+#ifdef MPE_OPENGL
+            SYS_Context = new OpenGLContext(SYS_Window);
+            SYS_Context->Init();
+            break;
+#else
+            MPE_CORE_ASSERT(false, "OPENGL IS NOT SUPPORTED.");
+#endif
+        case RendererAPI::API::OpenGLES:
+#ifdef MPE_OPENGLES
+            SYS_ESContext = new OpenGLESContext(SYS_Window);
+            SYS_ESContext->Init();
+            break;
+#else
+            MPE_CORE_ASSERT(false, "OPENGLES IS NOT SUPPORTED.");
+#endif
+        default:
+            MPE_CORE_ASSERT(false, "NO RENDERER API SELECTED.");
+    }
 
     glfwSetWindowUserPointer(SYS_Window, &SYS_Data);
 
@@ -166,10 +197,30 @@ void macOSWindow::Shutdown()
     glfwDestroyWindow(SYS_Window);
 }
 
-void macOSWindow::OnUpdate()
+void WindowsWindow::OnUpdate()
 {
     glfwPollEvents();
-    SYS_Context->SwapBuffers();
+
+    auto api = MPE::RendererAPI::GetGraphicsAPI();
+    switch (api)
+    {
+        case RendererAPI::API::OpenGL:
+#ifdef MPE_OPENGL
+            SYS_Context->SwapBuffers();
+            break;
+#else
+            MPE_CORE_ASSERT(false, "OPENGL IS NOT SUPPORTED.");
+#endif
+        case RendererAPI::API::OpenGLES:
+#ifdef MPE_OPENGLES
+            SYS_ESContext->SwapBuffers();
+            break;
+#else
+            MPE_CORE_ASSERT(false, "OPENGLES IS NOT SUPPORTED.");
+#endif
+        default:
+            MPE_CORE_ASSERT(false, "NO RENDERER API SELECTED.");
+    }
     // glfwSwapBuffers(SYS_Window);
 }
 

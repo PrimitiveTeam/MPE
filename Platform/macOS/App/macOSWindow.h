@@ -2,9 +2,14 @@
 
 #include "MPE/Core/_CORE.h"
 #include "MPE/App/Window.h"
-#include "Platform/OpenGL/OpenGLContext.h"
-#include "Platform/OpenGLES/OpenGLESContext.h"
 #include "Platform/macOS/App/WindowMonitors.h"
+
+#ifdef MPE_OPENGL
+#    include "Platform/OpenGL/OpenGLContext.h"
+#endif
+#ifdef MPE_OPENGLES
+#    include "Platform/OpenGLES/OpenGLESContext.h"
+#endif
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -46,8 +51,12 @@ class MPE_API macOSWindow : public Window
 
   private:
     GLFWwindow *SYS_Window;
+#ifdef MPE_OPENGL
     OpenGLContext *SYS_Context;
+#endif
+#ifdef MPE_OPENGLES
     OpenGLESContext *SYS_ESContext;
+#endif
 
     struct WindowData
     {
