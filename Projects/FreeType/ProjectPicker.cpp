@@ -1,8 +1,8 @@
 #include "MPE/EntryPoint.h"
 #include "MPE/MPE.h"
 
-#include "MPE/Platform/OpenGL/OpenGLSettings.h"
-#include "MPE/Platform/OpenGL/Shaders/OpenGLShader.h"
+#include "Platform/OpenGL/OpenGLSettings.h"
+#include "Platform/OpenGL/Shaders/OpenGLShader.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H

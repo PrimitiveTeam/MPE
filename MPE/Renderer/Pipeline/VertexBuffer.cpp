@@ -3,8 +3,8 @@
 
 #include "MPE/Core/_ASSERTS.h"
 #include "MPE/Renderer/Renderer.h"
-#include "MPE/Platform/OpenGL/Pipeline/OpenGLVertexBuffer.h"
-#include "MPE/Platform/OpenGLES/Pipeline/OpenGLESVertexBuffer.h"
+#include "Platform/OpenGL/Pipeline/OpenGLVertexBuffer.h"
+#include "Platform/OpenGLES/Pipeline/OpenGLESVertexBuffer.h"
 #include "MPE/Log/GlobalLog.h"
 
 namespace MPE

@@ -2,31 +2,30 @@ file(
   GLOB_RECURSE
   MPE_Linux_CPP
 
-  # /Platform/Linux/Core
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Core/*.cpp"
-
   # /Platform/Linux/App
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/App/*.cpp"
+  "${PROJECT_SOURCE_DIR/Platform/Linux/App/LinuxWindow.cpp"
+  "${PROJECT_SOURCE_DIR/Platform/Linux/App/LinuxMonitors.cpp"
+
+  # /Platform/Linux/Core
+  "${PROJECT_SOURCE_DIR/Platform/Linux/Core/_PTRS.cpp"
 
   # /Platform/Linux/Errors
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Errors/*.cpp"
+  "${PROJECT_SOURCE_DIR/Platform/Linux/Errors/Error.cpp"
 
   # /Platform/Linux/Input
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Input/*.cpp"
+  "${PROJECT_SOURCE_DIR/Platform/Linux/Input/LinuxInput.cpp"
 )
 
 file(
   GLOB_RECURSE
   MPE_Linux_H
 
-  # /Platform/Linux/Core
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Core/*.h"
-
   # /Platform/Linux/App
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/App/*.h"
+  "${PROJECT_SOURCE_DIR/Platform/Linux/App/LinuxWindow.h"
+  "${PROJECT_SOURCE_DIR/Platform/Linux/App/LinuxMonitors.h"
 
   # /Platform/Linux/Input
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Linux/Input/*.h"
+  "${PROJECT_SOURCE_DIR/Platform/Linux/Input/LinuxInput.h"
 )
 
 # ADD MPE Linux SOURCE FILES

@@ -3,8 +3,8 @@
 #include "MPE/Core/_PTRS.h"
 #include "MPE/Core/_CORE.h"
 #include "MPE/Renderer/RendererAPI.h"
-#include "MPE/Platform/OpenGL/OpenGLRendererAPI.h"
-#include "MPE/Platform/OpenGLES/OpenGLESRendererAPI.h"
+#include "Platform/OpenGL/OpenGLRendererAPI.h"
+#include "Platform/OpenGLES/OpenGLESRendererAPI.h"
 
 namespace MPE
 {

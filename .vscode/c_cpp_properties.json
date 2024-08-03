@@ -4,6 +4,8 @@
       "name": "Win32",
       "includePath": [
         "${workspaceFolder}/**",
+        "${workspaceFolder}/MPE/**",
+        "${workspaceFolder}/Platform/**",
         "${vcpkgRoot}/x64-windows/include",
         "${vcpkgRoot}/x64-windows-static/include",
         "${workspaceFolder}/Vendor/imgui",

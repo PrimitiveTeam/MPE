@@ -4,8 +4,8 @@
 #include "MPE/Core/_ASSERTS.h"
 #include "MPE/Renderer/Renderer.h"
 #include "MPE/Log/GlobalLog.h"
-#include "MPE/Platform/OpenGL/Shaders/OpenGLShader.h"
-#include "MPE/Platform/OpenGLES/Shaders/OpenGLESShader.h"
+#include "Platform/OpenGL/Shaders/OpenGLShader.h"
+#include "Platform/OpenGLES/Shaders/OpenGLESShader.h"
 
 namespace MPE
 {

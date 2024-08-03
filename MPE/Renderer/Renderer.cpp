@@ -1,8 +1,8 @@
 #include "Renderer.h"
 #include "MPE/MPEPCH.h"
 
-#include "MPE/Platform/OpenGL/Shaders/OpenGLShader.h"
-#include "MPE/Platform/OpenGLES/Shaders/OpenGLESShader.h"
+#include "Platform/OpenGL/Shaders/OpenGLShader.h"
+#include "Platform/OpenGLES/Shaders/OpenGLESShader.h"
 #include "MPE/Renderer/Renderer2D.h"
 
 namespace MPE

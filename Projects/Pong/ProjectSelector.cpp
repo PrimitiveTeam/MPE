@@ -1,7 +1,7 @@
 #include "source/Pong.h"
 #include "MPE/EntryPoint.h"
 
-#include "MPE/Platform/OpenGL/OpenGLSettings.h"
+#include "Platform/OpenGL/OpenGLSettings.h"
 
 class DebugGuiLayer : public MPE::Layer
 {

@@ -2,31 +2,30 @@ file(
   GLOB_RECURSE
   MPE_macOS_CPP
 
-  # /Platform/macOS/Core
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/Core/*.mm"
-
   # /Platform/macOS/App
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/App/*.cpp"
+  "${PROJECT_SOURCE_DIR}/Platform/macOS/App/macOSWindow.cpp"
+  "${PROJECT_SOURCE_DIR}/Platform/macOS/App/WindowMonitors.cpp"
+
+  # /Platform/macOS/Core
+  "${PROJECT_SOURCE_DIR}/Platform/macOS/Core/_PTRS.mm"
 
   # /Platform/macOS/Errors
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/Errors/*.mm"
+  "${PROJECT_SOURCE_DIR}/Platform/macOS/Errors/Error.mm"
 
   # /Platform/macOS/Input
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/Input/*.cpp"
+  "${PROJECT_SOURCE_DIR}/Platform/macOS/Input/macOSInput.cpp"
 )
 
 file(
   GLOB_RECURSE
   MPE_macOS_H
 
-  # /Platform/macOS/Core
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/Core/*.h"
-
   # /Platform/macOS/App
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/App/*.h"
+  "${PROJECT_SOURCE_DIR}/Platform/macOS/App/macOSWindow.h"
+  "${PROJECT_SOURCE_DIR}/Platform/macOS/App/WindowMonitors.h"
 
   # /Platform/macOS/Input
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/macOS/Input/*.h"
+  "${PROJECT_SOURCE_DIR}/Platform/macOS/Input/macOSInput.h"
 )
 
 # ADD MPE macOS SOURCE FILES

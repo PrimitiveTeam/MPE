@@ -2,8 +2,8 @@
 #include "MPEPCH.h"
 
 #include "MPE/Renderer/Renderer.h"
-#include "MPE/Platform/OpenGL/Textures/OpenGLTexture2D.h"
-#include "MPE/Platform/OpenGLES/Textures/OpenGLESTexture2D.h"
+#include "Platform/OpenGL/Textures/OpenGLTexture2D.h"
+#include "Platform/OpenGLES/Textures/OpenGLESTexture2D.h"
 
 namespace MPE
 {
