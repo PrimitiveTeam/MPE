@@ -28,6 +28,15 @@ if(CMAKE_BUILD_TYPE STREQUAL Debug)
     target_compile_definitions(MPE PUBLIC MPE_ENABLE_DEBUG_LOG)
 endif(CMAKE_BUILD_TYPE STREQUAL Debug)
 
+# GRAPHICS APIS
+if(MPE_OPENGL)
+    target_compile_definitions(MPE PUBLIC MPE_OPENGL)
+endif()
+
+if(MPE_OPENGLES)
+    target_compile_definitions(MPE PUBLIC MPE_OPENGLES)
+endif()
+
 target_compile_definitions(MPE PUBLIC MPE_FULL_VERSION_${PROJECT_FULL_VERSION})
 
 # CMAKE IS NOT INHERETING COMPILER FLAGS PROPERLY
