@@ -36,18 +36,21 @@ if(${INSTALL_DLLS})
 endif()
 
 if(MPE_ANGLE)
-add_custom_command(
-    TARGET MPE
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy
-    ${ANGLE_DLLS}
-    $<TARGET_FILE_DIR:MPE>
-    COMMENT "Copying ANGLE DLLs to MPE build..."
-)
+    # Looks like we don't need angle-specific .so files in the build directory. At least for now...
+    return()
 
-# Also add install for dlls
-install(
-    FILES ${ANGLE_DLLS}
-    DESTINATION bin
-)
+    add_custom_command(
+        TARGET MPE
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        ${ANGLE_DLLS}
+        $<TARGET_FILE_DIR:MPE>
+        COMMENT "Copying ANGLE DLLs to MPE build..."
+    )
+
+    # Also add install for dlls
+    install(
+        FILES ${ANGLE_DLLS}
+        DESTINATION bin
+    )
 endif(MPE_ANGLE)
