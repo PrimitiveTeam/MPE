@@ -1,8 +1,9 @@
 // GRID SHADER
 
 #type vertex
-#version 330 core
+#version 300 es
 
+// Vertex Shader
 layout(location = 0) in vec3 ATTR_POS;
 
 uniform mat4 UNI_VPM;
@@ -13,9 +14,12 @@ void main()
 }
 
 #type fragment
-#version 330 core
+#version 300 es
 
-out vec4 GRID_LINES_COLOR;
+// Fragment Shader
+precision mediump float;
+
+layout(location = 0) out mediump vec4 GRID_LINES_COLOR;
 
 void main()
 {

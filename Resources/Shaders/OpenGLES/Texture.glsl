@@ -1,15 +1,16 @@
 // BASIC TEXTURE SHADER
 
 #type vertex
-#version 330 core
+#version 300 es
 
+// Vertex Shader
 layout(location = 0) in vec3 ATTR_POS;
 layout(location = 1) in vec2 ATTR_TEXCOORD;
 
 uniform mat4 UNI_VPM;
 uniform mat4 UNI_MODELMAT;
 
-out vec2 VAR_TEXCOORD;
+out highp vec2 VAR_TEXCOORD;
 
 void main()
 {
@@ -18,13 +19,16 @@ void main()
 }
 
 #type fragment
-#version 330 core
+#version 300 es
 
-layout(location = 0) out vec4 LOCAL_COLOR;
+// Fragment Shader
+precision mediump float;
 
-in vec2 VAR_TEXCOORD;
+in highp vec2 VAR_TEXCOORD;
 
 uniform sampler2D UNI_TEXTURE;
+
+layout(location = 0) out mediump vec4 LOCAL_COLOR;
 
 void main()
 {
