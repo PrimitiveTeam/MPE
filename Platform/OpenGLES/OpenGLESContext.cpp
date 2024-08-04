@@ -5,9 +5,6 @@
 #include "MPE/Log/GlobalLog.h"
 #include "MPE/Renderer/RendererAPI.h"
 
-// #include <GLES3/gl3.h>
-// #include <glad/glad.h>
-
 #ifdef MPE_PLATFORM_WINDOWS
 #    define GLFW_EXPOSE_NATIVE_WIN32
 #elif MPE_PLATFORM_LINUX

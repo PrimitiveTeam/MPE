@@ -8,6 +8,9 @@
 #include "MPE/Events/EventMouse.h"
 
 #include "MPE/Renderer/RendererAPI.h"
+
+#include <GLFW/glfw3.h>
+
 namespace MPE
 {
 static bool SYS_GLFWInitialized = false;

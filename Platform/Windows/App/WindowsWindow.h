@@ -11,8 +11,7 @@
 #    include "Platform/OpenGLES/OpenGLESContext.h"
 #endif
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+struct GLFWwindow;
 
 namespace MPE
 {
