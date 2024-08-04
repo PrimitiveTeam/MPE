@@ -16,28 +16,31 @@ target_link_libraries(
 
 target_link_libraries(
   MPE
-  PRIVATE ${OpenCV_LIBS}
+  PUBLIC ${OpenCV_LIBS}
 )
 
 if(MPE_ANGLE)
   target_include_directories(MPE
-    PRIVATE ${angle_Include}
+    PUBLIC ${angle_Include}
   )
 
   target_link_libraries(
     MPE
-    PRIVATE ${ANGLE_GLESv2_LIBRARY}
+    PUBLIC ${ANGLE_GLESv2_LIBRARY}
+    PUBLIC ${ANGLE_EGL_LIBRARY}
   )
+
+  # message(FATAL_ERROR "ANGLE LIBS: ${ANGLE_GLESv2_LIBRARY} ${ANGLE_EGL_LIBRARY}")
 endif(MPE_ANGLE)
 
 # find_path(STB_INCLUDE_DIRS "stb_c_lexer.h")
 target_include_directories(MPE
-  PRIVATE
+  PUBLIC
   ${Stb_INCLUDE_DIRS}
 )
 
 target_include_directories(MPE
-  PRIVATE
+  PUBLIC
   ${OpenCV_INCLUDE_DIRS}
 )
 

@@ -2,31 +2,30 @@ file(
     GLOB_RECURSE
     MPE_RPI4_CPP
 
-    # /Platform/RPI/Core
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/Core/*.cpp"
-
     # /Platform/RPI/App
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/App/*.cpp"
+    "${PROJECT_SOURCE_DIR}/Platform/RPI/App/RPIWindow.cpp"
+    "${PROJECT_SOURCE_DIR}/Platform/RPI/App/WindowMonitors.cpp"
+
+    # /Platform/RPI/Core
+    "${PROJECT_SOURCE_DIR}/Platform/RPI/Core/_PTRS.cpp"
 
     # /Platform/RPI/Errors
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/Errors/*.cpp"
+    "${PROJECT_SOURCE_DIR}/Platform/RPI/Errors/Error.cpp"
 
     # /Platform/RPI/Input
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/Input/*.cpp"
+    "${PROJECT_SOURCE_DIR}/Platform/RPI/Input/RPIInput.cpp"
 )
 
 file(
     GLOB_RECURSE
     MPE_RPI4_H
 
-    # /Platform/RPI/Core
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/Core/*.h"
-
     # /Platform/RPI/App
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/App/*.h"
+    "${PROJECT_SOURCE_DIR}/Platform/RPI/App/RPIWindow.h"
+    "${PROJECT_SOURCE_DIR}/Platform/RPI/App/WindowMonitors.h"
 
     # /Platform/RPI/Input
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/RPI/Input/*.h"
+    "${PROJECT_SOURCE_DIR}/Platform/RPI/Input/RPIInput.h"
 )
 
 # ADD MPE RPI SOURCE FILES

@@ -1,93 +1,89 @@
-# ##############################################################################
-# PROJECTS PONG
-if(${MPE_PROJECTS} AND ${MPE_PROJECT_PONG})
-  add_executable(PONG
-    "${PROJECT_SOURCE_DIR}/Projects/Pong/ProjectSelector.cpp")
+add_executable(PONG
+  "${PROJECT_SOURCE_DIR}/Projects/Pong/ProjectSelector.cpp")
 
-  target_include_directories(PONG PRIVATE ${MPE_PUBLIC_INCLUDES})
+target_include_directories(PONG PRIVATE ${MPE_PUBLIC_INCLUDES})
 
-  file(GLOB_RECURSE PONG_CPP
-    "${PROJECT_SOURCE_DIR}/Projects/Pong/*.cpp"
-    "${PROJECT_SOURCE_DIR}/Projects/Pong/Core/*.cpp")
+file(GLOB_RECURSE PONG_CPP
+  "${PROJECT_SOURCE_DIR}/Projects/Pong/*.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/Pong/Core/*.cpp")
 
-  file(GLOB_RECURSE PONG_H
-    "${PROJECT_SOURCE_DIR}/Projects/Pong/*.h"
-    "${PROJECT_SOURCE_DIR}/Projects/Pong/Core/*.h")
+file(GLOB_RECURSE PONG_H
+  "${PROJECT_SOURCE_DIR}/Projects/Pong/*.h"
+  "${PROJECT_SOURCE_DIR}/Projects/Pong/Core/*.h")
 
-  add_library(PONG_SRC STATIC ${PONG_CPP})
-  target_include_directories(PONG_SRC PUBLIC
-    ${PONG_H}
-    ${MPE_PUBLIC_INCLUDES}
-  )
+add_library(PONG_SRC STATIC ${PONG_CPP})
+target_include_directories(PONG_SRC PUBLIC
+  ${PONG_H}
+  ${MPE_PUBLIC_INCLUDES}
+)
 
-  # COMPILER DEFINITIONS FOR PONG_SRC
-  target_compile_definitions(PONG_SRC PUBLIC ${MPE_PUBLIC_DEFINITIONS})
+# COMPILER DEFINITIONS FOR PONG_SRC
+target_compile_definitions(PONG_SRC PUBLIC ${MPE_PUBLIC_DEFINITIONS})
 
-  if(${VERBOSE})
-    get_target_property(PONG_SRC_DEFINITIONS_LIST PONG_SRC COMPILE_DEFINITIONS)
+if(${VERBOSE})
+  get_target_property(PONG_SRC_DEFINITIONS_LIST PONG_SRC COMPILE_DEFINITIONS)
 
-    message("
+  message("
 -----------------------------------------------------------
 PONG_SRC COMPILE DEFINITIONS:\n")
 
-    foreach(DEFINITION ${PONG_SRC_DEFINITIONS_LIST})
-      message(STATUS "${DEFINITION}")
-    endforeach()
+  foreach(DEFINITION ${PONG_SRC_DEFINITIONS_LIST})
+    message(STATUS "${DEFINITION}")
+  endforeach()
 
-    message("
+  message("
 -----------------------------------------------------------")
-  endif()
+endif()
 
-  target_link_libraries(PONG_SRC PUBLIC MPE)
-  target_link_libraries(PONG PUBLIC MPE)
-  target_link_libraries(PONG PUBLIC PONG_SRC)
+target_link_libraries(PONG_SRC PUBLIC MPE)
+target_link_libraries(PONG PUBLIC MPE)
+target_link_libraries(PONG PUBLIC PONG_SRC)
 
-  set_target_properties(PONG PROPERTIES VERSION ${PROJECT_FULL_VERSION})
-  set_target_properties(PONG PROPERTIES OUTPUT_NAME "MPE-PONG")
+set_target_properties(PONG PROPERTIES VERSION ${PROJECT_FULL_VERSION})
+set_target_properties(PONG PROPERTIES OUTPUT_NAME "MPE-PONG")
 
-  # COMPILER DEFINITIONS FOR PONG
-  target_compile_definitions(PONG PUBLIC ${MPE_PUBLIC_DEFINITIONS})
+# COMPILER DEFINITIONS FOR PONG
+target_compile_definitions(PONG PUBLIC ${MPE_PUBLIC_DEFINITIONS})
 
-  if(${VERBOSE})
-    get_target_property(PONG_DEFINITIONS_LIST PONG COMPILE_DEFINITIONS)
+if(${VERBOSE})
+  get_target_property(PONG_DEFINITIONS_LIST PONG COMPILE_DEFINITIONS)
 
-    message("
+  message("
 -----------------------------------------------------------
 PONG COMPILE DEFINITIONS:\n")
 
-    foreach(DEFINITION ${PONG_DEFINITIONS_LIST})
-      message(STATUS "${DEFINITION}")
-    endforeach()
+  foreach(DEFINITION ${PONG_DEFINITIONS_LIST})
+    message(STATUS "${DEFINITION}")
+  endforeach()
 
-    message("
+  message("
 -----------------------------------------------------------")
-  endif()
+endif()
 
-  # Copy the /Project/*/Data folder to the build directory
-  add_custom_command(
-    TARGET PONG
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${PROJECT_SOURCE_DIR}/Projects/Pong/Data
-    $<TARGET_FILE_DIR:PONG>/Data
-  )
+# Copy the /Project/*/Data folder to the build directory
+add_custom_command(
+  TARGET PONG
+  POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  ${PROJECT_SOURCE_DIR}/Projects/Pong/Data
+  $<TARGET_FILE_DIR:PONG>/Data
+)
 
-  # Copy the /Project/*/Data folder to the install directory
-  install(
-    DIRECTORY ${PROJECT_SOURCE_DIR}/Projects/Pong/Data
-    DESTINATION bin
-  )
+# Copy the /Project/*/Data folder to the install directory
+install(
+  DIRECTORY ${PROJECT_SOURCE_DIR}/Projects/Pong/Data
+  DESTINATION bin
+)
 
-  # INSTALLATION PROCEDURE
-  install(
-    TARGETS PONG
-    LIBRARY DESTINATION bin
-    ARCHIVE DESTINATION bin
-    RUNTIME DESTINATION bin)
+# INSTALLATION PROCEDURE
+install(
+  TARGETS PONG
+  LIBRARY DESTINATION bin
+  ARCHIVE DESTINATION bin
+  RUNTIME DESTINATION bin)
 
-  install(FILES $<TARGET_RUNTIME_DLLS:PONG> DESTINATION bin)
+install(FILES $<TARGET_RUNTIME_DLLS:PONG> DESTINATION bin)
 
-  if(${VERBOSE})
-    message(STATUS "MPE-PONG ADDED.")
-  endif()
-endif(${MPE_PROJECTS} AND ${MPE_PROJECT_PONG})
+if(${VERBOSE})
+  message(STATUS "MPE-PONG ADDED.")
+endif()

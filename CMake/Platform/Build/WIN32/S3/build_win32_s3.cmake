@@ -7,7 +7,7 @@ install(
 
 # Copy the /MPE/Resources folder to Install/bin/Data
 install(
-    DIRECTORY ${PROJECT_SOURCE_DIR}/MPE/Resources/Shaders
+    DIRECTORY ${PROJECT_SOURCE_DIR}/Resources/Shaders
     DESTINATION bin/Data
 )
 
@@ -30,6 +30,12 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
             $<TARGET_FILE_DIR:MPE>
             COMMENT "Copying ANGLE DLLs to MPE build..."
         )
+
+        # Also add install for dlls
+        install(
+            FILES ${ANGLE_DLLS}
+            DESTINATION bin
+        )
     endif(MPE_ANGLE)
 endif()
 
@@ -38,7 +44,7 @@ add_custom_command(
     TARGET MPE
     POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${PROJECT_SOURCE_DIR}/MPE/Resources
+    ${PROJECT_SOURCE_DIR}/Resources
     $<TARGET_FILE_DIR:MPE>/Data
     COMMENT "Copying MPE Resources DLLs to MPE build..."
 )

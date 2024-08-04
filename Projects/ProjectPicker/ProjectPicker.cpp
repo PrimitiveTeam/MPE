@@ -3,11 +3,11 @@
 #include "MPE/EntryPoint.h"
 
 // TEMP
-#include "MPE/Platform/OpenGL/Shaders/OpenGLShader.h"
+#include "Platform/OpenGL/Shaders/OpenGLShader.h"
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
 #include "MPE/Renderer/RendererUtilities.h"
-#include "MPE/Platform/OpenGL/Utilities/OpenGLUtilities.h"
-#include "MPE/Platform/OpenGL/OpenGLSettings.h"
+#include "Platform/OpenGL/Utilities/OpenGLUtilities.h"
+#include "Platform/OpenGL/OpenGLSettings.h"
 
 #include <imgui.h>
 #include <glm/gtc/matrix_transform.hpp>

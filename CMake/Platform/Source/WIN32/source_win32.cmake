@@ -2,34 +2,33 @@ file(
   GLOB_RECURSE
   MPE_WIN32_CPP
 
-  # /Platform/Windows/Core
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/Core/*.cpp"
-
   # /Platform/Windows/App
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/App/*.cpp"
+  "${PROJECT_SOURCE_DIR}/Platform/Windows/App/WindowsWindow.cpp"
+  "${PROJECT_SOURCE_DIR}/Platform/Windows/App/WindowMonitors.cpp"
 
-  # /Platform/Windows/Errors
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/Errors/*.cpp"
-
-  # /Platform/Windows/Input
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/Input/*.cpp"
+  # /Platform/Windows/Core
+  "${PROJECT_SOURCE_DIR}/Platform/Windows/Core/_PTRS.cpp"
 
   # /Platform/Windows/Editor/Prompts
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/Editor/Prompts/*.cpp"
+  "${PROJECT_SOURCE_DIR}/Platform/Windows/Editor/Prompts/WindowSimpleDialog.cpp"
+
+  # /Platform/Windows/Errors
+  "${PROJECT_SOURCE_DIR}/Platform/Windows/Errors/Error.cpp"
+
+  # /Platform/Windows/Input
+  "${PROJECT_SOURCE_DIR}/Platform/Windows/Input/WindowsInput.cpp"
 )
 
 file(
   GLOB_RECURSE
   MPE_WIN32_H
 
-  # /Platform/Windows/Core
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/Core/*.h"
-
   # /Platform/Windows/App
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/App/*.h"
+  "${PROJECT_SOURCE_DIR}/Platform/Windows/App/WindowsWindow.h"
+  "${PROJECT_SOURCE_DIR}/Platform/Windows/App/WindowMonitors.h"
 
   # /Platform/Windows/Input
-  "${PROJECT_SOURCE_DIR}/MPE/Platform/Windows/Input/*.h"
+  "${PROJECT_SOURCE_DIR}/Platform/Windows/Input/WindowsInput.h"
 )
 
 # ADD MPE WIN32 SOURCE FILES

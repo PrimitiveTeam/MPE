@@ -179,11 +179,23 @@ VCPKG SETUP COMPLETE
             set(ANGLE_DLLS
                 ${angle_Lib}/libGLESv2.dll
                 ${angle_Lib}/libEGL.dll
+                ${angle_Lib}/libc++.dll
+                ${angle_Lib}/third_party_abseil-cpp_absl.dll
+                ${angle_Lib}/third_party_zlib.dll
+                ${angle_Lib}/dawn_proc.dll
+                ${angle_Lib}/dawn_native.dll
+                ${angle_Lib}/dawn_platform.dll
             )
         else()
             set(ANGLE_DLLS
                 ${angle_Lib}/libGLESv2.dll
                 ${angle_Lib}/libEGL.dll
+                ${angle_Lib}/libc++.dll
+                ${angle_Lib}/third_party_zlib.dll
+                ${angle_Lib}/third_party_abseil-cpp_absl.dll
+                ${angle_Lib}/dawn_proc.dll
+                ${angle_Lib}/dawn_native.dll
+                ${angle_Lib}/dawn_platform.dll
             )
         endif(MPE_ANDROID_BUILD)
     endif(MPE_ANGLE)

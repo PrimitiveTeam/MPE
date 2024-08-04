@@ -2,9 +2,9 @@
 
 #include "MPE.h"
 
-#include "MPE/Platform/OpenGL/Shaders/OpenGLShader.h"
+#include "Platform/OpenGL/Shaders/OpenGLShader.h"
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
-#include "MPE/Platform/OpenGL/Editor/Grid/OpenGLGrid.h"
+#include "Platform/OpenGL/Editor/Grid/OpenGLGrid.h"
 
 #include <imgui.h>
 #include <string>

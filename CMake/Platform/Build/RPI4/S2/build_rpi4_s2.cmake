@@ -15,7 +15,7 @@ target_link_libraries(
 
 # find_path(STB_INCLUDE_DIRS "stb_c_lexer.h")
 target_include_directories(MPE
-  PRIVATE
+  PUBLIC
   ${Stb_INCLUDE_DIRS}
 )
 

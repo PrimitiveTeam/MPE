@@ -4,7 +4,7 @@
 #include "MPE/Core/_CORE.h"
 #include "MPE/App/Layers/LayerStack.h"
 #include "MPE/Input/Input.h"
-#include "MPE/Platform/Windows/Input/WindowsInput.h"
+// #include "MPE/Platform/Windows/Input/WindowsInput.h"
 
 // TEMP
 #include <GLFW/glfw3.h>
@@ -24,10 +24,16 @@ App::App()
 // TODO: Add a dialog to select the graphics API
 // Set RenderAPI before creating window
 // Renderer::SetGraphicsAPI(RendererAPI::API::OpenGLES);
-#if MPE_PLATFORM_RPI4
+#ifdef MPE_PLATFORM_RPI4
     Renderer::SetGraphicsAPI(RendererAPI::API::OpenGLES);
 #else
+#    if MPE_OPENGL
     Renderer::SetGraphicsAPI(RendererAPI::API::OpenGL);
+#    elif MPE_OPENGLES
+    Renderer::SetGraphicsAPI(RendererAPI::API::OpenGLES);
+#    else
+    MPE_ASSERT(false, "NO GRAPHICS API SELECTED.");
+#    endif
 #endif
 
     // Critical log to show which API we are using
