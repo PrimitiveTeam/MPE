@@ -5,7 +5,9 @@
 #include "Platform/OpenGLES/OpenGLESContextProps.h"
 
 struct MPE_API GLFWwindow;
-
+typedef void *EGLDisplay;
+typedef void *EGLSurface;
+typedef void *EGLContext;
 namespace MPE
 {
 class MPE_API OpenGLESContext : public GraphicalContext
@@ -18,6 +20,9 @@ class MPE_API OpenGLESContext : public GraphicalContext
 
   private:
     GLFWwindow *SYS_Window;
+    EGLDisplay eglDisplay;
+    EGLSurface eglSurface;
+    EGLContext eglContext;
     OpenGLESContextProps SYS_Props;
 };
 }

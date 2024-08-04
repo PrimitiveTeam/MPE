@@ -4,7 +4,7 @@
 #include "MPE/Renderer/RenderPrimitive.h"
 #include "Platform/OpenGLES/Shaders/OpenGLESShader.h"
 
-#include <glad/glad.h>
+#include <GLES3/gl31.h>
 
 namespace MPE
 {

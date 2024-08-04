@@ -6,7 +6,7 @@
 #if MPE_PLATFORM_LINUX
 typedef int GLint;
 #else
-#    include <glad/glad.h>
+#    include <GLES3/gl31.h>
 #endif
 #include <glm/glm.hpp>
 
