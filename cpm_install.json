@@ -91,6 +91,10 @@
                 {
                     "library": "gtk3",
                     "distribution": "arch"
+                },
+                {
+                    "library": "libx11",
+                    "distribution": "arch"
                 }
             ],
             "instructions": []
