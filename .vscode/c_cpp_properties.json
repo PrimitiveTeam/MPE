@@ -136,8 +136,14 @@
             "name": "macOS-Clang",
             "includePath": [
                 "${workspaceFolder}/**",
+                "${workspaceFolder}/MPE",
+                "${workspaceFolder}/Platform",
                 "/usr/lib/",
-                "/usr/local/include/"
+                "/usr/local/include/",
+                "${workspaceFolder}/Vendor/UNIVERSAL/imgui",
+                "${workspaceFolder}/Vendor/UNIVERSAL/imgui/backends",
+                "${workspaceFolder}/Vendor/UNIVERSAL/glad/include",
+                "${workspaceFolder}/Vendor/OSX/angle/include"
             ],
             "defines": [
                 "_DEBUG",
@@ -162,8 +168,14 @@
             "name": "macOS-GCC",
             "includePath": [
                 "${workspaceFolder}/**",
+                "${workspaceFolder}/MPE",
+                "${workspaceFolder}/Platform",
                 "/usr/lib/",
-                "/usr/local/include/"
+                "/usr/local/include/",
+                "${workspaceFolder}/Vendor/UNIVERSAL/imgui",
+                "${workspaceFolder}/Vendor/UNIVERSAL/imgui/backends",
+                "${workspaceFolder}/Vendor/UNIVERSAL/glad/include",
+                "${workspaceFolder}/Vendor/OSX/angle/include"
             ],
             "defines": [
                 "_DEBUG",
