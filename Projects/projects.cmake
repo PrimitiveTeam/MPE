@@ -22,3 +22,5 @@ endif(MPE_PROJECT_PONG)
 if(MPE_PROJECT_OPENCVTEST)
     include("${PROJECT_SOURCE_DIR}/Projects/OpenCVTest/opencvtest.cmake")
 endif(MPE_PROJECT_OPENCVTEST)
+
+include("${PROJECT_SOURCE_DIR}/Projects/AngleTest/angletest.cmake")
