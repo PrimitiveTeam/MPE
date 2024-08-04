@@ -36,19 +36,12 @@ void OpenGLESSettings::ToggleVsync()
 {
     _VSYNC = !_VSYNC;
 
-#ifdef MPE_PLATFORM_LINUX
     auto eglDisplay = reinterpret_cast<OpenGLESContext*>(MPE::App::GetApp().GetWindow()->GetNativeGLESContext())->GetEGLDisplay();
 
     if (_VSYNC)
         eglSwapInterval(eglDisplay, 1);
     else
         eglSwapInterval(eglDisplay, 0);
-#else
-    if (_VSYNC)
-        glfwSwapInterval(1);
-    else
-        glfwSwapInterval(0);
-#endif
 
 #if MPE_PLATFORM_LINUX
     UpdateSettingsAndSendEvent("VSYNC", _VSYNC);
@@ -66,19 +59,12 @@ void OpenGLESSettings::SetVsync(bool vsync)
 {
     _VSYNC = vsync;
 
-#ifdef MPE_PLATFORM_LINUX
     auto eglDisplay = reinterpret_cast<OpenGLESContext*>(MPE::App::GetApp().GetWindow()->GetNativeGLESContext())->GetEGLDisplay();
 
     if (_VSYNC)
         eglSwapInterval(eglDisplay, 1);
     else
         eglSwapInterval(eglDisplay, 0);
-#else
-    if (_VSYNC)
-        glfwSwapInterval(1);
-    else
-        glfwSwapInterval(0);
-#endif
 
 #if MPE_PLATFORM_LINUX
     UpdateSettingsAndSendEvent("VSYNC", _VSYNC);
