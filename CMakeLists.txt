@@ -228,7 +228,7 @@ if(${VERBOSE})
 endif(${VERBOSE})
 
 set(VENDOR_DIR ${PROJECT_SOURCE_DIR}/Vendor/${COMPILATION_PLATFORM})
-set(UNIVERSAL_VENDOR_DIR ${PROJECT_SOURCE_DIR}/Vendor/Universal)
+set(UNIVERSAL_VENDOR_DIR ${PROJECT_SOURCE_DIR}/Vendor/UNIVERSAL)
 
 message("
 -----------------------------------------------------------
