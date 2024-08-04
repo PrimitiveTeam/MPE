@@ -30,6 +30,12 @@ if(COMPILATION_PLATFORM STREQUAL "WIN32")
             $<TARGET_FILE_DIR:MPE>
             COMMENT "Copying ANGLE DLLs to MPE build..."
         )
+
+        # Also add install for dlls
+        install(
+            FILES ${ANGLE_DLLS}
+            DESTINATION bin
+        )
     endif(MPE_ANGLE)
 endif()
 
