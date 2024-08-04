@@ -9,8 +9,14 @@
 // #include <imgui_impl_glfw.h>
 // #include <imgui_impl_opengl3.h>
 // TEMP
-#include <glad/glad.h>
+
+#ifdef MPE_OPENGL
+#    include <glad/glad.h>
+#endif
 #include "GLFW/glfw3.h"
+#ifdef MPE_OPENGLES
+#    include <GLES3/gl31.h>
+#endif
 
 namespace MPE
 {
@@ -64,12 +70,16 @@ void ImGuiLayer::OnAttach()
     // Setup Platform/Renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(window, true);
 
-#ifdef MPE_PLATFORM_WINDOWS
+#ifdef MPE_OPENGL
+#    ifdef MPE_PLATFORM_WINDOWS
     ImGui_ImplOpenGL3_Init("#version 410");
-#elif MPE_PLATFORM_OSX
+#    elif MPE_PLATFORM_OSX
     ImGui_ImplOpenGL3_Init("#version 150");
-#else
+#    else
     ImGui_ImplOpenGL3_Init("#version 410");
+#    endif
+#elif MPE_OPENGLES
+    ImGui_ImplOpenGL3_Init("#version 300 es");
 #endif
 }
 
