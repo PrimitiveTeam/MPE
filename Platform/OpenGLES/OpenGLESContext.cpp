@@ -126,10 +126,6 @@ void OpenGLESContext::Init()
         return;
     }
 
-#ifdef MPE_PLATFORM_WINDOWS
-    glfwMakeContextCurrent(SYS_Window);
-#endif
-
     int OpenGLVersionMajor;
     int OpenGLVersionMinor;
     glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
