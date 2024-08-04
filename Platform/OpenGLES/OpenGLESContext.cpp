@@ -29,16 +29,29 @@ OpenGLESContext::OpenGLESContext(GLFWwindow *window) : SYS_Window(window)
 
 void OpenGLESContext::Init()
 {
+#ifdef MPE_PLATFORM_WINDOWS
     eglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+#elif MPE_PLATFORM_LINUX
+    Display *nativeDisplay = glfwGetX11Display();
+    eglDisplay = eglGetDisplay(nativeDisplay);
+#else
+    MPE_ASSERT(false, "PLATFORM NOT SUPPORTED.");
+#endif
     if (eglDisplay == EGL_NO_DISPLAY)
     {
         std::cerr << "Failed to get EGL display: " << eglGetError() << std::endl;
+        glfwDestroyWindow(SYS_Window);
+        glfwTerminate();
+        MPE_ASSERT(false, "Failed to get EGL display.");
         return;
     }
 
     if (!eglInitialize(eglDisplay, nullptr, nullptr))
     {
         std::cerr << "Failed to initialize EGL: " << eglGetError() << std::endl;
+        glfwDestroyWindow(SYS_Window);
+        glfwTerminate();
+        MPE_ASSERT(false, "Failed to initialize EGL.");
         return;
     }
 
@@ -64,13 +77,16 @@ void OpenGLESContext::Init()
     {
         std::cerr << "Failed to choose EGL config: " << eglGetError() << std::endl;
         eglTerminate(eglDisplay);
+        glfwDestroyWindow(SYS_Window);
+        glfwTerminate();
+        MPE_ASSERT(false, "Failed to choose EGL config.");
         return;
     }
 
 #ifdef MPE_PLATFORM_WINDOWS
     eglSurface = eglCreateWindowSurface(eglDisplay, eglConfig, glfwGetWin32Window(SYS_Window), nullptr);
 #elif MPE_PLATFORM_LINUX
-    eglSurface = eglCreateWindowSurface(eglDisplay, eglConfig, glfwGetX11Window(SYS_Window), nullptr);
+    eglSurface = eglCreateWindowSurface(eglDisplay, eglConfig, (EGLNativeWindowType) glfwGetX11Window(SYS_Window), nullptr);
 #elif MPE_PLATFORM_OSX
     eglSurface = eglCreateWindowSurface(eglDisplay, eglConfig, glfwGetCocoaWindow(SYS_Window), nullptr);
 #elif MPE_PLATFORM_RPI4
@@ -80,6 +96,8 @@ void OpenGLESContext::Init()
     {
         std::cerr << "Failed to create EGL window surface: " << eglGetError() << std::endl;
         eglTerminate(eglDisplay);
+        glfwDestroyWindow(SYS_Window);
+        glfwTerminate();
         return;
     }
 
@@ -90,6 +108,9 @@ void OpenGLESContext::Init()
         std::cerr << "Failed to create EGL context: " << eglGetError() << std::endl;
         eglDestroySurface(eglDisplay, eglSurface);
         eglTerminate(eglDisplay);
+        glfwDestroyWindow(SYS_Window);
+        glfwTerminate();
+        MPE_ASSERT(false, "Failed to create EGL context.");
         return;
     }
 
@@ -99,10 +120,15 @@ void OpenGLESContext::Init()
         eglDestroyContext(eglDisplay, eglContext);
         eglDestroySurface(eglDisplay, eglSurface);
         eglTerminate(eglDisplay);
+        glfwDestroyWindow(SYS_Window);
+        glfwTerminate();
+        MPE_ASSERT(false, "Failed to make EGL context current.");
         return;
     }
 
+#ifdef MPE_PLATFORM_WINDOWS
     glfwMakeContextCurrent(SYS_Window);
+#endif
 
     int OpenGLVersionMajor;
     int OpenGLVersionMinor;
