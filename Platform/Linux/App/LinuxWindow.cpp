@@ -57,10 +57,29 @@ void LinuxWindow::Init(const WindowProps &props)
 
     if (api == RendererAPI::API::OpenGLES)
     {
+
+#ifdef MPE_PLATFORM_LINUX
+        // glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        // glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+        // SETTINGS THIS TO GLFW_OPENGL_ES_API WILL CAUSE THE WINDOW TO NOT BE CREATED OR A LOT OF ERRORS WILL BE THROWN AND BLACK SCREEN WILL BE RENDERED.
+        // Not sure why this is happening on linux but it works on windows.
+        // Also this can be thrown when using GLFW_OPENGL_ES_API:
+        /*
+                X Error of failed request:  BadAccess (attempt to access private resource denied)
+                Major opcode of failed request:  152 (GLX)
+                Minor opcode of failed request:  5 (X_GLXMakeCurrent)
+                Serial number of failed request:  178
+                Current serial number in output stream:  178
+        */
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+        // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
+        // glfwWindowHint(GLFW_CONTEXT_CREATION_API, GLFW_EGL_CONTEXT_API);
+#else
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
         glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
+#endif
     }
     else
     {

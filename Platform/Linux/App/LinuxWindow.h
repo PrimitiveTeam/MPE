@@ -13,7 +13,6 @@
 #endif
 
 struct GLFWwindow;
-
 namespace MPE
 {
 class MPE_API LinuxWindow : public Window
@@ -44,6 +43,14 @@ class MPE_API LinuxWindow : public Window
     virtual void RestoreWindowPosition() override;
 
     inline virtual void *GetNativeWindow() const override { return SYS_Window; }
+
+    #ifdef MPE_OPENGL
+    inline virtual GraphicalContext *GetNativeGLContext() const override { return SYS_Context; }
+    #endif
+
+    #ifdef MPE_OPENGLES
+    inline virtual GraphicalContext *GetNativeGLESContext() const override { return SYS_ESContext; }
+    #endif
 
   private:
     virtual void Init(const WindowProps &props);
