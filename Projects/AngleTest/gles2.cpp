@@ -1,11 +1,23 @@
-#define GLFW_EXPOSE_NATIVE_WIN32
+#ifdef MPE_PLATFORM_WINDOWS
+#    include <windows.h>
+#    define GLFW_EXPOSE_NATIVE_WIN32
+#elif MPE_PLATFORM_LINUX
+#    ifdef MPE_USE_X11
+#        include <X11/Xlib.h>
+#        define GLFW_EXPOSE_NATIVE_X11
+#    elif MPE_USE_WAYLAND
+// throw assert error
+MPE_ASSERT(false);
+#        include <wayland-client.h>
+#        define GLFW_EXPOSE_NATIVE_WAYLAND
+#    endif
+#endif
 
 #include <GLFW/glfw3.h>
 #include <GLFW/glfw3native.h>
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 #include <iostream>
-#include <windows.h>
 
 // Error callback function for GLFW
 void glfwErrorCallback(int error, const char* description)
@@ -37,8 +49,14 @@ int main()
         return -1;
     }
 
+#ifdef MPE_PLATFORM_WINDOWS
     // Obtain the EGL display connection using the native display from GLFW
     EGLDisplay eglDisplay = eglGetDisplay(GetDC(glfwGetWin32Window(window)));
+#elif MPE_PLATFORM_LINUX
+    // Obtain the EGL display connection using the native display from GLFW
+    Display* nativeDisplay = glfwGetX11Display();
+    EGLDisplay eglDisplay = eglGetDisplay(nativeDisplay);
+#endif
     if (eglDisplay == EGL_NO_DISPLAY)
     {
         std::cerr << "Failed to get EGL display: " << eglGetError() << std::endl;
@@ -72,8 +90,13 @@ int main()
         return -1;
     }
 
+#ifdef MPE_PLATFORM_WINDOWS
     // Create an EGL window surface
     EGLSurface eglSurface = eglCreateWindowSurface(eglDisplay, eglConfig, glfwGetWin32Window(window), nullptr);
+#elif MPE_PLATFORM_LINUX
+    // Create an EGL window surface
+    EGLSurface eglSurface = eglCreateWindowSurface(eglDisplay, eglConfig, (EGLNativeWindowType) glfwGetX11Window(window), nullptr);
+#endif
     if (eglSurface == EGL_NO_SURFACE)
     {
         std::cerr << "Failed to create EGL window surface: " << eglGetError() << std::endl;
