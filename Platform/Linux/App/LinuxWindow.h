@@ -2,6 +2,7 @@
 
 #include "MPE/Core/_CORE.h"
 #include "MPE/App/Window.h"
+#include "MPE/App/WindowProps.h"
 #include "Platform/Linux/App/WindowMonitors.h"
 
 #ifdef MPE_OPENGL
@@ -11,8 +12,7 @@
 #    include "Platform/OpenGLES/OpenGLESContext.h"
 #endif
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+struct GLFWwindow;
 
 namespace MPE
 {
