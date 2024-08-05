@@ -26,6 +26,24 @@ if(CMAKE_BUILD_TYPE STREQUAL Debug)
     target_compile_definitions(MPE PUBLIC MPE_ENABLE_DEBUG_LOG)
 endif(CMAKE_BUILD_TYPE STREQUAL Debug)
 
+# UNIX WINDOWING SYSTEM
+if(MPE_USE_X11)
+    target_compile_definitions(MPE PUBLIC MPE_USE_X11)
+endif()
+
+if(MPE_USE_WAYLAND)
+    target_compile_definitions(MPE PUBLIC MPE_USE_WAYLAND)
+endif()
+
+# UNIX WINDOWING SYSTEM
+if(MPE_USE_X11)
+    list(APPEND MPE_PUBLIC_DEFINITIONS MPE_USE_X11)
+endif()
+
+if(MPE_USE_WAYLAND)
+    list(APPEND MPE_PUBLIC_DEFINITIONS MPE_USE_WAYLAND)
+endif()
+
 # GRAPHICS APIS
 if(MPE_OPENGL)
     target_compile_definitions(MPE PUBLIC MPE_OPENGL)
