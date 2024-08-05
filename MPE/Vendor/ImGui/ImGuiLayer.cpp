@@ -79,7 +79,12 @@ void ImGuiLayer::OnAttach()
     ImGui_ImplOpenGL3_Init("#version 410");
 #    endif
 #elif MPE_OPENGLES
+    #ifdef MPE_PLATFORM_OSX
+    // Fallback to older implementation
+    ImGui_ImplOpenGL3_Init("#version 140");
+    #else
     ImGui_ImplOpenGL3_Init("#version 300 es");
+    #endif
 #endif
 }
 
