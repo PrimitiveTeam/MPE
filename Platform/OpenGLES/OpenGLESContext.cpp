@@ -15,9 +15,11 @@
 #    define GLFW_EXPOSE_NATIVE_EGL
 #endif
 
-#include <GLFW/glfw3.h>
+#ifdef MPE_PLATFORM_OSX
+#    define GLFW_EXPOSE_NATIVE_COCOA
+#    include "Platform/macOS/App/macOSContext.h"
+#endif
 #include <GLFW/glfw3native.h>
-#include <EGL/egl.h>
 #include <GLES3/gl31.h>
 
 namespace MPE
@@ -34,6 +36,9 @@ void OpenGLESContext::Init()
 #elif MPE_PLATFORM_LINUX
     Display *nativeDisplay = glfwGetX11Display();
     eglDisplay = eglGetDisplay(nativeDisplay);
+#elif MPE_PLATFORM_OSX
+    EGLNativeWindowType nativeWindow = macOSContext::GetNativeWindow(SYS_Window);
+    eglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 #else
     MPE_ASSERT(false, "PLATFORM NOT SUPPORTED.");
 #endif
@@ -55,10 +60,34 @@ void OpenGLESContext::Init()
         return;
     }
 
+    // List all available configurations for debugging
+    EGLint numConfigsAvailable;
+    eglGetConfigs(eglDisplay, nullptr, 0, &numConfigsAvailable);
+    std::cout << "Number of available configurations: " << numConfigsAvailable << std::endl;
+
+    EGLConfig allConfigs[numConfigsAvailable];
+    eglGetConfigs(eglDisplay, allConfigs, numConfigsAvailable, &numConfigsAvailable);
+
+    for (int i = 0; i < numConfigsAvailable; ++i)
+    {
+        EGLint redSize, greenSize, blueSize, alphaSize, depthSize, renderableType;
+        eglGetConfigAttrib(eglDisplay, allConfigs[i], EGL_RED_SIZE, &redSize);
+        eglGetConfigAttrib(eglDisplay, allConfigs[i], EGL_GREEN_SIZE, &greenSize);
+        eglGetConfigAttrib(eglDisplay, allConfigs[i], EGL_BLUE_SIZE, &blueSize);
+        eglGetConfigAttrib(eglDisplay, allConfigs[i], EGL_ALPHA_SIZE, &alphaSize);
+        eglGetConfigAttrib(eglDisplay, allConfigs[i], EGL_DEPTH_SIZE, &depthSize);
+        eglGetConfigAttrib(eglDisplay, allConfigs[i], EGL_RENDERABLE_TYPE, &renderableType);
+
+        MPE_INFO("Config {0}: R={1} G={2} B={3} A={4} Depth={5} Type={6}", i, redSize, greenSize, blueSize, alphaSize, depthSize, renderableType);
+    }
+
+    const char *eglExtensions = eglQueryString(eglDisplay, EGL_EXTENSIONS);
+    MPE_INFO("EGL Extensions: {0}", eglExtensions);
+
     EGLint configAttribs[] = {EGL_SURFACE_TYPE,
                               EGL_WINDOW_BIT,
                               EGL_RENDERABLE_TYPE,
-                              EGL_OPENGL_ES2_BIT | EGL_OPENGL_ES3_BIT,
+                              EGL_OPENGL_ES3_BIT,
                               EGL_RED_SIZE,
                               8,
                               EGL_GREEN_SIZE,
@@ -88,7 +117,7 @@ void OpenGLESContext::Init()
 #elif MPE_PLATFORM_LINUX
     eglSurface = eglCreateWindowSurface(eglDisplay, eglConfig, (EGLNativeWindowType) glfwGetX11Window(SYS_Window), nullptr);
 #elif MPE_PLATFORM_OSX
-    eglSurface = eglCreateWindowSurface(eglDisplay, eglConfig, glfwGetCocoaWindow(SYS_Window), nullptr);
+    eglSurface = eglCreateWindowSurface(eglDisplay, eglConfig, nativeWindow, nullptr);
 #elif MPE_PLATFORM_RPI4
     eglSurface = eglCreateWindowSurface(eglDisplay, eglConfig, glfwGetEGLDisplay(SYS_Window), nullptr);
 #endif
@@ -101,7 +130,12 @@ void OpenGLESContext::Init()
         return;
     }
 
+#ifdef MPE_PLATFORM_OSX
+    // CURRENTLY ANGLE SUPPORTS ONLY OPENGL ES 3.0
+    EGLint contextAttribs[] = {EGL_CONTEXT_CLIENT_VERSION, 3, EGL_CONTEXT_MINOR_VERSION, 0, EGL_NONE};
+#else
     EGLint contextAttribs[] = {EGL_CONTEXT_CLIENT_VERSION, 3, EGL_CONTEXT_MINOR_VERSION, 1, EGL_NONE};
+#endif
     eglContext = eglCreateContext(eglDisplay, eglConfig, EGL_NO_CONTEXT, contextAttribs);
     if (eglContext == EGL_NO_CONTEXT)
     {
@@ -125,6 +159,9 @@ void OpenGLESContext::Init()
         MPE_ASSERT(false, "Failed to make EGL context current.");
         return;
     }
+
+    const char *glExtensions = reinterpret_cast<const char *>(glGetString(GL_EXTENSIONS));
+    MPE_INFO("GL Extensions: {0}", glExtensions);
 
     int OpenGLVersionMajor;
     int OpenGLVersionMinor;

@@ -4,10 +4,9 @@
 #include "MPE/Renderer/GraphicalContext.h"
 #include "Platform/OpenGLES/OpenGLESContextProps.h"
 
-struct MPE_API GLFWwindow;
-typedef void *EGLDisplay;
-typedef void *EGLSurface;
-typedef void *EGLContext;
+#include <GLFW/glfw3.h>
+#include <EGL/egl.h>
+
 namespace MPE
 {
 class MPE_API OpenGLESContext : public GraphicalContext
