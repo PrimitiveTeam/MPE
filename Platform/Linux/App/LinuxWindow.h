@@ -13,6 +13,7 @@
 #endif
 
 struct GLFWwindow;
+
 namespace MPE
 {
 class MPE_API LinuxWindow : public Window

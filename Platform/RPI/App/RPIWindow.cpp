@@ -5,6 +5,10 @@
 #include "MPE/Events/EventKey.h"
 #include "MPE/Events/EventMouse.h"
 
+#include "MPE/Renderer/RendererAPI.h"
+
+#include <GLFW/glfw3.h>
+
 namespace MPE
 {
 static bool SYS_GLFWInitialized = false;
@@ -16,7 +20,7 @@ static void GLFWErrorCallback(int error, const char *description)
 
 REF<Window> Window::CreateNativeWindow(const WindowProps &props)
 {
-    MPE_CORE_WARN("Creating Native Window for RPI4.");
+    MPE_CORE_WARN("Creating Native Window for Linux.");
 
     return NEWREF<RPIWindow>(props);
 }
@@ -49,16 +53,56 @@ void RPIWindow::Init(const WindowProps &props)
         SYS_GLFWInitialized = true;
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
+    auto api = MPE::RendererAPI::GetGraphicsAPI();
+
+    if (api == RendererAPI::API::OpenGLES)
+    {
+        // glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        // glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+        // SETTINGS THIS TO GLFW_OPENGL_ES_API WILL CAUSE THE WINDOW TO NOT BE CREATED OR A LOT OF ERRORS WILL BE THROWN AND BLACK SCREEN WILL BE RENDERED.
+        // Not sure why this is happening on linux but it works on windows.
+        // Also this can be thrown when using GLFW_OPENGL_ES_API:
+        /*
+                X Error of failed request:  BadAccess (attempt to access private resource denied)
+                Major opcode of failed request:  152 (GLX)
+                Minor opcode of failed request:  5 (X_GLXMakeCurrent)
+                Serial number of failed request:  178
+                Current serial number in output stream:  178
+        */
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+        // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
+        // glfwWindowHint(GLFW_CONTEXT_CREATION_API, GLFW_EGL_CONTEXT_API);
+    }
+    else
+    {
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+    }
 
     SYS_Window = glfwCreateWindow((int) props.Width, (int) props.Height, SYS_Data.Title.c_str(), nullptr, nullptr);
     SaveWindowSizeAndPosition();
 
-    SYS_ESContext = new OpenGLESContext(SYS_Window);
-    SYS_ESContext->Init();
+    switch (api)
+    {
+        case RendererAPI::API::OpenGL:
+#ifdef MPE_OPENGL
+            SYS_Context = new OpenGLContext(SYS_Window);
+            SYS_Context->Init();
+            break;
+#else
+            MPE_CORE_ASSERT(false, "OPENGL IS NOT SUPPORTED.");
+#endif
+        case RendererAPI::API::OpenGLES:
+#ifdef MPE_OPENGLES
+            SYS_ESContext = new OpenGLESContext(SYS_Window);
+            SYS_ESContext->Init();
+            break;
+#else
+            MPE_CORE_ASSERT(false, "OPENGLES IS NOT SUPPORTED.");
+#endif
+        default:
+            MPE_CORE_ASSERT(false, "NO RENDERER API SELECTED.");
+    }
 
     glfwSetWindowUserPointer(SYS_Window, &SYS_Data);
 
@@ -168,8 +212,27 @@ void RPIWindow::Shutdown()
 void RPIWindow::OnUpdate()
 {
     glfwPollEvents();
-    SYS_ESContext->SwapBuffers();
-    // glfwSwapBuffers(SYS_Window);
+
+    auto api = MPE::RendererAPI::GetGraphicsAPI();
+    switch (api)
+    {
+        case RendererAPI::API::OpenGL:
+#ifdef MPE_OPENGL
+            SYS_Context->SwapBuffers();
+            break;
+#else
+            MPE_CORE_ASSERT(false, "OPENGL IS NOT SUPPORTED.");
+#endif
+        case RendererAPI::API::OpenGLES:
+#ifdef MPE_OPENGLES
+            SYS_ESContext->SwapBuffers();
+            break;
+#else
+            MPE_CORE_ASSERT(false, "OPENGLES IS NOT SUPPORTED.");
+#endif
+        default:
+            MPE_CORE_ASSERT(false, "NO RENDERER API SELECTED.");
+    }
 }
 
 void RPIWindow::ToggleFullScreen()
