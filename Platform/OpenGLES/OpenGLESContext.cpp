@@ -60,6 +60,8 @@ void OpenGLESContext::Init()
         return;
     }
 
+#ifdef MPE_PLATFORM_OSX
+
     // List all available configurations for debugging
     EGLint numConfigsAvailable;
     eglGetConfigs(eglDisplay, nullptr, 0, &numConfigsAvailable);
@@ -83,6 +85,8 @@ void OpenGLESContext::Init()
 
     const char *eglExtensions = eglQueryString(eglDisplay, EGL_EXTENSIONS);
     MPE_INFO("EGL Extensions: {0}", eglExtensions);
+
+#endif
 
     EGLint configAttribs[] = {EGL_SURFACE_TYPE,
                               EGL_WINDOW_BIT,
@@ -160,8 +164,10 @@ void OpenGLESContext::Init()
         return;
     }
 
+#ifdef MPE_PLATFORM_OSX
     const char *glExtensions = reinterpret_cast<const char *>(glGetString(GL_EXTENSIONS));
     MPE_INFO("GL Extensions: {0}", glExtensions);
+#endif
 
     int OpenGLVersionMajor;
     int OpenGLVersionMinor;
