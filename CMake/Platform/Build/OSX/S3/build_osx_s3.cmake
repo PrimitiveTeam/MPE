@@ -34,3 +34,20 @@ if(${INSTALL_DLLS})
     # install(FILES ${BOOST_PYTHON_DLL_RELEASE_FILES} DESTINATION bin)
   endif()
 endif()
+
+if(MPE_ANGLE)
+  add_custom_command(
+    TARGET MPE
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    ${ANGLE_DLLS}
+    $<TARGET_FILE_DIR:MPE>
+    COMMENT "Copying ANGLE DLLs to MPE build..."
+  )
+
+  # Also add install for dlls
+  install(
+    FILES ${ANGLE_DLLS}
+    DESTINATION bin
+  )
+endif(MPE_ANGLE)
