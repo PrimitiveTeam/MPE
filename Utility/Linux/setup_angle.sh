@@ -15,8 +15,9 @@ if [ -d "angle" ]; then
 else
     echo "Cloning angle..."
     git clone https://chromium.googlesource.com/angle/angle
-    cd angle || exit
 fi
+
+cd angle
 
 echo "Make sure depot_tools is downloaded and is in PATH"
 
