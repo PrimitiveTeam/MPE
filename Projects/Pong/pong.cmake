@@ -39,7 +39,6 @@ target_link_libraries(PONG_SRC PUBLIC MPE)
 target_link_libraries(PONG PUBLIC MPE)
 target_link_libraries(PONG PUBLIC PONG_SRC)
 
-set_target_properties(PONG PROPERTIES VERSION ${PROJECT_FULL_VERSION})
 set_target_properties(PONG PROPERTIES OUTPUT_NAME "MPE-PONG")
 
 # COMPILER DEFINITIONS FOR PONG
