@@ -8,20 +8,25 @@ Current documentation is minimal but available.
 
 1. [MPE Core Engine](https://durengo.github.io/MPE/Documentation/MPE/html/index.html)
 
-## Working with Source and Requirements
+## Capabilities
 
 ### Platform
 
-|     Windows     |       UNIX        |       macOS       |
-| :-------------: | :---------------: | :---------------: |
-|      __X__      | NOT SUPPORTED YET | NOT SUPPORTED YET |
-| __64-bit only__ |        N/A        |        N/A        |
+|     Windows     |      UNIX       |      macOS      | Raspberry PI 4 (RPI4) |
+| :-------------: | :-------------: | :-------------: | :-------------------: |
+|      __X__      |      __X__      |      __X__      |         __X__         |
+| __64-bit only__ | __64-bit only__ | __64-bit only__ |   __32-bit/64-bit__   |
 
 ### Compiler
 
-| MSVC  |        GNU        |       CLANG       |
-| :---: | :---------------: | :---------------: |
-| __X__ | NOT SUPPORTED YET | NOT SUPPORTED YET |
+| Platform |  MSVC   |         GNU         |        CLANG        |
+| :------: | :-----: | :-----------------: | :-----------------: |
+| Windows  |  __X__  | Partially Supported | Partially Supported |
+|   UNIX   | __N/A__ |        __X__        |        __X__        |
+|  macOS   | __N/A__ |       __N/A__       |        __X__        |
+|   RPI4   | __N/A__ |        __X__        |       __N/A__       |
+
+## Working with Source and Requirements
 
 ### Supported IDE
 
