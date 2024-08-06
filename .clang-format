@@ -73,6 +73,12 @@ Standard: Auto
 
 # STYLE OPTIONS
 
+# Objective-C Specific Options
+
+ObjCBlockIndentWidth: 4
+ObjCSpaceAfterProperty: true
+ObjCSpaceBeforeProtocolList: true
+
 # Preprocessor Options
 
 # Options: None, BeforeHash, AfterHash
@@ -80,12 +86,15 @@ IndentPPDirectives: AfterHash
 # Options: Merge, Preserve, Regroup
 IncludeBlocks: Preserve
 # Regular expression for main include files
-IncludeIsMainRegex: ''
+IncludeIsMainRegex: ""
 # Sort order for include categories`
 IncludeCategories:
   - Regex: '^<.*\.h>'
     Priority: 1
-  - Regex: '.*'
+  - Regex: ".*"
     Priority: 2
 
 # Preprocessor Options
+
+# Objective-C Specific Include Categories
+IncludeIsMainSourceRegex: "^(#import).*"
