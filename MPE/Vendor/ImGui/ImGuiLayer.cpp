@@ -48,8 +48,10 @@ void ImGuiLayer::OnAttach()
     (void) io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
     // io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;    // Enable Docking
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;  // Enable Docking
+#ifdef MPE_OPENGL
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;  // Enable Multi-Viewport / Platform Windows
+#endif
     // io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
     // io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
 
@@ -79,12 +81,12 @@ void ImGuiLayer::OnAttach()
     ImGui_ImplOpenGL3_Init("#version 410");
 #    endif
 #elif MPE_OPENGLES
-    #ifdef MPE_PLATFORM_OSX
+#    ifdef MPE_PLATFORM_OSX
     // Fallback to older implementation
     ImGui_ImplOpenGL3_Init("#version 140");
-    #else
+#    else
     ImGui_ImplOpenGL3_Init("#version 300 es");
-    #endif
+#    endif
 #endif
 }
 
