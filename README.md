@@ -80,4 +80,4 @@ Current documentation generated with doxygen is minimal but available.
 ## Supported IDE
 
 1. VScode integration
-2. (In Progress) Visual Studio
+2. [WINDOWS ONLY] (In Progress) Visual Studio - if the project has been generated then you can run [.\Utility\Windows\open_vs.bat](/Utility/Windows/open_vs.bat) which will open the project in Visual Studio.

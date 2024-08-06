@@ -6,7 +6,7 @@ The following tools are required to prepare the environment, generate and build 
 
 1. [CMake](https://cmake.org/)
 2. [Git](https://git-scm.com/)
-3. C++ compiler ([MSVC](https://visualstudio.microsoft.com/downloads/)/[GCC](https://gcc.gnu.org/)/[Clang](https://clang.llvm.org/))
+3. C++ compiler ([MSVC](https://visualstudio.microsoft.com/downloads/)/[Clang](https://clang.llvm.org/)/[GCC](https://gcc.gnu.org/))
 4. While [CPM](https://github.com/Durengo/CPM) is in alpha [Rust](https://www.rust-lang.org/) + [Cargo](https://crates.io/) is necessary to build the project manager
 
 ## Preparing environment
@@ -20,14 +20,15 @@ The following tools are required to prepare the environment, generate and build 
 7. Execute `$.\CPM\cpm\target\release\cpm.exe init -f`
 8. After this 'cpm.bat' will appear in the __repo root__, this will be the entrypoint to the buildsystem
 9. Check if it's working by executing `$.\cpm -v` from the __repo root__
-10. WINDOWS ONLY: Make sure to add VCPKG to your path
-11. Continue to [VCPKG](#vcpkg) section.
+10. Continue to [VCPKG](#vcpkg) section.
 
 ### VCPKG
 
 For windows [VCPKG](https://vcpkg.io/) is __required__.
 
-Download and install the following libraries (make sure to get the x64-windows triplet):
+After installing vcpkg make sure to add VCPKG to your path.
+
+Download and install the following libraries with vcpkg (make sure to get the x64-windows triplet):
 
 1. [fmt](https://github.com/fmtlib/fmt)
 2. [spdlog](https://github.com/gabime/spdlog)
@@ -64,7 +65,7 @@ For more building instruction using CPM refer to the [how to use](./../../CPM/RE
 
 ## Toggle Graphics APIs
 
-In the main [CMakeLists.txt](../../CMakeLists.txt) at the top-most of the file there are these definitions:\
+In the main [CMakeLists.txt](../../CMakeLists.txt) at the top-most of the file there are these definitions:
 
 ```CMake
 set(MPE_OPENGL ON)
@@ -103,4 +104,4 @@ Proceed to [Compiling ANGLE](#compiling-angle) section.
 
 ### Compiling ANGLE
 
-1. Execute: `.\Utility\Windows\setup_angle.bat`
+1. Execute: [.\Utility\Windows\setup_angle.bat](../../Utility/Windows/setup_angle.ps1)
