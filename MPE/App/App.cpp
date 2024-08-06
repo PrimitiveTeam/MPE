@@ -39,7 +39,9 @@ App::App()
     // Critical log to show which API we are using
     MPE_WARN("Using {0} API", RendererAPI::APIToString(RendererAPI::GetGraphicsAPI()));
 
-    SYS_APP_Window = Window::CreateNativeWindow(WindowProps("MPE Engine", 1280, 720));
+    auto mpeVersion = "MPE v" + std::string(MPE_FULL_VERSION);
+
+    SYS_APP_Window = Window::CreateNativeWindow(WindowProps(mpeVersion, 1280, 720));
     SYS_APP_Window->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));
 
     MPE_CORE_ASSERT(SYS_APP_Window, "NATIVE WINDOW NOT CREATED.");

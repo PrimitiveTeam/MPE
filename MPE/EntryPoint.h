@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 {
     MPE_STARTUP();
 
-    MPE_CORE_INFO("MPE Engine {0}", MPE_VERSION);
+    MPE_CORE_INFO("MPE Engine {0}", MPE_FULL_VERSION);
 
     // Print out argc and argv
     for (int i = 0; i < argc; i++)

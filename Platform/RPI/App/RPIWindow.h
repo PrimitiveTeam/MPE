@@ -5,8 +5,14 @@
 #include "Platform/OpenGLES/OpenGLESContext.h"
 #include "Platform/Linux/App/WindowMonitors.h"
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#ifdef MPE_OPENGL
+#    include "Platform/OpenGL/OpenGLContext.h"
+#endif
+#ifdef MPE_OPENGLES
+#    include "Platform/OpenGLES/OpenGLESContext.h"
+#endif
+
+struct GLFWwindow;
 
 namespace MPE
 {
@@ -39,13 +45,26 @@ class MPE_API RPIWindow : public Window
 
     inline virtual void *GetNativeWindow() const override { return SYS_Window; }
 
+#ifdef MPE_OPENGL
+    inline virtual GraphicalContext *GetNativeGLContext() const override { return SYS_Context; }
+#endif
+
+#ifdef MPE_OPENGLES
+    inline virtual GraphicalContext *GetNativeGLESContext() const override { return SYS_ESContext; }
+#endif
+
   private:
     virtual void Init(const WindowProps &props);
     virtual void Shutdown();
 
   private:
     GLFWwindow *SYS_Window;
+#ifdef MPE_OPENGL
+    OpenGLContext *SYS_Context;
+#endif
+#ifdef MPE_OPENGLES
     OpenGLESContext *SYS_ESContext;
+#endif
 
     struct WindowData
     {

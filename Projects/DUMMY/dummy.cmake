@@ -1,4 +1,3 @@
-
 add_executable(DUMMY "${PROJECT_SOURCE_DIR}/Projects/DUMMY/main.cpp")
 
 target_link_libraries(DUMMY
@@ -32,3 +31,9 @@ install(
     RUNTIME DESTINATION bin)
 
 install(FILES $<TARGET_RUNTIME_DLLS:DUMMY> DESTINATION bin)
+
+if(COMPILATION_PLATFORM STREQUAL "OSX" AND MPE_ANGLE)
+    # set_target_properties(DUMMY PROPERTIES INSTALL_RPATH "@executable_path/")
+    # message(STATUS "Setting RPATH for DUMMY target to @executable_path/")
+    modify_dylib_paths(DUMMY)
+endif(COMPILATION_PLATFORM STREQUAL "OSX" AND MPE_ANGLE)

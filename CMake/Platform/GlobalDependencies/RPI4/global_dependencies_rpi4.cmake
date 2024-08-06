@@ -35,3 +35,27 @@
 # else()
 # message(FATAL_ERROR "glm library not found")
 # endif()
+
+if(MPE_USE_X11)
+    find_package(X11 REQUIRED)
+endif()
+
+if(MPE_USE_WAYLAND)
+    find_package(Wayland REQUIRED)
+endif()
+
+if(MPE_USE_X11)
+    if(${VERBOSE})
+        message("
+***********************************************************
+  * X11
+***********************************************************")
+    endif()
+elseif(MPE_USE_WAYLAND)
+    if(${VERBOSE})
+        message("
+***********************************************************
+  * Wayland
+***********************************************************")
+    endif()
+endif()

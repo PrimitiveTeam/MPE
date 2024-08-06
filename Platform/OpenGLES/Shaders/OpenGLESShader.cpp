@@ -6,7 +6,7 @@
 // #include "MPE/Renderer/RendererAPI.h"
 
 #if MPE_PLATFORM_LINUX
-#    include <glad/glad.h>
+#    include <GLES3/gl31.h>
 #endif
 #include <glm/gtc/type_ptr.hpp>
 

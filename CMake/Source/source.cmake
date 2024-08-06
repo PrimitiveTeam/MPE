@@ -125,6 +125,7 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/MPEPLAT.h"
 
     # /Core
+    "${PROJECT_SOURCE_DIR}/MPE/Core/_VERSION.h"
     "${PROJECT_SOURCE_DIR}/MPE/Core/_ASSERTS.h"
     "${PROJECT_SOURCE_DIR}/MPE/Core/_CORE.h"
     "${PROJECT_SOURCE_DIR}/MPE/Core/_CWD.h"

@@ -1,7 +1,7 @@
 # S1 - STAGE ONE - STATIC VS SHARED LIBRARY
 # BUILD MPE LIBRARY BASED ON SET LIBRARY TYPE
 
-if(WIN32)
+if(COMPILATION_PLATFORM STREQUAL "WIN32")
     include("${PROJECT_SOURCE_DIR}/CMake/Platform/Build/WIN32/S1/build_win32_s1.cmake")
 elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
     include("${PROJECT_SOURCE_DIR}/CMake/Platform/Build/UNIX/S1/build_unix_s1.cmake")
@@ -25,7 +25,7 @@ endif()
 # endif()
 
 # S2 - STAGE TWO - LINKING LIBRARIES AND INCLUDING DIRECTORIES
-if(WIN32)
+if(COMPILATION_PLATFORM STREQUAL "WIN32")
     include("${PROJECT_SOURCE_DIR}/CMake/Platform/Build/WIN32/S2/build_win32_s2.cmake")
 elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
     include("${PROJECT_SOURCE_DIR}/CMake/Platform/Build/UNIX/S2/build_unix_s2.cmake")
@@ -38,7 +38,7 @@ else()
 endif()
 
 # S3 - STAGE THREE - INSTALL PROPERTIES
-if(WIN32)
+if(COMPILATION_PLATFORM STREQUAL "WIN32")
     include("${PROJECT_SOURCE_DIR}/CMake/Platform/Build/WIN32/S3/build_win32_s3.cmake")
 elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
     include("${PROJECT_SOURCE_DIR}/CMake/Platform/Build/UNIX/S3/build_unix_s3.cmake")

@@ -3,10 +3,11 @@
 
 #include "MPE/App/App.h"
 #include "MPE/Events/EventGraphics.h"
+#include "Platform/OpenGLES/OpenGLESContext.h"
 
-// #include <GLES3/gl3.h>
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <EGL/egl.h>
+#include <GLES3/gl31.h>
 
 namespace MPE
 {
@@ -35,10 +36,12 @@ void OpenGLESSettings::ToggleVsync()
 {
     _VSYNC = !_VSYNC;
 
+    auto eglDisplay = reinterpret_cast<OpenGLESContext*>(MPE::App::GetApp().GetWindow()->GetNativeGLESContext())->GetEGLDisplay();
+
     if (_VSYNC)
-        glfwSwapInterval(1);
+        eglSwapInterval(eglDisplay, 1);
     else
-        glfwSwapInterval(0);
+        eglSwapInterval(eglDisplay, 0);
 
 #if MPE_PLATFORM_LINUX
     UpdateSettingsAndSendEvent("VSYNC", _VSYNC);
@@ -56,10 +59,12 @@ void OpenGLESSettings::SetVsync(bool vsync)
 {
     _VSYNC = vsync;
 
+    auto eglDisplay = reinterpret_cast<OpenGLESContext*>(MPE::App::GetApp().GetWindow()->GetNativeGLESContext())->GetEGLDisplay();
+
     if (_VSYNC)
-        glfwSwapInterval(1);
+        eglSwapInterval(eglDisplay, 1);
     else
-        glfwSwapInterval(0);
+        eglSwapInterval(eglDisplay, 0);
 
 #if MPE_PLATFORM_LINUX
     UpdateSettingsAndSendEvent("VSYNC", _VSYNC);
@@ -179,9 +184,6 @@ bool OpenGLESSettings::GetDepthTest() const
 
 void OpenGLESSettings::SetDepthTest(bool depthTest)
 {
-    MPE_WARN("'glPolygonMode' NOT AVAILABLE ON OpenGLES.");
-    return;
-
     _DEPTH_TEST = depthTest;
 
     if (_DEPTH_TEST)
@@ -203,19 +205,19 @@ void OpenGLESSettings::TogglePolygonMode()
     MPE_WARN("'glPolygonMode' NOT AVAILABLE ON OpenGLES.");
     return;
 
-    _POLYGON_MODE = !_POLYGON_MODE;
+    //     _POLYGON_MODE = !_POLYGON_MODE;
 
-    if (_POLYGON_MODE)
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    else
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    //     if (_POLYGON_MODE)
+    //         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //     else
+    //         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-#if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("POLYGON_MODE", _POLYGON_MODE);
-#else
+    // #if MPE_PLATFORM_LINUX
+    //     UpdateSettingsAndSendEvent("POLYGON_MODE", _POLYGON_MODE);
+    // #else
 
-    UpdateSettingsAndSendEvent(_SETTINGS["POLYGON_MODE"].first, _POLYGON_MODE);
-#endif
+    //     UpdateSettingsAndSendEvent(_SETTINGS["POLYGON_MODE"].first, _POLYGON_MODE);
+    // #endif
 }
 
 bool OpenGLESSettings::GetPolygonMode() const
@@ -228,18 +230,18 @@ void OpenGLESSettings::SetPolygonMode(bool polygonMode)
     MPE_WARN("'glPolygonMode' NOT AVAILABLE ON OpenGLES.");
     return;
 
-    _POLYGON_MODE = polygonMode;
+    //     _POLYGON_MODE = polygonMode;
 
-    if (_POLYGON_MODE)
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    else
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    //     if (_POLYGON_MODE)
+    //         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //     else
+    //         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-#if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("POLYGON_MODE", _POLYGON_MODE);
-#else
-    UpdateSettingsAndSendEvent(_SETTINGS["POLYGON_MODE"].first, _POLYGON_MODE);
-#endif
+    // #if MPE_PLATFORM_LINUX
+    //     UpdateSettingsAndSendEvent("POLYGON_MODE", _POLYGON_MODE);
+    // #else
+    //     UpdateSettingsAndSendEvent(_SETTINGS["POLYGON_MODE"].first, _POLYGON_MODE);
+    // #endif
 }
 
 // SETTINGS

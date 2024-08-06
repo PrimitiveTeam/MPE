@@ -4,8 +4,7 @@
 #include "MPE/Core/_ASSERTS.h"
 #include "MPE/Log/GlobalLog.h"
 
-// #include <GLES3/gl3.h>
-#include <glad/glad.h>
+#include <GLES3/gl31.h>
 
 namespace MPE
 {

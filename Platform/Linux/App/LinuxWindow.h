@@ -2,6 +2,7 @@
 
 #include "MPE/Core/_CORE.h"
 #include "MPE/App/Window.h"
+#include "MPE/App/WindowProps.h"
 #include "Platform/Linux/App/WindowMonitors.h"
 
 #ifdef MPE_OPENGL
@@ -11,8 +12,7 @@
 #    include "Platform/OpenGLES/OpenGLESContext.h"
 #endif
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+struct GLFWwindow;
 
 namespace MPE
 {
@@ -44,6 +44,14 @@ class MPE_API LinuxWindow : public Window
     virtual void RestoreWindowPosition() override;
 
     inline virtual void *GetNativeWindow() const override { return SYS_Window; }
+
+    #ifdef MPE_OPENGL
+    inline virtual GraphicalContext *GetNativeGLContext() const override { return SYS_Context; }
+    #endif
+
+    #ifdef MPE_OPENGLES
+    inline virtual GraphicalContext *GetNativeGLESContext() const override { return SYS_ESContext; }
+    #endif
 
   private:
     virtual void Init(const WindowProps &props);

@@ -1,4 +1,4 @@
-if(WIN32)
+if(COMPILATION_PLATFORM STREQUAL "WIN32")
     include("${PROJECT_SOURCE_DIR}/CMake/Platform/Dependencies/WIN32/dependencies_win32.cmake")
 elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
     include("${PROJECT_SOURCE_DIR}/CMake/Platform/Dependencies/UNIX/dependencies_unix.cmake")

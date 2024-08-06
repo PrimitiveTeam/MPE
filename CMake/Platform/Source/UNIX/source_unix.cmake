@@ -4,7 +4,7 @@ file(
 
   # /Platform/Linux/App
   "${PROJECT_SOURCE_DIR}/Platform/Linux/App/LinuxWindow.cpp"
-  "${PROJECT_SOURCE_DIR}/Platform/Linux/App/LinuxMonitors.cpp"
+  "${PROJECT_SOURCE_DIR}/Platform/Linux/App/WindowMonitors.cpp"
 
   # /Platform/Linux/Core
   "${PROJECT_SOURCE_DIR}/Platform/Linux/Core/_PTRS.cpp"
@@ -22,7 +22,7 @@ file(
 
   # /Platform/Linux/App
   "${PROJECT_SOURCE_DIR}/Platform/Linux/App/LinuxWindow.h"
-  "${PROJECT_SOURCE_DIR}/Platform/Linux/App/LinuxMonitors.h"
+  "${PROJECT_SOURCE_DIR}/Platform/Linux/App/WindowMonitors.h"
 
   # /Platform/Linux/Input
   "${PROJECT_SOURCE_DIR}/Platform/Linux/Input/LinuxInput.h"

@@ -5,6 +5,10 @@
 #include "MPE/Events/EventKey.h"
 #include "MPE/Events/EventMouse.h"
 
+#include "MPE/Renderer/RendererAPI.h"
+
+#include <GLFW/glfw3.h>
+
 namespace MPE
 {
 static bool SYS_GLFWInitialized = false;
@@ -53,18 +57,15 @@ void macOSWindow::Init(const WindowProps &props)
 
     if (api == RendererAPI::API::OpenGLES)
     {
+
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-        glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     }
     else
     {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-        MPE_CORE_TRACE("Setting GLFW_OPENGL_FORWARD_COMPAT to GL_TRUE for macOS.");
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     }
 
     SYS_Window = glfwCreateWindow((int) props.Width, (int) props.Height, SYS_Data.Title.c_str(), nullptr, nullptr);
@@ -197,7 +198,7 @@ void macOSWindow::Shutdown()
     glfwDestroyWindow(SYS_Window);
 }
 
-void WindowsWindow::OnUpdate()
+void macOSWindow::OnUpdate()
 {
     glfwPollEvents();
 

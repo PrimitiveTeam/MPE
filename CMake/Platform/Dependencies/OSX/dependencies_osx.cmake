@@ -58,3 +58,43 @@ if(${VERBOSE})
     # message(STATUS "GTest_DIR: ${GTest_DIR}")
     message(STATUS "CUSTOM LIBRARY PATHS SET.")
 endif()
+
+if(MPE_ANGLE)
+    if(VERBOSE)
+        message(STATUS "ADDING ANGLE DEPENDENCY...")
+    endif()
+
+    set(angle_DIR ${VENDOR_DIR}/angle)
+    set(angle_Include ${angle_DIR}/include)
+    set(angle_Lib ${angle_DIR}/out/Release)
+
+    include_directories(${angle_Include})
+    link_directories(${angle_Lib})
+
+    find_library(ANGLE_GLESv2_LIBRARY libGLESv2.dylib PATHS ${angle_Lib})
+    find_library(ANGLE_EGL_LIBRARY libEGL.dylib PATHS ${angle_Lib})
+
+    if(MPE_ANDROID_BUILD)
+        set(ANGLE_DLLS
+            # ${angle_Lib}/libGLESv2.dll
+            # ${angle_Lib}/libEGL.dll
+            # ${angle_Lib}/libc++.dll
+            # ${angle_Lib}/third_party_abseil-cpp_absl.dll
+            # ${angle_Lib}/third_party_zlib.dll
+            # ${angle_Lib}/dawn_proc.dll
+            # ${angle_Lib}/dawn_native.dll
+            # ${angle_Lib}/dawn_platform.dll
+        )
+    else()
+        set(ANGLE_DLLS
+            ${angle_Lib}/libGLESv2.dylib
+            ${angle_Lib}/libEGL.dylib
+            # ${angle_Lib}/libc++.dll
+            # ${angle_Lib}/third_party_zlib.dll
+            # ${angle_Lib}/third_party_abseil-cpp_absl.dll
+            # ${angle_Lib}/dawn_proc.dll
+            # ${angle_Lib}/dawn_native.dll
+            # ${angle_Lib}/dawn_platform.dll
+        )
+    endif(MPE_ANDROID_BUILD)
+endif(MPE_ANGLE)

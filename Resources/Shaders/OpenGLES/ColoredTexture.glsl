@@ -1,7 +1,7 @@
 // TEXTURES WITH OPTIONAL COLOR VALUES
 
 #type vertex
-#version 330 core
+#version 300 es
 
 layout(location = 0) in vec3 ATTR_POS;
 layout(location = 1) in vec2 ATTR_TEXCOORD;
@@ -9,7 +9,7 @@ layout(location = 1) in vec2 ATTR_TEXCOORD;
 uniform mat4 UNI_VPM;
 uniform mat4 UNI_MODELMAT;
 
-out vec2 VAR_TEXCOORD;
+out highp vec2 VAR_TEXCOORD;
 
 void main()
 {
@@ -18,15 +18,18 @@ void main()
 }
 
 #type fragment
-#version 330 core
+#version 300 es
 
-layout(location = 0) out vec4 LOCAL_COLOR;
+precision mediump float;
+precision mediump int;
 
-in vec2 VAR_TEXCOORD;
+in highp vec2 VAR_TEXCOORD;
 
 uniform sampler2D UNI_TEXTURE;
-uniform float UNI_TILING_FACTOR;
-uniform vec4 UNI_COLOR;
+uniform mediump float UNI_TILING_FACTOR;
+uniform mediump vec4 UNI_COLOR;
+
+out mediump vec4 LOCAL_COLOR;
 
 void main()
 {

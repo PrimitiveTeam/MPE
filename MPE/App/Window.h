@@ -4,6 +4,7 @@
 #include "MPE/Core/_CORE.h"
 #include "MPE/Events/Event.h"
 #include "WindowProps.h"
+#include "MPE/Renderer/GraphicalContext.h"
 
 namespace MPE
 {
@@ -37,6 +38,14 @@ class MPE_API Window
     virtual void RestoreWindowPosition() = 0;
 
     virtual void *GetNativeWindow() const = 0;
+
+#ifdef MPE_OPENGL
+    inline virtual GraphicalContext *GetNativeGLContext() const = 0;
+#endif
+
+#ifdef MPE_OPENGLES
+    inline virtual GraphicalContext *GetNativeGLESContext() const = 0;
+#endif
 
     static REF<Window> CreateNativeWindow(const WindowProps &props = WindowProps());
 };

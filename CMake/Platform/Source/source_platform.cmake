@@ -7,7 +7,7 @@ if(MPE_OPENGLES)
     include("${PROJECT_SOURCE_DIR}/CMake/Platform/Source/OpenGLES/source_opengles.cmake")
 endif(MPE_OPENGLES)
 
-if(WIN32)
+if(COMPILATION_PLATFORM STREQUAL "WIN32")
     include("${PROJECT_SOURCE_DIR}/CMake/Platform/Source/WIN32/source_win32.cmake")
 elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
     include("${PROJECT_SOURCE_DIR}/CMake/Platform/Source/UNIX/source_unix.cmake")

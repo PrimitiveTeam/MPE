@@ -4,7 +4,6 @@
 #include "MPE/Core/_CORE.h"
 #include "MPE/App/WindowProps.h"
 
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace MPE

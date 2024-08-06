@@ -1,8 +1,7 @@
 #include "OpenGLESRendererAPI.h"
 #include "MPE/MPEPCH.h"
 
-// #include <GLES3/gl3.h>
-#include <glad/glad.h>
+#include <GLES3/gl31.h>
 
 namespace MPE
 {
@@ -12,7 +11,6 @@ void OpenGLESRendererAPI::Init()
 
     SYS_Settings->SetVsync(false);
     SYS_Settings->SetBlend(true);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     SYS_Settings->SetDepthTest(true);
     SYS_Settings->SetPolygonMode(false);
     SYS_Settings->SetLimitFPS(false);
