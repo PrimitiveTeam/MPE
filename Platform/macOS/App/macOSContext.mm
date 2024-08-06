@@ -8,17 +8,17 @@
 
 namespace MPE
 {
-    EGLNativeWindowType macOSContext::GetNativeWindow(GLFWwindow* window)
+EGLNativeWindowType macOSContext::GetNativeWindow(GLFWwindow* window)
+{
+    NSWindow* nsWindow = static_cast<NSWindow*>(glfwGetCocoaWindow(window));
+    if (!nsWindow)
     {
-        NSWindow* nsWindow = static_cast<NSWindow*>(glfwGetCocoaWindow(window));
-        if (!nsWindow)
-        {
-            std::cerr << "Failed to get NSWindow from GLFWwindow" << std::endl;
-            return nullptr;
-        }
-
-        NSView* contentView = [nsWindow contentView];
-        [contentView setWantsLayer:YES];  // Make sure the view is layer-backed
-        return (EGLNativeWindowType)[contentView layer];
+        std::cerr << "Failed to get NSWindow from GLFWwindow" << std::endl;
+        return nullptr;
     }
+
+    NSView* contentView = [nsWindow contentView];
+    [contentView setWantsLayer:YES];  // Make sure the view is layer-backed
+    return (EGLNativeWindowType)[contentView layer];
+}
 }

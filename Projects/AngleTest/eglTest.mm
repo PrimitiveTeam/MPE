@@ -17,16 +17,16 @@ int main(int argc, const char *argv[])
     // macOS-specific initialization
     NSApplication *app = [NSApplication sharedApplication];
     NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 640, 480)
-                                                    styleMask:(NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskResizable)
-                                                      backing:NSBackingStoreBuffered
-                                                        defer:NO];
+                                                   styleMask:(NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskResizable)
+                                                     backing:NSBackingStoreBuffered
+                                                       defer:NO];
     [window setTitle:@"MetalANGLE - OpenGL ES 3.0"];
     [window makeKeyAndOrderFront:nil];
 
     // Obtain the native window handle
     NSView *contentView = [window contentView];
-    [contentView setWantsLayer:YES]; // Make sure the view is layer-backed
-    EGLNativeWindowType nativeWindow = (EGLNativeWindowType)contentView.layer;
+    [contentView setWantsLayer:YES];  // Make sure the view is layer-backed
+    EGLNativeWindowType nativeWindow = (EGLNativeWindowType) contentView.layer;
     EGLNativeDisplayType nativeDisplay = EGL_DEFAULT_DISPLAY;
 
     // Obtain the EGL display connection
@@ -45,15 +45,21 @@ int main(int argc, const char *argv[])
     }
 
     // Choose an EGLConfig
-    EGLint configAttribs[] = {
-        EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
-        EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT,
-        EGL_RED_SIZE, 8,
-        EGL_GREEN_SIZE, 8,
-        EGL_BLUE_SIZE, 8,
-        EGL_ALPHA_SIZE, 8,
-        EGL_DEPTH_SIZE, 16,
-        EGL_NONE};
+    EGLint configAttribs[] = {EGL_SURFACE_TYPE,
+                              EGL_WINDOW_BIT,
+                              EGL_RENDERABLE_TYPE,
+                              EGL_OPENGL_ES3_BIT,
+                              EGL_RED_SIZE,
+                              8,
+                              EGL_GREEN_SIZE,
+                              8,
+                              EGL_BLUE_SIZE,
+                              8,
+                              EGL_ALPHA_SIZE,
+                              8,
+                              EGL_DEPTH_SIZE,
+                              16,
+                              EGL_NONE};
 
     EGLConfig eglConfig;
     EGLint numConfigs;
