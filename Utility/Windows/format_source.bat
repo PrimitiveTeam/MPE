@@ -16,7 +16,7 @@ set DIR_LIST=%SCRIPT_DIR%..\.dirs_to_format
 for /f "tokens=*" %%d in (%DIR_LIST%) do (
     set "DIR_PATH=%SCRIPT_DIR%../../%%d"
     if exist "!DIR_PATH!" (
-        for %%f in (!DIR_PATH!\*.h !DIR_PATH!\*.hpp !DIR_PATH!\*.c !DIR_PATH!\*.cpp) do (
+        for %%f in (!DIR_PATH!\*.h !DIR_PATH!\*.hpp !DIR_PATH!\*.c !DIR_PATH!\*.cpp !DIR_PATH!\*.mm !DIR_PATH!\*.m) do (
             %CLANG_FORMAT% -style=file:%CLANG_FORMAT_FILE% -i "%%f"
         )
     ) else (
