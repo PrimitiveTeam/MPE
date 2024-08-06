@@ -1,75 +1,83 @@
-# MPE
+# Mere Primitive Engine
 
-Small Game/Rendering Engine made from scratch in C++
+Small Game/Rendering Engine made in C++.
 
-## Documentation
+Why choose MPE? Because it's very primitive.
 
-Current documentation is minimal but available.
+![alt text](./Documentation/SHOWCASE/MPE-SHOWCASE.png)
 
-1. [MPE Core Engine](https://durengo.github.io/MPE/Documentation/MPE/html/index.html)
-
-## Working with Source and Requirements
+## Capabilities
 
 ### Platform
 
-|     Windows     |       UNIX        |       macOS       |
-| :-------------: | :---------------: | :---------------: |
-|      __X__      | NOT SUPPORTED YET | NOT SUPPORTED YET |
-| __64-bit only__ |        N/A        |        N/A        |
+|     Windows     |      UNIX       |      macOS      | Raspberry PI 4 (RPI4) |
+| :-------------: | :-------------: | :-------------: | :-------------------: |
+|      __X__      |      __X__      |      __X__      |         __X__         |
+| __64-bit only__ | __64-bit only__ | __64-bit only__ |   __32-bit/64-bit__   |
 
 ### Compiler
 
-| MSVC  |        GNU        |       CLANG       |
-| :---: | :---------------: | :---------------: |
-| __X__ | NOT SUPPORTED YET | NOT SUPPORTED YET |
+| Platform |  MSVC   |         GNU         |        CLANG        |
+| :------: | :-----: | :-----------------: | :-----------------: |
+| Windows  |  __X__  | Partially Supported | Partially Supported |
+|   UNIX   | __N/A__ |        __X__        |        __X__        |
+|  macOS   | __N/A__ |       __N/A__       |        __X__        |
+|   RPI4   | __N/A__ |        __X__        |       __N/A__       |
 
-### Supported IDE
+### Graphics APIs
+
+| Platform | OpenGL 4.6 | OpenGL 4.1 | OpenGL ES 3.1 | OpenGL ES 3.0 |
+| :------: | :--------: | :--------: | :-----------: | :-----------: |
+| Windows  |   __X__    |   __X__    |     __X__     |     __X__     |
+|   UNIX   |   __X__    |   __X__    |     __X__     |     __X__     |
+|  macOS   |  __N/A__   |   __X__    |    __N/A__    |     __X__     |
+|   RPI4   |  __N/A__   |  __N/A__   |     __X__     |     __X__     |
+
+## Hardware Support
+
+Depending on the Graphics API used specific hardware requirements must be met:
+
+* [OpenGL](https://www.opengl.org/)
+* [OpenGLES](https://www.khronos.org/opengles/)
+
+Of course OpenGL can be achieved without hardware acceleration but performance will be quite horrible.
+
+#### Windows
+
+* OpenGL 4.6 compatible GPU/iGPU 
+* OpenGL ES 3.1 compatible GPU/iGPU
+* OpenGL ES 3.0 compatible GPU/iGPU
+
+#### UNIX
+
+* OpenGL 4.6 compatible GPU/iGPU
+* OpenGL ES 3.1 compatible GPU/iGPU
+* OpenGL ES 3.0 compatible GPU/iGPU
+
+#### macOS
+
+* OpenGL 4.1 compatible GPU/iGPU
+* OpenGL ES 3.0 compatible GPU/iGPU
+
+#### RPI
+
+* OpenGL ES 3.1 compatible GPU/iGPU
+* OpenGL ES 3.0 compatible GPU/iGPU
+
+## Working with Source and Requirements
+
+* Working with source - [Windows](./Documentation/SETUP/WINDOWS.md)
+* Working with source - [UNIX](./Documentation/SETUP/UNIX.md)
+* Working with source - [OSX](./Documentation/SETUP/OSX.md)
+* Working with source - [RPI4](./Documentation/SETUP/RPI4.md)
+
+## Documentation
+
+Current documentation generated with doxygen is minimal but available.
+
+1. [MPE Core Engine](https://durengo.github.io/MPE/Documentation/MPE/html/index.html)
+
+## Supported IDE
 
 1. VScode integration
-2. (In Progress) Visual Studio
-
-### Hardware
-
-1. [OpenGL](https://www.opengl.org/) 4.6 compatible GPU
-
-### For Compilation
-
-1. [CMake](https://cmake.org/)
-2. [Git](https://git-scm.com/)
-3. C++ compiler ([MSVC](https://visualstudio.microsoft.com/downloads/)/[GCC](https://gcc.gnu.org/)/[Clang](https://clang.llvm.org/))
-4. While [CPM](https://github.com/Durengo/CPM) is in alpha [Rust](https://www.rust-lang.org/) + [Cargo](https://crates.io/) is necessary to build the project manager
-
-### Dependencies
-
-For windows [VCPKG](https://vcpkg.io/) is __required__.
-
-1. [fmt](https://github.com/fmtlib/fmt)
-2. [spdlog](https://github.com/gabime/spdlog)
-3. [glad](https://glad.dav1d.de/)
-4. [glfw3](https://github.com/glfw/glfw)
-5. [imgui](https://github.com/ocornut/imgui)
-6. [glm](https://github.com/g-truc/glm)
-7. [stb](https://github.com/nothings/stb)
-
-### BUILDING
-
-1. Download the repo
-2. Execute ``git submodule init``
-3. CD into the __repo root__
-4. CD into ``/CPM/cpm``
-5. 1\~\*Execute ``cargo build --release``
-6. CD into __the repo root__
-7. Execute ``.\CPM\cpm\target\release\cpm.exe init -f``
-8. After this 'cpm.bat' will appear in the __repo root__, this will be the entrrypoint to the buildsystem
-9. Check if it's working by executing ``./cpm -V`` from the __repo root__
-10. WINDOWS ONLY: Make sure to add VCPKG to your path
-11. 2\~\*Execute ``./cpm setup -a`` to download packages and setup the environment
-12. 3\~\*Execute ``./cpm build -dg <SYSTEM_TYPE>``
-13. Execute ``./cpm build -db``
-14. Run
-
-1\~\* IT IS IMPORTANT TO BUILD IN RELEASE OTHERWISE THINGS MIGHT BREAK AS THE ALPHA VERSIONS DEBUG BUIDLS HAVE VERBOSE LOGGING.
-
-2\~\* CPM MIGHT FAIL TO INSTALL ALL LIBRARIES DUE TO SOME ISSUE WITH ALPHA VERSION. IF THIS HAPPENS CHECK [cpm_install.json](cpm_install.json) AND INSTALL THE MISSING LIBRARIES.
-
-3\~\* SINCE ONLY WINDOWS AND MSVC IS SUPPORTED THEN JUST RUN ``./cpm build -dg nt/msvc``
+2. [WINDOWS ONLY] (In Progress) Visual Studio - if the project has been generated then you can run [.\Utility\Windows\open_vs.bat](/Utility/Windows/open_vs.bat) which will open the project in Visual Studio.

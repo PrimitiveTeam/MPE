@@ -65,23 +65,6 @@ struct MPE_API ProfilerSession
  */
 class MPE_API Profiler
 {
-  private:
-    /**
-     * @brief The current profiler session.
-     * @date 2024-05-05
-     */
-    ProfilerSession *CURRENT_SESSION;
-    /**
-     * @brief The output file stream.
-     * @date 2024-05-05
-     */
-    std::ofstream OUTPUT;
-    /**
-     * @brief The profile count.
-     * @date 2024-05-05
-     */
-    int PROFILE_COUNT;
-
   public:
     /**
      * @brief Construct a new Profiler object.
@@ -142,6 +125,23 @@ class MPE_API Profiler
          */
         return instance;
     }
+
+  private:
+    /**
+     * @brief The current profiler session.
+     * @date 2024-05-05
+     */
+    ProfilerSession *CURRENT_SESSION;
+    /**
+     * @brief The output file stream.
+     * @date 2024-05-05
+     */
+    std::ofstream OUTPUT;
+    /**
+     * @brief The profile count.
+     * @date 2024-05-05
+     */
+    int PROFILE_COUNT;
 };
 
 /**
@@ -150,23 +150,6 @@ class MPE_API Profiler
  */
 class MPE_API InstrumentationTimer
 {
-  private:
-    /**
-     * @brief The name of the timer.
-     * @date 2024-05-05
-     */
-    const char *NAME;
-    /**
-     * @brief The starting point of the timer.
-     * @date 2024-05-05
-     */
-    std::chrono::time_point<std::chrono::high_resolution_clock> START_POINT;
-    /**
-     * @brief The stopping flag of the timer.
-     * @date 2024-05-05
-     */
-    bool STOPPED;
-
   public:
     /**
      * @brief Construct a new Instrumentation Timer object.
@@ -186,6 +169,23 @@ class MPE_API InstrumentationTimer
      * @date 2024-05-05
      */
     void Stop();
+
+  private:
+    /**
+     * @brief The name of the timer.
+     * @date 2024-05-05
+     */
+    const char *NAME;
+    /**
+     * @brief The starting point of the timer.
+     * @date 2024-05-05
+     */
+    std::chrono::time_point<std::chrono::high_resolution_clock> START_POINT;
+    /**
+     * @brief The stopping flag of the timer.
+     * @date 2024-05-05
+     */
+    bool STOPPED;
 };
 }
 

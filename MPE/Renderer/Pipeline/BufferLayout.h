@@ -78,22 +78,6 @@ struct MPE_API BufferElement
 
 class MPE_API BufferLayout
 {
-  private:
-    std::vector<BufferElement> SYS_ELEMENTS;
-    uint32_t SYS_STRIDE = 0;
-
-    void CalculateOffsetAndStride()
-    {
-        uint32_t offset = 0;
-        SYS_STRIDE = 0;
-        for (auto &element : SYS_ELEMENTS)
-        {
-            element.Offset = offset;
-            offset += element.Size;
-            SYS_STRIDE += element.Size;
-        }
-    }
-
   public:
     BufferLayout() {}
 
@@ -106,5 +90,22 @@ class MPE_API BufferLayout
     std::vector<BufferElement>::iterator end() { return SYS_ELEMENTS.end(); }
     std::vector<BufferElement>::const_iterator begin() const { return SYS_ELEMENTS.begin(); }
     std::vector<BufferElement>::const_iterator end() const { return SYS_ELEMENTS.end(); }
+
+  private:
+    void CalculateOffsetAndStride()
+    {
+        uint32_t offset = 0;
+        SYS_STRIDE = 0;
+        for (auto &element : SYS_ELEMENTS)
+        {
+            element.Offset = offset;
+            offset += element.Size;
+            SYS_STRIDE += element.Size;
+        }
+    }
+
+  private:
+    std::vector<BufferElement> SYS_ELEMENTS;
+    uint32_t SYS_STRIDE = 0;
 };
 }

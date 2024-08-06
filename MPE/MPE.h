@@ -12,8 +12,10 @@
 // ----- CORE INTERNAL -----
 // #include "MPE/Core/App.h"
 // #include "MPE/Core/Layers/Layer.h"
-#include "MPE/Core/_CORE.h"
+#include "MPE/Core/_ASSERTS.h"
+#include "MPE/Core/_PTRS.h"
 #include "MPE/Core/_CWD.h"
+#include "MPE/Core/_CORE.h"
 // ----- CORE INTERNAL -----
 
 // ----- LOG -----
@@ -30,6 +32,7 @@
 #include "MPE/App/App.h"
 #include "MPE/App/Layers/Layer.h"
 #include "MPE/App/Layers/LayerStack.h"
+#include "MPE/App/WindowProps.h"
 #include "MPE/App/Window.h"
 // ----- APPLICATION -----
 
@@ -45,6 +48,7 @@
 
 // ----- EVENTS -----
 #include "MPE/Events/EventApp.h"
+#include "MPE/Events/EventGraphics.h"
 #include "MPE/Events/EventFunction.h"
 #include "MPE/Events/EventKey.h"
 #include "MPE/Events/EventMouse.h"
@@ -64,6 +68,7 @@
 #include "MPE/Renderer/Renderer.h"
 #include "MPE/Renderer/Renderer2D.h"
 #include "MPE/Renderer/RenderPrimitive.h"
+#include "MPE/Renderer/RendererUtilities.h"
 // ----- RENDERER -----
 
 // ----- GRAPHICS -----
@@ -80,3 +85,10 @@
 #include "MPE/Renderer/Cameras/OrthographicCameraController.h"
 #include "MPE/Renderer/Cameras/StaticOrthographicCamera.h"
 // ----- CAMERAS -----
+
+// ----- EDITOR -----
+// GRID
+#include "MPE/Editor/Grid/Grid.h"
+// PROMPTS
+#include "MPE/Editor/Prompts/SimpleDialog.h"
+// ----- EDITOR -----

@@ -6,21 +6,18 @@ namespace MPE
 {
 class MPE_API KeyEvent : public Event
 {
-  protected:
-    KeyEvent(int keycode);
-    int KeyCode;
-
   public:
     inline int GetKeyCode() const { return KeyCode; }
 
     EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
+
+  protected:
+    KeyEvent(int keycode);
+    int KeyCode;
 };
 
 class MPE_API KeyPressedEvent : public KeyEvent
 {
-  private:
-    int RepeatCount;
-
   public:
     KeyPressedEvent(int keycode, int repeatCount);
 
@@ -29,6 +26,9 @@ class MPE_API KeyPressedEvent : public KeyEvent
     std::string ToString() const override;
 
     EVENT_CLASS_TYPE(KeyPressed)
+
+  private:
+    int RepeatCount;
 };
 
 class MPE_API KeyReleasedEvent : public KeyEvent

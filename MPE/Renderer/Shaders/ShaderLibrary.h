@@ -1,5 +1,6 @@
 #pragma once
 
+#include "MPE/Core/_PTRS.h"
 #include "MPE/Core/_CORE.h"
 #include "MPE/Renderer/Shaders/Shader.h"
 
@@ -7,9 +8,6 @@ namespace MPE
 {
 class MPE_API ShaderLibrary
 {
-  private:
-    std::unordered_map<std::string, REF<Shader>> SHADERS;
-
   public:
     void Add(const std::string &name, const REF<Shader> &shader);
     void Add(const REF<Shader> &shader);
@@ -19,5 +17,8 @@ class MPE_API ShaderLibrary
     REF<Shader> Get(const std::string &name);
 
     bool Exists(const std::string &name) const;
+
+  private:
+    std::unordered_map<std::string, REF<Shader>> SHADERS;
 };
 }

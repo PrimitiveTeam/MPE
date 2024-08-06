@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MPE/Core/_CORE.h"
+#include "MPE/Core/_PTRS.h"
 
 #include "spdlog/spdlog.h"
 

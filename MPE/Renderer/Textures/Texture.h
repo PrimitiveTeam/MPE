@@ -6,7 +6,6 @@ namespace MPE
 {
 class MPE_API Texture
 {
-  private:
   public:
     virtual ~Texture() = default;
 

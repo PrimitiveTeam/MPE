@@ -1,6 +1,8 @@
 #include "EventKey.h"
 #include "MPE/MPEPCH.h"
 
+#include "MPE/Input/KeyState.h"
+
 #include <sstream>
 
 namespace MPE
@@ -9,7 +11,10 @@ namespace MPE
 KeyEvent::KeyEvent(int keycode) : KeyCode(keycode) {}
 
 // KeyPressedEvent
-KeyPressedEvent::KeyPressedEvent(int keycode, int repeatCount) : KeyEvent(keycode), RepeatCount(repeatCount) {}
+KeyPressedEvent::KeyPressedEvent(int keycode, int repeatCount) : KeyEvent(keycode), RepeatCount(repeatCount)
+{
+    MPE::KeyState::SetKeyPressed(keycode, true);
+}
 
 std::string KeyPressedEvent::ToString() const
 {
@@ -19,7 +24,10 @@ std::string KeyPressedEvent::ToString() const
 }
 
 // KeyReleasedEvent
-KeyReleasedEvent::KeyReleasedEvent(int keycode) : KeyEvent(keycode) {}
+KeyReleasedEvent::KeyReleasedEvent(int keycode) : KeyEvent(keycode)
+{
+    MPE::KeyState::SetKeyPressed(keycode, false);
+}
 
 std::string KeyReleasedEvent::ToString() const
 {

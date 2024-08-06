@@ -92,11 +92,13 @@ bool OrthographicCameraController::OnWindowResized(WindowResizeEvent &e)
 void OrthographicCameraController::SetPosition(float x, float y, float z)
 {
     CAMERA_POSITION = {x, y, z};
+    CAMERA.SetPosition(CAMERA_POSITION);
 }
 
 void OrthographicCameraController::SetRotation(float rad)
 {
     CAMERA_ROTATION = rad;
+    CAMERA.SetRotation(CAMERA_ROTATION);
 }
 
 void OrthographicCameraController::SetZoomLevel(float zoom)

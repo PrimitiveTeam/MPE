@@ -5,6 +5,16 @@
 
 namespace MPE
 {
+// WindowMovesEvent
+WindowMovedEvent::WindowMovedEvent(int x, int y) : X(x), Y(y) {}
+
+std::string WindowMovedEvent::ToString() const
+{
+    std::stringstream ss;
+    ss << "WindowMovedEvent: " << X << ", " << Y;
+    return ss.str();
+}
+
 // WindowResizeEvent
 WindowResizeEvent::WindowResizeEvent(unsigned int width, unsigned int height) : Width(width), Height(height) {}
 

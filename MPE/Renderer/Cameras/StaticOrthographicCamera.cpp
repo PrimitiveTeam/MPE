@@ -92,11 +92,13 @@ bool StaticOrthographicCamera::OnWindowResized(WindowResizeEvent &e)
 void StaticOrthographicCamera::SetPosition(float x, float y, float z)
 {
     CAMERA_POSITION = {x, y, z};
+    CAMERA.SetPosition(CAMERA_POSITION);
 }
 
 void StaticOrthographicCamera::SetRotation(float rad)
 {
     CAMERA_ROTATION = rad;
+    CAMERA.SetRotation(CAMERA_ROTATION);
 }
 
 void StaticOrthographicCamera::SetZoomLevel(float zoom)

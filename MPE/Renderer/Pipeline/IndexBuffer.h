@@ -1,12 +1,12 @@
 #pragma once
 
+#include "MPE/Core/_PTRS.h"
 #include "MPE/Core/_CORE.h"
 
 namespace MPE
 {
 class MPE_API IndexBuffer
 {
-  private:
   public:
     virtual ~IndexBuffer() = default;
 

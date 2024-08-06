@@ -1,6 +1,8 @@
 #include "BufferLayout.h"
 #include "MPE/MPEPCH.h"
 
+#include "MPE/Core/_ASSERTS.h"
+
 namespace MPE
 {
 uint32_t MPE_API ShaderDataTypeSize(ShaderDataType type)

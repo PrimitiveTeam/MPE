@@ -4,10 +4,11 @@
 #include "MPE/Time/Time.h"
 
 #include <string>
+#include <memory>
 
 namespace MPE
 {
-class MPE_API Layer
+class MPE_API Layer : public std::enable_shared_from_this<Layer>
 {
   protected:
     std::string SYS_DebugName;

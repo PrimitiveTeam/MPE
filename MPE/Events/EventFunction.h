@@ -7,9 +7,6 @@ namespace MPE
 // Create a function called event
 class MPE_API FunctionCalledEvent : public Event
 {
-  private:
-    std::string FunctionName;
-
   public:
     FunctionCalledEvent(std::string functionName);
 
@@ -19,5 +16,8 @@ class MPE_API FunctionCalledEvent : public Event
 
     EVENT_CLASS_TYPE(FunctionCalled)
     EVENT_CLASS_CATEGORY(EventCategoryFunctions)
+
+  private:
+    std::string FunctionName;
 };
 }

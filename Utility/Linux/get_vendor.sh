@@ -4,10 +4,12 @@
 SCRIPT_DIR=$(cd $(dirname "$0") && pwd)
 
 echo "Setting up directories..."
-mkdir -p $SCRIPT_DIR/../../Vendor
+mkdir -p $SCRIPT_DIR/../../Vendor/UNIX
+mkdir -p $SCRIPT_DIR/../../Vendor/Universal
 
 # CD into Vendor
-cd $SCRIPT_DIR/../../Vendor
+cd $SCRIPT_DIR/../../Vendor/
+cd ./Universal
 echo "Generating GLAD for OpenGL version 4.6..."
 glad --quiet --api gl:compatibility=4.6 --out-path ./Glad c
 
@@ -15,12 +17,12 @@ glad --quiet --api gl:compatibility=4.6 --out-path ./Glad c
 # If imgui already exists, cancel next step
 if [ -d "imgui" ]; then
     echo "imgui already exists. Skipping..."
-    exit 0
 else
     echo "Cloning imgui..."
     git clone https://github.com/ocornut/imgui.git
     cd imgui
     git checkout docking
+    cd ..
 fi
 
 # stb
@@ -30,6 +32,17 @@ if [ -d "stb" ]; then
 else
     echo "Cloning stb..."
     git clone https://github.com/nothings/stb.git
+fi
+
+cd ../UNIX
+
+# renderdoc
+# If renderdoc already exists, cancel next step
+if [ -d "renderdoc" ]; then
+    echo "renderdoc already exists. Skipping..."
+else
+    echo "Cloning renderdoc..."
+    git clone https://github.com/baldurk/renderdoc.git
 fi
 
 echo "Setup complete."

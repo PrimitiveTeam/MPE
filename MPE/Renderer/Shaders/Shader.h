@@ -1,5 +1,6 @@
 #pragma once
 
+#include "MPE/Core/_PTRS.h"
 #include "MPE/Core/_CORE.h"
 
 #include <glm/glm.hpp>
@@ -29,9 +30,11 @@ class MPE_API Shader
 
     virtual const std::string &GetName() const = 0;
 
-    static REF<Shader> Create(const std::string &filepath);
+    static REF<Shader> Create(const std::string &filepath, bool useEditorResource = false);
     static REF<Shader> Create(const std::string &name, const std::string &vertexSource, const std::string &fragmentSource);
 
     // virtual void InjectUniformBuffer
+  protected:
+    static std::string ParseEditorResourcePath(const std::string &filepath);
 };
 }
