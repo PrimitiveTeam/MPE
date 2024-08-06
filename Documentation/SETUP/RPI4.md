@@ -26,6 +26,8 @@ If you want to use an older toolchain you can acquire one here [Arm GNU Toolchai
 
 [OneDrive Link](https://1drv.ms/f/s!AmBWkGOxnjxShNgHV7VWMnsPDGmxTw?e=717CVr) - here you will find a prepared image and kernel, so no need to build anything.
 
+If using the OneDrive link to download the kernel, image, and sysroot make sure to extract kernel and image to `/Utility/RPI` and sysroot to `/opt`.
+
 ## Tools
 
 1. [QEMU](https://www.qemu.org/) - On Windows make sure to get x64 binaries
@@ -76,6 +78,19 @@ $sudo apt-get install qemu qemubuilder qemu-system-gui qemu-system-arm qemu-syst
 Move to [Building Kernel](#building-kernel) section
 
 ### OSX
+
+#### Cross-Compiling on Intel mac
+
+__WORK IN PROGRESS__ Get the cross-compiler.
+
+```bash
+$brew tap messense/macos-cross-toolchains
+# install aarch64-unknown-linux-gnu toolchain
+$brew install aarch64-unknown-linux-gnu
+$brew install aarch64-elf-gcc
+```
+
+Different compilers are available on mac, more info [here](https://github.com/messense/homebrew-macos-cross-toolchains).
 
 ## Building Kernel
 
@@ -168,6 +183,7 @@ To successfully cross-compile a project we need respective compilers but we also
 Sysroot is essentially '/' copy of the whole system.
 
 First things first, download an RPI image, or use the one provided in [OneDrive link](#links).
+There is also a tar containing a prepared sysroot for the same image [OneDrive link](#links).
 
 If emulating RPI with qemu move to [Emulating RPI](#emulating-rpi) section.
 
