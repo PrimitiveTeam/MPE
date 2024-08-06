@@ -76,6 +76,7 @@
 #include "MPE/Renderer/Pipeline/IndexBuffer.h"
 #include "MPE/Renderer/Pipeline/VertexArray.h"
 #include "MPE/Renderer/Shaders/Shader.h"
+#include "MPE/Renderer/Shaders/ShaderUtils.h"
 #include "MPE/Renderer/Textures/Texture.h"
 #include "MPE/Renderer/Textures/Texture2D.h"
 // ----- GRAPHICS -----

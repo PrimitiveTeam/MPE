@@ -16,7 +16,7 @@ void OpenGLESGrid::Init(float gridSize, float gridSpacing, MPE::OrthographicCame
 
     mainCamera = &camera;
 
-    gridShader = MPE::OpenGLESShader::Create("Data/Shaders/Editor/Grid/GridShader.glsl");
+    gridShader = MPE::OpenGLESShader::Create("Data/Shaders/Editor/Grid/GridShader.glsl", true);
 }
 
 void OpenGLESGrid::Resize(float gridSize, float gridSpacing)

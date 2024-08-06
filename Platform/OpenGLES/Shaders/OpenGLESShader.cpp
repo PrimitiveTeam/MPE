@@ -4,6 +4,7 @@
 #include "MPE/Core/_ASSERTS.h"
 #include "MPE/Log/GlobalLog.h"
 // #include "MPE/Renderer/RendererAPI.h"
+#include "MPE/Renderer/Shaders/ShaderUtils.h"
 
 #if MPE_PLATFORM_LINUX
 #    include <GLES3/gl31.h>
@@ -62,7 +63,7 @@ OpenGLESShader::OpenGLESShader(const std::string &filepath, bool useEditorResour
     std::string SHADER_SOURCE = "";
     if (useEditorResource)
     {
-        SHADER_SOURCE = this->ParseEditorResourcePath(filepath);
+        SHADER_SOURCE = ShaderUtils::ParseEditorResourcePath(filepath);
         MPE_WARN("Attempting to load shader: {0}", SHADER_SOURCE);
         SHADER_SOURCE = ValidateFile(SHADER_SOURCE);
     }

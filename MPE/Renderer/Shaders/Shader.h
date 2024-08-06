@@ -34,7 +34,5 @@ class MPE_API Shader
     static REF<Shader> Create(const std::string &name, const std::string &vertexSource, const std::string &fragmentSource);
 
     // virtual void InjectUniformBuffer
-  protected:
-    static std::string ParseEditorResourcePath(const std::string &filepath);
 };
 }
