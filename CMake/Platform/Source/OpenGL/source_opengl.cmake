@@ -26,6 +26,8 @@ file(
     GLOB_RECURSE
     MPE_OPENGL_H
 
+    "${PROJECT_SOURCE_DIR}/MPE/MPEGFX_OPEN_GL.h"
+
     # /Platform/OpenGL
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLContext.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLContextProps.h"
