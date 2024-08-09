@@ -138,6 +138,13 @@ if(${VCPKG_CUSTOM_PATHS})
 
     find_package(OpenCV REQUIRED)
 
+    # SETTING FREETYPE
+    set(freetype_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\freetype")
+
+    # SETTING FREETYPE-GL
+    set(freetype-gl_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\freetype-gl")
+
+
     if(${VERBOSE})
         message("
 ...........................................................
@@ -150,6 +157,8 @@ if(${VCPKG_CUSTOM_PATHS})
 * GTest_DIR: ${GTest_DIR}
 * Stb_DIR: ${Stb_DIR}
 * OpenCV_DIR: ${OpenCV_DIR}
+* FreeType_DIR: ${freetype_DIR}
+* FreeTypeGL_DIR: ${freetype-gl_DIR}
 ...........................................................")
 
         # message(STATUS "OpenCV DLLs: ${OpenCV_DLLs}")
