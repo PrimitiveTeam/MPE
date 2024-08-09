@@ -3,10 +3,10 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#ifdef OPENGL
-#    include "MPE/Platform/OpenGL/OpenGLShader.h"
-#elif OPENGLES
-#    include "MPE/Platform/OpenGLES/OpenGLESShader.h"
+#ifdef MPE_OPENGL
+#    include "MPE/MPEGFX_OPEN_GL.h"
+#elif MPE_OPENGLES
+#    include "MPE/MPEGFX_OPEN_GL_ES.h"
 #endif
 
 GeneralTest::GeneralTest()
@@ -62,10 +62,10 @@ GeneralTest::GeneralTest()
     TEST_TEXTURE = MPE::Texture2D::Create("Data/Textures/TEST_TEXTURE.png");
     TEST_TEXTURE2 = MPE::Texture2D::Create("Data/Textures/TEST_TEXTURE_TRANSPARENCY_1.png");
 
-#ifdef OPENGL
+#ifdef MPE_OPENGL
     std::dynamic_pointer_cast<MPE::OpenGLShader>(TEXTURE_SHADER)->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLShader>(TEXTURE_SHADER)->InjectUniformInt1("UNI_TEXTURE", 0);
-#elif OPENGLES
+#elif MPE_OPENGLES
     std::dynamic_pointer_cast<MPE::OpenGLESShader>(TEXTURE_SHADER)->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLESShader>(TEXTURE_SHADER)->InjectUniformInt1("UNI_TEXTURE", 0);
 #endif
@@ -135,10 +135,10 @@ void GeneralTest::OnUpdate(MPE::Time deltatime)
 
     auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Get("FlatColor");
 
-#ifdef OPENGL
+#ifdef MPE_OPENGL
     std::dynamic_pointer_cast<MPE::OpenGLShader>(FLAT_COLOR_SHADER)->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLShader>(FLAT_COLOR_SHADER)->InjectUniformFloat4("UNI_COLOR", glm::vec4(COL_1[0], COL_1[1], COL_1[2], COL_1[3]));
-#elif OPENGLES
+#elif MPE_OPENGLES
     std::dynamic_pointer_cast<MPE::OpenGLESShader>(FLAT_COLOR_SHADER)->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLESShader>(FLAT_COLOR_SHADER)->InjectUniformFloat4("UNI_COLOR", glm::vec4(COL_1[0], COL_1[1], COL_1[2], COL_1[3]));
 #endif

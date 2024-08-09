@@ -3,10 +3,10 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#ifdef OPENGL
-#    include "MPE/Platform/OpenGL/OpenGLShader.h"
-#elif OPENGLES
-#    include "MPE/Platform/OpenGLES/OpenGLESShader.h"
+#ifdef MPE_OPENGL
+#    include "MPE/MPEGFX_OPEN_GL.h"
+#elif MPE_OPENGLES
+#    include "MPE/MPEGFX_OPEN_GL_ES.h"
 #endif
 
 ColorTriangleTest::ColorTriangleTest()
@@ -46,7 +46,7 @@ void ColorTriangleTest::OnUpdate(MPE::Time deltatime)
 
     auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Get("FlatColor");
 
-#ifdef OPENGL
+#ifdef MPE_OPENGL
     std::dynamic_pointer_cast<MPE::OpenGLShader>(FLAT_COLOR_SHADER)->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLShader>(FLAT_COLOR_SHADER)
         ->InjectUniformFloat4("UNI_COLOR", glm::vec4(TRIANGLE_COLOR[0], TRIANGLE_COLOR[1], TRIANGLE_COLOR[2], TRIANGLE_COLOR[3]));

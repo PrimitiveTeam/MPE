@@ -3,10 +3,10 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#ifdef OPENGL
-#    include "MPE/Platform/OpenGL/OpenGLShader.h"
-#elif OPENGLES
-#    include "MPE/Platform/OpenGLES/OpenGLESShader.h"
+#ifdef MPE_OPENGL
+#    include "MPE/MPEGFX_OPEN_GL.h"
+#elif MPE_OPENGLES
+#    include "MPE/MPEGFX_OPEN_GL_ES.h"
 #endif
 
 TextureRectangleTest::TextureRectangleTest()
@@ -38,10 +38,10 @@ TextureRectangleTest::TextureRectangleTest()
     // TEXTURES
     TEST_TEXTURE = MPE::Texture2D::Create("Data/Textures/TEST_TEXTURE.png");
 
-#ifdef OPENGL
+#ifdef MPE_OPENGL
     std::dynamic_pointer_cast<MPE::OpenGLShader>(TEXTURE_SHADER)->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLShader>(TEXTURE_SHADER)->InjectUniformInt1("UNI_TEXTURE", 0);
-#elif OPENGLES
+#elif MPE_OPENGLES
     std::dynamic_pointer_cast<MPE::OpenGLESShader>(TEXTURE_SHADER)->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLESShader>(TEXTURE_SHADER)->InjectUniformInt1("UNI_TEXTURE", 0);
 #endif
