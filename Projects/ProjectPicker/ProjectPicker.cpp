@@ -139,6 +139,18 @@ class DebugGuiLayer : public MPE::Layer
             {
                 dynamic_cast<MPE::OpenGLSettings*>(settings)->SetPolygonMode(polygonMode);
             }
+
+            bool faceCulling = dynamic_cast<MPE::OpenGLSettings*>(settings)->GetFaceCulling();
+            if (ImGui::Checkbox("Face Culling", &faceCulling))
+            {
+                dynamic_cast<MPE::OpenGLSettings*>(settings)->SetFaceCulling(faceCulling);
+            }
+
+            bool debugOutput = dynamic_cast<MPE::OpenGLSettings*>(settings)->GetDebugOutput();
+            if (ImGui::Checkbox("Debug Output", &debugOutput))
+            {
+                dynamic_cast<MPE::OpenGLSettings*>(settings)->SetDebugOutput(debugOutput);
+            }
 #endif
         }
     }
