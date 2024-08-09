@@ -7,6 +7,84 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+void GLAPIENTRY LogOpenGLDebugOutput(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message)
+{
+    std::string sourceString;
+    std::string typeString;
+    std::string severityString;
+
+    switch (source)
+    {
+        case GL_DEBUG_SOURCE_API:
+            sourceString = "API";
+            break;
+        case GL_DEBUG_SOURCE_WINDOW_SYSTEM:
+            sourceString = "Window System";
+            break;
+        case GL_DEBUG_SOURCE_SHADER_COMPILER:
+            sourceString = "Shader Compiler";
+            break;
+        case GL_DEBUG_SOURCE_THIRD_PARTY:
+            sourceString = "Third Party";
+            break;
+        case GL_DEBUG_SOURCE_APPLICATION:
+            sourceString = "Application";
+            break;
+        case GL_DEBUG_SOURCE_OTHER:
+            sourceString = "Other";
+            break;
+    }
+
+    switch (type)
+    {
+        case GL_DEBUG_TYPE_ERROR:
+            typeString = "Error";
+            break;
+        case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR:
+            typeString = "Deprecated Behavior";
+            break;
+        case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:
+            typeString = "Undefined Behavior";
+            break;
+        case GL_DEBUG_TYPE_PORTABILITY:
+            typeString = "Portability";
+            break;
+        case GL_DEBUG_TYPE_PERFORMANCE:
+            typeString = "Performance";
+            break;
+        case GL_DEBUG_TYPE_MARKER:
+            typeString = "Marker";
+            break;
+        case GL_DEBUG_TYPE_PUSH_GROUP:
+            typeString = "Push Group";
+            break;
+        case GL_DEBUG_TYPE_POP_GROUP:
+            typeString = "Pop Group";
+            break;
+        case GL_DEBUG_TYPE_OTHER:
+            typeString = "Other";
+            break;
+    }
+
+    switch (severity)
+    {
+        case GL_DEBUG_SEVERITY_HIGH:
+            severityString = "High";
+            break;
+        case GL_DEBUG_SEVERITY_MEDIUM:
+            severityString = "Medium";
+            break;
+        case GL_DEBUG_SEVERITY_LOW:
+            severityString = "Low";
+            break;
+        case GL_DEBUG_SEVERITY_NOTIFICATION:
+            severityString = "Notification";
+            break;
+    }
+
+    MPE_CORE_WARN("OpenGL:\nSource: {0}\nType: {1}\nID: {2}\nSeverity: {3}\nMessage: {4}", sourceString, typeString, id, severityString, message);
+}
+
 namespace MPE
 {
 OpenGLSettings::OpenGLSettings()
@@ -18,6 +96,8 @@ OpenGLSettings::OpenGLSettings()
     _SETTINGS.insert(std::make_pair("BLEND", std::make_pair("BLEND", _BLEND)));
     _SETTINGS.insert(std::make_pair("DEPTH_TEST", std::make_pair("DEPTH_TEST", _DEPTH_TEST)));
     _SETTINGS.insert(std::make_pair("POLYGON_MODE", std::make_pair("POLYGON_MODE", _POLYGON_MODE)));
+    _SETTINGS.insert(std::make_pair("FACE_CULLING", std::make_pair("FACE_CULLING", _FACE_CULLING));
+    _SETTINGS.insert(std::make_pair("DEBUG_OUTPUT", std::make_pair("DEBUG_OUTPUT", _DEBUG_OUTPUT));
 #else
     _SETTINGS["VSYNC"] = std::make_pair("VSYNC", _VSYNC);
     _SETTINGS["LIMIT_FPS"] = std::make_pair("LIMIT_FPS", _LIMIT_FPS);
@@ -25,6 +105,8 @@ OpenGLSettings::OpenGLSettings()
     _SETTINGS["BLEND"] = std::make_pair("BLEND", _BLEND);
     _SETTINGS["DEPTH_TEST"] = std::make_pair("DEPTH_TEST", _DEPTH_TEST);
     _SETTINGS["POLYGON_MODE"] = std::make_pair("POLYGON_MODE", _POLYGON_MODE);
+    _SETTINGS["FACE_CULLING"] = std::make_pair("FACE_CULLING", _FACE_CULLING);
+    _SETTINGS["DEBUG_OUTPUT"] = std::make_pair("DEBUG_OUTPUT", _DEBUG_OUTPUT);
 #endif
 }
 
@@ -229,6 +311,96 @@ void OpenGLSettings::SetPolygonMode(bool polygonMode)
     UpdateSettingsAndSendEvent("POLYGON_MODE", _POLYGON_MODE);
 #else
     UpdateSettingsAndSendEvent(_SETTINGS["POLYGON_MODE"].first, _POLYGON_MODE);
+#endif
+}
+
+// FACE CULLING
+
+void OpenGLSettings::ToggleFaceCulling()
+{
+    _FACE_CULLING = !_FACE_CULLING;
+
+    if (_FACE_CULLING)
+        glEnable(GL_CULL_FACE);
+    else
+        glDisable(GL_CULL_FACE);
+
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("FACE_CULLING", _FACE_CULLING);
+#else
+    UpdateSettingsAndSendEvent(_SETTINGS["FACE_CULLING"].first, _FACE_CULLING);
+#endif
+}
+
+bool OpenGLSettings::GetFaceCulling() const
+{
+    return _FACE_CULLING;
+}
+
+void OpenGLSettings::SetFaceCulling(bool faceCulling)
+{
+    _FACE_CULLING = faceCulling;
+
+    if (_FACE_CULLING)
+        glEnable(GL_CULL_FACE);
+    else
+        glDisable(GL_CULL_FACE);
+
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("FACE_CULLING", _FACE_CULLING);
+#else
+    UpdateSettingsAndSendEvent(_SETTINGS["FACE_CULLING"].first, _FACE_CULLING);
+#endif
+}
+
+// DEBUG OUTPUT
+
+void OpenGLSettings::ToggleDebugOutput()
+{
+    _DEBUG_OUTPUT = !_DEBUG_OUTPUT;
+
+    if (_DEBUG_OUTPUT)
+    {
+        glEnable(GL_DEBUG_OUTPUT);
+        glDebugMessageCallback((GLDEBUGPROC) LogOpenGLDebugOutput, nullptr);
+    }
+    else
+    {
+        glDisable(GL_DEBUG_OUTPUT);
+        glDebugMessageCallback(nullptr, nullptr);
+    }
+
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("DEBUG_OUTPUT", _DEBUG_OUTPUT);
+#else
+    UpdateSettingsAndSendEvent(_SETTINGS["DEBUG_OUTPUT"].first, _DEBUG_OUTPUT);
+#endif
+}
+
+bool OpenGLSettings::GetDebugOutput() const
+{
+    return _DEBUG_OUTPUT;
+}
+
+void OpenGLSettings::SetDebugOutput(bool debugOutput)
+{
+    _DEBUG_OUTPUT = debugOutput;
+
+    if (_DEBUG_OUTPUT)
+    {
+        glEnable(GL_DEBUG_OUTPUT);
+        glDebugMessageCallback((GLDEBUGPROC) LogOpenGLDebugOutput, nullptr);
+    }
+    else
+    {
+        glDisable(GL_DEBUG_OUTPUT);
+        glDebugMessageCallback(nullptr, nullptr);
+    }
+
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("DEBUG_OUTPUT", _DEBUG_OUTPUT);
+#else
+    UpdateSettingsAndSendEvent(_SETTINGS["DEBUG_OUTPUT"].first, _DEBUG_OUTPUT);
 #endif
 }
 
