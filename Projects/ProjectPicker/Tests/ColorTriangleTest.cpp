@@ -50,7 +50,7 @@ void ColorTriangleTest::OnUpdate(MPE::Time deltatime)
     std::dynamic_pointer_cast<MPE::OpenGLShader>(FLAT_COLOR_SHADER)->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLShader>(FLAT_COLOR_SHADER)
         ->InjectUniformFloat4("UNI_COLOR", glm::vec4(TRIANGLE_COLOR[0], TRIANGLE_COLOR[1], TRIANGLE_COLOR[2], TRIANGLE_COLOR[3]));
-#elif OPENGLES
+#elif MPE_OPENGLES
     std::dynamic_pointer_cast<MPE::OpenGLESShader>(FLAT_COLOR_SHADER)->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLESShader>(FLAT_COLOR_SHADER)
         ->InjectUniformFloat4("UNI_COLOR", glm::vec4(TRIANGLE_COLOR[0], TRIANGLE_COLOR[1], TRIANGLE_COLOR[2], TRIANGLE_COLOR[3]));
