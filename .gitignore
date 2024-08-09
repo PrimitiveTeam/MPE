@@ -13,18 +13,21 @@ cpm.sh
 [Vv]endor/[Uu][Nn][Ii][Vv][Ee][Rr][Ss][Aa][Ll]/[Ii][Mm][Gg][Uu][Ii]
 [Vv]endor/[Uu][Nn][Ii][Vv][Ee][Rr][Ss][Aa][Ll]/[Ss][Tt][Bb]
 # WIN32
+[Vv]endor/[Ww][Ii][Nn]32/[Gg][Ll][Aa][Dd]
 [Vv]endor/[Ww][Ii][Nn]32/[Ii][Mm][Gg][Uu][Ii]
 [Vv]endor/[Ww][Ii][Nn]32/[Ss][Tt][Bb]
 [Vv]endor/[Ww][Ii][Nn]32/[Rr]ender[Dd]oc
 [Vv]endor/[Ww][Ii][Nn]32/[Oo]pen[Cc][Vv]
 [Vv]endor/[Ww][Ii][Nn]32/[Aa][Nn][Gg][Ll][Ee]
 # UNIX
+[Vv]endor/[Uu][Nn][Ii][Xx]/[Gg][Ll][Aa][Dd]
 [Vv]endor/[Uu][Nn][Ii][Xx]/[Ii][Mm][Gg][Uu][Ii]
 [Vv]endor/[Uu][Nn][Ii][Xx]/[Ss][Tt][Bb]
 [Vv]endor/[Uu][Nn][Ii][Xx]/[Rr]ender[Dd]oc
 [Vv]endor/[Uu][Nn][Ii][Xx]/[Oo]pen[Cc][Vv]
 [Vv]endor/[Uu][Nn][Ii][Xx]/[Aa][Nn][Gg][Ll][Ee]
 # OSX
+[Vv]endor/[Oo][Ss][Xx]/[Gg][Ll][Aa][Dd]
 [Vv]endor/[Oo][Ss][Xx]/[Ii][Mm][Gg][Uu][Ii]
 [Vv]endor/[Oo][Ss][Xx]/[Ss][Tt][Bb]
 [Vv]endor/[Oo][Ss][Xx]/[Rr]ender[Dd]oc
