@@ -2,9 +2,12 @@
 
 #include "MPE.h"
 
-#include "MPE/Platform/OpenGL/Shaders/OpenGLShader.h"
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
-#include "MPE/Platform/OpenGL/Editor/Grid/OpenGLGrid.h"
+#ifdef MPE_OPENGL
+#    include "Platform/OpenGL/Editor/Grid/OpenGLGrid.h"
+#elif MPE_OPENGLES
+#    include "Platform/OpenGLES/Editor/Grid/OpenGLESGrid.h"
+#endif
 
 #include <imgui.h>
 #include <string>
@@ -59,6 +62,10 @@ class GridTest : public MPE::Layer
     float settime = 0.0f;
     bool istimeset = false;
 
-    // Grid
+// Grid
+#ifdef MPE_OPENGL
     MPE::OpenGLGrid SYS_Grid;
+#elif MPE_OPENGLES
+    MPE::OpenGLESGrid SYS_Grid;
+#endif
 };

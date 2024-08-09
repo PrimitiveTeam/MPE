@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "ms-vscode.cpptools",
+    "ms-vscode.cmake-tools",
     "twxs.cmake",
     "josetr.cmake-language-support-vscode",
     "xaver.clang-format",

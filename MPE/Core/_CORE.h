@@ -146,6 +146,4 @@
 #    define MPE_BIND_EVENT_FUNCTION(func) [this](auto &&...args) -> decltype(auto) { return this->func(std::forward<decltype(args)>(args)...); }
 #endif
 
-#define STRINGIFY(x) #x
-#define TOSTRING(x) STRINGIFY(x)
-#define MPE_VERSION TOSTRING(MPE_FULL_VERSION)
+#include "_VERSION.h"

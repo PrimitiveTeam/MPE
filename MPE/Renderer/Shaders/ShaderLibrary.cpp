@@ -3,6 +3,8 @@
 
 #include "MPE/Core/_ASSERTS.h"
 #include "MPE/Log/GlobalLog.h"
+#include "MPE/Renderer/RendererAPI.h"
+#include "ShaderUtils.h"
 
 namespace MPE
 {
@@ -22,16 +24,28 @@ void ShaderLibrary::Add(const REF<Shader> &shader)
     Add(name, shader);
 }
 
-REF<Shader> ShaderLibrary::Load(const std::string &filepath)
+REF<Shader> ShaderLibrary::Load(const std::string &filepath, bool useEditorResource)
 {
-    auto shader = Shader::Create(filepath);
+    std::string path = filepath;
+    if (useEditorResource)
+    {
+        path = ShaderUtils::ParseEditorResourcePath(filepath);
+    }
+
+    auto shader = Shader::Create(path);
     Add(shader);
     return shader;
 }
 
-REF<Shader> ShaderLibrary::Load(const std::string &name, const std::string &filepath)
+REF<Shader> ShaderLibrary::Load(const std::string &name, const std::string &filepath, bool useEditorResource)
 {
-    auto shader = Shader::Create(filepath);
+    std::string path = filepath;
+    if (useEditorResource)
+    {
+        path = ShaderUtils::ParseEditorResourcePath(filepath);
+    }
+
+    auto shader = Shader::Create(path);
     Add(name, shader);
     return shader;
 }
@@ -51,5 +65,10 @@ REF<Shader> ShaderLibrary::Get(const std::string &name)
 bool ShaderLibrary::Exists(const std::string &name) const
 {
     return SHADERS.find(name) != SHADERS.end();
+}
+
+std::string GetGraphicsAPI()
+{
+    return RendererAPI::APIToString(RendererAPI::GetGraphicsAPI());
 }
 }

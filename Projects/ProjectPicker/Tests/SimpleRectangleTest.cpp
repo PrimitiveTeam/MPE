@@ -27,7 +27,7 @@ SimpleRectangleTest::SimpleRectangleTest()
     SYS_VertexArray->SetIndexBuffer(SQIB);
 
     // SHADERS
-    auto VERTEX_BASED_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/VertexBasedColor.glsl");
+    auto VERTEX_BASED_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/VertexBasedColor.glsl", true);
 }
 
 void SimpleRectangleTest::OnUpdate(MPE::Time deltatime)

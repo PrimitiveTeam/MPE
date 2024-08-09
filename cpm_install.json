@@ -20,23 +20,11 @@
                     "triplet": "x64-windows"
                 },
                 {
-                    "library": "glad[gl-api-46,loader,extensions]",
-                    "triplet": "x64-windows"
-                },
-                {
                     "library": "glfw3",
                     "triplet": "x64-windows"
                 },
                 {
-                    "library": "imgui[docking-experimental,glfw-binding,opengl3-binding]",
-                    "triplet": "x64-windows"
-                },
-                {
                     "library": "glm",
-                    "triplet": "x64-windows"
-                },
-                {
-                    "library": "stb",
                     "triplet": "x64-windows"
                 },
                 {
@@ -94,6 +82,10 @@
                 },
                 {
                     "library": "gtk3",
+                    "distribution": "arch"
+                },
+                {
+                    "library": "libx11",
                     "distribution": "arch"
                 },
                 {

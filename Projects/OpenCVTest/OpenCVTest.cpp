@@ -3,7 +3,7 @@
 #include "MPE/EntryPoint.h"
 
 // TEMP
-#include "MPE/Platform/OpenGL/Shaders/OpenGLShader.h"
+#include "Platform/OpenGL/Shaders/OpenGLShader.h"
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
 #include "MPE/Renderer/RendererUtilities.h"
 
@@ -27,7 +27,7 @@ class OpenCVTestGuiLayer : public MPE::Layer
 
         ImGui::Begin("OpenCV Test", nullptr, ImGuiWindowFlags_NoSavedSettings);
 
-        if(ImGui::Button("Inspect Image"))
+        if (ImGui::Button("Inspect Image"))
         {
             InspectImage();
         }

@@ -45,6 +45,7 @@ class Player
     void SetX(float x);
     void SetY(float y);
     glm::vec2 GetSize() { return Size; }
+    void SetSize(glm::vec2 size);
 
     glm::vec2 GetVelocity() { return Velocity; }
     void SetVelocity(glm::vec2 velocity) { Velocity = velocity; }

@@ -30,7 +30,18 @@
       "environment": [],
       "externalConsole": false,
       "MIMode": "lldb",
-      
+    },
+    {
+      "name": "DUMMY",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/DUMMY",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${fileDirname}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "lldb",
     }
   ]
 }

@@ -4,7 +4,7 @@
 #include "MPE/Core/_CORE.h"
 #include "MPE/App/Layers/LayerStack.h"
 #include "MPE/Input/Input.h"
-#include "MPE/Platform/Windows/Input/WindowsInput.h"
+// #include "MPE/Platform/Windows/Input/WindowsInput.h"
 
 // TEMP
 #include <GLFW/glfw3.h>
@@ -21,12 +21,27 @@ App::App()
     MPE_CORE_ASSERT(!SYS_APP_Instance, "APP ALREADY EXISTS.");
     SYS_APP_Instance = this;
 
-    // TODO: Add a dialog to select the graphics API
-    // Set RenderAPI before creating window
-    // Renderer::SetGraphicsAPI(RendererAPI::API::OpenGLES);
+// TODO: Add a dialog to select the graphics API
+// Set RenderAPI before creating window
+// Renderer::SetGraphicsAPI(RendererAPI::API::OpenGLES);
+#ifdef MPE_PLATFORM_RPI4
+    Renderer::SetGraphicsAPI(RendererAPI::API::OpenGLES);
+#else
+#    if MPE_OPENGL
     Renderer::SetGraphicsAPI(RendererAPI::API::OpenGL);
+#    elif MPE_OPENGLES
+    Renderer::SetGraphicsAPI(RendererAPI::API::OpenGLES);
+#    else
+    MPE_ASSERT(false, "NO GRAPHICS API SELECTED.");
+#    endif
+#endif
 
-    SYS_APP_Window = Window::CreateNativeWindow(WindowProps("MPE Engine", 1280, 720));
+    // Critical log to show which API we are using
+    MPE_WARN("Using {0} API", RendererAPI::APIToString(RendererAPI::GetGraphicsAPI()));
+
+    auto mpeVersion = "MPE v" + std::string(MPE_FULL_VERSION);
+
+    SYS_APP_Window = Window::CreateNativeWindow(WindowProps(mpeVersion, 1280, 720));
     SYS_APP_Window->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));
 
     MPE_CORE_ASSERT(SYS_APP_Window, "NATIVE WINDOW NOT CREATED.");

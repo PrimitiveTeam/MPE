@@ -3,11 +3,16 @@
 #include "MPE/EntryPoint.h"
 
 // TEMP
-#include "MPE/Platform/OpenGL/Shaders/OpenGLShader.h"
+#ifdef MPE_OPENGL
+#    include "Platform/OpenGL/Shaders/OpenGLShader.h"
+#    include "Platform/OpenGL/OpenGLSettings.h"
+#    include "Platform/OpenGL/Utilities/OpenGLUtilities.h"
+#elif MPE_OPENGLES
+#    include "Platform/OpenGLES/Shaders/OpenGLESShader.h"
+#    include "Platform/OpenGLES/OpenGLESSettings.h"
+#endif
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
 #include "MPE/Renderer/RendererUtilities.h"
-#include "MPE/Platform/OpenGL/Utilities/OpenGLUtilities.h"
-#include "MPE/Platform/OpenGL/OpenGLSettings.h"
 
 #include <imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
@@ -32,7 +37,10 @@
 class DebugGuiLayer : public MPE::Layer
 {
   public:
-    DebugGuiLayer() : Layer("DebugGuiLayer"), m_OpenGLUtilities(MPE::OpenGLUtilities::getInstance()) {}
+    DebugGuiLayer() : Layer("DebugGuiLayer")  //,
+    // m_OpenGLUtilities(MPE::OpenGLUtilities::getInstance())
+    {
+    }
 
     void OnAttach() override {}
 
@@ -74,8 +82,21 @@ class DebugGuiLayer : public MPE::Layer
         ImGui::Separator();
 
         ImGui::Text("Graphics Settings");
-        // Retrieve RenderSettings object
-        auto settings = dynamic_cast<MPE::OpenGLSettings*>(MPE::RenderPrimitive::GetSettings());
+        // Retrieve RenderSettings
+        auto api = MPE::RendererAPI::GetGraphicsAPI();
+        switch (api)
+        {
+            case MPE::RendererAPI::API::OpenGL:
+                ImGui::Text("Graphics API: OpenGL");
+                break;
+            case MPE::RendererAPI::API::OpenGLES:
+                ImGui::Text("Graphics API: OpenGLES");
+                break;
+            default:
+                MPE_CORE_ASSERT(false, "NO RENDERER API SELECTED.");
+        }
+        // auto settings = dynamic_cast<MPE::OpenGLSettings*>(MPE::RenderPrimitive::GetSettings());
+        auto settings = MPE::RenderPrimitive::GetSettings();
         // Display RenderSettings (vsync, blend, depthTest)
 
         ImGui::Text("Current Vsync: %s", settings->GetVsync() ? "Enabled" : "Disabled");
@@ -84,6 +105,18 @@ class DebugGuiLayer : public MPE::Layer
         if (ImGui::Checkbox("VSync", &vsync))
         {
             settings->SetVsync(vsync);
+        }
+
+        bool limitFPS = settings->GetLimitFPS();
+        if (ImGui::Checkbox("Limit FPS", &limitFPS))
+        {
+            settings->SetLimitFPS(limitFPS);
+        }
+
+        int maxFPS = settings->GetMaxFPS();
+        if (ImGui::SliderInt("Max FPS", &maxFPS, 1, 120))
+        {
+            settings->SetMaxFPS(maxFPS);
         }
 
         bool blend = settings->GetBlend();
@@ -98,13 +131,16 @@ class DebugGuiLayer : public MPE::Layer
             settings->SetDepthTest(depthTest);
         }
 
-        bool polygonMode = settings->GetPolygonMode();
-        if (ImGui::Checkbox("Polygon Mode", &polygonMode))
+        if (api == MPE::RendererAPI::API::OpenGL)
         {
-            settings->SetPolygonMode(polygonMode);
+#ifdef MPE_OPENGL
+            bool polygonMode = dynamic_cast<MPE::OpenGLSettings*>(settings)->GetPolygonMode();
+            if (ImGui::Checkbox("Polygon Mode", &polygonMode))
+            {
+                dynamic_cast<MPE::OpenGLSettings*>(settings)->SetPolygonMode(polygonMode);
+            }
+#endif
         }
-
-        ImGui::Separator();
     }
 
     void DisplayRefs()
@@ -133,7 +169,7 @@ class DebugGuiLayer : public MPE::Layer
     }
 
   private:
-    MPE::OpenGLUtilities& m_OpenGLUtilities;
+    // MPE::OpenGLUtilities& m_OpenGLUtilities;
 };
 
 class ProjectPickerGuiLayer : public MPE::Layer
