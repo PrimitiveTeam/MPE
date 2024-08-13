@@ -79,6 +79,7 @@ App::~App()
     }
 
     SYS_APP_Instance = nullptr;
+    MPE_CORE_INFO("App instance destroyed.");
 }
 
 void App::Run()
