@@ -234,8 +234,8 @@ bool App::OnWindowResize(WindowResizeEvent &e)
     }
     SYS_Minimized = false;
 
-    // Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
-    // SYS_APP_Window->SetLastWindowSize(e.GetWidth(), e.GetHeight());
+    Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+    SYS_APP_Window->SetLastWindowSize(e.GetWidth(), e.GetHeight());
 
     return false;
 }
