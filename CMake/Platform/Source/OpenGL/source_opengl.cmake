@@ -16,8 +16,11 @@ file(
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Shaders/OpenGLShader.cpp"
 
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Text/OpenGLTextRenderer.cpp"
+
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Textures/OpenGLTexture.cpp"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Textures/OpenGLTexture2D.cpp"
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Textures/OpenGLTextTexture.cpp"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Utilities/OpenGLUtilities.cpp"
 )
@@ -42,8 +45,11 @@ file(
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Shaders/OpenGLShader.h"
 
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Text/OpenGLTextRenderer.h"
+
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Textures/OpenGLTexture.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Textures/OpenGLTexture2D.h"
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Textures/OpenGLTextTexture.h"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Utilities/OpenGLUtilities.h"
 )

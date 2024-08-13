@@ -77,8 +77,12 @@
 #include "MPE/Renderer/Pipeline/VertexArray.h"
 #include "MPE/Renderer/Shaders/Shader.h"
 #include "MPE/Renderer/Shaders/ShaderUtils.h"
+#include "MPE/Renderer/Shaders/ShaderLibrary.h"
+#include "MPE/Renderer/Text/Character.h"
+#include "MPE/Renderer/Text/TextRenderer.h"
 #include "MPE/Renderer/Textures/Texture.h"
 #include "MPE/Renderer/Textures/Texture2D.h"
+#include "MPE/Renderer/Textures/TextTexture.h"
 // ----- GRAPHICS -----
 
 // ----- CAMERAS -----
