@@ -124,7 +124,7 @@ std::vector<std::string> ReferenceTracker::GetReferences() const
     std::vector<std::string> refs;
     for (const auto &ref : references_)
     {
-        refs.push_back(ref.first);
+        refs.push_back(ref.first + " (" + std::to_string(ref.second) + ")");
     }
     return refs;
 }
