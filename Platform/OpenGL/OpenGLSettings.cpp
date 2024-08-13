@@ -37,18 +37,7 @@ OpenGLSettings::OpenGLSettings()
 
 void OpenGLSettings::ToggleVsync()
 {
-    _VSYNC = !_VSYNC;
-
-    if (_VSYNC)
-        glfwSwapInterval(1);
-    else
-        glfwSwapInterval(0);
-
-#if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("VSYNC", _VSYNC);
-#else
-    UpdateSettingsAndSendEvent(_SETTINGS["VSYNC"].first, _VSYNC);
-#endif
+    this->SetVsync(!_VSYNC);
 }
 
 bool OpenGLSettings::GetVsync() const
@@ -76,13 +65,7 @@ void OpenGLSettings::SetVsync(bool vsync)
 
 void OpenGLSettings::ToggleLimitFPS()
 {
-    _LIMIT_FPS = !_LIMIT_FPS;
-
-#if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("LIMIT_FPS", _LIMIT_FPS);
-#else
-    UpdateSettingsAndSendEvent(_SETTINGS["LIMIT_FPS"].first, _LIMIT_FPS);
-#endif
+    this->SetLimitFPS(!_LIMIT_FPS);
 }
 
 bool OpenGLSettings::GetLimitFPS() const
@@ -123,18 +106,7 @@ uint8_t OpenGLSettings::GetMaxFPS() const
 
 void OpenGLSettings::ToggleBlend()
 {
-    _BLEND = !_BLEND;
-
-    if (_BLEND)
-        glEnable(GL_BLEND);
-    else
-        glDisable(GL_BLEND);
-
-#if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("BLEND", _BLEND);
-#else
-    UpdateSettingsAndSendEvent(_SETTINGS["BLEND"].first, _BLEND);
-#endif
+    this->SetBlend(!_BLEND);
 }
 
 bool OpenGLSettings::GetBlend() const
@@ -162,18 +134,7 @@ void OpenGLSettings::SetBlend(bool blend)
 
 void OpenGLSettings::ToggleDepthTest()
 {
-    _DEPTH_TEST = !_DEPTH_TEST;
-
-    if (_DEPTH_TEST)
-        glEnable(GL_DEPTH_TEST);
-    else
-        glDisable(GL_DEPTH_TEST);
-
-#if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("DEPTH_TEST", _DEPTH_TEST);
-#else
-    UpdateSettingsAndSendEvent(_SETTINGS["DEPTH_TEST"].first, _DEPTH_TEST);
-#endif
+    this->SetDepthTest(!_DEPTH_TEST);
 }
 
 bool OpenGLSettings::GetDepthTest() const
@@ -201,19 +162,7 @@ void OpenGLSettings::SetDepthTest(bool depthTest)
 
 void OpenGLSettings::TogglePolygonMode()
 {
-    _POLYGON_MODE = !_POLYGON_MODE;
-
-    if (_POLYGON_MODE)
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    else
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-#if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("POLYGON_MODE", _POLYGON_MODE);
-#else
-
-    UpdateSettingsAndSendEvent(_SETTINGS["POLYGON_MODE"].first, _POLYGON_MODE);
-#endif
+    this->SetPolygonMode(!_POLYGON_MODE);
 }
 
 bool OpenGLSettings::GetPolygonMode() const
@@ -241,18 +190,7 @@ void OpenGLSettings::SetPolygonMode(bool polygonMode)
 
 void OpenGLSettings::ToggleFaceCulling()
 {
-    _FACE_CULLING = !_FACE_CULLING;
-
-    if (_FACE_CULLING)
-        glEnable(GL_CULL_FACE);
-    else
-        glDisable(GL_CULL_FACE);
-
-#if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("FACE_CULLING", _FACE_CULLING);
-#else
-    UpdateSettingsAndSendEvent(_SETTINGS["FACE_CULLING"].first, _FACE_CULLING);
-#endif
+    this->SetFaceCulling(!_FACE_CULLING);
 }
 
 bool OpenGLSettings::GetFaceCulling() const
@@ -280,24 +218,7 @@ void OpenGLSettings::SetFaceCulling(bool faceCulling)
 
 void OpenGLSettings::ToggleDebugOutput()
 {
-    _DEBUG_OUTPUT = !_DEBUG_OUTPUT;
-
-    if (_DEBUG_OUTPUT)
-    {
-        glEnable(GL_DEBUG_OUTPUT);
-        glDebugMessageCallback((GLDEBUGPROC) OpenGLUtilities::LogOpenGLDebugOutput, nullptr);
-    }
-    else
-    {
-        glDisable(GL_DEBUG_OUTPUT);
-        glDebugMessageCallback(nullptr, nullptr);
-    }
-
-#if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("DEBUG_OUTPUT", _DEBUG_OUTPUT);
-#else
-    UpdateSettingsAndSendEvent(_SETTINGS["DEBUG_OUTPUT"].first, _DEBUG_OUTPUT);
-#endif
+    this->SetDebugOutput(!_DEBUG_OUTPUT);
 }
 
 bool OpenGLSettings::GetDebugOutput() const
