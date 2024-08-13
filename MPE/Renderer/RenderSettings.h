@@ -37,6 +37,16 @@ class MPE_API RenderSettings
     virtual bool GetDepthTest() const = 0;
     virtual void SetDepthTest(bool depthTest) = 0;
 
+    // FACE CULLING
+    virtual void ToggleFaceCulling() = 0;
+    virtual bool GetFaceCulling() const = 0;
+    virtual void SetFaceCulling(bool faceCulling) = 0;
+
+    // DEBUG OUTPUT
+    virtual void ToggleDebugOutput() = 0;
+    virtual bool GetDebugOutput() const = 0;
+    virtual void SetDebugOutput(bool debugOutput) = 0;
+
     virtual std::string GetSettings() const = 0;
 
   protected:
@@ -47,5 +57,7 @@ class MPE_API RenderSettings
     bool _VSYNC;
     bool _LIMIT_FPS;
     uint8_t _MAX_FPS;
+    bool _FACE_CULLING;
+    bool _DEBUG_OUTPUT;
 };
 }

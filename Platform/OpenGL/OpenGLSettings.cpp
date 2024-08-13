@@ -280,6 +280,12 @@ void OpenGLSettings::UpdateSettings()
 
     auto polygonModeIt = _SETTINGS.find("POLYGON_MODE");
     if (polygonModeIt != _SETTINGS.end()) polygonModeIt->second.second = _POLYGON_MODE;
+
+    auto faceCullingIt = _SETTINGS.find("FACE_CULLING");
+    if (faceCullingIt != _SETTINGS.end()) faceCullingIt->second.second = _FACE_CULLING;
+
+    auto debugOutputIt = _SETTINGS.find("DEBUG_OUTPUT");
+    if (debugOutputIt != _SETTINGS.end()) debugOutputIt->second.second = _DEBUG_OUTPUT;
 #else
     _SETTINGS["VSYNC"].second = _VSYNC;
     _SETTINGS["LIMIT_FPS"].second = _LIMIT_FPS;
@@ -287,6 +293,8 @@ void OpenGLSettings::UpdateSettings()
     _SETTINGS["BLEND"].second = _BLEND;
     _SETTINGS["DEPTH_TEST"].second = _DEPTH_TEST;
     _SETTINGS["POLYGON_MODE"].second = _POLYGON_MODE;
+    _SETTINGS["FACE_CULLING"].second = _FACE_CULLING;
+    _SETTINGS["DEBUG_OUTPUT"].second = _DEBUG_OUTPUT;
 #endif
 }
 

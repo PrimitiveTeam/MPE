@@ -9,6 +9,7 @@ file(
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLSettings.cpp"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Editor/Grid/OpenGLGrid.cpp"
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Editor/Utilities/OpenGLDebugGuiLayer.cpp"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Pipeline/OpenGLIndexBuffer.cpp"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Pipeline/OpenGLVertexArray.cpp"
@@ -38,6 +39,7 @@ file(
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLSettings.h"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Editor/Grid/OpenGLGrid.h"
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Editor/Utilities/OpenGLDebugGuiLayer.h"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Pipeline/OpenGLIndexBuffer.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Pipeline/OpenGLVertexArray.h"

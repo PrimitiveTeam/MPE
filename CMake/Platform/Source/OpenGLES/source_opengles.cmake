@@ -9,6 +9,7 @@ file(
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/OpenGLESSettings.cpp"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Editor/Grid/OpenGLESGrid.cpp"
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Editor/Utilities/OpenGLESDebugGuiLayer.cpp"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Pipeline/OpenGLESIndexBuffer.cpp"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Pipeline/OpenGLESVertexArray.cpp"
@@ -33,6 +34,7 @@ file(
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/OpenGLESSettings.h"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Editor/Grid/OpenGLESGrid.h"
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Editor/Utilities/OpenGLESDebugGuiLayer.h"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Pipeline/OpenGLESIndexBuffer.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Pipeline/OpenGLESVertexArray.h"

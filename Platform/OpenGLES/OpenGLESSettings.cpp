@@ -20,6 +20,8 @@ OpenGLESSettings::OpenGLESSettings()
     _SETTINGS.insert(std::make_pair("BLEND", std::make_pair("BLEND", _BLEND)));
     _SETTINGS.insert(std::make_pair("DEPTH_TEST", std::make_pair("DEPTH_TEST", _DEPTH_TEST)));
     _SETTINGS.insert(std::make_pair("POLYGON_MODE", std::make_pair("POLYGON_MODE", _POLYGON_MODE)));
+    _SETTINGS.insert(std::make_pair("FACE_CULLING", std::make_pair("FACE_CULLING", _FACE_CULLING));
+    _SETTINGS.insert(std::make_pair("DEBUG_OUTPUT", std::make_pair("DEBUG_OUTPUT", _DEBUG_OUTPUT));
 #else
     _SETTINGS["VSYNC"] = std::make_pair("VSYNC", _VSYNC);
     _SETTINGS["LIMIT_FPS"] = std::make_pair("LIMIT_FPS", _LIMIT_FPS);
@@ -27,6 +29,8 @@ OpenGLESSettings::OpenGLESSettings()
     _SETTINGS["BLEND"] = std::make_pair("BLEND", _BLEND);
     _SETTINGS["DEPTH_TEST"] = std::make_pair("DEPTH_TEST", _DEPTH_TEST);
     _SETTINGS["POLYGON_MODE"] = std::make_pair("POLYGON_MODE", _POLYGON_MODE);
+    _SETTINGS["FACE_CULLING"] = std::make_pair("FACE_CULLING", _FACE_CULLING);
+    _SETTINGS["DEBUG_OUTPUT"] = std::make_pair("DEBUG_OUTPUT", _DEBUG_OUTPUT);
 #endif
 }
 
@@ -34,20 +38,7 @@ OpenGLESSettings::OpenGLESSettings()
 
 void OpenGLESSettings::ToggleVsync()
 {
-    _VSYNC = !_VSYNC;
-
-    auto eglDisplay = reinterpret_cast<OpenGLESContext*>(MPE::App::GetApp().GetWindow()->GetNativeGLESContext())->GetEGLDisplay();
-
-    if (_VSYNC)
-        eglSwapInterval(eglDisplay, 1);
-    else
-        eglSwapInterval(eglDisplay, 0);
-
-#if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("VSYNC", _VSYNC);
-#else
-    UpdateSettingsAndSendEvent(_SETTINGS["VSYNC"].first, _VSYNC);
-#endif
+    this->SetVsync(!_VSYNC);
 }
 
 bool OpenGLESSettings::GetVsync() const
@@ -77,13 +68,7 @@ void OpenGLESSettings::SetVsync(bool vsync)
 
 void OpenGLESSettings::ToggleLimitFPS()
 {
-    _LIMIT_FPS = !_LIMIT_FPS;
-
-#if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("LIMIT_FPS", _LIMIT_FPS);
-#else
-    UpdateSettingsAndSendEvent(_SETTINGS["LIMIT_FPS"].first, _LIMIT_FPS);
-#endif
+    this->SetLimitFPS(!_LIMIT_FPS);
 }
 
 bool OpenGLESSettings::GetLimitFPS() const
@@ -124,18 +109,7 @@ uint8_t OpenGLESSettings::GetMaxFPS() const
 
 void OpenGLESSettings::ToggleBlend()
 {
-    _BLEND = !_BLEND;
-
-    if (_BLEND)
-        glEnable(GL_BLEND);
-    else
-        glDisable(GL_BLEND);
-
-#if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("BLEND", _BLEND);
-#else
-    UpdateSettingsAndSendEvent(_SETTINGS["BLEND"].first, _BLEND);
-#endif
+    this->SetBlend(!_BLEND);
 }
 
 bool OpenGLESSettings::GetBlend() const
@@ -163,18 +137,7 @@ void OpenGLESSettings::SetBlend(bool blend)
 
 void OpenGLESSettings::ToggleDepthTest()
 {
-    _DEPTH_TEST = !_DEPTH_TEST;
-
-    if (_DEPTH_TEST)
-        glEnable(GL_DEPTH_TEST);
-    else
-        glDisable(GL_DEPTH_TEST);
-
-#if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("DEPTH_TEST", _DEPTH_TEST);
-#else
-    UpdateSettingsAndSendEvent(_SETTINGS["DEPTH_TEST"].first, _DEPTH_TEST);
-#endif
+    this->SetDepthTest(!_DEPTH_TEST);
 }
 
 bool OpenGLESSettings::GetDepthTest() const
@@ -202,22 +165,7 @@ void OpenGLESSettings::SetDepthTest(bool depthTest)
 
 void OpenGLESSettings::TogglePolygonMode()
 {
-    MPE_WARN("'glPolygonMode' NOT AVAILABLE ON OpenGLES.");
-    return;
-
-    //     _POLYGON_MODE = !_POLYGON_MODE;
-
-    //     if (_POLYGON_MODE)
-    //         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    //     else
-    //         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-    // #if MPE_PLATFORM_LINUX
-    //     UpdateSettingsAndSendEvent("POLYGON_MODE", _POLYGON_MODE);
-    // #else
-
-    //     UpdateSettingsAndSendEvent(_SETTINGS["POLYGON_MODE"].first, _POLYGON_MODE);
-    // #endif
+    this->SetPolygonMode(!_POLYGON_MODE);
 }
 
 bool OpenGLESSettings::GetPolygonMode() const
@@ -242,6 +190,68 @@ void OpenGLESSettings::SetPolygonMode(bool polygonMode)
     // #else
     //     UpdateSettingsAndSendEvent(_SETTINGS["POLYGON_MODE"].first, _POLYGON_MODE);
     // #endif
+}
+
+// FACE CULLING
+
+void OpenGLSettings::ToggleFaceCulling()
+{
+    this->SetFaceCulling(!_FACE_CULLING);
+}
+
+bool OpenGLSettings::GetFaceCulling() const
+{
+    return _FACE_CULLING;
+}
+
+void OpenGLSettings::SetFaceCulling(bool faceCulling)
+{
+    _FACE_CULLING = faceCulling;
+
+    if (_FACE_CULLING)
+        glEnable(GL_CULL_FACE);
+    else
+        glDisable(GL_CULL_FACE);
+
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("FACE_CULLING", _FACE_CULLING);
+#else
+    UpdateSettingsAndSendEvent(_SETTINGS["FACE_CULLING"].first, _FACE_CULLING);
+#endif
+}
+
+// DEBUG OUTPUT
+
+void OpenGLSettings::ToggleDebugOutput()
+{
+    this->SetDebugOutput(!_DEBUG_OUTPUT);
+}
+
+bool OpenGLSettings::GetDebugOutput() const
+{
+    return _DEBUG_OUTPUT;
+}
+
+void OpenGLSettings::SetDebugOutput(bool debugOutput)
+{
+    _DEBUG_OUTPUT = debugOutput;
+
+    if (_DEBUG_OUTPUT)
+    {
+        glEnable(GL_DEBUG_OUTPUT);
+        glDebugMessageCallback((GLDEBUGPROC) OpenGLUtilities::LogOpenGLDebugOutput, nullptr);
+    }
+    else
+    {
+        glDisable(GL_DEBUG_OUTPUT);
+        glDebugMessageCallback(nullptr, nullptr);
+    }
+
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("DEBUG_OUTPUT", _DEBUG_OUTPUT);
+#else
+    UpdateSettingsAndSendEvent(_SETTINGS["DEBUG_OUTPUT"].first, _DEBUG_OUTPUT);
+#endif
 }
 
 // SETTINGS
@@ -276,6 +286,12 @@ void OpenGLESSettings::UpdateSettings()
 
     auto polygonModeIt = _SETTINGS.find("POLYGON_MODE");
     if (polygonModeIt != _SETTINGS.end()) polygonModeIt->second.second = _POLYGON_MODE;
+
+    auto faceCullingIt = _SETTINGS.find("FACE_CULLING");
+    if (faceCullingIt != _SETTINGS.end()) faceCullingIt->second.second = _FACE_CULLING;
+
+    auto debugOutputIt = _SETTINGS.find("DEBUG_OUTPUT");
+    if (debugOutputIt != _SETTINGS.end()) debugOutputIt->second.second = _DEBUG_OUTPUT;
 #else
     _SETTINGS["VSYNC"].second = _VSYNC;
     _SETTINGS["LIMIT_FPS"].second = _LIMIT_FPS;
@@ -283,6 +299,8 @@ void OpenGLESSettings::UpdateSettings()
     _SETTINGS["BLEND"].second = _BLEND;
     _SETTINGS["DEPTH_TEST"].second = _DEPTH_TEST;
     _SETTINGS["POLYGON_MODE"].second = _POLYGON_MODE;
+    _SETTINGS["FACE_CULLING"].second = _FACE_CULLING;
+    _SETTINGS["DEBUG_OUTPUT"].second = _DEBUG_OUTPUT;
 #endif
 }
 
