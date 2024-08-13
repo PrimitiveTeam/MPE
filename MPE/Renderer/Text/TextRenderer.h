@@ -30,6 +30,8 @@ class MPE_API TextRenderer
 
     virtual void UpdateProjection(float screenWidth, float screenHeight) = 0;
 
+    virtual void RenderAllASCII(float x, float y, float scale, const glm::vec4& color);
+
   protected:
     virtual void InitializeFont() = 0;
     virtual void UnInitializeFont() = 0;
