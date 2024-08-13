@@ -7,7 +7,9 @@
 #define _USE_MATH_DEFINES
 
 // To use glm::to_string
+#ifdef MPE_PLATFORM_WINDOWS
 #define GLM_ENABLE_EXPERIMENTAL
+#endif
 
 #include <stdio.h>
 #include <math.h>
