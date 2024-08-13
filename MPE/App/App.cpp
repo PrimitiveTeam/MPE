@@ -64,6 +64,20 @@ App::App()
 
 App::~App()
 {
+    if (SYS_GUI)
+    {
+        for (size_t i = 0; i < SYS_LayerStack->size(); ++i)
+        {
+            REF<Layer> layer = SYS_LayerStack->GetLayers()[i];
+
+            if (layer) layer->~Layer();
+
+            // Recalculate the index bounds in case the stack has been modified
+            if (i >= SYS_LayerStack->GetLayers().size()) break;
+        }
+        SYS_ImGuiLayer->~ImGuiLayer();
+    }
+
     SYS_APP_Instance = nullptr;
 }
 
