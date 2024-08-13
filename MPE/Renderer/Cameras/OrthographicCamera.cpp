@@ -1,6 +1,8 @@
 #include "OrthographicCamera.h"
 #include "MPE/MPEPCH.h"
 
+#include "MPE/Log/GlobalLog.h"
+
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace MPE
@@ -8,11 +10,13 @@ namespace MPE
 OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top)
     : PROJECTION_MATRIX(glm::ortho(left, right, bottom, top, -1.0f, 1.0f)), VIEW_MATRIX(1.0f)
 {
+    MPE_INFO("Orthographic Camera Created: {0}, {1}, {2}, {3}, {4}, {5}", left, right, bottom, top, -1.0f, 1.0f);
     PROJECTION_VIEW_MATRIX = PROJECTION_MATRIX * VIEW_MATRIX;
 }
 
 void OrthographicCamera::SetProjection(float left, float right, float bottom, float top)
 {
+    MPE_INFO("Orthographic Camera Projection set: {0}, {1}, {2}, {3}", left, right, bottom, top);
     PROJECTION_MATRIX = glm::ortho(left, right, bottom, top, -1.0f, 1.0f);
     PROJECTION_VIEW_MATRIX = PROJECTION_MATRIX * VIEW_MATRIX;
 }

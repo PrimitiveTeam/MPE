@@ -3,6 +3,7 @@
 
 #include "MPE/App/App.h"
 #include "MPE/Events/EventGraphics.h"
+#include "Platform/OpenGL/Utilities/OpenGLUtilities.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -18,6 +19,8 @@ OpenGLSettings::OpenGLSettings()
     _SETTINGS.insert(std::make_pair("BLEND", std::make_pair("BLEND", _BLEND)));
     _SETTINGS.insert(std::make_pair("DEPTH_TEST", std::make_pair("DEPTH_TEST", _DEPTH_TEST)));
     _SETTINGS.insert(std::make_pair("POLYGON_MODE", std::make_pair("POLYGON_MODE", _POLYGON_MODE)));
+    _SETTINGS.insert(std::make_pair("FACE_CULLING", std::make_pair("FACE_CULLING", _FACE_CULLING));
+    _SETTINGS.insert(std::make_pair("DEBUG_OUTPUT", std::make_pair("DEBUG_OUTPUT", _DEBUG_OUTPUT));
 #else
     _SETTINGS["VSYNC"] = std::make_pair("VSYNC", _VSYNC);
     _SETTINGS["LIMIT_FPS"] = std::make_pair("LIMIT_FPS", _LIMIT_FPS);
@@ -25,6 +28,8 @@ OpenGLSettings::OpenGLSettings()
     _SETTINGS["BLEND"] = std::make_pair("BLEND", _BLEND);
     _SETTINGS["DEPTH_TEST"] = std::make_pair("DEPTH_TEST", _DEPTH_TEST);
     _SETTINGS["POLYGON_MODE"] = std::make_pair("POLYGON_MODE", _POLYGON_MODE);
+    _SETTINGS["FACE_CULLING"] = std::make_pair("FACE_CULLING", _FACE_CULLING);
+    _SETTINGS["DEBUG_OUTPUT"] = std::make_pair("DEBUG_OUTPUT", _DEBUG_OUTPUT);
 #endif
 }
 
@@ -229,6 +234,96 @@ void OpenGLSettings::SetPolygonMode(bool polygonMode)
     UpdateSettingsAndSendEvent("POLYGON_MODE", _POLYGON_MODE);
 #else
     UpdateSettingsAndSendEvent(_SETTINGS["POLYGON_MODE"].first, _POLYGON_MODE);
+#endif
+}
+
+// FACE CULLING
+
+void OpenGLSettings::ToggleFaceCulling()
+{
+    _FACE_CULLING = !_FACE_CULLING;
+
+    if (_FACE_CULLING)
+        glEnable(GL_CULL_FACE);
+    else
+        glDisable(GL_CULL_FACE);
+
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("FACE_CULLING", _FACE_CULLING);
+#else
+    UpdateSettingsAndSendEvent(_SETTINGS["FACE_CULLING"].first, _FACE_CULLING);
+#endif
+}
+
+bool OpenGLSettings::GetFaceCulling() const
+{
+    return _FACE_CULLING;
+}
+
+void OpenGLSettings::SetFaceCulling(bool faceCulling)
+{
+    _FACE_CULLING = faceCulling;
+
+    if (_FACE_CULLING)
+        glEnable(GL_CULL_FACE);
+    else
+        glDisable(GL_CULL_FACE);
+
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("FACE_CULLING", _FACE_CULLING);
+#else
+    UpdateSettingsAndSendEvent(_SETTINGS["FACE_CULLING"].first, _FACE_CULLING);
+#endif
+}
+
+// DEBUG OUTPUT
+
+void OpenGLSettings::ToggleDebugOutput()
+{
+    _DEBUG_OUTPUT = !_DEBUG_OUTPUT;
+
+    if (_DEBUG_OUTPUT)
+    {
+        glEnable(GL_DEBUG_OUTPUT);
+        glDebugMessageCallback((GLDEBUGPROC) OpenGLUtilities::LogOpenGLDebugOutput, nullptr);
+    }
+    else
+    {
+        glDisable(GL_DEBUG_OUTPUT);
+        glDebugMessageCallback(nullptr, nullptr);
+    }
+
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("DEBUG_OUTPUT", _DEBUG_OUTPUT);
+#else
+    UpdateSettingsAndSendEvent(_SETTINGS["DEBUG_OUTPUT"].first, _DEBUG_OUTPUT);
+#endif
+}
+
+bool OpenGLSettings::GetDebugOutput() const
+{
+    return _DEBUG_OUTPUT;
+}
+
+void OpenGLSettings::SetDebugOutput(bool debugOutput)
+{
+    _DEBUG_OUTPUT = debugOutput;
+
+    if (_DEBUG_OUTPUT)
+    {
+        glEnable(GL_DEBUG_OUTPUT);
+        glDebugMessageCallback((GLDEBUGPROC) OpenGLUtilities::LogOpenGLDebugOutput, nullptr);
+    }
+    else
+    {
+        glDisable(GL_DEBUG_OUTPUT);
+        glDebugMessageCallback(nullptr, nullptr);
+    }
+
+#if MPE_PLATFORM_LINUX
+    UpdateSettingsAndSendEvent("DEBUG_OUTPUT", _DEBUG_OUTPUT);
+#else
+    UpdateSettingsAndSendEvent(_SETTINGS["DEBUG_OUTPUT"].first, _DEBUG_OUTPUT);
 #endif
 }
 

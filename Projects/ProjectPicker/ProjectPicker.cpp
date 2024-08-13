@@ -4,20 +4,15 @@
 
 // TEMP
 #ifdef MPE_OPENGL
-#    include "Platform/OpenGL/Shaders/OpenGLShader.h"
-#    include "Platform/OpenGL/OpenGLSettings.h"
-#    include "Platform/OpenGL/Utilities/OpenGLUtilities.h"
+#    include "MPE/MPEGFX_OPEN_GL.h"
 #elif MPE_OPENGLES
-#    include "Platform/OpenGLES/Shaders/OpenGLESShader.h"
-#    include "Platform/OpenGLES/OpenGLESSettings.h"
+#    include "MPE/MPEGFX_OPEN_GL_ES.h"
 #endif
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
 #include "MPE/Renderer/RendererUtilities.h"
 
 #include <imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
-// #include <glad/glad.h>
-// #include <glfw/glfw3.h>
 
 #include "Tests/ClearColorTest.h"
 #include "Tests/SimpleTriangleTest.h"
@@ -33,6 +28,8 @@
 #include "Tests/GeneralTest.h"
 
 #include "Tests/GridTest.h"
+
+#include "Tests/NativeTextTest.h"
 
 class DebugGuiLayer : public MPE::Layer
 {
@@ -138,6 +135,18 @@ class DebugGuiLayer : public MPE::Layer
             if (ImGui::Checkbox("Polygon Mode", &polygonMode))
             {
                 dynamic_cast<MPE::OpenGLSettings*>(settings)->SetPolygonMode(polygonMode);
+            }
+
+            bool faceCulling = dynamic_cast<MPE::OpenGLSettings*>(settings)->GetFaceCulling();
+            if (ImGui::Checkbox("Face Culling", &faceCulling))
+            {
+                dynamic_cast<MPE::OpenGLSettings*>(settings)->SetFaceCulling(faceCulling);
+            }
+
+            bool debugOutput = dynamic_cast<MPE::OpenGLSettings*>(settings)->GetDebugOutput();
+            if (ImGui::Checkbox("Debug Output", &debugOutput))
+            {
+                dynamic_cast<MPE::OpenGLSettings*>(settings)->SetDebugOutput(debugOutput);
             }
 #endif
         }
@@ -291,6 +300,13 @@ class ProjectPickerGuiLayer : public MPE::Layer
                 MPE::App::GetApp().PushLayer(m_LayerRefs[9]);
             }
 
+            if (ImGui::Button("Open Native Text Test"))
+            {
+                m_Layers[10] = true;
+                m_LayerRefs[10] = MPE::NEWREF<NativeTextTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[10]);
+            }
+
             // if (ImGui::Button("Open General Layer"))
             // {
             //     m_Layers[1] = true;
@@ -323,7 +339,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
     }
 
   private:
-    static const size_t MAX_LAYERS = 10;
+    static const size_t MAX_LAYERS = 11;
     std::array<bool, MAX_LAYERS> m_Layers = {false};
     MPE::REF<MPE::Layer> m_LayerRefs[MAX_LAYERS];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();

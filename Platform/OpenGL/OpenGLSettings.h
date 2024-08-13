@@ -42,6 +42,16 @@ class MPE_API OpenGLSettings : public RenderSettings
     bool GetPolygonMode() const;
     void SetPolygonMode(bool polygonMode);
 
+    // FACE CULLING
+    virtual void ToggleFaceCulling();
+    virtual bool GetFaceCulling() const;
+    virtual void SetFaceCulling(bool faceCulling);
+
+    // DEBUG OUTPUT
+    virtual void ToggleDebugOutput();
+    virtual bool GetDebugOutput() const;
+    virtual void SetDebugOutput(bool debugOutput);
+
     virtual std::string GetSettings() const override;
 
   private:
@@ -56,5 +66,7 @@ class MPE_API OpenGLSettings : public RenderSettings
     bool _BLEND;
     bool _DEPTH_TEST;
     bool _POLYGON_MODE;
+    bool _FACE_CULLING;
+    bool _DEBUG_OUTPUT;
 };
 }

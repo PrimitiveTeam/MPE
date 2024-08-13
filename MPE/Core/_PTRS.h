@@ -117,8 +117,12 @@ class TrackedREF
  * @date 2024-05-05
  * @author Sebastian Termen
  */
+// For scope tracking:
 template <typename T>
 using SCOPE = std::unique_ptr<T, typename TrackedSCOPE<T>::Deleter>;
+// For no scope tracking:
+// template <typename T>
+// using SCOPE = std::unique_ptr<T>;
 
 /**
  * @brief Factory function to create a SCOPE smart pointer instance.
@@ -137,11 +141,13 @@ SCOPE<T> NEWSCOPE(Args &&...args)
      * and object construction are atomic operations.
      * @see https://en.cppreference.com/w/cpp/memory/unique_ptr/make_unique
      */
+    // No scope tracking:
     // return std::make_unique<T>(std::forward<Args>(args)...);
 
     // TrackedSCOPE<T> trackedScope(std::forward<Args>(args)...);
     // return trackedScope.get();
 
+    // With scope tracking:
     return TrackedSCOPE<T>::create(std::forward<Args>(args)...);
 }
 
@@ -174,11 +180,13 @@ REF<T> NEWREF(Args &&...args)
      * block.
      * @see https://en.cppreference.com/w/cpp/memory/shared_ptr/make_shared
      */
+    // No ref tracking:
     // return std::make_shared<T>(std::forward<Args>(args)...);
 
     // TrackedREF<T> trackedRef(std::forward<Args>(args)...);
     // return trackedRef.get();
 
+    // With ref tracking:
     return TrackedREF<T>::create(std::forward<Args>(args)...);
 }
 }

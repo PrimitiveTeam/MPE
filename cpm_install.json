@@ -30,6 +30,10 @@
                 {
                     "library": "gtest",
                     "triplet": "x64-windows"
+                },
+                {
+                    "library": "freetype",
+                    "triplet": "x64-windows"
                 }
             ],
             "post_install": [
@@ -83,6 +87,10 @@
                 {
                     "library": "libx11",
                     "distribution": "arch"
+                },
+                {
+                    "library": "freetype",
+                    "distribution": "arch"
                 }
             ],
             "instructions": []
@@ -128,6 +136,10 @@
                 },
                 {
                     "package": "gtest",
+                    "tool": "brew"
+                },
+                {
+                    "package": "freetype",
                     "tool": "brew"
                 }
             ],

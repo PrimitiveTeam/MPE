@@ -62,8 +62,11 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/ShaderLibrary.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/ShaderUtils.cpp"
 
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Text/TextRenderer.cpp"
+
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/Texture.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/Texture2D.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/TextTexture.cpp"
 
     # /Editor
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/Grid.cpp"
@@ -159,8 +162,12 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/ShaderLibrary.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/ShaderUtils.h"
 
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Text/Character.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Text/TextRenderer.h"
+
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/Texture.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/Texture2D.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/TextTexture.h"
 
     # /Editor
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/Grid.h"

@@ -64,7 +64,22 @@ App::App()
 
 App::~App()
 {
+    if (SYS_GUI)
+    {
+        for (size_t i = 0; i < SYS_LayerStack->size(); ++i)
+        {
+            REF<Layer> layer = SYS_LayerStack->GetLayers()[i];
+
+            if (layer) layer->~Layer();
+
+            // Recalculate the index bounds in case the stack has been modified
+            if (i >= SYS_LayerStack->GetLayers().size()) break;
+        }
+        SYS_ImGuiLayer->~ImGuiLayer();
+    }
+
     SYS_APP_Instance = nullptr;
+    MPE_CORE_INFO("App instance destroyed.");
 }
 
 void App::Run()
@@ -234,8 +249,8 @@ bool App::OnWindowResize(WindowResizeEvent &e)
     }
     SYS_Minimized = false;
 
-    // Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
-    // SYS_APP_Window->SetLastWindowSize(e.GetWidth(), e.GetHeight());
+    Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+    SYS_APP_Window->SetLastWindowSize(e.GetWidth(), e.GetHeight());
 
     return false;
 }
