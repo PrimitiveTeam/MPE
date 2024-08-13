@@ -6,7 +6,8 @@
 #include <iostream>
 #include <map>
 
-#include <GL/glew.h>
+// #include <GL/glew.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/mat4x4.hpp>
@@ -14,6 +15,8 @@
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
+
+#include <MPE.h>
 
 GLuint CompileShaders(bool vs_b, bool tcs_b, bool tes_b, bool gs_b, bool fs_b);
 
@@ -32,13 +35,19 @@ void APIENTRY GLDebugMessageCallback(GLenum source, GLenum type, GLuint id, GLen
 
 int main(int argc, char* argv[])
 {
+    MPE::Log logger = MPE::Log("FreeTypeTest", MPE::Log::Option::CONSOLE);
+
     glfwInit();
+
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
 
     GLFWwindow* window = glfwCreateWindow(800, 600, "FreeTypeTest", NULL, NULL);
     glfwMakeContextCurrent(window);
 
-    glewInit();
-    glEnable(GL_CULL_FACE);
+    // glewInit();
+    int status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
+    MPE_CORE_ASSERT(status, "FAILED TO INITIALIZE GLAD.")
+    // glEnable(GL_CULL_FACE);
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(GLDebugMessageCallback, NULL);
     glViewport(0, 0, 800, 600);
@@ -68,11 +77,13 @@ int main(int argc, char* argv[])
         glTextureSubImage2D(texture, 0, 0, 0, face->glyph->bitmap.width, face->glyph->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
 
         glBindTexture(GL_TEXTURE_2D, texture);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glBindTexture(GL_TEXTURE_2D, 0);
+
+        logger.warn(fmt::format("Current Texture ID: {}", (unsigned int) texture));
 
         Character character = {texture, glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
                                glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top), face->glyph->advance.x};
