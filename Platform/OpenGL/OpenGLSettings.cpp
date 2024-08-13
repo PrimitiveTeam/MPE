@@ -3,87 +3,10 @@
 
 #include "MPE/App/App.h"
 #include "MPE/Events/EventGraphics.h"
+#include "Platform/OpenGL/Utilities/OpenGLUtilities.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
-void GLAPIENTRY LogOpenGLDebugOutput(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message)
-{
-    std::string sourceString;
-    std::string typeString;
-    std::string severityString;
-
-    switch (source)
-    {
-        case GL_DEBUG_SOURCE_API:
-            sourceString = "API";
-            break;
-        case GL_DEBUG_SOURCE_WINDOW_SYSTEM:
-            sourceString = "Window System";
-            break;
-        case GL_DEBUG_SOURCE_SHADER_COMPILER:
-            sourceString = "Shader Compiler";
-            break;
-        case GL_DEBUG_SOURCE_THIRD_PARTY:
-            sourceString = "Third Party";
-            break;
-        case GL_DEBUG_SOURCE_APPLICATION:
-            sourceString = "Application";
-            break;
-        case GL_DEBUG_SOURCE_OTHER:
-            sourceString = "Other";
-            break;
-    }
-
-    switch (type)
-    {
-        case GL_DEBUG_TYPE_ERROR:
-            typeString = "Error";
-            break;
-        case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR:
-            typeString = "Deprecated Behavior";
-            break;
-        case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:
-            typeString = "Undefined Behavior";
-            break;
-        case GL_DEBUG_TYPE_PORTABILITY:
-            typeString = "Portability";
-            break;
-        case GL_DEBUG_TYPE_PERFORMANCE:
-            typeString = "Performance";
-            break;
-        case GL_DEBUG_TYPE_MARKER:
-            typeString = "Marker";
-            break;
-        case GL_DEBUG_TYPE_PUSH_GROUP:
-            typeString = "Push Group";
-            break;
-        case GL_DEBUG_TYPE_POP_GROUP:
-            typeString = "Pop Group";
-            break;
-        case GL_DEBUG_TYPE_OTHER:
-            typeString = "Other";
-            break;
-    }
-
-    switch (severity)
-    {
-        case GL_DEBUG_SEVERITY_HIGH:
-            severityString = "High";
-            break;
-        case GL_DEBUG_SEVERITY_MEDIUM:
-            severityString = "Medium";
-            break;
-        case GL_DEBUG_SEVERITY_LOW:
-            severityString = "Low";
-            break;
-        case GL_DEBUG_SEVERITY_NOTIFICATION:
-            severityString = "Notification";
-            break;
-    }
-
-    MPE_CORE_WARN("OpenGL:\nSource: {0}\nType: {1}\nID: {2}\nSeverity: {3}\nMessage: {4}", sourceString, typeString, id, severityString, message);
-}
 
 namespace MPE
 {
@@ -362,7 +285,7 @@ void OpenGLSettings::ToggleDebugOutput()
     if (_DEBUG_OUTPUT)
     {
         glEnable(GL_DEBUG_OUTPUT);
-        glDebugMessageCallback((GLDEBUGPROC) LogOpenGLDebugOutput, nullptr);
+        glDebugMessageCallback((GLDEBUGPROC) OpenGLUtilities::LogOpenGLDebugOutput, nullptr);
     }
     else
     {
@@ -389,7 +312,7 @@ void OpenGLSettings::SetDebugOutput(bool debugOutput)
     if (_DEBUG_OUTPUT)
     {
         glEnable(GL_DEBUG_OUTPUT);
-        glDebugMessageCallback((GLDEBUGPROC) LogOpenGLDebugOutput, nullptr);
+        glDebugMessageCallback((GLDEBUGPROC) OpenGLUtilities::LogOpenGLDebugOutput, nullptr);
     }
     else
     {
