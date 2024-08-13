@@ -32,7 +32,7 @@
                     "triplet": "x64-windows"
                 },
                 {
-                    "library": "freetype-gl[glad]",
+                    "library": "freetype",
                     "triplet": "x64-windows"
                 }
             ],

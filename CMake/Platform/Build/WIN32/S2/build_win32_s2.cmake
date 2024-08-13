@@ -11,7 +11,7 @@ target_link_libraries(
   PUBLIC glm::glm
   PUBLIC Stb
   PUBLIC freetype
-  PUBLIC freetype-gl
+  # PUBLIC freetype-gl
 
   # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
 )
