@@ -2,6 +2,7 @@
 
 #include "Platform/OpenGL/Shaders/OpenGLShader.h"
 #include "MPE/App/App.h"
+#include "Platform/OpenGL/Utilities/OpenGLUtilities.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 #define _USE_MATH_DEFINES
@@ -41,8 +42,6 @@ OpenGLTextRenderer::OpenGLTextRenderer(const std::string& shaderPath, const std:
     m_Shader = Shader::Create(m_ShaderPath, true);
 
     this->InitializeFont();
-
-    this->UpdateProjection(App::GetApp().GetWindow().get()->GetWidth(), App::GetApp().GetWindow().get()->GetHeight());
 }
 
 OpenGLTextRenderer::~OpenGLTextRenderer()
@@ -84,6 +83,8 @@ void OpenGLTextRenderer::InitializeFont()
 
     LoadCharacters();
 
+    this->UpdateProjection(App::GetApp().GetWindow().get()->GetWidth(), App::GetApp().GetWindow().get()->GetHeight());
+
     // PURE METHOD
     {
         // glCreateVertexArrays(1, &vao);
@@ -102,10 +103,23 @@ void OpenGLTextRenderer::InitializeFont()
     {
         m_VAO = VertexArray::Create();
 
+        #ifdef MPE_PLATFORM_OSX
+        m_VAO->Bind();
+        #endif
+
         m_VBO = VertexBuffer::Create(sizeof(float) * 6 * 4);
+
+        #ifdef MPE_PLATFORM_OSX
+        m_VBO->Bind();
+        #endif
         m_VBO->SetLayout({{ShaderDataType::Vec4, "UNI_TEXTURE_COORDS"}});
 
         m_VAO->AddVertexBuffer(m_VBO);
+
+        #ifdef MPE_PLATFORM_OSX
+        m_VAO->Unbind();
+        m_VBO->Unbind();
+        #endif
 
         // TODO: Investigate drawing text using index buffer
         // uint32_t indices[6] = {0, 1, 2, 2, 3, 0};
@@ -203,17 +217,25 @@ void OpenGLTextRenderer::LoadCharacters()
             Character character = {texture, glm::ivec2(m_Face->glyph->bitmap.width, m_Face->glyph->bitmap.rows),
                                    glm::ivec2(m_Face->glyph->bitmap_left, m_Face->glyph->bitmap_top), (GLuint) m_Face->glyph->advance.x};
             m_Characters.insert(std::pair<GLchar, Character>(c, character));
+
+            texture->Unbind();
         }
     }
 }
 
 void OpenGLTextRenderer::RenderText(const std::string& text, float x, float y, float scale, const glm::vec4& color)
 {
+    m_Shader->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLShader>(m_Shader)->InjectUniformFloat4("UNI_TEXT_COLOR", color);
 
     float internal_x = x;
     float internal_y = y;
     float internal_scale = scale;
+
+    #ifdef MPE_PLATFORM_OSX
+    m_VAO->Bind();
+    m_VBO->Bind();
+    #endif
 
     // not sure this is needed
     // glActiveTexture(GL_TEXTURE0);
@@ -265,12 +287,15 @@ void OpenGLTextRenderer::RenderText(const std::string& text, float x, float y, f
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
         internal_x += (ch.Advance >> 6) * internal_scale;
+
+        glCheckError();
     }
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        std::cerr << "OpenGL Error: " << error << std::endl;
-    }
+    glCheckError();
+
+    #ifdef MPE_PLATFORM_OSX
+    m_VAO->Unbind();
+    m_VBO->Unbind();
+    #endif
 }
 
 void OpenGLTextRenderer::SetFontSize(float fontSize)
