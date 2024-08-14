@@ -4,6 +4,7 @@
 #include "MPE/Core/_ASSERTS.h"
 #include "MPE/Log/GlobalLog.h"
 #include "MPE/Renderer/Shaders/ShaderUtils.h"
+#include "Platform/OpenGL/Utilities/OpenGLUtilities.h"
 
 #if MPE_PLATFORM_LINUX
 #    include <glad/glad.h>
@@ -210,6 +211,8 @@ void OpenGLShader::Compile(std::unordered_map<GLenum, std::string> &shaders)
         MPE_CORE_ASSERT(false, "SHADER FAILED TO LINK.");
         return;
     }
+
+    glCheckError();
 
     for (auto id : glShaderIDs)
     {
