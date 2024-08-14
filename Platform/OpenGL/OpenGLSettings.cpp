@@ -241,6 +241,12 @@ bool OpenGLSettings::GetDebugOutput() const
 
 void OpenGLSettings::SetDebugOutput(bool debugOutput)
 {
+    // This is not available on OpenGL < 4.3
+    if (OpenGLUtilities::IsOpenGLVersionLowerThan(4, 3))
+    {
+        MPE_CORE_WARN("Debug output is not available on OpenGL version lower than 4.3.");
+        return;
+    }
 
     _DEBUG_OUTPUT = debugOutput;
 

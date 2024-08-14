@@ -47,7 +47,9 @@ void OpenGLRendererAPI::Init()
     SYS_Settings->SetFaceCulling(false);
     SYS_Settings->SetDebugOutput(true);
 
-    MPE_CORE_WARN("Causing OpenGL errors to test error handling.");
+    MPE_CORE_WARN("Checking for any errors caused by settings...");
+    glCheckError();
+    MPE_CORE_WARN("Causing OpenGL errors to test error handling...");
 
     if (SYS_Settings->GetDebugOutput())
         glDebugMessageInsert(GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_MARKER, 1, GL_DEBUG_SEVERITY_NOTIFICATION, -1, "This is a debug test.");
