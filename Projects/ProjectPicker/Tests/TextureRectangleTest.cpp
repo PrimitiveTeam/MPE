@@ -78,6 +78,7 @@ void TextureRectangleTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(TextureRectangleTest::OnKeyPressedEvent));
+    SYS_CAMERA_CONTROLLER.OnEvent(event);
 }
 
 bool TextureRectangleTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)

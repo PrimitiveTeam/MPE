@@ -147,6 +147,7 @@ void RectangleTransformationTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(RectangleTransformationTest::OnKeyPressedEvent));
+    SYS_CAMERA_CONTROLLER.OnEvent(event);
 }
 
 bool RectangleTransformationTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)

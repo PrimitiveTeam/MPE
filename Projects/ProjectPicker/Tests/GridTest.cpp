@@ -104,9 +104,9 @@ void GridTest::OnImGuiRender()
 
 void GridTest::OnEvent(MPE::Event &event)
 {
-    SYS_CAMERA_CONTROLLER.OnEvent(event);
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(GridTest::OnKeyPressedEvent));
+    SYS_CAMERA_CONTROLLER.OnEvent(event);
 }
 
 bool GridTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)
