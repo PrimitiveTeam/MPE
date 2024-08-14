@@ -4,6 +4,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/trigonometric.hpp>
 
+#ifdef MPE_OPENGL
+#    include "MPE/MPEGFX_OPEN_GL.h"
+#elif MPE_OPENGLES
+#    include "MPE/MPEGFX_OPEN_GL_ES.h"
+#endif
+
 TriangleTransformationTest::TriangleTransformationTest()
     : Layer("Test"),
       CLEAR_COLOR{0.5f, 0.25f, 0.5f},
@@ -33,7 +39,7 @@ TriangleTransformationTest::TriangleTransformationTest()
     SYS_VertexArray->SetIndexBuffer(indexBuffer);
 
     // SHADERS
-    auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/FlatColor.glsl");
+    auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/FlatColor.glsl", true);
 }
 
 void TriangleTransformationTest::OnUpdate(MPE::Time deltatime)
@@ -48,16 +54,22 @@ void TriangleTransformationTest::OnUpdate(MPE::Time deltatime)
 
     auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Get("FlatColor");
 
+#ifdef MPE_OPENGL
     std::dynamic_pointer_cast<MPE::OpenGLShader>(FLAT_COLOR_SHADER)->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLShader>(FLAT_COLOR_SHADER)
         ->InjectUniformFloat4("UNI_COLOR", glm::vec4(TRIANGLE_COLOR[0], TRIANGLE_COLOR[1], TRIANGLE_COLOR[2], TRIANGLE_COLOR[3]));
+#elif MPE_OPENGLES
+    std::dynamic_pointer_cast<MPE::OpenGLESShader>(FLAT_COLOR_SHADER)->Bind();
+    std::dynamic_pointer_cast<MPE::OpenGLESShader>(FLAT_COLOR_SHADER)
+        ->InjectUniformFloat4("UNI_COLOR", glm::vec4(TRIANGLE_COLOR[0], TRIANGLE_COLOR[1], TRIANGLE_COLOR[2], TRIANGLE_COLOR[3]));
+#endif
 
     glm::mat4 TRIANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), TRIANGLE_POSITION);
-    #if MPE_PLATFORM_LINUX
-    TRIANGLE_TRANSFORM = glm::rotate(TRIANGLE_TRANSFORM, (float)fmod(radians, 2.0f * glm::pi<float>()), glm::vec3(0.0f, 0.0f, 1.0f));
-    #else
+#if MPE_PLATFORM_LINUX
+    TRIANGLE_TRANSFORM = glm::rotate(TRIANGLE_TRANSFORM, (float) fmod(radians, 2.0f * glm::pi<float>()), glm::vec3(0.0f, 0.0f, 1.0f));
+#else
     TRIANGLE_TRANSFORM = glm::rotate(TRIANGLE_TRANSFORM, fmod(radians, 2.0f * glm::pi<float>()), glm::vec3(0.0f, 0.0f, 1.0f));
-    #endif
+#endif
     TRIANGLE_TRANSFORM = TRIANGLE_TRANSFORM * TRIANGLE_SCALE;
 
     MPE::Renderer::Submit(FLAT_COLOR_SHADER, SYS_VertexArray, TRIANGLE_TRANSFORM);
@@ -134,6 +146,7 @@ void TriangleTransformationTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(TriangleTransformationTest::OnKeyPressedEvent));
+    SYS_CAMERA_CONTROLLER.OnEvent(event);
 }
 
 bool TriangleTransformationTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)

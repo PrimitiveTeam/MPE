@@ -45,13 +45,13 @@ class MPE_API LinuxWindow : public Window
 
     inline virtual void *GetNativeWindow() const override { return SYS_Window; }
 
-    #ifdef MPE_OPENGL
+#ifdef MPE_OPENGL
     inline virtual GraphicalContext *GetNativeGLContext() const override { return SYS_Context; }
-    #endif
+#endif
 
-    #ifdef MPE_OPENGLES
+#ifdef MPE_OPENGLES
     inline virtual GraphicalContext *GetNativeGLESContext() const override { return SYS_ESContext; }
-    #endif
+#endif
 
   private:
     virtual void Init(const WindowProps &props);

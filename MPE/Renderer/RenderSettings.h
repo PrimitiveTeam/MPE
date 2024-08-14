@@ -10,6 +10,18 @@
 
 namespace MPE
 {
+struct MPE_API GraphicalContextProps
+{
+    int MajorVersion;
+    int MinorVersion;
+
+    std::string Vendor;
+    std::string Renderer;
+    int ShaderTypeAmount;
+
+    // virtual std::string ToString() const;
+};
+
 class MPE_API RenderSettings
 {
   public:
@@ -37,15 +49,29 @@ class MPE_API RenderSettings
     virtual bool GetDepthTest() const = 0;
     virtual void SetDepthTest(bool depthTest) = 0;
 
+    // FACE CULLING
+    virtual void ToggleFaceCulling() = 0;
+    virtual bool GetFaceCulling() const = 0;
+    virtual void SetFaceCulling(bool faceCulling) = 0;
+
+    // DEBUG OUTPUT
+    virtual void ToggleDebugOutput() = 0;
+    virtual bool GetDebugOutput() const = 0;
+    virtual void SetDebugOutput(bool debugOutput) = 0;
+
     virtual std::string GetSettings() const = 0;
 
   protected:
+    RenderSettings();
     virtual void UpdateSettings() = 0;
     virtual void SendEvent(std::string name, int32_t value) = 0;
 
   protected:
+    GraphicalContextProps* _GRAPHICAL_CONTEXT_PROPS;
     bool _VSYNC;
     bool _LIMIT_FPS;
     uint8_t _MAX_FPS;
+    bool _FACE_CULLING;
+    bool _DEBUG_OUTPUT;
 };
 }

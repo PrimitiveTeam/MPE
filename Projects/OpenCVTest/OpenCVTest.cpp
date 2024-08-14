@@ -27,7 +27,7 @@ class OpenCVTestGuiLayer : public MPE::Layer
 
         ImGui::Begin("OpenCV Test", nullptr, ImGuiWindowFlags_NoSavedSettings);
 
-        if(ImGui::Button("Inspect Image"))
+        if (ImGui::Button("Inspect Image"))
         {
             InspectImage();
         }

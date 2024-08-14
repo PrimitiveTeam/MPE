@@ -60,50 +60,18 @@ file(
 
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/Shader.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/ShaderLibrary.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/ShaderUtils.cpp"
+
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Text/TextRenderer.cpp"
 
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/Texture.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/Texture2D.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/TextTexture.cpp"
 
     # /Editor
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/Grid.cpp"
 
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Dialog/SimpleDialog.cpp"
-
-    # /Platform/OpenGL
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLContext.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLContextProps.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLRendererAPI.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLSettings.cpp"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Editor/Grid/OpenGLGrid.cpp"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/OpenGLIndexBuffer.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/OpenGLVertexArray.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/OpenGLVertexBuffer.cpp"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/OpenGLShader.cpp"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/OpenGLTexture.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/OpenGLTexture2D.cpp"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Utilities/OpenGLUtilities.cpp"
-
-    # /Platform/OpenGLES
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESContext.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESContextProps.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESRendererAPI.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESSettings.cpp"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Editor/Grid/OpenGLESGrid.cpp"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/OpenGLESIndexBuffer.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/OpenGLESVertexArray.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/OpenGLESVertexBuffer.cpp"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Shaders/OpenGLESShader.cpp"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Textures/OpenGLESTexture.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Textures/OpenGLESTexture2D.cpp"
 
     # /Vendor
     "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/ImGuiLayer.cpp"
@@ -171,7 +139,6 @@ file(
 
     # /Renderer
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/GraphicalContext.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Renderer/GraphicalContextProps.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Renderer.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Renderer2D.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/RendererAPI.h"
@@ -192,50 +159,19 @@ file(
 
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/Shader.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/ShaderLibrary.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/ShaderUtils.h"
+
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Text/Character.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Text/TextRenderer.h"
 
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/Texture.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/Texture2D.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/TextTexture.h"
 
     # /Editor
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/Grid.h"
 
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Dialog/SimpleDialog.h"
-
-    # /Platform/OpenGL
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLContext.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLContextProps.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLRendererAPI.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/OpenGLSettings.h"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Editor/Grid/OpenGLGrid.h"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/OpenGLIndexBuffer.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/OpenGLVertexArray.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Pipeline/OpenGLVertexBuffer.h"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Shaders/OpenGLShader.h"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/OpenGLTexture.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Textures/OpenGLTexture2D.h"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGL/Utilities/OpenGLUtilities.h"
-
-    # /Platform/OpenGLES
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESContext.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESContextProps.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESRendererAPI.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/OpenGLESSettings.h"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Editor/Grid/OpenGLESGrid.h"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/OpenGLESIndexBuffer.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/OpenGLESVertexArray.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Pipeline/OpenGLESVertexBuffer.h"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Shaders/OpenGLESShader.h"
-
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Textures/OpenGLESTexture.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Platform/OpenGLES/Textures/OpenGLESTexture2D.h"
 
     # /Vendor
     "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/ImGuiLayer.h"

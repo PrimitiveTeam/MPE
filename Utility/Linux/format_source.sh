@@ -19,7 +19,7 @@ DIR_LIST="$SCRIPT_DIR/../.dirs_to_format"
 while IFS= read -r DIR; do
     DIR_PATH="$SCRIPT_DIR/../../$DIR"
     if [ -d "$DIR_PATH" ]; then
-        find "$DIR_PATH" -type f \( -name "*.h" -o -name "*.hpp" -o -name "*.c" -o -name "*.cpp" \) -exec $CLANG_FORMAT -style=file:"$CLANG_FORMAT_FILE" -i {} +
+        find "$DIR_PATH" -type f \( -name "*.h" -o -name "*.hpp" -o -name "*.c" -o -name "*.cpp" -o -name "*.m" -o -name "*.mm" \) -exec $CLANG_FORMAT -style=file:"$CLANG_FORMAT_FILE" -i {} +
     else
         echo "Directory not found: $DIR_PATH"
     fi

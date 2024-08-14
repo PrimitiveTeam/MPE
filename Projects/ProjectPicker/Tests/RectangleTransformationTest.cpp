@@ -4,6 +4,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/trigonometric.hpp>
 
+#ifdef MPE_OPENGL
+#    include "MPE/MPEGFX_OPEN_GL.h"
+#elif MPE_OPENGLES
+#    include "MPE/MPEGFX_OPEN_GL_ES.h"
+#endif
+
 RectangleTransformationTest::RectangleTransformationTest()
     : Layer("Test"),
       CLEAR_COLOR{0.5f, 0.25f, 0.5f},
@@ -34,7 +40,7 @@ RectangleTransformationTest::RectangleTransformationTest()
     SYS_VertexArray->SetIndexBuffer(SQIB);
 
     // SHADERS
-    auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/FlatColor.glsl");
+    auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/FlatColor.glsl", true);
 }
 
 void RectangleTransformationTest::OnUpdate(MPE::Time deltatime)
@@ -49,16 +55,22 @@ void RectangleTransformationTest::OnUpdate(MPE::Time deltatime)
 
     auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Get("FlatColor");
 
+#ifdef MPE_OPENGL
     std::dynamic_pointer_cast<MPE::OpenGLShader>(FLAT_COLOR_SHADER)->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLShader>(FLAT_COLOR_SHADER)
         ->InjectUniformFloat4("UNI_COLOR", glm::vec4(RECTANGLE_COLOR[0], RECTANGLE_COLOR[1], RECTANGLE_COLOR[2], RECTANGLE_COLOR[3]));
+#elif MPE_OPENGLES
+    std::dynamic_pointer_cast<MPE::OpenGLESShader>(FLAT_COLOR_SHADER)->Bind();
+    std::dynamic_pointer_cast<MPE::OpenGLESShader>(FLAT_COLOR_SHADER)
+        ->InjectUniformFloat4("UNI_COLOR", glm::vec4(RECTANGLE_COLOR[0], RECTANGLE_COLOR[1], RECTANGLE_COLOR[2], RECTANGLE_COLOR[3]));
+#endif
 
     glm::mat4 RECTANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), RECTANGLE_POSITION);
-    #if MPE_PLATFORM_LINUX
-    RECTANGLE_TRANSFORM = glm::rotate(RECTANGLE_TRANSFORM, (float)fmod(radians, 2.0f * glm::pi<float>()), glm::vec3(0.0f, 0.0f, 1.0f));
-    #else
+#if MPE_PLATFORM_LINUX
+    RECTANGLE_TRANSFORM = glm::rotate(RECTANGLE_TRANSFORM, (float) fmod(radians, 2.0f * glm::pi<float>()), glm::vec3(0.0f, 0.0f, 1.0f));
+#else
     RECTANGLE_TRANSFORM = glm::rotate(RECTANGLE_TRANSFORM, fmod(radians, 2.0f * glm::pi<float>()), glm::vec3(0.0f, 0.0f, 1.0f));
-    #endif
+#endif
     RECTANGLE_TRANSFORM = RECTANGLE_TRANSFORM * RECTANGLE_SCALE;
 
     MPE::Renderer::Submit(FLAT_COLOR_SHADER, SYS_VertexArray, RECTANGLE_TRANSFORM);
@@ -135,6 +147,7 @@ void RectangleTransformationTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(RectangleTransformationTest::OnKeyPressedEvent));
+    SYS_CAMERA_CONTROLLER.OnEvent(event);
 }
 
 bool RectangleTransformationTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)

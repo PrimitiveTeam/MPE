@@ -5,22 +5,40 @@
 #include "MPE/Log/GlobalLog.h"
 #include "MPE/Vendor/STB/stb_image.h"
 
+#include "Platform/OpenGL/Utilities/OpenGLUtilities.h"
+
 namespace MPE
 {
 OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height) : WIDTH(width), HEIGHT(height)
 {
+    MPE_CORE_WARN("CREATING TEXTURE...");
+
     INTERNAL_FORMAT = GL_RGBA8;
     DATA_FORMAT = GL_RGBA;
 
 #ifdef MPE_PLATFORM_OSX
     glGenTextures(1, &SYS_RENDERER_ID);
+
+    glCheckError();
+
+    glBindTexture(GL_TEXTURE_2D, SYS_RENDERER_ID);
+
+    glCheckError();
+
     glTexImage2D(GL_TEXTURE_2D, 0, INTERNAL_FORMAT, WIDTH, HEIGHT, 0, DATA_FORMAT, GL_UNSIGNED_BYTE, nullptr);
 
-    glTexParameteri(SYS_RENDERER_ID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(SYS_RENDERER_ID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glCheckError();
 
-    glTexParameteri(SYS_RENDERER_ID, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(SYS_RENDERER_ID, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    glCheckError();
+
+    // NOTE: Do not unbind the texture
+    // glBindTexture(GL_TEXTURE_2D, 0);
 #else
     glCreateTextures(GL_TEXTURE_2D, 1, &SYS_RENDERER_ID);
     glTextureStorage2D(SYS_RENDERER_ID, 1, INTERNAL_FORMAT, WIDTH, HEIGHT);
@@ -31,6 +49,10 @@ OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height) : WIDTH(width)
     glTextureParameteri(SYS_RENDERER_ID, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTextureParameteri(SYS_RENDERER_ID, GL_TEXTURE_WRAP_T, GL_REPEAT);
 #endif
+
+    glCheckError();
+    MPE_CORE_ASSERT(SYS_RENDERER_ID, "TEXTURE NOT CREATED");
+    MPE_CORE_INFO("TEXTURE CREATED: {0}x{1} | ID: {2}", WIDTH, HEIGHT, SYS_RENDERER_ID);
 }
 
 OpenGLTexture2D::OpenGLTexture2D(const std::string &filepath) : FILEPATH(filepath)
@@ -66,19 +88,33 @@ OpenGLTexture2D::OpenGLTexture2D(const std::string &filepath) : FILEPATH(filepat
 
 #ifdef MPE_PLATFORM_OSX
     glGenTextures(1, &SYS_RENDERER_ID);
+
+    glCheckError();
+
+    glBindTexture(GL_TEXTURE_2D, SYS_RENDERER_ID);
+
+    glCheckError();
+
     // TODO: Investigate if this is needed
     // glBindTexture(GL_TEXTURE_2D, SYS_RENDERER_ID);
-    glTexImage2D(GL_TEXTURE_2D, 0, OpenGLInternalFormat, WIDTH, HEIGHT, 0, OpenGLDataFormat, GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, INTERNAL_FORMAT, WIDTH, HEIGHT, 0, DATA_FORMAT, GL_UNSIGNED_BYTE, data);
+
+    glCheckError();
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    glCheckError();
+
+    // NOTE: Do not unbind the texture
+    // glBindTexture(GL_TEXTURE_2D, 0);
 #else
 
     glCreateTextures(GL_TEXTURE_2D, 1, &SYS_RENDERER_ID);
-    glTextureStorage2D(SYS_RENDERER_ID, 1, OpenGLInternalFormat, WIDTH, HEIGHT);
+    glTextureStorage2D(SYS_RENDERER_ID, 1, INTERNAL_FORMAT, WIDTH, HEIGHT);
 
     glTextureParameteri(SYS_RENDERER_ID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTextureParameteri(SYS_RENDERER_ID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -86,35 +122,58 @@ OpenGLTexture2D::OpenGLTexture2D(const std::string &filepath) : FILEPATH(filepat
     glTextureParameteri(SYS_RENDERER_ID, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTextureParameteri(SYS_RENDERER_ID, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-    glTextureSubImage2D(SYS_RENDERER_ID, 0, 0, 0, WIDTH, HEIGHT, OpenGLDataFormat, GL_UNSIGNED_BYTE, data);
+    glTextureSubImage2D(SYS_RENDERER_ID, 0, 0, 0, WIDTH, HEIGHT, DATA_FORMAT, GL_UNSIGNED_BYTE, data);
 
 #endif
+    glCheckError();
+
     stbi_image_free(data);
 }
 
 OpenGLTexture2D::~OpenGLTexture2D()
 {
+    MPE_CORE_WARN("DELETING TEXTURE: {0}x{1} | ID: {2}", WIDTH, HEIGHT, SYS_RENDERER_ID);
     glDeleteTextures(1, &SYS_RENDERER_ID);
 }
 
 void OpenGLTexture2D::SetData(void *data, uint32_t size)
 {
     uint32_t bpp = DATA_FORMAT == GL_RGBA ? 4 : 3;
-    MPE_CORE_ASSERT(size == WIDTH * HEIGHT * bpp, "DATA IS NOT SET TO ENTIRE TEXTURE");
+    std::string dataErrStr = "DATA IS NOT SET TO ENTIRE TEXTURE: " + std::to_string(size) + " | " + std::to_string(WIDTH * HEIGHT * bpp) +
+                             " == " + std::to_string(WIDTH * HEIGHT * bpp);
+    MPE_CORE_ASSERT(size == WIDTH * HEIGHT * bpp, dataErrStr);
 
 #ifdef MPE_PLATFORM_OSX
-    glTexSubImage2D(SYS_RENDERER_ID, 0, 0, 0, WIDTH, HEIGHT, DATA_FORMAT, GL_UNSIGNED_BYTE, data);
+    glBindTexture(GL_TEXTURE_2D, SYS_RENDERER_ID);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, INTERNAL_FORMAT, WIDTH, HEIGHT, 0, DATA_FORMAT, GL_UNSIGNED_BYTE, data);
+    // glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, WIDTH, HEIGHT, DATA_FORMAT, GL_UNSIGNED_BYTE, data);
+
+    // NOTE: Do not unbind the texture
+    // glBindTexture(GL_TEXTURE_2D, 0);
 #else
     glTextureSubImage2D(SYS_RENDERER_ID, 0, 0, 0, WIDTH, HEIGHT, DATA_FORMAT, GL_UNSIGNED_BYTE, data);
 #endif
+
+    glCheckError();
 }
 
 void OpenGLTexture2D::Bind(uint32_t slot) const
 {
 #ifdef MPE_PLATFORM_OSX
     glActiveTexture(GL_TEXTURE0 + slot);
+    glBindTexture(GL_TEXTURE_2D, SYS_RENDERER_ID);
 #else
     glBindTextureUnit(slot, SYS_RENDERER_ID);
+#endif
+}
+
+void OpenGLTexture2D::Unbind(uint32_t slot) const
+{
+#ifdef MPE_PLATFORM_OSX
+    glBindTexture(GL_TEXTURE_2D, 0);
+#else
+    glBindTextureUnit(slot, 0);
 #endif
 }
 }

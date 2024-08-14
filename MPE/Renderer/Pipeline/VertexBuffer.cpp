@@ -42,4 +42,33 @@ REF<VertexBuffer> VertexBuffer::Create(float *vertices, uint32_t size)
             return nullptr;
     }
 }
+
+REF<VertexBuffer> VertexBuffer::Create(uint32_t size)
+{
+    switch (Renderer::GetCurrentGraphicsAPI())
+    {
+        case RendererAPI::API::None:
+            MPE_CORE_ASSERT(false, "NO GRAPHICAL API IS CURRENTLY NOT SUPPORTED.");
+            return nullptr;
+
+        case RendererAPI::API::OpenGL:
+#ifdef MPE_OPENGL
+            return NEWREF<OpenGLVertexBuffer>(size);
+#else
+            MPE_CORE_ASSERT(false, "OPENGL IS NOT SUPPORTED.");
+            return nullptr;
+#endif
+
+        case RendererAPI::API::OpenGLES:
+#ifdef MPE_OPENGLES
+            return NEWREF<OpenGLESVertexBuffer>(size);
+#else
+            MPE_CORE_ASSERT(false, "OPENGLES IS NOT SUPPORTED.");
+            return nullptr;
+#endif
+        default:
+            MPE_CORE_ASSERT(false, "UNKOWN RENDERER API.");
+            return nullptr;
+    }
+}
 }

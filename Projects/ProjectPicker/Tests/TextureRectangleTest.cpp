@@ -3,6 +3,12 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+#ifdef MPE_OPENGL
+#    include "MPE/MPEGFX_OPEN_GL.h"
+#elif MPE_OPENGLES
+#    include "MPE/MPEGFX_OPEN_GL_ES.h"
+#endif
+
 TextureRectangleTest::TextureRectangleTest()
     : Layer("Test"),
       CLEAR_COLOR{0.5f, 0.25f, 0.5f},
@@ -27,13 +33,18 @@ TextureRectangleTest::TextureRectangleTest()
     SYS_VertexArray->SetIndexBuffer(SQIB);
 
     // SHADERS
-    auto TEXTURE_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/Texture.glsl");
+    auto TEXTURE_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/Texture.glsl", true);
 
     // TEXTURES
     TEST_TEXTURE = MPE::Texture2D::Create("Data/Textures/TEST_TEXTURE.png");
 
+#ifdef MPE_OPENGL
     std::dynamic_pointer_cast<MPE::OpenGLShader>(TEXTURE_SHADER)->Bind();
     std::dynamic_pointer_cast<MPE::OpenGLShader>(TEXTURE_SHADER)->InjectUniformInt1("UNI_TEXTURE", 0);
+#elif MPE_OPENGLES
+    std::dynamic_pointer_cast<MPE::OpenGLESShader>(TEXTURE_SHADER)->Bind();
+    std::dynamic_pointer_cast<MPE::OpenGLESShader>(TEXTURE_SHADER)->InjectUniformInt1("UNI_TEXTURE", 0);
+#endif
 }
 
 void TextureRectangleTest::OnUpdate(MPE::Time deltatime)
@@ -67,6 +78,7 @@ void TextureRectangleTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(TextureRectangleTest::OnKeyPressedEvent));
+    SYS_CAMERA_CONTROLLER.OnEvent(event);
 }
 
 bool TextureRectangleTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)

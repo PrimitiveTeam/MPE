@@ -27,7 +27,7 @@ SimpleTriangleTest::SimpleTriangleTest()
     SYS_VertexArray->SetIndexBuffer(indexBuffer);
 
     // SHADERS
-    auto VERTEX_BASED_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/VertexBasedColor.glsl");
+    auto VERTEX_BASED_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/VertexBasedColor.glsl", true);
 }
 
 void SimpleTriangleTest::OnUpdate(MPE::Time deltatime)
@@ -59,6 +59,7 @@ void SimpleTriangleTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(SimpleTriangleTest::OnKeyPressedEvent));
+    SYS_CAMERA_CONTROLLER.OnEvent(event);
 }
 
 bool SimpleTriangleTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)

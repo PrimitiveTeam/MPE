@@ -168,28 +168,6 @@ void OpenGLESContext::Init()
     const char *glExtensions = reinterpret_cast<const char *>(glGetString(GL_EXTENSIONS));
     MPE_INFO("GL Extensions: {0}", glExtensions);
 #endif
-
-    int OpenGLVersionMajor;
-    int OpenGLVersionMinor;
-    glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
-    glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersionMinor);
-
-    SYS_Props.MajorVersion = OpenGLVersionMajor;
-    SYS_Props.MinorVersion = OpenGLVersionMinor;
-
-#ifdef MPE_PLATFORM_WINDOWS
-    MPE_CORE_ASSERT(OpenGLVersionMajor > 3 || (OpenGLVersionMajor == 3 && OpenGLVersionMinor >= 0), "MPE REQUIRES OPENGL VERSION 3.0 OR GREATER FOR OPENGLES.");
-#elif MPE_PLATFORM_OSX
-    MPE_CORE_ASSERT(OpenGLVersionMajor >= 3 || (OpenGLVersionMajor >= 3 && OpenGLVersionMinor >= 2), "MPE REQUIRES OPENGL VERSION 3.1 FOR macOS.");
-#elif MPE_PLATFORM_RPI4
-    MPE_CORE_ASSERT(OpenGLVersionMajor >= 3 || (OpenGLVersionMajor >= 3 && OpenGLVersionMinor >= 2), "MPE REQUIRES OPENGL VERSION 3.1 FOR raspiOS.");
-#endif
-
-    SYS_Props.Vendor = std::string(reinterpret_cast<const char *>(glGetString(GL_VENDOR)));
-    SYS_Props.Renderer = std::string(reinterpret_cast<const char *>(glGetString(GL_RENDERER)));
-    SYS_Props.ShaderTypeAmount = OPENGL_SHADER_TYPE_AMOUNT;
-
-    MPE_CORE_INFO('\n' + SYS_Props.ToString());
 }
 
 void OpenGLESContext::SwapBuffers()

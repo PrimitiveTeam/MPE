@@ -2,7 +2,6 @@
 
 #include "MPE/Core/_CORE.h"
 #include "MPE/Renderer/GraphicalContext.h"
-#include "Platform/OpenGLES/OpenGLESContextProps.h"
 
 #include <GLFW/glfw3.h>
 #include <EGL/egl.h>
@@ -24,6 +23,5 @@ class MPE_API OpenGLESContext : public GraphicalContext
     EGLDisplay eglDisplay;
     EGLSurface eglSurface;
     EGLContext eglContext;
-    OpenGLESContextProps SYS_Props;
 };
 }

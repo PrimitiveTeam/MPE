@@ -44,6 +44,11 @@ void Player::SetColor(glm::vec4 rgba)
     Color.a = rgba.a;
 }
 
+void Player::SetSize(glm::vec2 size)
+{
+    Size = size;
+}
+
 // void Player::OnUpdate(MPE::_TIME deltatime)
 // {
 //     Movement(deltatime);

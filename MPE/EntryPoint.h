@@ -48,6 +48,9 @@ int main(int argc, char **argv)
     app->Run();
     // MPE_PROFILE_END();
 
+    // Explicitly call the App destructor
+    app->~App();
+
     return 0;
 }
 
@@ -87,6 +90,11 @@ int main(int argc, char **argv)
     // MPE_PROFILE_START("RUNTIME", "MPE-PROFILE-RUNTIME.json");
     app->Run();
     // MPE_PROFILE_END();
+
+    // Explicitly call the App destructor
+    app->~App();
+
+    return 0;
 }
 
 #elif MPE_PLATFORM_OSX
@@ -125,6 +133,11 @@ int main(int argc, char **argv)
     // MPE_PROFILE_START("RUNTIME", "MPE-PROFILE-RUNTIME.json");
     app->Run();
     // MPE_PROFILE_END();
+
+    // Explicitly call the App destructor
+    app->~App();
+
+    return 0;
 }
 
 #else

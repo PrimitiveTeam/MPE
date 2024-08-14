@@ -69,8 +69,13 @@ void WindowsWindow::Init(const WindowProps &props)
     else
     {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     }
+
+// Allows OpenGL to send debug messages to provided callback function
+#ifdef MPE_ENABLE_DEBUG_LOG
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+#endif
 
     SYS_Window = glfwCreateWindow((int) props.Width, (int) props.Height, SYS_Data.Title.c_str(), nullptr, nullptr);
     SaveWindowSizeAndPosition();

@@ -2,7 +2,6 @@
 
 #include "MPE.h"
 
-#include "Platform/OpenGL/Shaders/OpenGLShader.h"
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
 
 #include <imgui.h>

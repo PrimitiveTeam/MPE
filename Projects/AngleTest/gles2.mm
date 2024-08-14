@@ -38,11 +38,11 @@ int main()
     }
 
     // Obtain the native window handle
-    NSWindow *nsWindow = glfwGetCocoaWindow(window);
-    NSView *contentView = [nsWindow contentView];
+    NSWindow* nsWindow = glfwGetCocoaWindow(window);
+    NSView* contentView = [nsWindow contentView];
     [contentView setWantsLayer:YES];  // Ensure the content view is layer-backed
 
-    EGLNativeWindowType nativeWindow = (EGLNativeWindowType)contentView.layer;
+    EGLNativeWindowType nativeWindow = (EGLNativeWindowType) contentView.layer;
 
     // Obtain the EGL display connection
     EGLDisplay eglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
@@ -64,16 +64,21 @@ int main()
     }
 
     // Choose an appropriate EGL configuration
-    EGLint configAttribs[] = {
-        EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
-        EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT,
-        EGL_RED_SIZE, 8,
-        EGL_GREEN_SIZE, 8,
-        EGL_BLUE_SIZE, 8,
-        EGL_ALPHA_SIZE, 8,
-        EGL_DEPTH_SIZE, 24,
-        EGL_NONE
-    };
+    EGLint configAttribs[] = {EGL_SURFACE_TYPE,
+                              EGL_WINDOW_BIT,
+                              EGL_RENDERABLE_TYPE,
+                              EGL_OPENGL_ES3_BIT,
+                              EGL_RED_SIZE,
+                              8,
+                              EGL_GREEN_SIZE,
+                              8,
+                              EGL_BLUE_SIZE,
+                              8,
+                              EGL_ALPHA_SIZE,
+                              8,
+                              EGL_DEPTH_SIZE,
+                              24,
+                              EGL_NONE};
 
     EGLConfig eglConfig;
     EGLint numConfigs;

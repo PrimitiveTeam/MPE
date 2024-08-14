@@ -31,6 +31,11 @@ void Ball::SetSize(glm::vec2 size)
     Size = size;
 }
 
+void Ball::SetRadius(float radius)
+{
+    Radius = radius;
+}
+
 // void Ball::SetDirection(DIRECTION dir)
 // {
 //     Direction = dir;

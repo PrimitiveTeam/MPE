@@ -7,9 +7,9 @@
 
 namespace MPE
 {
-    class macOSContext
-    {
-        public:
-        static EGLNativeWindowType GetNativeWindow(GLFWwindow* window);
-    };
+class macOSContext
+{
+  public:
+    static EGLNativeWindowType GetNativeWindow(GLFWwindow* window);
+};
 }

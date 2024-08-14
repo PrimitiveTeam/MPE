@@ -39,6 +39,7 @@ class Ball
     // void SetTexture(const std::string& texture);
 
     float GetRadius() const { return Radius; }
+    void SetRadius(float radius);
 
     // DIRECTION GetDirection() const { return Direction; }
     // void SetDirection(DIRECTION dir);

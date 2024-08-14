@@ -3,16 +3,18 @@
 #include "MPE/EntryPoint.h"
 
 // TEMP
-#include "Platform/OpenGL/Shaders/OpenGLShader.h"
+#ifdef MPE_OPENGL
+#    include "MPE/MPEGFX_OPEN_GL.h"
+#    include "Platform/OpenGL/Editor/Utilities/OpenGLDebugGuiLayer.h"
+#elif MPE_OPENGLES
+#    include "MPE/MPEGFX_OPEN_GL_ES.h"
+#    include "Platform/OpenGLES/Editor/Utilities/OpenGLESDebugGuiLayer.h"
+#endif
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
 #include "MPE/Renderer/RendererUtilities.h"
-#include "Platform/OpenGL/Utilities/OpenGLUtilities.h"
-#include "Platform/OpenGL/OpenGLSettings.h"
 
 #include <imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
-// #include <glad/glad.h>
-// #include <glfw/glfw3.h>
 
 #include "Tests/ClearColorTest.h"
 #include "Tests/SimpleTriangleTest.h"
@@ -29,112 +31,7 @@
 
 #include "Tests/GridTest.h"
 
-class DebugGuiLayer : public MPE::Layer
-{
-  public:
-    DebugGuiLayer() : Layer("DebugGuiLayer"), m_OpenGLUtilities(MPE::OpenGLUtilities::getInstance()) {}
-
-    void OnAttach() override {}
-
-    void OnDetach() override {}
-
-    void OnUpdate(MPE::Time deltaTime) override {}
-
-    void OnImGuiRender() override
-    {
-        ImGui::Begin("Main Menu", nullptr, ImGuiWindowFlags_NoSavedSettings);
-
-        DebugMenu();
-
-        GraphicsSettings();
-
-        DisplayRefs();
-
-        ImGui::End();
-    }
-
-    void OnEvent(MPE::Event& event) override {}
-
-  private:
-    void DebugMenu()
-    {
-        ImGui::Separator();
-
-        // GetFPS_MS from App/Renderer
-        // Display FPS/ms
-        auto fps_ms = MPE::App::GetFPS_MS();
-        ImGui::Text("FPS: %.1f", fps_ms.FPS);
-        ImGui::Text("MS: %.3f", fps_ms.MS);
-
-        ImGui::Separator();
-    }
-
-    void GraphicsSettings()
-    {
-        ImGui::Separator();
-
-        ImGui::Text("Graphics Settings");
-        // Retrieve RenderSettings object
-        auto settings = dynamic_cast<MPE::OpenGLSettings*>(MPE::RenderPrimitive::GetSettings());
-        // Display RenderSettings (vsync, blend, depthTest)
-
-        ImGui::Text("Current Vsync: %s", settings->GetVsync() ? "Enabled" : "Disabled");
-
-        bool vsync = settings->GetVsync();
-        if (ImGui::Checkbox("VSync", &vsync))
-        {
-            settings->SetVsync(vsync);
-        }
-
-        bool blend = settings->GetBlend();
-        if (ImGui::Checkbox("Blend", &blend))
-        {
-            settings->SetBlend(blend);
-        }
-
-        bool depthTest = settings->GetDepthTest();
-        if (ImGui::Checkbox("Depth Test", &depthTest))
-        {
-            settings->SetDepthTest(depthTest);
-        }
-
-        bool polygonMode = settings->GetPolygonMode();
-        if (ImGui::Checkbox("Polygon Mode", &polygonMode))
-        {
-            settings->SetPolygonMode(polygonMode);
-        }
-
-        ImGui::Separator();
-    }
-
-    void DisplayRefs()
-    {
-        ImGui::Text("Total References: %d", MPE::ReferenceTracker::getInstance().GetTotalReferences());
-
-        if (ImGui::BeginListBox("References"))
-        {
-            auto refs = MPE::ReferenceTracker::getInstance().GetReferences();
-            for (const auto& ref : refs)
-            {
-                ImGui::Text(ref.c_str());
-            }
-            ImGui::EndListBox();
-        }
-
-        if (ImGui::BeginListBox("Scope References"))
-        {
-            auto refs = MPE::ReferenceTracker::getInstance().GetScopeReferences();
-            for (const auto& ref : refs)
-            {
-                ImGui::Text(ref.c_str());
-            }
-            ImGui::EndListBox();
-        }
-    }
-
-  private:
-    MPE::OpenGLUtilities& m_OpenGLUtilities;
-};
+#include "Tests/NativeTextTest.h"
 
 class ProjectPickerGuiLayer : public MPE::Layer
 {
@@ -255,6 +152,13 @@ class ProjectPickerGuiLayer : public MPE::Layer
                 MPE::App::GetApp().PushLayer(m_LayerRefs[9]);
             }
 
+            if (ImGui::Button("Open Native Text Test"))
+            {
+                m_Layers[10] = true;
+                m_LayerRefs[10] = MPE::NEWREF<NativeTextTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[10]);
+            }
+
             // if (ImGui::Button("Open General Layer"))
             // {
             //     m_Layers[1] = true;
@@ -287,7 +191,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
     }
 
   private:
-    static const size_t MAX_LAYERS = 10;
+    static const size_t MAX_LAYERS = 11;
     std::array<bool, MAX_LAYERS> m_Layers = {false};
     MPE::REF<MPE::Layer> m_LayerRefs[MAX_LAYERS];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();
@@ -301,8 +205,12 @@ class ProjectPicker : public MPE::App
 #ifdef MPE_DYNAMIC_LIBRARY
         ImGui::SetCurrentContext(this->GetImGuiContext());
 #endif
-        // PushLayer(MPE::NEWREF<MainMenuLayer>());
-        PushLayer(MPE::NEWREF<DebugGuiLayer>());
+// PushLayer(MPE::NEWREF<MainMenuLayer>());
+#ifdef MPE_OPENGL
+        PushLayer(MPE::NEWREF<MPE::OpenGLDebugGuiLayer>());
+#elif MPE_OPENGLES
+        PushLayer(MPE::NEWREF<MPE::OpenGLESDebugGuiLayer>());
+#endif
         PushOverlay(MPE::NEWREF<ProjectPickerGuiLayer>());
     }
 

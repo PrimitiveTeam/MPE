@@ -3,6 +3,8 @@
 
 #include "MPE/Core/_ASSERTS.h"
 #include "MPE/Log/GlobalLog.h"
+#include "MPE/Renderer/Shaders/ShaderUtils.h"
+#include "Platform/OpenGL/Utilities/OpenGLUtilities.h"
 
 #if MPE_PLATFORM_LINUX
 #    include <glad/glad.h>
@@ -59,7 +61,7 @@ OpenGLShader::OpenGLShader(const std::string &filepath, bool useEditorResource) 
     std::string SHADER_SOURCE = "";
     if (useEditorResource)
     {
-        SHADER_SOURCE = this->ParseEditorResourcePath(filepath);
+        SHADER_SOURCE = ShaderUtils::ParseEditorResourcePath(filepath);
         MPE_WARN("Attempting to load shader: {0}", SHADER_SOURCE);
         SHADER_SOURCE = ValidateFile(SHADER_SOURCE);
     }
@@ -209,6 +211,8 @@ void OpenGLShader::Compile(std::unordered_map<GLenum, std::string> &shaders)
         MPE_CORE_ASSERT(false, "SHADER FAILED TO LINK.");
         return;
     }
+
+    glCheckError();
 
     for (auto id : glShaderIDs)
     {

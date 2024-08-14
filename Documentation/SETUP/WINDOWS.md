@@ -35,6 +35,7 @@ Download and install the following libraries with vcpkg (make sure to get the x6
 3. [glfw3](https://github.com/glfw/glfw)
 4. [glm](https://github.com/g-truc/glm)
 5. [gtest](https://github.com/google/googletest)
+6. [freetype](https://freetype.org/)
 
 Continue to [Manual building](#manual-building) section.
 

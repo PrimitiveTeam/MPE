@@ -2,7 +2,6 @@
 
 #include "MPE/Core/_CORE.h"
 #include "MPE/Renderer/GraphicalContext.h"
-#include "Platform/OpenGL/OpenGLContextProps.h"
 
 struct MPE_API GLFWwindow;
 
@@ -18,6 +17,5 @@ class MPE_API OpenGLContext : public GraphicalContext
 
   private:
     GLFWwindow *SYS_Window;
-    OpenGLContextProps SYS_Props;
 };
 }

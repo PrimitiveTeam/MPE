@@ -21,6 +21,9 @@ class MPE_API VertexBuffer
 
     virtual uint32_t GetSize() const = 0;
 
+    virtual void SetData(const void *data, uint32_t size) = 0;
+
     static REF<VertexBuffer> Create(float *vertices, uint32_t size);
+    static REF<VertexBuffer> Create(uint32_t size);
 };
 }

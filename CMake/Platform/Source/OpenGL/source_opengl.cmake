@@ -4,11 +4,11 @@ file(
 
     # /Platform/OpenGL
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLContext.cpp"
-    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLContextProps.cpp"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLRendererAPI.cpp"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLSettings.cpp"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Editor/Grid/OpenGLGrid.cpp"
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Editor/Utilities/OpenGLDebugGuiLayer.cpp"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Pipeline/OpenGLIndexBuffer.cpp"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Pipeline/OpenGLVertexArray.cpp"
@@ -16,8 +16,11 @@ file(
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Shaders/OpenGLShader.cpp"
 
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Text/OpenGLTextRenderer.cpp"
+
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Textures/OpenGLTexture.cpp"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Textures/OpenGLTexture2D.cpp"
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Textures/OpenGLTextTexture.cpp"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Utilities/OpenGLUtilities.cpp"
 )
@@ -26,13 +29,15 @@ file(
     GLOB_RECURSE
     MPE_OPENGL_H
 
+    "${PROJECT_SOURCE_DIR}/MPE/MPEGFX_OPEN_GL.h"
+
     # /Platform/OpenGL
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLContext.h"
-    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLContextProps.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLRendererAPI.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLSettings.h"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Editor/Grid/OpenGLGrid.h"
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Editor/Utilities/OpenGLDebugGuiLayer.h"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Pipeline/OpenGLIndexBuffer.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Pipeline/OpenGLVertexArray.h"
@@ -40,8 +45,11 @@ file(
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Shaders/OpenGLShader.h"
 
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Text/OpenGLTextRenderer.h"
+
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Textures/OpenGLTexture.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Textures/OpenGLTexture2D.h"
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Textures/OpenGLTextTexture.h"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Utilities/OpenGLUtilities.h"
 )
