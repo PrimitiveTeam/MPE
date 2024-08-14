@@ -3,6 +3,7 @@
 
 #include "MPE/Core/_ASSERTS.h"
 #include "MPE/Log/GlobalLog.h"
+#include "Platform/OpenGLES/Utilities/OpenGLESUtilities.h"
 
 #include <GLES3/gl31.h>
 
@@ -76,6 +77,8 @@ void OpenGLESVertexArray::AddVertexBuffer(const REF<VertexBuffer> &vertexBuffer)
         glVertexAttribPointer(index, element.GetComponentCount(), ShaderDataTypeToOpenGLBaseType(element.Type), element.Normalized ? GL_TRUE : GL_FALSE,
                               layout.GetStride(), (const void *) (intptr_t) element.Offset);
         index++;
+
+        glCheckError();
     }
     SYS_VERTEXBUFFERS.push_back(vertexBuffer);
 }

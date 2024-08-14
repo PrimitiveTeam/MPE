@@ -84,6 +84,7 @@ void ColorAnimationTriangleTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(ColorAnimationTriangleTest::OnKeyPressedEvent));
+    SYS_CAMERA_CONTROLLER.OnEvent(event);
 }
 
 bool ColorAnimationTriangleTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)

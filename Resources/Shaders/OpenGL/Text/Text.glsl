@@ -1,9 +1,9 @@
 #type vertex
-#version 460 core
+#version 330 core
 
 // <vec2 pos, vec2 tex>
 layout (location = 0) in vec4 UNI_TEXTURE_COORDS;
-layout (location = 1) uniform mat4 UNI_PROJECTION_MATRIX;
+uniform mat4 UNI_PROJECTION_MATRIX;
 
 out vec2 VAR_TEXTURE_COORDS;
 
@@ -14,13 +14,13 @@ void main()
 }
 
 #type fragment
-#version 460 core
+#version 330 core
 
 in vec2 VAR_TEXTURE_COORDS;
 out vec4 color;
 
-layout (binding = 0) uniform sampler2D UNI_TEXT;
-layout (location = 6) uniform vec4 UNI_TEXT_COLOR;
+uniform sampler2D UNI_TEXT;
+uniform vec4 UNI_TEXT_COLOR;
 
 void main()
 {

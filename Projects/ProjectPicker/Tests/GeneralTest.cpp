@@ -250,10 +250,9 @@ void GeneralTest::OnImGuiRender()
 
 void GeneralTest::OnEvent(MPE::Event &event)
 {
-    SYS_CAMERA_CONTROLLER.OnEvent(event);
-
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(GeneralTest::OnKeyPressedEvent));
+    SYS_CAMERA_CONTROLLER.OnEvent(event);
 }
 
 bool GeneralTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)

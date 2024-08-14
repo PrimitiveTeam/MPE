@@ -13,6 +13,9 @@ class MPE_API OpenGLESSettings : public RenderSettings
   public:
     OpenGLESSettings();
 
+    GraphicalContextProps* GetGraphicalContextProps() { return _GRAPHICAL_CONTEXT_PROPS; }
+    std::string GetGraphicalContextPropsAsString();
+
     // VSYNC
     virtual void ToggleVsync() override;
     virtual bool GetVsync() const override;
@@ -41,6 +44,16 @@ class MPE_API OpenGLESSettings : public RenderSettings
     void TogglePolygonMode();
     bool GetPolygonMode() const;
     void SetPolygonMode(bool polygonMode);
+
+    // FACE CULLING
+    virtual void ToggleFaceCulling() override;
+    virtual bool GetFaceCulling() const override;
+    virtual void SetFaceCulling(bool faceCulling) override;
+
+    // DEBUG OUTPUT
+    virtual void ToggleDebugOutput() override;
+    virtual bool GetDebugOutput() const override;
+    virtual void SetDebugOutput(bool debugOutput) override;
 
     virtual std::string GetSettings() const override;
 

@@ -146,6 +146,7 @@ void TriangleTransformationTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(TriangleTransformationTest::OnKeyPressedEvent));
+    SYS_CAMERA_CONTROLLER.OnEvent(event);
 }
 
 bool TriangleTransformationTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)

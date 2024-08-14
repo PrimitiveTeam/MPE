@@ -1,7 +1,12 @@
 #pragma once
 
 #include "MPE.h"
-#include "MPEGFX_OPEN_GL.h"
+
+#ifdef MPE_OPENGL
+#    include "MPE/MPEGFX_OPEN_GL.h"
+#elif MPE_OPENGLES
+#    include "MPE/MPEGFX_OPEN_GL_ES.h"
+#endif
 
 #include <string>
 
@@ -30,8 +35,13 @@ class NativeTextTest : public MPE::Layer
     MPE::OrthographicCameraController SYS_CAMERA_CONTROLLER;
 
     // Text
+#ifdef MPE_OPENGL
     MPE::OpenGLTextRenderer SYS_TEXT_RENDERER;
+#elif MPE_OPENGLES
+    MPE::OpenGLESTextRenderer SYS_TEXT_RENDERER;
+#endif
 
+    std::string TEXT;
     float TEXT_COLOR[4];
     float TEXT_SCALE;
     float TEXT_BOX_LOCATION[2];

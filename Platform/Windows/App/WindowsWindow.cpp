@@ -69,7 +69,7 @@ void WindowsWindow::Init(const WindowProps &props)
     else
     {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     }
 
 // Allows OpenGL to send debug messages to provided callback function

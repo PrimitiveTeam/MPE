@@ -10,6 +10,8 @@ target_link_libraries(
   PUBLIC imgui
   PUBLIC glm::glm
   PUBLIC Stb
+  # PUBLIC freetype
+  PUBLIC ${FREETYPE_LIBRARIES}
 
   # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
 )
@@ -38,9 +40,10 @@ if(MPE_ANGLE)
 endif(MPE_ANGLE)
 
 # find_path(STB_INCLUDE_DIRS "stb_c_lexer.h")
-target_include_directories(MPE
-  PUBLIC
-  ${Stb_INCLUDE_DIRS}
+target_include_directories(
+  MPE
+  PUBLIC ${Stb_INCLUDE_DIRS}
+  PUBLIC ${FREETYPE_INCLUDE_DIRS}
 )
 
 # ADD MPEPCH.H AS A PRECOMPILED HEADER FILE

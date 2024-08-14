@@ -4,11 +4,11 @@ file(
 
     # /Platform/OpenGL
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLContext.cpp"
-    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLContextProps.cpp"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLRendererAPI.cpp"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLSettings.cpp"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Editor/Grid/OpenGLGrid.cpp"
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Editor/Utilities/OpenGLDebugGuiLayer.cpp"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Pipeline/OpenGLIndexBuffer.cpp"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Pipeline/OpenGLVertexArray.cpp"
@@ -33,11 +33,11 @@ file(
 
     # /Platform/OpenGL
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLContext.h"
-    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLContextProps.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLRendererAPI.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLSettings.h"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Editor/Grid/OpenGLGrid.h"
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Editor/Utilities/OpenGLDebugGuiLayer.h"
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Pipeline/OpenGLIndexBuffer.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/Pipeline/OpenGLVertexArray.h"

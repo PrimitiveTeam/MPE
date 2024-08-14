@@ -32,6 +32,7 @@ Download and install the following libraries with brew:
 2. [spdlog](https://github.com/gabime/spdlog)
 3. [glfw3](https://github.com/glfw/glfw)
 4. [glm](https://github.com/g-truc/glm)
+5. [freetype](https://freetype.org/)
 
 <!-- TODO: Need to make gtest a universal package and built locally -->
 

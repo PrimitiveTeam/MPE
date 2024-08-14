@@ -11,6 +11,32 @@ void OpenGLRendererAPI::Init()
 {
     SYS_Settings = new OpenGLSettings();
 
+    // std::string OpenGL_INFO = "\nOpenGL Info:\n";
+
+    auto graphicalContextProps = SYS_Settings->GetGraphicalContextProps();
+    int OpenGLVersionMajor;
+    int OpenGLVersionMinor;
+    glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
+    glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersionMinor);
+
+    // OpenGL_INFO += "\tOpenGL Version: " + std::to_string(OpenGLVersionMajor) + "." + std::to_string(OpenGLVersionMinor) + "\n";
+    graphicalContextProps->MajorVersion = OpenGLVersionMajor;
+    graphicalContextProps->MinorVersion = OpenGLVersionMinor;
+
+#ifdef MPE_PLATFORM_WINDOWS
+    MPE_CORE_ASSERT(OpenGLVersionMajor > 4 || (OpenGLVersionMajor == 4 && OpenGLVersionMinor >= 6), "MPE REQUIRES OPENGL VERSION 4.6 OR GREATER.");
+#elif MPE_PLATFORM_OSX
+    MPE_CORE_ASSERT(OpenGLVersionMajor >= 3 || (OpenGLVersionMajor >= 3 && OpenGLVersionMinor >= 2), "MPE REQUIRES OPENGL VERSION 3.2 FOR macOS.");
+#else
+    MPE_CORE_ASSERT(OpenGLVersionMajor > 4 || (OpenGLVersionMajor == 4 && OpenGLVersionMinor >= 6), "MPE REQUIRES OPENGL VERSION 4.6 OR GREATER.");
+#endif
+
+    graphicalContextProps->Vendor = std::string(reinterpret_cast<const char *>(glGetString(GL_VENDOR)));
+    graphicalContextProps->Renderer = std::string(reinterpret_cast<const char *>(glGetString(GL_RENDERER)));
+    graphicalContextProps->ShaderTypeAmount = OPENGL_SHADER_TYPE_AMOUNT;
+
+    MPE_CORE_INFO('\n' + SYS_Settings->GetGraphicalContextPropsAsString());
+
     SYS_Settings->SetVsync(false);
     SYS_Settings->SetBlend(true);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -21,7 +47,9 @@ void OpenGLRendererAPI::Init()
     SYS_Settings->SetFaceCulling(false);
     SYS_Settings->SetDebugOutput(true);
 
-    MPE_CORE_WARN("Causing OpenGL errors to test error handling.");
+    MPE_CORE_WARN("Checking for any errors caused by settings...");
+    glCheckError();
+    MPE_CORE_WARN("Causing OpenGL errors to test error handling...");
 
     if (SYS_Settings->GetDebugOutput())
         glDebugMessageInsert(GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_MARKER, 1, GL_DEBUG_SEVERITY_NOTIFICATION, -1, "This is a debug test.");
