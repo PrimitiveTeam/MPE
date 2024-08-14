@@ -68,6 +68,10 @@ void macOSWindow::Init(const WindowProps &props)
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     }
 
+#ifdef MPE_ENABLE_DEBUG_LOG
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+#endif
+
     SYS_Window = glfwCreateWindow((int) props.Width, (int) props.Height, SYS_Data.Title.c_str(), nullptr, nullptr);
     SaveWindowSizeAndPosition();
 
@@ -96,6 +100,17 @@ void macOSWindow::Init(const WindowProps &props)
     glfwSetWindowUserPointer(SYS_Window, &SYS_Data);
 
     // SET GLFW CALLBACKS
+    glfwSetWindowPosCallback(SYS_Window,
+                             [](GLFWwindow *window, int x, int y)
+                             {
+                                 WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
+                                 data.WindowPositionX = x;
+                                 data.WindowPositionY = y;
+
+                                 WindowMovedEvent event(x, y);
+                                 data.EventCallback(event);
+                             });
+
     glfwSetWindowSizeCallback(SYS_Window,
                               [](GLFWwindow *window, int width, int height)
                               {
