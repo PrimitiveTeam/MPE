@@ -282,6 +282,8 @@ std::string OpenGLSettings::GetSettings() const
 
 void OpenGLSettings::UpdateSettings()
 {
+    glCheckError();
+
 #if MPE_PLATFORM_LINUX
     auto vsyncIt = _SETTINGS.find("VSYNC");
     if (vsyncIt != _SETTINGS.end()) vsyncIt->second.second = _VSYNC;
