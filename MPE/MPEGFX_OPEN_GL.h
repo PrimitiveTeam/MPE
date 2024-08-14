@@ -3,7 +3,6 @@
 // This will be used to include all core headers for specific platforms.
 
 // ----- OPEN GL -----
-#include "Platform/OpenGL/OpenGLContextProps.h"
 #include "Platform/OpenGL/OpenGLContext.h"
 #include "Platform/OpenGL/OpenGLRendererAPI.h"
 #include "Platform/OpenGL/OpenGLSettings.h"

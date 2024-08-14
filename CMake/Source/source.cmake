@@ -139,7 +139,6 @@ file(
 
     # /Renderer
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/GraphicalContext.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Renderer/GraphicalContextProps.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Renderer.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Renderer2D.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/RendererAPI.h"

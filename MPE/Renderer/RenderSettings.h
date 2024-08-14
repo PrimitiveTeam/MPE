@@ -10,6 +10,18 @@
 
 namespace MPE
 {
+struct MPE_API GraphicalContextProps
+{
+    int MajorVersion;
+    int MinorVersion;
+
+    std::string Vendor;
+    std::string Renderer;
+    int ShaderTypeAmount;
+
+    // virtual std::string ToString() const;
+};
+
 class MPE_API RenderSettings
 {
   public:
@@ -50,10 +62,12 @@ class MPE_API RenderSettings
     virtual std::string GetSettings() const = 0;
 
   protected:
+    RenderSettings();
     virtual void UpdateSettings() = 0;
     virtual void SendEvent(std::string name, int32_t value) = 0;
 
   protected:
+    GraphicalContextProps* _GRAPHICAL_CONTEXT_PROPS;
     bool _VSYNC;
     bool _LIMIT_FPS;
     uint8_t _MAX_FPS;

@@ -33,6 +33,19 @@ OpenGLSettings::OpenGLSettings()
 #endif
 }
 
+// GRAPHICAL CONTEXT PROPS
+
+std::string OpenGLSettings::GetGraphicalContextPropsAsString()
+{
+    std::string OpenGLInfo = "OpenGL Info:\n";
+    OpenGLInfo += "\tVersion: " + std::to_string(_GRAPHICAL_CONTEXT_PROPS->MajorVersion) + "." + std::to_string(_GRAPHICAL_CONTEXT_PROPS->MinorVersion) + "\n";
+    OpenGLInfo += "\tVendor: " + _GRAPHICAL_CONTEXT_PROPS->Vendor + "\n";
+    OpenGLInfo += "\tRenderer: " + _GRAPHICAL_CONTEXT_PROPS->Renderer + "\n";
+    OpenGLInfo += "\tHardcode shader type limit: " + std::to_string(_GRAPHICAL_CONTEXT_PROPS->ShaderTypeAmount);
+
+    return OpenGLInfo;
+}
+
 // VSYNC
 
 void OpenGLSettings::ToggleVsync()
@@ -228,6 +241,7 @@ bool OpenGLSettings::GetDebugOutput() const
 
 void OpenGLSettings::SetDebugOutput(bool debugOutput)
 {
+
     _DEBUG_OUTPUT = debugOutput;
 
     if (_DEBUG_OUTPUT)

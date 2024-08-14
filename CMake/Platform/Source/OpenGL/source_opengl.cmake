@@ -4,7 +4,6 @@ file(
 
     # /Platform/OpenGL
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLContext.cpp"
-    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLContextProps.cpp"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLRendererAPI.cpp"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLSettings.cpp"
 
@@ -34,7 +33,6 @@ file(
 
     # /Platform/OpenGL
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLContext.h"
-    "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLContextProps.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLRendererAPI.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGL/OpenGLSettings.h"
 
