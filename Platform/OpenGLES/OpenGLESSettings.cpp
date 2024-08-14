@@ -4,6 +4,7 @@
 #include "MPE/App/App.h"
 #include "MPE/Events/EventGraphics.h"
 #include "Platform/OpenGLES/OpenGLESContext.h"
+#include "Platform/OpenGLES/Utilities/OpenGLESUtilities.h"
 
 #include <GLFW/glfw3.h>
 #include <EGL/egl.h>
@@ -13,6 +14,10 @@ namespace MPE
 {
 OpenGLESSettings::OpenGLESSettings()
 {
+    // Compatibility issues, so setting to false by default to not mislead the users.
+    _POLYGON_MODE = false;
+    _DEBUG_OUTPUT = false;
+
 #if MPE_PLATFORM_LINUX
     _SETTINGS.insert(std::make_pair("VSYNC", std::make_pair("VSYNC", _VSYNC)));
     _SETTINGS.insert(std::make_pair("LIMIT_FPS", std::make_pair("LIMIT_FPS", _LIMIT_FPS)));
@@ -32,6 +37,20 @@ OpenGLESSettings::OpenGLESSettings()
     _SETTINGS["FACE_CULLING"] = std::make_pair("FACE_CULLING", _FACE_CULLING);
     _SETTINGS["DEBUG_OUTPUT"] = std::make_pair("DEBUG_OUTPUT", _DEBUG_OUTPUT);
 #endif
+}
+
+// GRAPHICAL CONTEXT PROPS
+
+std::string OpenGLESSettings::GetGraphicalContextPropsAsString()
+{
+    std::string OpenGLESInfo = "OpenGLES Info:\n";
+    OpenGLESInfo +=
+        "\tVersion: " + std::to_string(_GRAPHICAL_CONTEXT_PROPS->MajorVersion) + "." + std::to_string(_GRAPHICAL_CONTEXT_PROPS->MinorVersion) + "\n";
+    OpenGLESInfo += "\tVendor: " + _GRAPHICAL_CONTEXT_PROPS->Vendor + "\n";
+    OpenGLESInfo += "\tRenderer: " + _GRAPHICAL_CONTEXT_PROPS->Renderer + "\n";
+    OpenGLESInfo += "\tHardcode shader type limit: " + std::to_string(_GRAPHICAL_CONTEXT_PROPS->ShaderTypeAmount);
+
+    return OpenGLESInfo;
 }
 
 // VSYNC
@@ -194,17 +213,17 @@ void OpenGLESSettings::SetPolygonMode(bool polygonMode)
 
 // FACE CULLING
 
-void OpenGLSettings::ToggleFaceCulling()
+void OpenGLESSettings::ToggleFaceCulling()
 {
     this->SetFaceCulling(!_FACE_CULLING);
 }
 
-bool OpenGLSettings::GetFaceCulling() const
+bool OpenGLESSettings::GetFaceCulling() const
 {
     return _FACE_CULLING;
 }
 
-void OpenGLSettings::SetFaceCulling(bool faceCulling)
+void OpenGLESSettings::SetFaceCulling(bool faceCulling)
 {
     _FACE_CULLING = faceCulling;
 
@@ -222,36 +241,43 @@ void OpenGLSettings::SetFaceCulling(bool faceCulling)
 
 // DEBUG OUTPUT
 
-void OpenGLSettings::ToggleDebugOutput()
+void OpenGLESSettings::ToggleDebugOutput()
 {
     this->SetDebugOutput(!_DEBUG_OUTPUT);
 }
 
-bool OpenGLSettings::GetDebugOutput() const
+bool OpenGLESSettings::GetDebugOutput() const
 {
     return _DEBUG_OUTPUT;
 }
 
-void OpenGLSettings::SetDebugOutput(bool debugOutput)
+void OpenGLESSettings::SetDebugOutput(bool debugOutput)
 {
-    _DEBUG_OUTPUT = debugOutput;
-
-    if (_DEBUG_OUTPUT)
+    // This is not available on OpenGLES < 3.2
+    if (OpenGLESUtilities::IsOpenGLESVersionLowerThan(3, 2))
     {
-        glEnable(GL_DEBUG_OUTPUT);
-        glDebugMessageCallback((GLDEBUGPROC) OpenGLUtilities::LogOpenGLDebugOutput, nullptr);
-    }
-    else
-    {
-        glDisable(GL_DEBUG_OUTPUT);
-        glDebugMessageCallback(nullptr, nullptr);
+        MPE_CORE_WARN("Debug output is not available on OpenGLES version lower than 3.2.");
+        return;
     }
 
-#if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("DEBUG_OUTPUT", _DEBUG_OUTPUT);
-#else
-    UpdateSettingsAndSendEvent(_SETTINGS["DEBUG_OUTPUT"].first, _DEBUG_OUTPUT);
-#endif
+//     _DEBUG_OUTPUT = debugOutput;
+
+//     if (_DEBUG_OUTPUT)
+//     {
+//         glEnable(GL_DEBUG_OUTPUT);
+//         glDebugMessageCallback((GLDEBUGPROC) OpenGLESUtilities::LogOpenGLDebugOutput, nullptr);
+//     }
+//     else
+//     {
+//         glDisable(GL_DEBUG_OUTPUT);
+//         glDebugMessageCallback(nullptr, nullptr);
+//     }
+
+// #if MPE_PLATFORM_LINUX
+//     UpdateSettingsAndSendEvent("DEBUG_OUTPUT", _DEBUG_OUTPUT);
+// #else
+//     UpdateSettingsAndSendEvent(_SETTINGS["DEBUG_OUTPUT"].first, _DEBUG_OUTPUT);
+// #endif
 }
 
 // SETTINGS

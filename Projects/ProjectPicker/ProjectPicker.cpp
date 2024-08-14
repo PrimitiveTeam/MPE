@@ -8,6 +8,7 @@
 #    include "Platform/OpenGL/Editor/Utilities/OpenGLDebugGuiLayer.h"
 #elif MPE_OPENGLES
 #    include "MPE/MPEGFX_OPEN_GL_ES.h"
+#    include "Platform/OpenGLES/Editor/Utilities/OpenGLESDebugGuiLayer.h"
 #endif
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
 #include "MPE/Renderer/RendererUtilities.h"
@@ -204,8 +205,12 @@ class ProjectPicker : public MPE::App
 #ifdef MPE_DYNAMIC_LIBRARY
         ImGui::SetCurrentContext(this->GetImGuiContext());
 #endif
-        // PushLayer(MPE::NEWREF<MainMenuLayer>());
+// PushLayer(MPE::NEWREF<MainMenuLayer>());
+#ifdef MPE_OPENGL
         PushLayer(MPE::NEWREF<MPE::OpenGLDebugGuiLayer>());
+#elif MPE_OPENGLES
+        PushLayer(MPE::NEWREF<MPE::OpenGLESDebugGuiLayer>());
+#endif
         PushOverlay(MPE::NEWREF<ProjectPickerGuiLayer>());
     }
 

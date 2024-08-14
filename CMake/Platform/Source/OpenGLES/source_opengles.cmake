@@ -4,7 +4,6 @@ file(
 
     # /Platform/OpenGLES
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/OpenGLESContext.cpp"
-    "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/OpenGLESContextProps.cpp"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/OpenGLESRendererAPI.cpp"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/OpenGLESSettings.cpp"
 
@@ -17,8 +16,13 @@ file(
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Shaders/OpenGLESShader.cpp"
 
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Text/OpenGLESTextRenderer.cpp"
+
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Textures/OpenGLESTexture.cpp"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Textures/OpenGLESTexture2D.cpp"
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Textures/OpenGLESTextTexture.cpp"
+
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Utilities/OpenGLESUtilities.cpp"
 )
 
 file(
@@ -29,7 +33,6 @@ file(
 
     # /Platform/OpenGLES
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/OpenGLESContext.h"
-    "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/OpenGLESContextProps.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/OpenGLESRendererAPI.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/OpenGLESSettings.h"
 
@@ -42,8 +45,13 @@ file(
 
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Shaders/OpenGLESShader.h"
 
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Text/OpenGLESTextRenderer.h"
+
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Textures/OpenGLESTexture.h"
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Textures/OpenGLESTexture2D.h"
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Textures/OpenGLESTextTexture.h"
+
+    "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/Utilities/OpenGLESUtilities.h"
 )
 
 # ADD MPE OPENGLES SOURCE FILES

@@ -1,7 +1,7 @@
 #include "OpenGLESDebugGuiLayer.h"
 
 #include "MPE/App/App.h"
-#include "Platform/OpenGL/OpenGLSettings.h"
+#include "Platform/OpenGLES/OpenGLESSettings.h"
 
 #include <imgui.h>
 

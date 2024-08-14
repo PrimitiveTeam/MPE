@@ -13,6 +13,9 @@ class MPE_API OpenGLESSettings : public RenderSettings
   public:
     OpenGLESSettings();
 
+    GraphicalContextProps* GetGraphicalContextProps() { return _GRAPHICAL_CONTEXT_PROPS; }
+    std::string GetGraphicalContextPropsAsString();
+
     // VSYNC
     virtual void ToggleVsync() override;
     virtual bool GetVsync() const override;

@@ -3,8 +3,8 @@
 
 #include "MPE/Core/_ASSERTS.h"
 #include "MPE/Log/GlobalLog.h"
-// #include "MPE/Renderer/RendererAPI.h"
 #include "MPE/Renderer/Shaders/ShaderUtils.h"
+#include "Platform/OpenGLES/Utilities/OpenGLESUtilities.h"
 
 #if MPE_PLATFORM_LINUX
 #    include <GLES3/gl31.h>
@@ -221,6 +221,8 @@ void OpenGLESShader::Compile(std::unordered_map<GLenum, std::string> &shaders)
         MPE_CORE_ASSERT(false, "SHADER FAILED TO LINK.");
         return;
     }
+
+    glCheckError();
 
     for (auto id : glShaderIDs)
     {

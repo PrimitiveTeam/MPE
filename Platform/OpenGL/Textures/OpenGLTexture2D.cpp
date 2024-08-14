@@ -21,9 +21,11 @@ OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height) : WIDTH(width)
 
     glCheckError();
 
-    glTexImage2D(GL_TEXTURE_2D, 0, INTERNAL_FORMAT, WIDTH, HEIGHT, 0, DATA_FORMAT, GL_UNSIGNED_BYTE, nullptr);
-
     glBindTexture(GL_TEXTURE_2D, SYS_RENDERER_ID);
+
+    glCheckError();
+
+    glTexImage2D(GL_TEXTURE_2D, 0, INTERNAL_FORMAT, WIDTH, HEIGHT, 0, DATA_FORMAT, GL_UNSIGNED_BYTE, nullptr);
 
     glCheckError();
 
