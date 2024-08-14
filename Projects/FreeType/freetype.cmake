@@ -1,4 +1,8 @@
-add_executable(FREETYPE_TEST "${PROJECT_SOURCE_DIR}/Projects/FreeType/main.cpp")
+if(COMPILATION_PLATFORM STREQUAL "WIN32")
+  add_executable(FREETYPE_TEST "${PROJECT_SOURCE_DIR}/Projects/FreeType/main.cpp")
+elseif(COMPILATION_PLATFORM STREQUAL "OSX")
+  add_executable(FREETYPE_TEST "${PROJECT_SOURCE_DIR}/Projects/FreeType/main_osx.cpp")
+endif()
 
 target_link_libraries(FREETYPE_TEST PRIVATE
   MPE
