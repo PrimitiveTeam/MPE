@@ -144,6 +144,9 @@ if(${VCPKG_CUSTOM_PATHS})
     # SETTING FREETYPE-GL
     # set(freetype-gl_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\freetype-gl")
 
+    # SETTING OPENAL
+    set(OpenAL_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\openal-soft")
+
 
     if(${VERBOSE})
         message("
@@ -158,7 +161,7 @@ if(${VCPKG_CUSTOM_PATHS})
 * Stb_DIR: ${Stb_DIR}
 * OpenCV_DIR: ${OpenCV_DIR}
 * FreeType_DIR: ${freetype_DIR}
-# * FreeTypeGL_DIR: ${freetype-gl_DIR}
+* OpenAL_DIR: ${OpenAL_DIR}
 ...........................................................")
 
         # message(STATUS "OpenCV DLLs: ${OpenCV_DLLs}")
