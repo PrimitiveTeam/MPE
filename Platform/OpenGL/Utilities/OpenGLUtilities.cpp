@@ -136,4 +136,54 @@ GLenum OpenGLUtilities::glCheckError_(const char *file, int line)
     }
     return errorCode;
 }
+
+bool OpenGLUtilities::IsOpenGLVersionHigherThan(int major, int minor)
+{
+    int OpenGLVersionMajor;
+    int OpenGLVersionMinor;
+    glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
+    glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersionMinor);
+
+    return OpenGLVersionMajor > major || (OpenGLVersionMajor == major && OpenGLVersionMinor > minor);
+}
+
+bool OpenGLUtilities::IsOpenGLVersionLowerThan(int major, int minor)
+{
+    int OpenGLVersionMajor;
+    int OpenGLVersionMinor;
+    glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
+    glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersionMinor);
+
+    return OpenGLVersionMajor < major || (OpenGLVersionMajor == major && OpenGLVersionMinor < minor);
+}
+
+bool OpenGLUtilities::IsOpenGLVersionEqualTo(int major, int minor)
+{
+    int OpenGLVersionMajor;
+    int OpenGLVersionMinor;
+    glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
+    glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersionMinor);
+
+    return OpenGLVersionMajor == major && OpenGLVersionMinor == minor;
+}
+
+bool OpenGLUtilities::IsOpenGLVersionHigherOrEqualTo(int major, int minor)
+{
+    int OpenGLVersionMajor;
+    int OpenGLVersionMinor;
+    glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
+    glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersionMinor);
+
+    return OpenGLVersionMajor > major || (OpenGLVersionMajor == major && OpenGLVersionMinor >= minor);
+}
+
+bool OpenGLUtilities::IsOpenGLVersionLowerOrEqualTo(int major, int minor)
+{
+    int OpenGLVersionMajor;
+    int OpenGLVersionMinor;
+    glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
+    glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersionMinor);
+
+    return OpenGLVersionMajor < major || (OpenGLVersionMajor == major && OpenGLVersionMinor <= minor);
+}
 }
