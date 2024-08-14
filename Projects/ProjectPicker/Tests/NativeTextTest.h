@@ -32,6 +32,7 @@ class NativeTextTest : public MPE::Layer
     // Text
     MPE::OpenGLTextRenderer SYS_TEXT_RENDERER;
 
+    std::string TEXT;
     float TEXT_COLOR[4];
     float TEXT_SCALE;
     float TEXT_BOX_LOCATION[2];

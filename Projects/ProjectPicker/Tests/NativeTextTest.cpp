@@ -20,6 +20,7 @@ NativeTextTest::NativeTextTest()
 {
     // SYS_TEXT_RENDERER = MPE::OpenGLTextRenderer("Data/Shaders/Text/Text.glsl", "Data/Fonts/Hack_v3_003/Hack-Regular.ttf", 64,
     // &SYS_CAMERA_CONTROLLER.GetCamera());
+    TEXT = "Hello World!";
 }
 
 void NativeTextTest::OnUpdate(MPE::Time deltatime)
@@ -31,7 +32,7 @@ void NativeTextTest::OnUpdate(MPE::Time deltatime)
 
     // MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER.GetCamera());
 
-    SYS_TEXT_RENDERER.RenderText("Hello World!", TEXT_BOX_LOCATION[0], TEXT_BOX_LOCATION[1], TEXT_SCALE,
+    SYS_TEXT_RENDERER.RenderText(TEXT, TEXT_BOX_LOCATION[0], TEXT_BOX_LOCATION[1], TEXT_SCALE,
                                  glm::vec4(TEXT_COLOR[0], TEXT_COLOR[1], TEXT_COLOR[2], TEXT_COLOR[3]));
     SYS_TEXT_RENDERER.RenderAllASCII(500.0f, 500.0f, 1.0f, glm::vec4(0.88f, 0.59f, 0.07f, 1.0f));
 
@@ -49,6 +50,15 @@ void NativeTextTest::OnImGuiRender()
     ImGui::Separator();
 
     ImGui::Text("TEXT VARIABLES");
+
+    static char buffer[256];
+    strncpy(buffer, TEXT.c_str(), sizeof(buffer));
+    buffer[sizeof(buffer) - 1] = 0;
+
+    if (ImGui::InputText("TEXT", buffer, sizeof(buffer)))
+    {
+        TEXT = std::string(buffer);
+    }
 
     ImGui::ColorEdit4("TEXT COLOR", TEXT_COLOR);
     ImGui::SliderFloat("TEXT SCALE", &TEXT_SCALE, 0.0f, 5.0f);
