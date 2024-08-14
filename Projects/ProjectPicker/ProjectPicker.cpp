@@ -33,6 +33,8 @@
 
 #include "Tests/NativeTextTest.h"
 
+#include "Tests/SimpleAudioTest.h"
+
 class ProjectPickerGuiLayer : public MPE::Layer
 {
   public:
@@ -159,6 +161,13 @@ class ProjectPickerGuiLayer : public MPE::Layer
                 MPE::App::GetApp().PushLayer(m_LayerRefs[10]);
             }
 
+            if (ImGui::Button("Open Simple Audio Test"))
+            {
+                m_Layers[11] = true;
+                m_LayerRefs[11] = MPE::NEWREF<SimpleAudioTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[11]);
+            }
+
             // if (ImGui::Button("Open General Layer"))
             // {
             //     m_Layers[1] = true;
@@ -191,7 +200,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
     }
 
   private:
-    static const size_t MAX_LAYERS = 11;
+    static const size_t MAX_LAYERS = 12;
     std::array<bool, MAX_LAYERS> m_Layers = {false};
     MPE::REF<MPE::Layer> m_LayerRefs[MAX_LAYERS];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();
