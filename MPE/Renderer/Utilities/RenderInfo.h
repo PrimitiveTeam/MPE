@@ -5,13 +5,13 @@
 
 namespace MPE
 {
-struct MPE_API WINDOW_FPS_MS
+struct MPE_API WindowFpsMs
 {
     float FPS;
     float MS;
 
     // Default constructor
-    WINDOW_FPS_MS() : FPS(0.0f), MS(0.0f) {}
+    WindowFpsMs() : FPS(0.0f), MS(0.0f) {}
 
     // Update the FPS and MS
     void Update(Time deltaTime)

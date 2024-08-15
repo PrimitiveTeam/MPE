@@ -39,7 +39,7 @@ void OpenGLDebugGuiLayer::DebugMenu()
 
     // GetFPS_MS from App/Renderer
     // Display FPS/ms
-    auto fps_ms = MPE::App::GetFPS_MS();
+    auto fps_ms = MPE::App::GetFpsMs();
     ImGui::Text("FPS: %.1f", fps_ms.FPS);
     ImGui::Text("MS: %.3f", fps_ms.MS);
 

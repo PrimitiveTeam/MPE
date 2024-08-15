@@ -5,7 +5,7 @@
 #include "MPE/Renderer/RenderPrimitive.h"
 #include "MPE/Renderer/Cameras/OrthographicCamera.h"
 #include "MPE/Renderer/Shaders/Shader.h"
-#include "MPE/Renderer/RenderInformation/RenderInfo.h"
+#include "MPE/Renderer/Utilities/RenderInfo.h"
 
 namespace MPE
 {
@@ -23,9 +23,9 @@ class MPE_API Renderer
     inline static RendererAPI::API GetCurrentGraphicsAPI() { return RendererAPI::GetGraphicsAPI(); }
 
     // Update the FPS and MS
-    inline static void UpdateFPS_MS(Time deltaTime) { SYS_WINDOW_FPS_MS->Update(deltaTime); }
+    inline static void UpdateFpsMs(Time deltaTime) { SYS_WINDOW_FPS_MS->Update(deltaTime); }
     // Get the FPSMS struct
-    inline static WINDOW_FPS_MS GetFPS_MS() { return *SYS_WINDOW_FPS_MS; }
+    inline static WindowFpsMs GetFpsMs() { return *SYS_WINDOW_FPS_MS; }
 
     // Set API
     inline static void SetGraphicsAPI(RendererAPI::API api) { RenderPrimitive::SetGraphicsAPI(api); }
@@ -38,6 +38,6 @@ class MPE_API Renderer
 
     static SceneData *SYS_SCENE;
 
-    static REF<WINDOW_FPS_MS> SYS_WINDOW_FPS_MS;
+    static REF<WindowFpsMs> SYS_WINDOW_FPS_MS;
 };
 }
