@@ -23,9 +23,9 @@ class MPE_API Renderer
     inline static RendererAPI::API GetCurrentGraphicsAPI() { return RendererAPI::GetGraphicsAPI(); }
 
     // Update the FPS and MS
-    inline static void UpdateFpsMs(Time deltaTime) { SYS_WINDOW_FPS_MS->Update(deltaTime); }
+    inline static void UpdateFpsMs(Time deltaTime) { m_windowFpsMs->Update(deltaTime); }
     // Get the FPSMS struct
-    inline static WindowFpsMs GetFpsMs() { return *SYS_WINDOW_FPS_MS; }
+    inline static WindowFpsMs GetFpsMs() { return *m_windowFpsMs; }
 
     // Set API
     inline static void SetGraphicsAPI(RendererAPI::API api) { RenderPrimitive::SetGraphicsAPI(api); }
@@ -33,11 +33,11 @@ class MPE_API Renderer
   private:
     struct SceneData
     {
-        glm::mat4 PROJECTION_VIEW_MATRIX;
+        glm::mat4 m_projectionViewMatrix;
     };
 
-    static SceneData *SYS_SCENE;
+    static SceneData *m_scene;
 
-    static REF<WindowFpsMs> SYS_WINDOW_FPS_MS;
+    static REF<WindowFpsMs> m_windowFpsMs;
 };
 }

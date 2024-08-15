@@ -7,64 +7,64 @@
 namespace MPE
 {
 OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation)
-    : ASPECT_RATIO(aspectRatio),
-      CAMERA(-ASPECT_RATIO * ZOOM_LEVEL, ASPECT_RATIO * ZOOM_LEVEL, -ZOOM_LEVEL, ZOOM_LEVEL),
-      ROTATION(rotation),
-      CAMERA_DEFAULT_SPEEDS{// CAMERA MOVEMENT SPEED
-                            1.0f,
-                            // CAMERA ROTATION SPEED
-                            30.0f},
-      CAMERA_MOVEMENT_SPEED(CAMERA_DEFAULT_SPEEDS[0]),
-      CAMERA_ROTATION_SPEED(CAMERA_DEFAULT_SPEEDS[1])
+    : m_aspectRatio(aspectRatio),
+      m_camera(-m_aspectRatio * m_zoomLevel, m_aspectRatio * m_zoomLevel, -m_zoomLevel, m_zoomLevel),
+      m_rotation(rotation),
+      m_cameraDefaultSpeed{// CAMERA MOVEMENT SPEED
+                           1.0f,
+                           // CAMERA ROTATION SPEED
+                           30.0f},
+      m_cameraMovementSpeed(m_cameraDefaultSpeed[0]),
+      m_cameraRotationSpeed(m_cameraDefaultSpeed[1])
 {
 }
 
-void OrthographicCameraController::OnUpdate(Time deltatime)
+void OrthographicCameraController::OnUpdate(Time deltaTime)
 {
     // CAMERA SPEED MULTIPLIER
     if (Input::IsKeyPressed(MPE_KEY_LEFT_SHIFT))
     {
-        CAMERA_MOVEMENT_SPEED = CAMERA_DEFAULT_SPEEDS[0] * 2;
-        CAMERA_ROTATION_SPEED = CAMERA_DEFAULT_SPEEDS[1] * 2;
+        m_cameraMovementSpeed = m_cameraDefaultSpeed[0] * 2;
+        m_cameraRotationSpeed = m_cameraDefaultSpeed[1] * 2;
     }
     else
     {
-        CAMERA_MOVEMENT_SPEED = CAMERA_DEFAULT_SPEEDS[0];
-        CAMERA_ROTATION_SPEED = CAMERA_DEFAULT_SPEEDS[1];
+        m_cameraMovementSpeed = m_cameraDefaultSpeed[0];
+        m_cameraRotationSpeed = m_cameraDefaultSpeed[1];
     }
     // CAMERA MOVEMENT
     if (Input::IsKeyPressed(MPE_KEY_A))
     {
-        CAMERA_POSITION.x -= CAMERA_MOVEMENT_SPEED * deltatime;
+        m_cameraPosition.x -= m_cameraMovementSpeed * deltaTime;
     }
     if (Input::IsKeyPressed(MPE_KEY_D))
     {
-        CAMERA_POSITION.x += CAMERA_MOVEMENT_SPEED * deltatime;
+        m_cameraPosition.x += m_cameraMovementSpeed * deltaTime;
     }
     if (Input::IsKeyPressed(MPE_KEY_S))
     {
-        CAMERA_POSITION.y -= CAMERA_MOVEMENT_SPEED * deltatime;
+        m_cameraPosition.y -= m_cameraMovementSpeed * deltaTime;
     }
     if (Input::IsKeyPressed(MPE_KEY_W))
     {
-        CAMERA_POSITION.y += CAMERA_MOVEMENT_SPEED * deltatime;
+        m_cameraPosition.y += m_cameraMovementSpeed * deltaTime;
     }
-    CAMERA.SetPosition(CAMERA_POSITION);
+    m_camera.SetPosition(m_cameraPosition);
     // CAMERA ROTATION
-    if (ROTATION)
+    if (m_rotation)
     {
         if (Input::IsKeyPressed(MPE_KEY_E))
         {
-            CAMERA_ROTATION -= CAMERA_ROTATION_SPEED * deltatime;
+            m_cameraRotation -= m_cameraRotationSpeed * deltaTime;
         }
         if (Input::IsKeyPressed(MPE_KEY_Q))
         {
-            CAMERA_ROTATION += CAMERA_ROTATION_SPEED * deltatime;
+            m_cameraRotation += m_cameraRotationSpeed * deltaTime;
         }
-        CAMERA.SetRotation(CAMERA_ROTATION);
+        m_camera.SetRotation(m_cameraRotation);
     }
 
-    CAMERA_MOVEMENT_SPEED = ZOOM_LEVEL;
+    m_cameraMovementSpeed = m_zoomLevel;
 }
 
 void OrthographicCameraController::OnEvent(Event &e)
@@ -76,41 +76,41 @@ void OrthographicCameraController::OnEvent(Event &e)
 
 bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent &e)
 {
-    ZOOM_LEVEL -= e.GetYOffset() * CAMERA_ZOOM_SPEED;
-    ZOOM_LEVEL = std::max(ZOOM_LEVEL, MAX_ZOOM_LEVEL);
-    CAMERA.SetProjection(-ASPECT_RATIO * ZOOM_LEVEL, ASPECT_RATIO * ZOOM_LEVEL, -ZOOM_LEVEL, ZOOM_LEVEL);
+    m_zoomLevel -= e.GetYOffset() * m_cameraZoomSpeed;
+    m_zoomLevel = std::max(m_zoomLevel, m_maxZoomLevel);
+    m_camera.SetProjection(-m_aspectRatio * m_zoomLevel, m_aspectRatio * m_zoomLevel, -m_zoomLevel, m_zoomLevel);
     return false;
 }
 
 bool OrthographicCameraController::OnWindowResized(WindowResizeEvent &e)
 {
-    ASPECT_RATIO = (float) e.GetWidth() / (float) e.GetHeight();
-    CAMERA.SetProjection(-ASPECT_RATIO * ZOOM_LEVEL, ASPECT_RATIO * ZOOM_LEVEL, -ZOOM_LEVEL, ZOOM_LEVEL);
+    m_aspectRatio = (float) e.GetWidth() / (float) e.GetHeight();
+    m_camera.SetProjection(-m_aspectRatio * m_zoomLevel, m_aspectRatio * m_zoomLevel, -m_zoomLevel, m_zoomLevel);
     return false;
 }
 
 void OrthographicCameraController::SetPosition(float x, float y, float z)
 {
-    CAMERA_POSITION = {x, y, z};
-    CAMERA.SetPosition(CAMERA_POSITION);
+    m_cameraPosition = {x, y, z};
+    m_camera.SetPosition(m_cameraPosition);
 }
 
 void OrthographicCameraController::SetRotation(float rad)
 {
-    CAMERA_ROTATION = rad;
-    CAMERA.SetRotation(CAMERA_ROTATION);
+    m_cameraRotation = rad;
+    m_camera.SetRotation(m_cameraRotation);
 }
 
 void OrthographicCameraController::SetZoomLevel(float zoom)
 {
-    if (zoom < MAX_ZOOM_LEVEL)
+    if (zoom < m_maxZoomLevel)
     {
-        MPE_CORE_WARN("ZOOM LEVEL {0}f IS BELOW MAXIMUM ALLOWED {1}", zoom, MAX_ZOOM_LEVEL);
+        MPE_CORE_WARN("ZOOM LEVEL {0}f IS BELOW MAXIMUM ALLOWED {1}", zoom, m_maxZoomLevel);
     }
     else
     {
-        ZOOM_LEVEL = zoom;
-        CAMERA.SetProjection(-ASPECT_RATIO * ZOOM_LEVEL, ASPECT_RATIO * ZOOM_LEVEL, -ZOOM_LEVEL, ZOOM_LEVEL);
+        m_zoomLevel = zoom;
+        m_camera.SetProjection(-m_aspectRatio * m_zoomLevel, m_aspectRatio * m_zoomLevel, -m_zoomLevel, m_zoomLevel);
     }
 }
 

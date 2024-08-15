@@ -7,17 +7,17 @@ namespace MPE
 {
 struct MPE_API WindowFpsMs
 {
-    float FPS;
-    float MS;
+    float m_fps;
+    float m_ms;
 
     // Default constructor
-    WindowFpsMs() : FPS(0.0f), MS(0.0f) {}
+    WindowFpsMs() : m_fps(0.0f), m_ms(0.0f) {}
 
     // Update the FPS and MS
     void Update(Time deltaTime)
     {
-        FPS = 1.0f / (float) deltaTime;
-        MS = deltaTime.GetMilliSeconds();
+        m_fps = 1.0f / (float) deltaTime;
+        m_ms = deltaTime.GetMilliSeconds();
     }
 };
 }

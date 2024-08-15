@@ -1,7 +1,7 @@
 #include "RendererUtilities.h"
 #include "MPE/MPEPCH.h"
 
-#include "RenderPrimitive.h"
+#include "MPE/Renderer/RenderPrimitive.h"
 
 namespace MPE
 {

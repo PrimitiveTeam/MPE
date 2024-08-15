@@ -14,49 +14,49 @@ namespace MPE
 {
 struct Renderer2DData
 {
-    REF<VertexArray> LOCAL_VERTEX_ARRAY;
-    REF<Shader> TEXTURE_SHADER;
-    REF<Texture2D> WHITE_TEXTURE;
+    REF<VertexArray> m_localVertexArray;
+    REF<Shader> m_textureShader;
+    REF<Texture2D> m_whiteTexture;
 };
 
-static Renderer2DData *SYS_DATA;
+static Renderer2DData *m_rendererData;
 
 void Renderer2D::Init()
 {
-    SYS_DATA = new Renderer2DData;
+    m_rendererData = new Renderer2DData;
 
-    SYS_DATA->LOCAL_VERTEX_ARRAY = VertexArray::Create();
+    m_rendererData->m_localVertexArray = VertexArray::Create();
     float vertices[5 * 4] = {-0.75f, -0.75f, 0.0f, 0.0f, 0.0f, 0.75f,  -0.75f, 0.0f, 1.0f, 0.0f,
                              0.75f,  0.75f,  0.0f, 1.0f, 1.0f, -0.75f, 0.75f,  0.0f, 0.0f, 1.0f};
 
     REF<VertexBuffer> vertexBuffer;
     vertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
     vertexBuffer->SetLayout({{ShaderDataType::Vec3, "ATTR_POS"}, {ShaderDataType::Vec2, "ATTR_TEXCOORD"}});
-    SYS_DATA->LOCAL_VERTEX_ARRAY->AddVertexBuffer(vertexBuffer);
+    m_rendererData->m_localVertexArray->AddVertexBuffer(vertexBuffer);
 
     uint32_t indices[6] = {0, 1, 2, 2, 3, 0};
     REF<IndexBuffer> indexBuffer;
     indexBuffer = IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
-    SYS_DATA->LOCAL_VERTEX_ARRAY->SetIndexBuffer(indexBuffer);
+    m_rendererData->m_localVertexArray->SetIndexBuffer(indexBuffer);
 
-    SYS_DATA->WHITE_TEXTURE = Texture2D::Create(1, 1);
-    uint32_t WhiteTexData = 0xffffffff;
-    SYS_DATA->WHITE_TEXTURE->SetData(&WhiteTexData, sizeof(WhiteTexData));
+    m_rendererData->m_whiteTexture = Texture2D::Create(1, 1);
+    uint32_t whiteTexData = 0xffffffff;
+    m_rendererData->m_whiteTexture->SetData(&whiteTexData, sizeof(whiteTexData));
 
-    SYS_DATA->TEXTURE_SHADER = Shader::Create("Data/Shaders/ColoredTexture.glsl", true);
-    SYS_DATA->TEXTURE_SHADER->Bind();
-    SYS_DATA->TEXTURE_SHADER->SetInt1("UNI_TEXTURE", 0);
+    m_rendererData->m_textureShader = Shader::Create("Data/Shaders/ColoredTexture.glsl", true);
+    m_rendererData->m_textureShader->Bind();
+    m_rendererData->m_textureShader->SetInt1("UNI_TEXTURE", 0);
 }
 
 void Renderer2D::Shutdown()
 {
-    delete (SYS_DATA);
+    delete (m_rendererData);
 }
 
 void Renderer2D::BeginScene(const OrthographicCamera &camera)
 {
-    SYS_DATA->TEXTURE_SHADER->Bind();
-    SYS_DATA->TEXTURE_SHADER->SetMat4("UNI_VPM", camera.GetProjectionViewMatrix());
+    m_rendererData->m_textureShader->Bind();
+    m_rendererData->m_textureShader->SetMat4("UNI_VPM", camera.GetProjectionViewMatrix());
 }
 
 void Renderer2D::EndScene() {}
@@ -68,33 +68,45 @@ void Renderer2D::DrawQuad(const glm::vec2 &position, const glm::vec2 &size, cons
 
 void Renderer2D::DrawQuad(const glm::vec3 &position, const glm::vec2 &size, const glm::vec4 color)
 {
-    SYS_DATA->WHITE_TEXTURE->Bind();
-    SYS_DATA->TEXTURE_SHADER->SetFloat4("UNI_COLOR", color);
-    SYS_DATA->TEXTURE_SHADER->SetFloat1("UNI_TILING_FACTOR", 1.0f);
+    m_rendererData->m_whiteTexture->Bind();
+    m_rendererData->m_textureShader->SetFloat4("UNI_COLOR", color);
+    m_rendererData->m_textureShader->SetFloat1("UNI_TILING_FACTOR", 1.0f);
 
     glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) /*ROTATION*/ * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
-    SYS_DATA->TEXTURE_SHADER->SetMat4("UNI_MODELMAT", transform);
+    m_rendererData->m_textureShader->SetMat4("UNI_MODELMAT", transform);
 
-    SYS_DATA->LOCAL_VERTEX_ARRAY->Bind();
-    RenderPrimitive::DrawIndexed(SYS_DATA->LOCAL_VERTEX_ARRAY);
+    m_rendererData->m_localVertexArray->Bind();
+    RenderPrimitive::DrawIndexed(m_rendererData->m_localVertexArray);
 }
 
 void Renderer2D::DrawQuad(const glm::vec2 &position, const glm::vec2 &size, const REF<Texture2D> texture, float tillingFactor)
 {
+    // TODO: investigate => should this also bind textures?
+    // m_rendererData->m_textureShader->SetFloat4("UNI_COLOR", glm::vec4(1.0f));
+    // // m_rendererData->m_textureShader->SetFloat4("UNI_COLOR", glm::vec4(0.5f, 0.25f, 0.5f, 1.0f));
+    // m_rendererData->m_textureShader->SetFloat1("UNI_TILING_FACTOR", tillingFactor);
+    // texture->Bind();
+
+    // glm::mat4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(position, 1.0f)) /*ROTATION*/ * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
+    // m_rendererData->m_textureShader->SetMat4("UNI_MODELMAT", transform);
+
+    // m_rendererData->m_localVertexArray->Bind();
+    // RenderPrimitive::DrawIndexed(m_rendererData->m_localVertexArray);
+
     DrawQuad({position.x, position.y, 0.0f}, size, texture, tillingFactor);
 }
 
 void Renderer2D::DrawQuad(const glm::vec3 &position, const glm::vec2 &size, const REF<Texture2D> texture, float tillingFactor)
 {
-    SYS_DATA->TEXTURE_SHADER->SetFloat4("UNI_COLOR", glm::vec4(1.0f));
-    // SYS_DATA->TEXTURE_SHADER->SetFloat4("UNI_COLOR", glm::vec4(0.5f, 0.25f, 0.5f, 1.0f));
-    SYS_DATA->TEXTURE_SHADER->SetFloat1("UNI_TILING_FACTOR", tillingFactor);
+    m_rendererData->m_textureShader->SetFloat4("UNI_COLOR", glm::vec4(1.0f));
+    // m_rendererData->m_textureShader->SetFloat4("UNI_COLOR", glm::vec4(0.5f, 0.25f, 0.5f, 1.0f));
+    m_rendererData->m_textureShader->SetFloat1("UNI_TILING_FACTOR", tillingFactor);
     texture->Bind();
 
     glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) /*ROTATION*/ * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
-    SYS_DATA->TEXTURE_SHADER->SetMat4("UNI_MODELMAT", transform);
+    m_rendererData->m_textureShader->SetMat4("UNI_MODELMAT", transform);
 
-    SYS_DATA->LOCAL_VERTEX_ARRAY->Bind();
-    RenderPrimitive::DrawIndexed(SYS_DATA->LOCAL_VERTEX_ARRAY);
+    m_rendererData->m_localVertexArray->Bind();
+    RenderPrimitive::DrawIndexed(m_rendererData->m_localVertexArray);
 }
 }

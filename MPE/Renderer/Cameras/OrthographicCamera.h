@@ -16,23 +16,23 @@ class MPE_API OrthographicCamera
     void SetPosition(const glm::vec3 &position);
     void SetRotation(float rotation);
 
-    const glm::vec3 &GetPosition() const { return CAMERA_POSITION; }
+    const glm::vec3 &GetPosition() const { return m_cameraPosition; }
     // get position but allow to modify it
-    glm::vec3 &ManipulatePosition() { return CAMERA_POSITION; }
-    float GetRotation() const { return CAMERA_Z_AXIS_ROTATION; }
+    glm::vec3 &ManipulatePosition() { return m_cameraPosition; }
+    float GetRotation() const { return m_cameraZAxisRotation; }
 
-    const glm::mat4 &GetProjectionMatrix() const { return PROJECTION_MATRIX; }
-    const glm::mat4 &GetViewMatrix() const { return VIEW_MATRIX; }
-    const glm::mat4 &GetProjectionViewMatrix() const { return PROJECTION_VIEW_MATRIX; }
+    const glm::mat4 &GetProjectionMatrix() const { return m_projectionMatrix; }
+    const glm::mat4 &GetViewMatrix() const { return m_viewMatrix; }
+    const glm::mat4 &GetProjectionViewMatrix() const { return m_projectionViewMatrix; }
 
   private:
-    glm::mat4 PROJECTION_MATRIX;
-    glm::mat4 VIEW_MATRIX;
-    glm::mat4 PROJECTION_VIEW_MATRIX;
+    glm::mat4 m_projectionMatrix;
+    glm::mat4 m_viewMatrix;
+    glm::mat4 m_projectionViewMatrix;
 
-    glm::vec3 CAMERA_POSITION = {0.0f, 0.0f, 0.0f};
-    float CAMERA_Z_AXIS_ROTATION = 0.0f;
+    glm::vec3 m_cameraPosition = {0.0f, 0.0f, 0.0f};
+    float m_cameraZAxisRotation = 0.0f;
 
-    void COMPUTE_VIEW_MATRIX();
+    void ComputeViewMatrix();
 };
 }

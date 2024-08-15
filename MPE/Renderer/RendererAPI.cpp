@@ -3,5 +3,5 @@
 
 namespace MPE
 {
-RendererAPI::API RendererAPI::GRAPHICS_API = RendererAPI::API::None;
+RendererAPI::API RendererAPI::m_graphicsApi = RendererAPI::API::None;
 }

@@ -12,12 +12,12 @@ namespace MPE
 {
 struct MPE_API GraphicalContextProps
 {
-    int MajorVersion;
-    int MinorVersion;
+    int m_majorVersion;
+    int m_minorVersion;
 
-    std::string Vendor;
-    std::string Renderer;
-    int ShaderTypeAmount;
+    std::string m_vendor;
+    std::string m_renderer;
+    int m_shaderTypeAmount;
 
     // virtual std::string ToString() const;
 };
@@ -67,11 +67,11 @@ class MPE_API RenderSettings
     virtual void SendEvent(std::string name, int32_t value) = 0;
 
   protected:
-    GraphicalContextProps* _GRAPHICAL_CONTEXT_PROPS;
-    bool _VSYNC;
-    bool _LIMIT_FPS;
-    uint8_t _MAX_FPS;
-    bool _FACE_CULLING;
-    bool _DEBUG_OUTPUT;
+    GraphicalContextProps* m_graphicalContextProps;
+    bool m_vsync;
+    bool m_limitFps;
+    uint8_t m_maxFps;
+    bool m_faceCulling;
+    bool m_debugOutput;
 };
 }

@@ -68,7 +68,7 @@
 #include "MPE/Renderer/Renderer.h"
 #include "MPE/Renderer/Renderer2D.h"
 #include "MPE/Renderer/RenderPrimitive.h"
-#include "MPE/Renderer/RendererUtilities.h"
+#include "MPE/Renderer/Utilities/RendererUtilities.h"
 // ----- RENDERER -----
 
 // ----- GRAPHICS -----

@@ -11,7 +11,6 @@
 #    include "Platform/OpenGLES/Editor/Utilities/OpenGLESDebugGuiLayer.h"
 #endif
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
-#include "MPE/Renderer/RendererUtilities.h"
 
 #include <imgui.h>
 #include <glm/gtc/matrix_transform.hpp>

@@ -34,13 +34,13 @@ class MPE_API RendererAPI
 
     inline static API GetGraphicsAPI()
     {
-        if (!APISelected) throw std::runtime_error("No graphics API selected.");
-        return GRAPHICS_API;
+        if (!m_isApiSelected) throw std::runtime_error("No graphics API selected.");
+        return m_graphicsApi;
     }
     inline static void SetGraphicsAPI(API api)
     {
-        GRAPHICS_API = api;
-        APISelected = true;
+        m_graphicsApi = api;
+        m_isApiSelected = true;
     }
 
     static std::string APIToString(API api)
@@ -60,9 +60,9 @@ class MPE_API RendererAPI
     }
 
   protected:
-    inline static bool APISelected = false;
+    inline static bool m_isApiSelected = false;
 
   private:
-    static API GRAPHICS_API;
+    static API m_graphicsApi;
 };
 }

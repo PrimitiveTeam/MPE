@@ -43,7 +43,6 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Renderer.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Renderer2D.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/RendererAPI.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Renderer/RendererUtilities.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderPrimitive.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderSettings.cpp"
 
@@ -57,6 +56,7 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/VertexBuffer.cpp"
 
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderInformation/RenderInfo.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Utilities/RendererUtilities.cpp"
 
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/Shader.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/ShaderLibrary.cpp"
@@ -149,7 +149,6 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Renderer.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Renderer2D.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/RendererAPI.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Renderer/RendererUtilities.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderPrimitive.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderSettings.h"
 
@@ -174,6 +173,7 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/TextTexture.h"
 
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Utilties/RenderInfo.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Utilities/RendererUtilities.h"
 
     # /Editor
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/Grid.h"

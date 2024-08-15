@@ -8,37 +8,37 @@
 namespace MPE
 {
 OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top)
-    : PROJECTION_MATRIX(glm::ortho(left, right, bottom, top, -1.0f, 1.0f)), VIEW_MATRIX(1.0f)
+    : m_projectionMatrix(glm::ortho(left, right, bottom, top, -1.0f, 1.0f)), m_viewMatrix(1.0f)
 {
     MPE_INFO("Orthographic Camera Created: {0}, {1}, {2}, {3}, {4}, {5}", left, right, bottom, top, -1.0f, 1.0f);
-    PROJECTION_VIEW_MATRIX = PROJECTION_MATRIX * VIEW_MATRIX;
+    m_projectionViewMatrix = m_projectionMatrix * m_viewMatrix;
 }
 
 void OrthographicCamera::SetProjection(float left, float right, float bottom, float top)
 {
     MPE_INFO("Orthographic Camera Projection set: {0}, {1}, {2}, {3}", left, right, bottom, top);
-    PROJECTION_MATRIX = glm::ortho(left, right, bottom, top, -1.0f, 1.0f);
-    PROJECTION_VIEW_MATRIX = PROJECTION_MATRIX * VIEW_MATRIX;
+    m_projectionMatrix = glm::ortho(left, right, bottom, top, -1.0f, 1.0f);
+    m_projectionViewMatrix = m_projectionMatrix * m_viewMatrix;
 }
 
-void OrthographicCamera::COMPUTE_VIEW_MATRIX()
+void OrthographicCamera::ComputeViewMatrix()
 {
     glm::mat4 transform =
-        glm::translate(glm::mat4(1.0f), CAMERA_POSITION) * glm::rotate(glm::mat4(1.0f), glm::radians(CAMERA_Z_AXIS_ROTATION), glm::vec3(0, 0, 1));
+        glm::translate(glm::mat4(1.0f), m_cameraPosition) * glm::rotate(glm::mat4(1.0f), glm::radians(m_cameraZAxisRotation), glm::vec3(0, 0, 1));
 
-    VIEW_MATRIX = glm::inverse(transform);
+    m_viewMatrix = glm::inverse(transform);
 
-    PROJECTION_VIEW_MATRIX = PROJECTION_MATRIX * VIEW_MATRIX;
+    m_projectionViewMatrix = m_projectionMatrix * m_viewMatrix;
 }
 
 void OrthographicCamera::SetPosition(const glm::vec3 &position)
 {
-    CAMERA_POSITION = position;
-    COMPUTE_VIEW_MATRIX();
+    m_cameraPosition = position;
+    ComputeViewMatrix();
 }
 void OrthographicCamera::SetRotation(float rotation)
 {
-    CAMERA_Z_AXIS_ROTATION = rotation;
-    COMPUTE_VIEW_MATRIX();
+    m_cameraZAxisRotation = rotation;
+    ComputeViewMatrix();
 }
 }

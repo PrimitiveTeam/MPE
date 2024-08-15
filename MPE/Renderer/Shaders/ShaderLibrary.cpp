@@ -12,9 +12,9 @@ void ShaderLibrary::Add(const std::string &name, const REF<Shader> &shader)
 {
     MPE_CORE_ASSERT(!Exists(name), "SHADER ALREADY EXISTS");
 #if MPE_PLATFORM_LINUX
-    SHADERS.insert(std::make_pair(name, shader));
+    m_shaders.insert(std::make_pair(name, shader));
 #else
-    SHADERS[name] = shader;
+    m_shaders[name] = shader;
 #endif
 }
 
@@ -54,17 +54,17 @@ REF<Shader> ShaderLibrary::Get(const std::string &name)
 {
     MPE_CORE_ASSERT(Exists(name), "SHADER NOT FOUND");
 #if MPE_PLATFORM_LINUX
-    auto it = SHADERS.find(name);
-    MPE_CORE_ASSERT(it != SHADERS.end(), "SHADER NOT FOUND");
+    auto it = m_shaders.find(name);
+    MPE_CORE_ASSERT(it != m_shaders.end(), "SHADER NOT FOUND");
     return it->second;
 #else
-    return SHADERS[name];
+    return m_shaders[name];
 #endif
 }
 
 bool ShaderLibrary::Exists(const std::string &name) const
 {
-    return SHADERS.find(name) != SHADERS.end();
+    return m_shaders.find(name) != m_shaders.end();
 }
 
 std::string GetGraphicsAPI()

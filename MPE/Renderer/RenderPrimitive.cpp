@@ -3,5 +3,5 @@
 
 namespace MPE
 {
-RendererAPI *RenderPrimitive::SYS_API = nullptr;
+RendererAPI *RenderPrimitive::m_rendererApi = nullptr;
 }
