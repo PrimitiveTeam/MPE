@@ -12,6 +12,7 @@ target_link_libraries(
   PUBLIC Stb
   # PUBLIC freetype
   PUBLIC ${FREETYPE_LIBRARIES}
+  PUBLIC OpenAL::OpenAL
 
   # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
 )

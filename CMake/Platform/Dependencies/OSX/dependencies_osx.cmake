@@ -48,6 +48,9 @@ target_include_directories(Stb INTERFACE
     "${Stb_DIR}"
 )
 
+# OpenAL
+set(CMAKE_PREFIX_PATH "/usr/local/opt/openal-soft" ${CMAKE_PREFIX_PATH})
+
 if(${VERBOSE})
     message(STATUS "glad_DIR: ${glad_DIR}")
     message(STATUS "imgui_DIR: ${imgui_DIR}")

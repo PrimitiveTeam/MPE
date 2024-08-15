@@ -1,8 +1,4 @@
-if(COMPILATION_PLATFORM STREQUAL "WIN32")
-  add_executable(OPENAL_TEST "${PROJECT_SOURCE_DIR}/Projects/OpenAl/main.cpp")
-elseif(COMPILATION_PLATFORM STREQUAL "OSX")
-  # add_executable(OPENAL_TEST "${PROJECT_SOURCE_DIR}/Projects/FreeType/main_osx.cpp")
-endif()
+add_executable(OPENAL_TEST "${PROJECT_SOURCE_DIR}/Projects/OpenAl/main.cpp")
 
 target_link_libraries(OPENAL_TEST PRIVATE
   MPE
