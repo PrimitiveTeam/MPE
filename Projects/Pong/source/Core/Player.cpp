@@ -11,14 +11,9 @@ Player::Player(glm::vec2 position, glm::vec2 size, const KeyMap controls, glm::v
 
 Player::~Player() {}
 
-void Player::SetScore(int value)
+void Player::SetScore(uint16_t value)
 {
     Score = value;
-}
-
-void Player::IterateScore()
-{
-    Score++;
 }
 
 void Player::SetPosition(glm::vec2 position)

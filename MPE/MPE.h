@@ -97,3 +97,10 @@
 // PROMPTS
 #include "MPE/Editor/Prompts/SimpleDialog.h"
 // ----- EDITOR -----
+
+// ----- SOUND -----
+#include "MPE/Sound/OpenALContext.h"
+#include "MPE/Sound/SoundPlayer.h"
+#include "MPE/Sound/Players/WavSoundPlayer.h"
+#include "MPE/Sound/Players/OggSoundPlayer.h"
+// ----- SOUND -----

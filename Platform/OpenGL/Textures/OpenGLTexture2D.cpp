@@ -57,6 +57,8 @@ OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height) : WIDTH(width)
 
 OpenGLTexture2D::OpenGLTexture2D(const std::string &filepath) : FILEPATH(filepath)
 {
+    MPE_CORE_WARN("CREATING TEXTURE...");
+
     int width, height, channels;
     stbi_set_flip_vertically_on_load(1);
     stbi_uc *data = stbi_load(filepath.c_str(), &width, &height, &channels, 0);
@@ -128,6 +130,9 @@ OpenGLTexture2D::OpenGLTexture2D(const std::string &filepath) : FILEPATH(filepat
     glCheckError();
 
     stbi_image_free(data);
+
+    MPE_CORE_ASSERT(SYS_RENDERER_ID, "TEXTURE NOT CREATED");
+    MPE_CORE_INFO("TEXTURE CREATED: {0}x{1} | ID: {2}", WIDTH, HEIGHT, SYS_RENDERER_ID);
 }
 
 OpenGLTexture2D::~OpenGLTexture2D()

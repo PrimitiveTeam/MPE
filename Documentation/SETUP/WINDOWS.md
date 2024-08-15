@@ -36,6 +36,7 @@ Download and install the following libraries with vcpkg (make sure to get the x6
 4. [glm](https://github.com/g-truc/glm)
 5. [gtest](https://github.com/google/googletest)
 6. [freetype](https://freetype.org/)
+7. [OpenAL](https://github.com/kcat/openal-soft)
 
 Continue to [Manual building](#manual-building) section.
 

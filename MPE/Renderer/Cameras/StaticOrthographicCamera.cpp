@@ -70,7 +70,7 @@ void StaticOrthographicCamera::OnUpdate(Time deltatime)
 void StaticOrthographicCamera::OnEvent(Event &e)
 {
     EventDispatcher dispatcher(e);
-    dispatcher.Dispatch<MouseScrolledEvent>(MPE_BIND_EVENT_FUNCTION(StaticOrthographicCamera::OnMouseScrolled));
+    // dispatcher.Dispatch<MouseScrolledEvent>(MPE_BIND_EVENT_FUNCTION(StaticOrthographicCamera::OnMouseScrolled));
     dispatcher.Dispatch<WindowResizeEvent>(MPE_BIND_EVENT_FUNCTION(StaticOrthographicCamera::OnWindowResized));
 }
 

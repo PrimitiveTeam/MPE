@@ -10,6 +10,7 @@
 #include "MPE/Events/EventGraphics.h"
 #include "MPE/Vendor/ImGui/ImGuiLayer.h"
 #include "MPE/Renderer/Renderer.h"
+#include "MPE/Sound/OpenALContext.h"
 
 #include <memory>
 
@@ -50,6 +51,7 @@ class MPE_API App
 
     inline static App &GetApp() { return *SYS_APP_Instance; }
     inline REF<Window> GetWindow() { return SYS_APP_Window; }
+    inline OpenALContext& GetOpenALContext() { return SYS_OpenALContext; }
 
 #ifdef MPE_DYNAMIC_LIBRARY
     ImGuiContext *GetImGuiContext() { return SYS_ImGuiLayer->GetImGuiContext(); }
@@ -76,6 +78,7 @@ class MPE_API App
     REF<Window> SYS_APP_Window;
     REF<LayerStack> SYS_LayerStack;
     REF<Log> SYS_Log;
+    OpenALContext& SYS_OpenALContext;
 
     bool SYS_APP_Running = true;
     bool SYS_Minimized = false;

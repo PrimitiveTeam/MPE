@@ -73,6 +73,13 @@ file(
 
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Dialog/SimpleDialog.cpp"
 
+    # /Sound
+    "${PROJECT_SOURCE_DIR}/MPE/Sound/OpenALContext.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Sound/SoundPlayer.cpp"
+
+    "${PROJECT_SOURCE_DIR}/MPE/Sound/Players/WavSoundPlayer.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Sound/Players/OggSoundPlayer.cpp"
+
     # /Vendor
     "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/ImGuiLayer.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/stb_image_impl.cpp"
@@ -172,6 +179,13 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/Grid.h"
 
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Dialog/SimpleDialog.h"
+
+    # /Sound
+    "${PROJECT_SOURCE_DIR}/MPE/Sound/OpenALContext.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Sound/SoundPlayer.h"
+
+    "${PROJECT_SOURCE_DIR}/MPE/Sound/Players/WavSoundPlayer.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Sound/Players/OggSoundPlayer.h"
 
     # /Vendor
     "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/ImGuiLayer.h"

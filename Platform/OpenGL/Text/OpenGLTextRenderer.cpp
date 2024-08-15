@@ -103,23 +103,17 @@ void OpenGLTextRenderer::InitializeFont()
     {
         m_VAO = VertexArray::Create();
 
-        #ifdef MPE_PLATFORM_OSX
         m_VAO->Bind();
-        #endif
 
         m_VBO = VertexBuffer::Create(sizeof(float) * 6 * 4);
 
-        #ifdef MPE_PLATFORM_OSX
         m_VBO->Bind();
-        #endif
         m_VBO->SetLayout({{ShaderDataType::Vec4, "UNI_TEXTURE_COORDS"}});
 
         m_VAO->AddVertexBuffer(m_VBO);
 
-        #ifdef MPE_PLATFORM_OSX
         m_VAO->Unbind();
         m_VBO->Unbind();
-        #endif
 
         // TODO: Investigate drawing text using index buffer
         // uint32_t indices[6] = {0, 1, 2, 2, 3, 0};
@@ -232,10 +226,8 @@ void OpenGLTextRenderer::RenderText(const std::string& text, float x, float y, f
     float internal_y = y;
     float internal_scale = scale;
 
-    #ifdef MPE_PLATFORM_OSX
     m_VAO->Bind();
     m_VBO->Bind();
-    #endif
 
     // not sure this is needed
     // glActiveTexture(GL_TEXTURE0);
@@ -292,10 +284,8 @@ void OpenGLTextRenderer::RenderText(const std::string& text, float x, float y, f
     }
     glCheckError();
 
-    #ifdef MPE_PLATFORM_OSX
     m_VAO->Unbind();
     m_VBO->Unbind();
-    #endif
 }
 
 void OpenGLTextRenderer::SetFontSize(float fontSize)

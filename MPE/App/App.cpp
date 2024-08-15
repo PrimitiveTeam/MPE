@@ -14,6 +14,7 @@ namespace MPE
 MPE_API App *App::SYS_APP_Instance = nullptr;
 
 App::App()
+: SYS_OpenALContext(OpenALContext::GetInstance())
 {
     SYS_Log = MPE::Log::Create("App", MPE::Log::Option::CONSOLE);
     SYS_LayerStack = NEWREF<LayerStack>();
@@ -77,6 +78,9 @@ App::~App()
         }
         SYS_ImGuiLayer->~ImGuiLayer();
     }
+
+    // Explicitly destroy the OpenAL context before the window
+    SYS_OpenALContext.~OpenALContext();
 
     SYS_APP_Instance = nullptr;
     MPE_CORE_INFO("App instance destroyed.");

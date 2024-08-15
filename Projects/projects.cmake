@@ -32,3 +32,8 @@ endif(MPE_PROJECT_ANGLETEST)
 if(MPE_PROJECT_FREETYPE)
     include("${PROJECT_SOURCE_DIR}/Projects/FreeType/freetype.cmake")
 endif(MPE_PROJECT_FREETYPE)
+
+# OPENAL TEST
+if(MPE_PROJECT_OPENAL)
+    include("${PROJECT_SOURCE_DIR}/Projects/OpenAL/openal.cmake")
+endif(MPE_PROJECT_OPENAL)

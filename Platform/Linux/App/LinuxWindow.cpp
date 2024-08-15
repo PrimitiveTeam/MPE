@@ -84,8 +84,13 @@ void LinuxWindow::Init(const WindowProps &props)
     else
     {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     }
+
+    // Allows OpenGL to send debug messages to provided callback function
+#ifdef MPE_ENABLE_DEBUG_LOG
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+#endif
 
     SYS_Window = glfwCreateWindow((int) props.Width, (int) props.Height, SYS_Data.Title.c_str(), nullptr, nullptr);
     SaveWindowSizeAndPosition();
@@ -115,6 +120,17 @@ void LinuxWindow::Init(const WindowProps &props)
     glfwSetWindowUserPointer(SYS_Window, &SYS_Data);
 
     // SET GLFW CALLBACKS
+    glfwSetWindowPosCallback(SYS_Window,
+                             [](GLFWwindow *window, int xPos, int yPos)
+                             {
+                                  WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
+                                  data.WindowPositionX = xPos;
+                                  data.WindowPositionY = yPos;
+
+                                  WindowMovedEvent event(xPos, yPos);
+                                  data.EventCallback(event);
+                             });
+
     glfwSetWindowSizeCallback(SYS_Window,
                               [](GLFWwindow *window, int width, int height)
                               {

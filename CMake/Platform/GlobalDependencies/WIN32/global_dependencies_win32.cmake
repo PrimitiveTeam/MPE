@@ -4,6 +4,7 @@ find_package(glfw3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 find_package(freetype CONFIG REQUIRED)
 # find_package(freetype-gl CONFIG REQUIRED)
+find_package(OpenAL CONFIG REQUIRED)
 
 if(${VERBOSE})
     message("
@@ -13,5 +14,6 @@ if(${VERBOSE})
   * glfw3
   * glm
   * freetype
+  * OpenAL
 ***********************************************************")
 endif()

@@ -8,12 +8,23 @@
 
 namespace PONG
 {
-Game::Game(Player *lplayer, Player *rplayer, Ball *ball) : leftPlayer(lplayer), rightPlayer(rplayer), BALL(ball)
+Game::Game(Player *lplayer, Player *rplayer, Ball *ball)
+    : leftPlayer(lplayer),
+      rightPlayer(rplayer),
+      BALL(ball),
+      BallHitSound(new MPE::OggSoundPlayer("Data/Sounds/ping_pong_8bit_plop.ogg")),
+      ScoreSound(new MPE::OggSoundPlayer("ping_pong_8bit_beeep.ogg"))
 {
     BallStart();
 }
 
-Game::Game(Player *lplayer, Player *rplayer, Ball *ball, glm::vec4 bounds) : leftPlayer(lplayer), rightPlayer(rplayer), BALL(ball), Bounds(bounds)
+Game::Game(Player *lplayer, Player *rplayer, Ball *ball, glm::vec4 bounds)
+    : leftPlayer(lplayer),
+      rightPlayer(rplayer),
+      BALL(ball),
+      Bounds(bounds),
+      BallHitSound(new MPE::OggSoundPlayer("Data/Sounds/ping_pong_8bit_plop.ogg")),
+      ScoreSound(new MPE::OggSoundPlayer("Data/Sounds/ping_pong_8bit_beeep.ogg"))
 {
     // log calc
     MPE_WARN("Window Width: {0}, Window Height: {1}", MPE::App::GetApp().GetWindow()->GetWidth(), MPE::App::GetApp().GetWindow()->GetHeight());
@@ -59,9 +70,18 @@ void Game::OnUpdate(MPE::Time deltatime)
 
         // Check ball bounds
         glm::vec2 ballPosition = BALL->GetPosition();
-        if (ballPosition.x <= Bounds.x || ballPosition.x >= -Bounds.x)
+        // Change score if ball goes out of bounds
+        if (ballPosition.x <= Bounds.x)
         {
-            BallStart();
+            rightPlayer->IncrementScore();
+            ScoreSound->Play();
+            ResetBall();
+        }
+        if (ballPosition.x >= -Bounds.x)
+        {
+            leftPlayer->IncrementScore();
+            ScoreSound->Play();
+            ResetBall();
         }
 
         // Add a bit of a border at the top and bottom
@@ -73,6 +93,7 @@ void Game::OnUpdate(MPE::Time deltatime)
             glm::vec2 velocity = BALL->GetVelocity();
             velocity.y *= -1;
             BALL->SetVelocity(velocity);
+            BallHitSound->Play();
             // MPE_WARN("Y DETECTED. VELOCITY: {0}, {1}", velocity.x, velocity.y);
         }
 
@@ -120,6 +141,7 @@ void Game::OnUpdate(MPE::Time deltatime)
                     velocity.y += k * paddles[i]->GetVelocity().y;
 
                     BALL->SetVelocity(velocity);
+                    BallHitSound->Play();
 
                     // Prevent the ball from getting stuck inside the paddle
                     if (i == 0)

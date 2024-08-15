@@ -33,6 +33,7 @@ Download and install the following libraries with brew:
 3. [glfw3](https://github.com/glfw/glfw)
 4. [glm](https://github.com/g-truc/glm)
 5. [freetype](https://freetype.org/)
+6. [openal-soft](https://github.com/kcat/openal-soft)
 
 <!-- TODO: Need to make gtest a universal package and built locally -->
 

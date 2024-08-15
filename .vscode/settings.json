@@ -140,6 +140,7 @@
     "propagate_const": "cpp",
     "__hash_table": "cpp",
     "__node_handle": "cpp",
-    "*.in": "c"
+    "*.in": "c",
+    "*.rh": "cpp"
   }
 }

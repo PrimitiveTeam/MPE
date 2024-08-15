@@ -22,7 +22,7 @@ struct KeyMap
 class Player
 {
   private:
-    int Score;
+    uint16_t Score;
     glm::vec2 Position;
     glm::vec2 Size;
     glm::vec2 Velocity;
@@ -36,9 +36,9 @@ class Player
     Player(glm::vec2 position, glm::vec2 size, const KeyMap controls, glm::vec4 color = {1.0f, 1.0f, 1.0f, 1.0f});
     ~Player();
 
-    int GetScore() const { return Score; }
-    void SetScore(int value);
-    void IterateScore();
+    uint16_t GetScore() const { return Score; }
+    void SetScore(uint16_t value);
+    void IncrementScore() { Score++; };
 
     glm::vec2 GetPosition() { return Position; }
     void SetPosition(glm::vec2 position);
