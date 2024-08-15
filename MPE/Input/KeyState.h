@@ -14,7 +14,7 @@ class KeyState
     static void Update();
 
   private:
-    static std::unordered_map<int, bool> m_CurrentState;
-    static std::unordered_map<int, bool> m_PreviousState;
+    static std::unordered_map<int, bool> m_currentState;
+    static std::unordered_map<int, bool> m_previousState;
 };
 }

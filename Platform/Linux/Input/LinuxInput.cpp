@@ -7,7 +7,7 @@
 
 namespace MPE
 {
-REF<Input> Input::SYS_Input_Instance = NEWREF<LinuxInput>();
+REF<Input> Input::m_inputInstance = NEWREF<LinuxInput>();
 
 bool LinuxInput::IsKeyPressedImpl(int keycode)
 {

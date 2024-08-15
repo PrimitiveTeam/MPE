@@ -7,7 +7,7 @@
 
 namespace MPE
 {
-REF<Input> Input::SYS_Input_Instance = NEWREF<macOSInput>();
+REF<Input> Input::m_inputInstance = NEWREF<macOSInput>();
 
 bool macOSInput::IsKeyPressedImpl(int keycode)
 {
