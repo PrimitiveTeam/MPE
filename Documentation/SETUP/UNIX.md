@@ -36,7 +36,9 @@ Debian:
 2. [libspdlog-dev](https://github.com/gabime/spdlog)
 3. [libglfw3 and libglfw3-dev](https://github.com/glfw/glfw)
 4. [libcglm-dev](https://github.com/g-truc/glm)
-5. gtk3 is required - Ubuntu has it builtin
+5. gtk3 is required - Ubuntu has it built-in
+6. [freetype](https://freetype.org/)
+7. [openal](https://github.com/kcat/openal-soft)
 
 <!-- TODO: Need to make gtest a universal package and built locally -->
 
@@ -48,6 +50,8 @@ Arch:
 4. [glm](https://archlinux.org/packages/extra/x86_64/glm/)
 5. [gtk3](https://archlinux.org/packages/extra/x86_64/gtk3/)
 6. [gtest](https://archlinux.org/packages/extra/x86_64/gtest/)
+7. [lib32-freetype2](https://archlinux.org/packages/multilib/x86_64/lib32-freetype2/)
+8. [lib32-openal](https://archlinux.org/packages/multilib/x86_64/lib32-openal/)
 
 Continue to [Manual building](#manual-building) section.
 

@@ -9,6 +9,8 @@ target_link_libraries(
   PUBLIC imgui
   PUBLIC glm::glm
   PUBLIC Stb
+  PUBLIC Freetype::Freetype
+  PUBLIC OpenAL::OpenAL
 
   # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
 )
