@@ -59,9 +59,16 @@ void Game::OnUpdate(MPE::Time deltatime)
 
         // Check ball bounds
         glm::vec2 ballPosition = BALL->GetPosition();
-        if (ballPosition.x <= Bounds.x || ballPosition.x >= -Bounds.x)
+        // Change score if ball goes out of bounds
+        if (ballPosition.x <= Bounds.x)
         {
-            BallStart();
+            rightPlayer->IncrementScore();
+            ResetBall();
+        }
+        if (ballPosition.x >= -Bounds.x)
+        {
+            leftPlayer->IncrementScore();
+            ResetBall();
         }
 
         // Add a bit of a border at the top and bottom
