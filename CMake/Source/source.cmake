@@ -162,8 +162,6 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/VertexArray.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/VertexBuffer.h"
 
-    "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderInformation/RenderInfo.h"
-
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/Shader.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/ShaderLibrary.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Shaders/ShaderUtils.h"
@@ -174,6 +172,8 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/Texture.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/Texture2D.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Textures/TextTexture.h"
+
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Utilties/RenderInfo.h"
 
     # /Editor
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/Grid.h"

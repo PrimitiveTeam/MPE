@@ -72,7 +72,6 @@ enum MPE_API EventCategory
 class MPE_API Event
 {
   public:
-    bool SYS_Handled = false;
     virtual EventType GetEventType() const = 0;
     // Only for debugging
     virtual const char *GetName() const = 0;
@@ -82,7 +81,11 @@ class MPE_API Event
 
     inline bool IsInCategory(EventCategory category) { return GetCategoryFlags() & category; }
 
+    inline bool IsHandled() const { return m_isHandled; }
+
   private:
+    bool m_isHandled = false;
+
     friend class EventDispatcher;
 };
 
@@ -92,22 +95,22 @@ class MPE_API EventDispatcher
     using EventFn = std::function<bool(T &)>;
 
   public:
-    EventDispatcher(Event &event) : SYS_Event(event) {}
+    EventDispatcher(Event &event) : m_event(event) {}
 
     template <typename T>
     bool Dispatch(EventFn<T> func)
     {
-        if (SYS_Event.GetEventType() == T::GetStaticType())
+        if (m_event.GetEventType() == T::GetStaticType())
         {
-            SYS_Event.SYS_Handled = func(*(T *) &SYS_Event);
-            MPE_DEBUG_TRACE("Event: {0}", SYS_Event.ToString());
+            m_event.m_isHandled = func(*(T *) &m_event);
+            MPE_DEBUG_TRACE("Event: {0}", m_event.ToString());
             return true;
         }
         return false;
     }
 
   private:
-    Event &SYS_Event;
+    Event &m_event;
 };
 
 MPE_API inline std::ostream &operator<<(std::ostream &os, const Event &e)

@@ -6,12 +6,12 @@
 namespace MPE
 {
 // FunctionCalledEvent
-FunctionCalledEvent::FunctionCalledEvent(std::string functionName) : FunctionName(functionName) {}
+FunctionCalledEvent::FunctionCalledEvent(std::string functionName) : m_functionName(functionName) {}
 
 std::string FunctionCalledEvent::ToString() const
 {
     std::stringstream ss;
-    ss << "FunctionCalledEvent: " << FunctionName;
+    ss << "FunctionCalledEvent: " << m_functionName;
     return ss.str();
 }
 }

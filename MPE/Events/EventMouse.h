@@ -9,8 +9,8 @@ class MPE_API MouseMovedEvent : public Event
   public:
     MouseMovedEvent(float x, float y);
 
-    inline float GetX() const { return MouseX; }
-    inline float GetY() const { return MouseY; }
+    inline float GetX() const { return m_mouseX; }
+    inline float GetY() const { return m_mouseY; }
 
     std::string ToString() const override;
 
@@ -18,15 +18,15 @@ class MPE_API MouseMovedEvent : public Event
     EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
   private:
-    float MouseX, MouseY;
+    float m_mouseX, m_mouseY;
 };
 
 class MPE_API MouseScrolledEvent : public Event
 {
   public:
     MouseScrolledEvent(float xoffset, float yoffset);
-    inline float GetXOffset() const { return XOffset; }
-    inline float GetYOffset() const { return YOffset; }
+    inline float GetXOffset() const { return m_xOffset; }
+    inline float GetYOffset() const { return m_yOffset; }
 
     std::string ToString() const override;
 
@@ -34,20 +34,20 @@ class MPE_API MouseScrolledEvent : public Event
     EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
   private:
-    float XOffset, YOffset;
+    float m_xOffset, m_yOffset;
 };
 
 class MPE_API MouseButtonEvent : public Event
 {
   public:
-    inline int GetMouseButton() const { return Button; }
+    inline int GetMouseButton() const { return m_button; }
 
     EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
   protected:
     MouseButtonEvent(int button);
 
-    int Button;
+    int m_button;
 };
 
 class MPE_API MouseButtonPressedEvent : public MouseButtonEvent

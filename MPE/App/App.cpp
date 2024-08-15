@@ -170,7 +170,7 @@ void App::OnEvent(Event &event)
     for (auto it = m_layerStack->end(); it != m_layerStack->begin();)
     {
         (*--it)->OnEvent(event);
-        if (event.SYS_Handled)
+        if (event.IsHandled())
         {
             break;
         }
