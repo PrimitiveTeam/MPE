@@ -6,31 +6,31 @@
 
 namespace MPE
 {
-REF<spdlog::logger> GlobalLog::CoreLogger;
+REF<spdlog::logger> GlobalLog::m_coreLogger;
 
 #ifdef MPE_ENABLE_DEBUG_LOG
-REF<spdlog::logger> GlobalLog::DebugLogger;
+REF<spdlog::logger> GlobalLog::m_debugLogger;
 #endif
 
-REF<spdlog::logger> GlobalLog::ClientLogger;
+REF<spdlog::logger> GlobalLog::m_clientLogger;
 
 void GlobalLog::Init()
 {
     spdlog::set_pattern("%^[%T] %n: %v%$");
 
-    CoreLogger = spdlog::stdout_color_mt("MPE");
-    CoreLogger->set_pattern("%^[%T] %n: %v%$");
-    CoreLogger->set_level(spdlog::level::trace);
+    m_coreLogger = spdlog::stdout_color_mt("MPE");
+    m_coreLogger->set_pattern("%^[%T] %n: %v%$");
+    m_coreLogger->set_level(spdlog::level::trace);
 
 #ifdef MPE_ENABLE_DEBUG_LOG
-    DebugLogger = spdlog::stdout_color_mt("MPE_DEBUG");
-    DebugLogger->set_pattern("%^[%T] %n: %v%$");
-    DebugLogger->set_level(spdlog::level::trace);
+    m_debugLogger = spdlog::stdout_color_mt("MPE_DEBUG");
+    m_debugLogger->set_pattern("%^[%T] %n: %v%$");
+    m_debugLogger->set_level(spdlog::level::trace);
 #endif
 
-    ClientLogger = spdlog::stdout_color_mt("APP");
-    ClientLogger->set_pattern("%^[%T] %n: %v%$");
-    ClientLogger->set_level(spdlog::level::trace);
+    m_clientLogger = spdlog::stdout_color_mt("APP");
+    m_clientLogger->set_pattern("%^[%T] %n: %v%$");
+    m_clientLogger->set_level(spdlog::level::trace);
 
     MPE_CORE_WARN("ENGINE LOG INITIALIZED.");
 #ifdef MPE_ENABLE_DEBUG_LOG
