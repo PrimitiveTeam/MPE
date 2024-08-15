@@ -42,6 +42,7 @@ class Pong : public MPE::Layer
     float TEXT_COLOR[4];
     float TEXT_BOX_LOCATION_PLAYER_1[2];
     float TEXT_BOX_LOCATION_PLAYER_2[2];
+    uint16_t p2_previous_score = 0;
     // TEXT
 
   private:

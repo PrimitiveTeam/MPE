@@ -49,6 +49,12 @@ void Pong::OnUpdate(MPE::Time deltatime)
     TEXT_PLAYER_1 = std::to_string(LEFT_PLAYER->GetScore());
     TEXT_PLAYER_2 = std::to_string(RIGHT_PLAYER->GetScore());
 
+    if (p2_previous_score != RIGHT_PLAYER->GetScore())
+    {
+        p2_previous_score = RIGHT_PLAYER->GetScore();
+        PlaceText();
+    }
+
     MPE::RenderPrimitive::SetClearColor(CLEAR_COLOR);
     MPE::RenderPrimitive::Clear();
 
@@ -58,6 +64,7 @@ void Pong::OnUpdate(MPE::Time deltatime)
                                      glm::vec4(TEXT_COLOR[0], TEXT_COLOR[1], TEXT_COLOR[2], TEXT_COLOR[3]));
         SYS_TEXT_RENDERER.RenderText(TEXT_PLAYER_2, TEXT_BOX_LOCATION_PLAYER_2[0], TEXT_BOX_LOCATION_PLAYER_2[1], 1.0f,
                                      glm::vec4(TEXT_COLOR[0], TEXT_COLOR[1], TEXT_COLOR[2], TEXT_COLOR[3]));
+        SYS_TEXT_RENDERER.RenderText("F11 - HIDE GUI", 0.0f, 1.0f, 0.3f, glm::vec4(TEXT_COLOR[0], TEXT_COLOR[1], TEXT_COLOR[2], TEXT_COLOR[3]));
     }
 
     MPE::Renderer2D::BeginScene(SYS_CAMERA_CONTROLLER.GetCamera());
@@ -161,30 +168,25 @@ void Pong::OnEvent(MPE::Event& event)
 void Pong::PlaceText()
 {
     // Orient text so that they are always at the corners of the screen
-    float windowSize[2] = {MPE::App::GetApp().GetWindow()->GetWidth(), MPE::App::GetApp().GetWindow()->GetHeight()};
+    float windowSize[2] = {(float) MPE::App::GetApp().GetWindow()->GetWidth(), (float) MPE::App::GetApp().GetWindow()->GetHeight()};
     // P1 is always at the top left corner - no need to account for character amount
     TEXT_BOX_LOCATION_PLAYER_1[0] = 0.1f;
     TEXT_BOX_LOCATION_PLAYER_1[1] = windowSize[1] - 50.0f;
     // P2 is always at the top right corner - need to account for character amount so that the text doesn't go off screen
-    TEXT_BOX_LOCATION_PLAYER_2[0] = windowSize[0] - 75.0f;
+    // Adjust for each character in the string
+    TEXT_BOX_LOCATION_PLAYER_2[0] = windowSize[0] - (TEXT_PLAYER_2.size() * 40.0f);
+    // TEXT_BOX_LOCATION_PLAYER_2[0] = windowSize[0] - 50.0f;
     TEXT_BOX_LOCATION_PLAYER_2[1] = windowSize[1] - 50.0f;
+
+    // MPE_WARN("Window Width: {0}, Window Height: {1}", windowSize[0], windowSize[1]);
+    // MPE_WARN("TEXT BOX LOCATIONS: P1: ({0}, {1}), P2: ({2}, {3})", TEXT_BOX_LOCATION_PLAYER_1[0], TEXT_BOX_LOCATION_PLAYER_1[1],
+    // TEXT_BOX_LOCATION_PLAYER_2[0],
+    //          TEXT_BOX_LOCATION_PLAYER_2[1]);
 }
 
 bool Pong::OnWindowResize(MPE::WindowResizeEvent& e)
 {
-    // PlaceText();
-    // Orient text so that they are always at the corners of the screen
-    float windowSize[2] = {MPE::App::GetApp().GetWindow()->GetWidth(), MPE::App::GetApp().GetWindow()->GetHeight()};
-    // P1 is always at the top left corner - no need to account for character amount
-    TEXT_BOX_LOCATION_PLAYER_1[0] = 0.1f;
-    TEXT_BOX_LOCATION_PLAYER_1[1] = windowSize[1] - 50.0f;
-    // P2 is always at the top right corner - need to account for character amount so that the text doesn't go off screen
-    TEXT_BOX_LOCATION_PLAYER_2[0] = windowSize[0] - 75.0f;
-    TEXT_BOX_LOCATION_PLAYER_2[1] = windowSize[1] - 50.0f;
-
-    // MPE_WARN("Window Width: {0}, Window Height: {1}", windowSize[0], windowSize[1]);
-    // MPE_WARN("TEXT BOX LOCATIONS: P1: ({0}, {1}), P2: ({2}, {3})", TEXT_BOX_LOCATION_PLAYER_1[0], TEXT_BOX_LOCATION_PLAYER_1[1], TEXT_BOX_LOCATION_PLAYER_2[0],
-    //          TEXT_BOX_LOCATION_PLAYER_2[1]);
+    PlaceText();
 
     return true;
 }

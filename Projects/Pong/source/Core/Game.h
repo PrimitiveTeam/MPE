@@ -28,6 +28,9 @@ class Game
     float PlayerSpeed = 10.0f;
     float BallSpeed = 25.0f;
 
+    MPE::OggSoundPlayer *BallHitSound;
+    MPE::OggSoundPlayer *ScoreSound;
+
   public:
     Game(Player *lplayer, Player *rplayer, Ball *ball);
     Game(Player *lplayer, Player *rplayer, Ball *ball, glm::vec4 bounds);
