@@ -4,7 +4,7 @@
 
 namespace MPE
 {
-WavSoundPlayer::WavSoundPlayer(const std::string &filename)
+WavSoundPlayer::WavSoundPlayer( const std::string &filename)
 {
     if (!LoadSoundFile(filename))
     {

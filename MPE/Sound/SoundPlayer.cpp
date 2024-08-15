@@ -1,32 +1,18 @@
 #include "SoundPlayer.h"
 
+#include "OpenALContext.h"
 #include "MPE/Log/GlobalLog.h"
+#include "MPE/App/App.h"
 
 namespace MPE
 {
-SoundPlayer::SoundPlayer() : m_Device(nullptr), m_Context(nullptr), m_BufferID(0), m_SourceID(0), m_IsPlaying(false)
+SoundPlayer::SoundPlayer() : m_BufferID(0), m_SourceID(0), m_IsPlaying(false)
 {
-    m_Device = alcOpenDevice(nullptr);
-    if (!m_Device)
-    {
-        auto err = fmt::format("Failed to open an OpenAL device.");
-        MPE_CORE_ERROR(err);
-        MPE_CORE_ASSERT(false, err);
-        return;
-    }
-
-    m_Context = alcCreateContext(m_Device, nullptr);
-    if (!alcMakeContextCurrent(m_Context))
-    {
-        alcCloseDevice(m_Device);
-        auto err = fmt::format("Failed to create an OpenAL context.");
-        MPE_CORE_ERROR(err);
-        MPE_CORE_ASSERT(false, err);
-        return;
-    }
-
     alGenBuffers(1, &m_BufferID);
     alGenSources(1, &m_SourceID);
+
+    // Register this player with the OpenALContext
+    App::GetApp().GetOpenALContext().AddPlayer(this);
 }
 
 SoundPlayer::~SoundPlayer()
@@ -38,16 +24,18 @@ SoundPlayer::~SoundPlayer()
         m_SoundThread.join();
     }
 
+    alSourceStop(m_SourceID);
     alDeleteSources(1, &m_SourceID);
     alDeleteBuffers(1, &m_BufferID);
 
-    alcMakeContextCurrent(nullptr);
-    if (m_Context) alcDestroyContext(m_Context);
-    if (m_Device) alcCloseDevice(m_Device);
+    // Unregister this player from the OpenALContext
+    App::GetApp().GetOpenALContext().RemovePlayer(this);
 }
 
 void SoundPlayer::Play()
 {
+    std::lock_guard<std::mutex> lock(m_Mutex);
+
     if (m_IsPlaying) return;
 
     // Ensure any previous thread has been joined before creating a new one, otherwise crash
@@ -62,6 +50,12 @@ void SoundPlayer::Play()
 
 void SoundPlayer::Stop()
 {
+    {
+        std::lock_guard<std::mutex> lock(m_Mutex);
+        if (!m_IsPlaying) return;
+        m_IsPlaying = false;
+    }
+
     if (m_IsPlaying)
     {
         m_IsPlaying = false;
@@ -72,6 +66,18 @@ void SoundPlayer::Stop()
     }
 }
 
+std::string SoundPlayer::GetInfo()
+{
+    std::string info;
+    info += "SoundPlayer Info:\n";
+    info += "\tBuffer ID: " + std::to_string(m_BufferID) + "\n";
+    info += "\tSource ID: " + std::to_string(m_SourceID) + "\n";
+    info += "\tDevice: " + std::to_string(reinterpret_cast<uintptr_t>(App::GetApp().GetOpenALContext().GetDevice())) + "\n";
+    info += "\tContext: " + std::to_string(reinterpret_cast<uintptr_t>(App::GetApp().GetOpenALContext().GetContext())) + "\n";
+    info += "\tIs Playing: " + std::to_string(m_IsPlaying);
+    return info;
+}
+
 void SoundPlayer::PlaySound()
 {
     alSourcePlay(m_SourceID);
@@ -80,9 +86,22 @@ void SoundPlayer::PlaySound()
     while (state == AL_PLAYING && m_IsPlaying)
     {
         alGetSourcei(m_SourceID, AL_SOURCE_STATE, &state);
+
+        if (!m_IsPlaying)
+        {
+            break;
+        }
+
+        // Prevent CPU from being overworked
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
     alSourceStop(m_SourceID);
-    m_IsPlaying = false;
+
+    {
+        // Lock the mutex
+        std::lock_guard<std::mutex> lock(m_Mutex);
+        m_IsPlaying = false;
+    }
 }
 }

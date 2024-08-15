@@ -29,5 +29,6 @@ class SimpleAudioTest : public MPE::Layer
     float CLEAR_COLOR[4];
 
     // Audio
-    MPE::WavSoundPlayer m_SoundPlayer;
+    MPE::WavSoundPlayer* m_WavSoundPlayer;
+    MPE::OggSoundPlayer* m_OggSoundPlayer;
 };

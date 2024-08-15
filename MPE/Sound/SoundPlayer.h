@@ -2,13 +2,18 @@
 
 #include "MPE/Core/_CORE.h"
 
-#include <iostream>
-#include <vector>
 #include <thread>
 #include <atomic>
+#include <mutex>
+
+#include "OpenALContext.h"
 
 #include <AL/al.h>
 #include <AL/alc.h>
+
+// Simple Audio Generators in cases needed for testing:
+// * https://onlinetonegenerator.com/
+// * https://www.szynalski.com/tone-generator/
 
 namespace MPE
 {
@@ -22,6 +27,7 @@ class MPE_API SoundPlayer
 
     void Play();
     void Stop();
+    std::string GetInfo();
 
   protected:
     virtual bool LoadSoundFile(const std::string &filename) = 0;
@@ -29,10 +35,9 @@ class MPE_API SoundPlayer
   protected:
     ALuint m_BufferID;
     ALuint m_SourceID;
-    ALCdevice *m_Device;
-    ALCcontext *m_Context;
     std::atomic<bool> m_IsPlaying;
     std::thread m_SoundThread;
+    std::mutex m_Mutex;
 
   private:
     void PlaySound();
