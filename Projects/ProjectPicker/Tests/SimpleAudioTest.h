@@ -14,7 +14,7 @@ class SimpleAudioTest : public MPE::Layer
 
     virtual ~SimpleAudioTest() = default;
 
-    virtual void OnUpdate(MPE::Time deltatime) override;
+    virtual void OnUpdate(MPE::Time deltaTime) override;
 
     virtual void OnImGuiRender() override;
 

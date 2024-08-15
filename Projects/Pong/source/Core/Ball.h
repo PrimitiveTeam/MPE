@@ -44,15 +44,15 @@ class Ball
     // DIRECTION GetDirection() const { return Direction; }
     // void SetDirection(DIRECTION dir);
 
-    // void OnUpdate(MPE::_TIME deltatime);
+    // void OnUpdate(MPE::_TIME deltaTime);
 
-    // void Move(MPE::_TIME deltatime);
-    // void CheckBounds(MPE::_TIME deltatime);
+    // void Move(MPE::_TIME deltaTime);
+    // void CheckBounds(MPE::_TIME deltaTime);
 
     // void switchX();
     // void switchY();
     // void reset();
 
-    // void Ricochet(MPE::_TIME deltatime);
+    // void Ricochet(MPE::_TIME deltaTime);
 };
 }

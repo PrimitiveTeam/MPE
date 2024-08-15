@@ -35,19 +35,19 @@ void StaticOrthographicCamera::OnUpdate(Time deltaTime)
     // // CAMERA MOVEMENT
     // if (Input::IsKeyPressed(MPE_KEY_A))
     // {
-    //     CAMERA_POSITION.x -= m_cameraMovementSpeed * deltatime;
+    //     CAMERA_POSITION.x -= m_cameraMovementSpeed * deltaTime;
     // }
     // if (Input::IsKeyPressed(MPE_KEY_D))
     // {
-    //     CAMERA_POSITION.x += m_cameraMovementSpeed * deltatime;
+    //     CAMERA_POSITION.x += m_cameraMovementSpeed * deltaTime;
     // }
     // if (Input::IsKeyPressed(MPE_KEY_S))
     // {
-    //     CAMERA_POSITION.y -= m_cameraMovementSpeed * deltatime;
+    //     CAMERA_POSITION.y -= m_cameraMovementSpeed * deltaTime;
     // }
     // if (Input::IsKeyPressed(MPE_KEY_W))
     // {
-    //     CAMERA_POSITION.y += m_cameraMovementSpeed * deltatime;
+    //     CAMERA_POSITION.y += m_cameraMovementSpeed * deltaTime;
     // }
     // CAMERA.SetPosition(CAMERA_POSITION);
     // // CAMERA ROTATION
@@ -55,11 +55,11 @@ void StaticOrthographicCamera::OnUpdate(Time deltaTime)
     // {
     //     if (Input::IsKeyPressed(MPE_KEY_E))
     //     {
-    //         CAMERA_ROTATION -= m_cameraRotationSpeed * deltatime;
+    //         CAMERA_ROTATION -= m_cameraRotationSpeed * deltaTime;
     //     }
     //     if (Input::IsKeyPressed(MPE_KEY_Q))
     //     {
-    //         CAMERA_ROTATION += m_cameraRotationSpeed * deltatime;
+    //         CAMERA_ROTATION += m_cameraRotationSpeed * deltaTime;
     //     }
     //     CAMERA.SetRotation(CAMERA_ROTATION);
     // }

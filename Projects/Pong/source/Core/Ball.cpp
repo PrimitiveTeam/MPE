@@ -41,9 +41,9 @@ void Ball::SetRadius(float radius)
 //     Direction = dir;
 // }
 
-// void Ball::OnUpdate(MPE::_TIME deltatime)
+// void Ball::OnUpdate(MPE::_TIME deltaTime)
 // {
-//     Move(deltatime);
-//     CheckBounds(deltatime);
+//     Move(deltaTime);
+//     CheckBounds(deltaTime);
 // }
 }

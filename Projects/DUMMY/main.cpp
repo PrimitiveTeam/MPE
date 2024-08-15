@@ -90,9 +90,9 @@ class DummyLayer : public MPE::Layer
 
     void OnDetach() override { MPE_CORE_TRACE("DummyLayer detached!"); }
 
-    void OnUpdate(MPE::Time deltatime) override
+    void OnUpdate(MPE::Time deltaTime) override
     {
-        // MPE_CORE_TRACE("DummyLayer updated! DeltaTime: {0}", deltatime.GetMilliSeconds());
+        // MPE_CORE_TRACE("DummyLayer updated! DeltaTime: {0}", deltaTime.GetMilliSeconds());
     }
 
     void OnImGuiRender() override

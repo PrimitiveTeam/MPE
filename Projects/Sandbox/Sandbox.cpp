@@ -117,9 +117,9 @@ class TestLayer : public MPE::Layer
         std::dynamic_pointer_cast<MPE::OpenGLShader>(TEXTURE_SHADER)->InjectUniformInt1("UNI_TEXTURE", 0);
     }
 
-    virtual void OnUpdate(MPE::Time deltatime) override
+    virtual void OnUpdate(MPE::Time deltaTime) override
     {
-        // MPE_TRACE("Delta time: {0}s ({1}ms)", deltatime.GetSeconds(), deltatime.GetMilliSeconds());
+        // MPE_TRACE("Delta time: {0}s ({1}ms)", deltaTime.GetSeconds(), deltaTime.GetMilliSeconds());
 
         // OBJECT TRANSLATION
         // TRIANGLE
@@ -127,19 +127,19 @@ class TestLayer : public MPE::Layer
         {
             if (MPE::Input::IsKeyPressed(MPE_KEY_LEFT))
             {
-                TRIANGLE_POSITION[0] -= OBJECT_MOVEMENT_SPEED * deltatime;
+                TRIANGLE_POSITION[0] -= OBJECT_MOVEMENT_SPEED * deltaTime;
             }
             if (MPE::Input::IsKeyPressed(MPE_KEY_RIGHT))
             {
-                TRIANGLE_POSITION[0] += OBJECT_MOVEMENT_SPEED * deltatime;
+                TRIANGLE_POSITION[0] += OBJECT_MOVEMENT_SPEED * deltaTime;
             }
             if (MPE::Input::IsKeyPressed(MPE_KEY_DOWN))
             {
-                TRIANGLE_POSITION[1] -= OBJECT_MOVEMENT_SPEED * deltatime;
+                TRIANGLE_POSITION[1] -= OBJECT_MOVEMENT_SPEED * deltaTime;
             }
             if (MPE::Input::IsKeyPressed(MPE_KEY_UP))
             {
-                TRIANGLE_POSITION[1] += OBJECT_MOVEMENT_SPEED * deltatime;
+                TRIANGLE_POSITION[1] += OBJECT_MOVEMENT_SPEED * deltaTime;
             }
         }
         // SQUARE
@@ -147,24 +147,24 @@ class TestLayer : public MPE::Layer
         {
             if (MPE::Input::IsKeyPressed(MPE_KEY_LEFT))
             {
-                SQ_POSITION[0] -= OBJECT_MOVEMENT_SPEED * deltatime;
+                SQ_POSITION[0] -= OBJECT_MOVEMENT_SPEED * deltaTime;
             }
             if (MPE::Input::IsKeyPressed(MPE_KEY_RIGHT))
             {
-                SQ_POSITION[0] += OBJECT_MOVEMENT_SPEED * deltatime;
+                SQ_POSITION[0] += OBJECT_MOVEMENT_SPEED * deltaTime;
             }
             if (MPE::Input::IsKeyPressed(MPE_KEY_DOWN))
             {
-                SQ_POSITION[1] -= OBJECT_MOVEMENT_SPEED * deltatime;
+                SQ_POSITION[1] -= OBJECT_MOVEMENT_SPEED * deltaTime;
             }
             if (MPE::Input::IsKeyPressed(MPE_KEY_UP))
             {
-                SQ_POSITION[1] += OBJECT_MOVEMENT_SPEED * deltatime;
+                SQ_POSITION[1] += OBJECT_MOVEMENT_SPEED * deltaTime;
             }
         }
 
         // SCENE
-        SYS_CAMERA_CONTROLLER.OnUpdate(deltatime);
+        SYS_CAMERA_CONTROLLER.OnUpdate(deltaTime);
 
         MPE::RenderPrimitive::SetClearColor(glm::vec4(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]));
         MPE::RenderPrimitive::Clear();

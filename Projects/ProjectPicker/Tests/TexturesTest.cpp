@@ -15,13 +15,13 @@ void TexturesTest::OnAttach()
 
 void TexturesTest::OnDetach() {}
 
-void TexturesTest::OnUpdate(MPE::Time deltatime)
+void TexturesTest::OnUpdate(MPE::Time deltaTime)
 {
     MPE_PROFILE_FUNCTION();
 
     {
         MPE_PROFILE_SCOPE("SYS_CAMERA_CONTROLLER.OnUpdate()");
-        SYS_CAMERA_CONTROLLER.OnUpdate(deltatime);
+        SYS_CAMERA_CONTROLLER.OnUpdate(deltaTime);
     }
 
     MPE::RenderPrimitive::SetClearColor(CLEAR_COLOR);

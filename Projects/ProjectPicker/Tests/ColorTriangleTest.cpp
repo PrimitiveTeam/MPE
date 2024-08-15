@@ -37,7 +37,7 @@ ColorTriangleTest::ColorTriangleTest()
     auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/FlatColor.glsl", true);
 }
 
-void ColorTriangleTest::OnUpdate(MPE::Time deltatime)
+void ColorTriangleTest::OnUpdate(MPE::Time deltaTime)
 {
     MPE::RenderPrimitive::SetClearColor(glm::vec4(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]));
     MPE::RenderPrimitive::Clear();

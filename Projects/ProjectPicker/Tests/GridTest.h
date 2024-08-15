@@ -19,7 +19,7 @@ class GridTest : public MPE::Layer
 
     virtual ~GridTest() = default;
 
-    virtual void OnUpdate(MPE::Time deltatime) override;
+    virtual void OnUpdate(MPE::Time deltaTime) override;
 
     virtual void OnImGuiRender() override;
 

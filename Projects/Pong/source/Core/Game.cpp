@@ -50,12 +50,12 @@ void Game::SetBounds(glm::vec4 bounds)
     Bounds = bounds;
 }
 
-void Game::OnUpdate(MPE::Time deltatime)
+void Game::OnUpdate(MPE::Time deltaTime)
 {
     static const float FIXED_TIMESTEP = 1.0f / 60.0f;
     static float accumulator = 0.0f;
 
-    accumulator += deltatime.GetSeconds();
+    accumulator += deltaTime.GetSeconds();
 
     while (accumulator >= FIXED_TIMESTEP)
     {
@@ -187,29 +187,29 @@ void Game::ResetBall()
     BallStart();
 }
 
-void Game::PlayerMovement(MPE::Time deltatime)
+void Game::PlayerMovement(MPE::Time deltaTime)
 {
     // LEFT PLAYER
     if (MPE::Input::IsKeyPressed(leftPlayer->GetPlayerUp()))
     {
         float temp = leftPlayer->GetPosition().y;
-        leftPlayer->SetY(temp += PlayerSpeed * deltatime.GetSeconds());
+        leftPlayer->SetY(temp += PlayerSpeed * deltaTime.GetSeconds());
     }
     if (MPE::Input::IsKeyPressed(leftPlayer->GetPlayerDown()))
     {
         float temp = leftPlayer->GetPosition().y;
-        leftPlayer->SetY(temp -= PlayerSpeed * deltatime.GetSeconds());
+        leftPlayer->SetY(temp -= PlayerSpeed * deltaTime.GetSeconds());
     }
     // RIGHT PLAYER
     if (MPE::Input::IsKeyPressed(rightPlayer->GetPlayerUp()))
     {
         float temp = rightPlayer->GetPosition().y;
-        rightPlayer->SetY(temp += PlayerSpeed * deltatime.GetSeconds());
+        rightPlayer->SetY(temp += PlayerSpeed * deltaTime.GetSeconds());
     }
     if (MPE::Input::IsKeyPressed(rightPlayer->GetPlayerDown()))
     {
         float temp = rightPlayer->GetPosition().y;
-        rightPlayer->SetY(temp -= PlayerSpeed * deltatime.GetSeconds());
+        rightPlayer->SetY(temp -= PlayerSpeed * deltaTime.GetSeconds());
     }
 }
 

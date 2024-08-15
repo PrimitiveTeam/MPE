@@ -37,13 +37,13 @@ class Game
     ~Game();
 
     void SetBounds(glm::vec4 bounds);
-    void OnUpdate(MPE::Time deltatime);
+    void OnUpdate(MPE::Time deltaTime);
 
     void BallStart();
-    void MoveBall(MPE::Time deltatime);
+    void MoveBall(MPE::Time deltaTime);
     void CheckBallBounds();
     void ResetBall();
-    void PlayerMovement(MPE::Time deltatime);
+    void PlayerMovement(MPE::Time deltaTime);
     void CheckPlayerBounds();
     void PlayerCollider();
     void HandlePlayerCollision(Player *player);

@@ -45,9 +45,9 @@ GridTest::GridTest()
     SYS_Grid.Init(10.0f, 0.2f, SYS_CAMERA_CONTROLLER.GetCamera());
 }
 
-void GridTest::OnUpdate(MPE::Time deltatime)
+void GridTest::OnUpdate(MPE::Time deltaTime)
 {
-    UpdateColor(deltatime);
+    UpdateColor(deltaTime);
 
     MPE::RenderPrimitive::SetClearColor(glm::vec4(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]));
     MPE::RenderPrimitive::Clear();

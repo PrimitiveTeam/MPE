@@ -23,9 +23,9 @@ NativeTextTest::NativeTextTest()
     TEXT = "Hello World!";
 }
 
-void NativeTextTest::OnUpdate(MPE::Time deltatime)
+void NativeTextTest::OnUpdate(MPE::Time deltaTime)
 {
-    SYS_CAMERA_CONTROLLER.OnUpdate(deltatime);
+    SYS_CAMERA_CONTROLLER.OnUpdate(deltaTime);
 
     MPE::RenderPrimitive::SetClearColor(glm::vec4(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]));
     MPE::RenderPrimitive::Clear();

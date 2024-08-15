@@ -56,8 +56,8 @@ class Player
     uint32_t GetPlayerUp() const { return Up; }
     uint32_t GetPlayerDown() const { return Down; }
 
-    // void OnUpdate(MPE::_TIME deltatime);
-    // void Movement(MPE::_TIME deltatime);
+    // void OnUpdate(MPE::_TIME deltaTime);
+    // void Movement(MPE::_TIME deltaTime);
     // void CheckBounds();
     // void OnEvent(Event &e);
 };
