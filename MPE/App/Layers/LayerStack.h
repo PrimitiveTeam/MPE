@@ -10,8 +10,8 @@ namespace MPE
 class MPE_API LayerStack
 {
   private:
-    std::vector<REF<Layer>> SYS_Layers;
-    unsigned int SYS_LayerInsertIndex = 0;
+    std::vector<REF<Layer>> m_layers;
+    unsigned int m_layerInsertIndex = 0;
 
   public:
     LayerStack();
@@ -25,12 +25,12 @@ class MPE_API LayerStack
     void PopOverlay();
     void PopOverlay(const REF<Layer> &overlay);
 
-    bool empty() { return SYS_Layers.empty(); }
-    size_t size() { return SYS_Layers.size(); }
+    bool empty() { return m_layers.empty(); }
+    size_t size() { return m_layers.size(); }
 
-    std::vector<REF<Layer>>::iterator begin() { return SYS_Layers.begin(); }
-    std::vector<REF<Layer>>::iterator end() { return SYS_Layers.end(); }
+    std::vector<REF<Layer>>::iterator begin() { return m_layers.begin(); }
+    std::vector<REF<Layer>>::iterator end() { return m_layers.end(); }
 
-    const std::vector<REF<Layer>> &GetLayers() const { return SYS_Layers; }
+    const std::vector<REF<Layer>> &GetLayers() const { return m_layers; }
 };
 }
