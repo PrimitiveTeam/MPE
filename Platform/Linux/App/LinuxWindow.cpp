@@ -37,13 +37,13 @@ LinuxWindow::~LinuxWindow()
 
 void LinuxWindow::Init(const WindowProps &props)
 {
-    SYS_Data.Title = props.Title;
-    SYS_Data.Width = props.Width;
-    SYS_Data.Height = props.Height;
-    SYS_Data.WindowPositionX = props.WindowPositionX;
-    SYS_Data.WindowPositionY = props.WindowPositionY;
+    SYS_Data.Title = props.m_title;
+    SYS_Data.Width = props.m_width;
+    SYS_Data.Height = props.m_height;
+    SYS_Data.WindowPositionX = props.m_windowPositionX;
+    SYS_Data.WindowPositionY = props.m_windowPositionY;
 
-    MPE_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
+    MPE_CORE_INFO("Creating window {0} ({1}, {2})", props.m_title, props.m_width);
 
     if (!SYS_GLFWInitialized)
     {
@@ -123,12 +123,12 @@ void LinuxWindow::Init(const WindowProps &props)
     glfwSetWindowPosCallback(SYS_Window,
                              [](GLFWwindow *window, int xPos, int yPos)
                              {
-                                  WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
-                                  data.WindowPositionX = xPos;
-                                  data.WindowPositionY = yPos;
+                                 WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
+                                 data.WindowPositionX = xPos;
+                                 data.WindowPositionY = yPos;
 
-                                  WindowMovedEvent event(xPos, yPos);
-                                  data.EventCallback(event);
+                                 WindowMovedEvent event(xPos, yPos);
+                                 data.EventCallback(event);
                              });
 
     glfwSetWindowSizeCallback(SYS_Window,

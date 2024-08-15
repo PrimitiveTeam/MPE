@@ -41,13 +41,13 @@ void WindowsWindow::Init(const WindowProps &props)
 {
     SYS_Monitors = WindowMonitors();
 
-    SYS_Data.Title = props.Title;
-    SYS_Data.Width = props.Width;
-    SYS_Data.Height = props.Height;
-    SYS_Data.WindowPositionX = props.WindowPositionX;
-    SYS_Data.WindowPositionY = props.WindowPositionY;
+    SYS_Data.Title = props.m_title;
+    SYS_Data.Width = props.m_width;
+    SYS_Data.Height = props.m_height;
+    SYS_Data.WindowPositionX = props.m_windowPositionX;
+    SYS_Data.WindowPositionY = props.m_windowPositionY;
 
-    MPE_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height, props.WindowPositionX, props.WindowPositionY);
+    MPE_CORE_INFO("Creating window {0} ({1}, {2})", props.m_title, props.m_width, props.m_height);
 
     if (!SYS_GLFWInitialized)
     {
@@ -77,7 +77,7 @@ void WindowsWindow::Init(const WindowProps &props)
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
 #endif
 
-    SYS_Window = glfwCreateWindow((int) props.Width, (int) props.Height, SYS_Data.Title.c_str(), nullptr, nullptr);
+    SYS_Window = glfwCreateWindow((int) props.m_width, (int) props.m_height, SYS_Data.Title.c_str(), nullptr, nullptr);
     SaveWindowSizeAndPosition();
 
     switch (api)
