@@ -35,9 +35,9 @@ class _TIMER
      * @param log The logging flag of the timer.
      * @date 2024-05-05
      */
-    _TIMER(const char *name, bool log = false) : NAME(name), FUNC(nullptr), STOPPED(false), LOG(log)
+    _TIMER(const char *name, bool log = false) : m_name(name), m_func(nullptr), m_isStopped(false), m_log(log)
     {
-        START_POINT = std::chrono::high_resolution_clock::now();
+        m_startPoint = std::chrono::high_resolution_clock::now();
     }
 
     /**
@@ -49,9 +49,9 @@ class _TIMER
      * @param log The logging flag of the timer.
      * @date 2024-05-05
      */
-    _TIMER(const char *name, FN &&func, bool log = false) : NAME(name), FUNC(std::move(func)), STOPPED(false), LOG(log)
+    _TIMER(const char *name, FN &&func, bool log = false) : m_name(name), m_func(std::move(func)), m_isStopped(false), m_log(log)
     {
-        START_POINT = std::chrono::high_resolution_clock::now();
+        m_startPoint = std::chrono::high_resolution_clock::now();
     }
 
     /**
@@ -62,7 +62,7 @@ class _TIMER
      */
     ~_TIMER()
     {
-        if (!STOPPED)
+        if (!m_isStopped)
         {
             Stop();
         }
@@ -78,22 +78,22 @@ class _TIMER
      */
     void Stop()
     {
-        if (!STOPPED)
+        if (!m_isStopped)
         {
             auto END_POINT = std::chrono::high_resolution_clock::now();
-            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(END_POINT - START_POINT).count() * 0.001f;
-            STOPPED = true;
+            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(END_POINT - m_startPoint).count() * 0.001f;
+            m_isStopped = true;
 
             // Execute the function if provided
-            if (FUNC)
+            if (m_func)
             {
-                FUNC(NAME, duration);
+                m_func(m_name, duration);
             }
 
             // Log the duration if logging is enabled
-            if (LOG)
+            if (m_log)
             {
-                MPE_CORE_INFO("{0} duration: {1} ms", NAME, duration);
+                MPE_CORE_INFO("{0} duration: {1} ms", m_name, duration);
             }
         }
     }
@@ -103,27 +103,27 @@ class _TIMER
      * @brief The name of the timer.
      * @date 2024-05-05
      */
-    const char *NAME;
+    const char *m_name;
     /**
      * @brief The function to call on stopping the timer.
      * @date 2024-05-05
      */
-    FN FUNC;
+    FN m_func;
     /**
      * @brief The starting point of the timer.
      * @date 2024-05-05
      */
-    std::chrono::time_point<std::chrono::high_resolution_clock> START_POINT;
+    std::chrono::time_point<std::chrono::high_resolution_clock> m_startPoint;
     /**
      * @brief The stopping flag of the timer.
      * @date 2024-05-05
      */
-    bool STOPPED;
+    bool m_isStopped;
     /**
      * @brief The logging flag of the timer.
      * @date 2024-05-05
      */
-    bool LOG;
+    bool m_log;
 };
 }
 

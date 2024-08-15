@@ -33,17 +33,17 @@ struct MPE_API ProfileResult
      * @brief The name of the profile.
      * @date 2024-05-05
      */
-    std::string Name;
+    std::string m_name;
     /**
      * @brief The start time of the profile.
      * @date 2024-05-05
      */
-    long long Start, End;
+    long long m_start, m_end;
     /**
      * @brief The thread ID of the profile.
      * @date 2024-05-05
      */
-    uint32_t ThreadID;
+    uint32_t m_threadId;
 };
 
 /**
@@ -56,7 +56,7 @@ struct MPE_API ProfilerSession
      * @brief The name of the session.
      * @date 2024-05-05
      */
-    std::string Name;
+    std::string m_name;
 };
 
 /**
@@ -118,12 +118,12 @@ class MPE_API Profiler
          * @brief The profiler instance.
          * @date 2024-05-05
          */
-        static Profiler instance;
+        static Profiler m_instance;
         /**
          * @brief The profiler instance.
          * @date 2024-05-05
          */
-        return instance;
+        return m_instance;
     }
 
   private:
@@ -131,17 +131,17 @@ class MPE_API Profiler
      * @brief The current profiler session.
      * @date 2024-05-05
      */
-    ProfilerSession *CURRENT_SESSION;
+    ProfilerSession *m_currentSession;
     /**
      * @brief The output file stream.
      * @date 2024-05-05
      */
-    std::ofstream OUTPUT;
+    std::ofstream m_output;
     /**
      * @brief The profile count.
      * @date 2024-05-05
      */
-    int PROFILE_COUNT;
+    int m_profileCount;
 };
 
 /**
@@ -175,17 +175,17 @@ class MPE_API InstrumentationTimer
      * @brief The name of the timer.
      * @date 2024-05-05
      */
-    const char *NAME;
+    const char *m_name;
     /**
      * @brief The starting point of the timer.
      * @date 2024-05-05
      */
-    std::chrono::time_point<std::chrono::high_resolution_clock> START_POINT;
+    std::chrono::time_point<std::chrono::high_resolution_clock> m_startPoint;
     /**
      * @brief The stopping flag of the timer.
      * @date 2024-05-05
      */
-    bool STOPPED;
+    bool m_isStopped;
 };
 }
 
