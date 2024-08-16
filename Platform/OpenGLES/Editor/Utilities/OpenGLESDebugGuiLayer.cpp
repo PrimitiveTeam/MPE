@@ -117,14 +117,14 @@ void OpenGLESDebugGuiLayer::GraphicsSettings()
 
 void OpenGLESDebugGuiLayer::DisplayRefs()
 {
-    ImGui::Text("Total References: %d", MPE::ReferenceTracker::getInstance().GetTotalReferences());
+    ImGui::Text("Total References: %u", (unsigned int)MPE::ReferenceTracker::getInstance().GetTotalReferences());
 
     if (ImGui::BeginListBox("References"))
     {
         auto refs = MPE::ReferenceTracker::getInstance().GetReferences();
         for (const auto& ref : refs)
         {
-            ImGui::Text(ref.c_str());
+            ImGui::Text("%s", ref.c_str());
         }
         ImGui::EndListBox();
     }
@@ -134,7 +134,7 @@ void OpenGLESDebugGuiLayer::DisplayRefs()
         auto refs = MPE::ReferenceTracker::getInstance().GetScopeReferences();
         for (const auto& ref : refs)
         {
-            ImGui::Text(ref.c_str());
+            ImGui::Text("%s", ref.c_str());
         }
         ImGui::EndListBox();
     }
