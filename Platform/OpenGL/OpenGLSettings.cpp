@@ -153,7 +153,7 @@ void OpenGLSettings::ToggleDepthTest()
 
 bool OpenGLSettings::GetDepthTest() const
 {
-    return m_blend;
+    return m_depthTest;
 }
 
 void OpenGLSettings::SetDepthTest(bool depthTest)
