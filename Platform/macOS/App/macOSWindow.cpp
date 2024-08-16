@@ -11,7 +11,7 @@
 
 namespace MPE
 {
-static bool SYS_GLFWInitialized = false;
+static bool g_glfwInitialized = false;
 
 static void GLFWErrorCallback(int error, const char *description)
 {
@@ -47,12 +47,12 @@ void macOSWindow::Init(const WindowProps &props)
 
     MPE_CORE_INFO("Creating window {0} ({1}, {2})", props.m_title, props.m_width, props.m_height);
 
-    if (!SYS_GLFWInitialized)
+    if (!g_glfwInitialized)
     {
         int success = glfwInit();
         MPE_CORE_ASSERT(success, "COULD NOT INITIALIZE GLFW.");
         glfwSetErrorCallback(GLFWErrorCallback);
-        SYS_GLFWInitialized = true;
+        g_glfwInitialized = true;
     }
 
     auto api = MPE::RendererAPI::GetGraphicsAPI();
