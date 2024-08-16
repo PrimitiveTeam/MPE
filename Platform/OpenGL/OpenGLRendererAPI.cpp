@@ -14,21 +14,21 @@ void OpenGLRendererAPI::Init()
     // std::string OpenGL_INFO = "\nOpenGL Info:\n";
 
     auto graphicalContextProps = m_settings->GetGraphicalContextProps();
-    int OpenGLVersionMajor;
-    int OpenGLVersionMinor;
-    glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
-    glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersionMinor);
+    int openGLVersionMajor;
+    int openGLVersionMinor;
+    glGetIntegerv(GL_MAJOR_VERSION, &openGLVersionMajor);
+    glGetIntegerv(GL_MINOR_VERSION, &openGLVersionMinor);
 
-    // OpenGL_INFO += "\tOpenGL Version: " + std::to_string(OpenGLVersionMajor) + "." + std::to_string(OpenGLVersionMinor) + "\n";
-    graphicalContextProps->m_majorVersion = OpenGLVersionMajor;
-    graphicalContextProps->m_minorVersion = OpenGLVersionMinor;
+    // OpenGL_INFO += "\tOpenGL Version: " + std::to_string(openGLVersionMajor) + "." + std::to_string(openGLVersionMinor) + "\n";
+    graphicalContextProps->m_majorVersion = openGLVersionMajor;
+    graphicalContextProps->m_minorVersion = openGLVersionMinor;
 
 #ifdef MPE_PLATFORM_WINDOWS
-    MPE_CORE_ASSERT(OpenGLVersionMajor > 4 || (OpenGLVersionMajor == 4 && OpenGLVersionMinor >= 6), "MPE REQUIRES OPENGL VERSION 4.6 OR GREATER.");
+    MPE_CORE_ASSERT(openGLVersionMajor > 4 || (openGLVersionMajor == 4 && openGLVersionMinor >= 6), "MPE REQUIRES OPENGL VERSION 4.6 OR GREATER.");
 #elif MPE_PLATFORM_OSX
-    MPE_CORE_ASSERT(OpenGLVersionMajor >= 3 || (OpenGLVersionMajor >= 3 && OpenGLVersionMinor >= 2), "MPE REQUIRES OPENGL VERSION 3.2 FOR macOS.");
+    MPE_CORE_ASSERT(openGLVersionMajor >= 3 || (openGLVersionMajor >= 3 && openGLVersionMinor >= 2), "MPE REQUIRES OPENGL VERSION 3.2 FOR macOS.");
 #else
-    MPE_CORE_ASSERT(OpenGLVersionMajor > 4 || (OpenGLVersionMajor == 4 && OpenGLVersionMinor >= 6), "MPE REQUIRES OPENGL VERSION 4.6 OR GREATER.");
+    MPE_CORE_ASSERT(openGLVersionMajor > 4 || (openGLVersionMajor == 4 && openGLVersionMinor >= 6), "MPE REQUIRES OPENGL VERSION 4.6 OR GREATER.");
 #endif
 
     graphicalContextProps->m_vendor = std::string(reinterpret_cast<const char *>(glGetString(GL_VENDOR)));
