@@ -20,11 +20,11 @@
 
 namespace MPE
 {
-App *ImGuiLayer::SYS_App = nullptr;
+App *ImGuiLayer::m_app = nullptr;
 
 ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer")
 {
-    SYS_App = &App::GetApp();
+    m_app = &App::GetApp();
 }
 
 ImGuiLayer::~ImGuiLayer() {}
@@ -38,8 +38,8 @@ void ImGuiLayer::OnAttach()
     // "Globals are not shared accross DLL borders so you need to call ImGui::SetCurrentContext() on every side of the fence."
 
 #ifdef MPE_DYNAMIC_LIBRARY
-    SYS_ImGuiContext = ImGui::CreateContext();
-    ImGui::SetCurrentContext(SYS_ImGuiContext);
+    m_imguiContext = ImGui::CreateContext();
+    ImGui::SetCurrentContext(m_imguiContext);
 #else
     ImGui::CreateContext();
 #endif
@@ -67,7 +67,7 @@ void ImGuiLayer::OnAttach()
     }
 
     // App &app = App::GetApp();
-    GLFWwindow *window = static_cast<GLFWwindow *>(SYS_App->GetWindow()->GetNativeWindow());
+    GLFWwindow *window = static_cast<GLFWwindow *>(m_app->GetWindow()->GetNativeWindow());
 
     // Setup Platform/Renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -93,7 +93,7 @@ void ImGuiLayer::OnAttach()
 void ImGuiLayer::OnDetach()
 {
 #ifdef MPE_DYNAMIC_LIBRARY
-    ImGui::SetCurrentContext(SYS_ImGuiContext);
+    ImGui::SetCurrentContext(m_imguiContext);
 #endif
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
@@ -103,7 +103,7 @@ void ImGuiLayer::OnDetach()
 void ImGuiLayer::Begin()
 {
 #ifdef MPE_DYNAMIC_LIBRARY
-    ImGui::SetCurrentContext(SYS_ImGuiContext);
+    ImGui::SetCurrentContext(m_imguiContext);
 #endif
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
@@ -113,11 +113,11 @@ void ImGuiLayer::Begin()
 void ImGuiLayer::End()
 {
 #ifdef MPE_DYNAMIC_LIBRARY
-    ImGui::SetCurrentContext(SYS_ImGuiContext);
+    ImGui::SetCurrentContext(m_imguiContext);
 #endif
     ImGuiIO &io = ImGui::GetIO();
     // App &app = App::GetApp();
-    io.DisplaySize = ImVec2((float) SYS_App->GetWindow()->GetWidth(), (float) SYS_App->GetWindow()->GetHeight());
+    io.DisplaySize = ImVec2((float) m_app->GetWindow()->GetWidth(), (float) m_app->GetWindow()->GetHeight());
 
     // Rendering
     ImGui::Render();
@@ -135,7 +135,7 @@ void ImGuiLayer::End()
 void ImGuiLayer::OnImGuiRender()
 {
 #ifdef MPE_DYNAMIC_LIBRARY
-    ImGui::SetCurrentContext(SYS_ImGuiContext);
+    ImGui::SetCurrentContext(m_imguiContext);
 #endif
     static bool show = false;
     if (show)

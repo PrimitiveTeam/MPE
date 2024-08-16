@@ -24,15 +24,15 @@ class MPE_API ImGuiLayer : public Layer
     void End();
 
 #ifdef MPE_DYNAMIC_LIBRARY
-    ImGuiContext* GetImGuiContext() { return SYS_ImGuiContext; }
+    ImGuiContext* GetImGuiContext() { return m_imguiContext; }
 #endif
 
   private:
-    float SYS_Time = 0.0f;
-    static App* SYS_App;
+    float m_time = 0.0f;
+    static App* m_app;
 
 #ifdef MPE_DYNAMIC_LIBRARY
-    ImGuiContext* SYS_ImGuiContext;
+    ImGuiContext* m_imguiContext;
 #endif
 };
 }
