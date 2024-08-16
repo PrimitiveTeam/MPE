@@ -23,8 +23,8 @@ bool OggSoundPlayer::LoadSoundFile(const std::string &filename)
     ALsizei freq;
     if (!LoadOggFile(filename, bufferData, format, freq)) return false;
 
-    alBufferData(m_BufferID, format, bufferData.data(), static_cast<ALsizei>(bufferData.size()), freq);
-    alSourcei(m_SourceID, AL_BUFFER, m_BufferID);
+    alBufferData(m_bufferId, format, bufferData.data(), static_cast<ALsizei>(bufferData.size()), freq);
+    alSourcei(m_sourceId, AL_BUFFER, m_bufferId);
 
     return true;
 }

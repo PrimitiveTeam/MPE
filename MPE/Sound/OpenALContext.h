@@ -23,8 +23,8 @@ class MPE_API OpenALContext
     static OpenALContext& GetInstance();
     ~OpenALContext();
 
-    ALCdevice* GetDevice() { return m_Device; }
-    ALCcontext* GetContext() { return m_Context; }
+    ALCdevice* GetDevice() { return m_device; }
+    ALCcontext* GetContext() { return m_context; }
 
     void AddPlayer(SoundPlayer* player);
     void RemovePlayer(SoundPlayer* player);
@@ -36,14 +36,14 @@ class MPE_API OpenALContext
     static OpenALContext& CreateInstance();
 
   private:
-    ALCdevice* m_Device;
-    ALCcontext* m_Context;
+    ALCdevice* m_device;
+    ALCcontext* m_context;
 
-    std::vector<SoundPlayer*> m_Players;
-    std::mutex m_PlayerMutex;
+    std::vector<SoundPlayer*> m_players;
+    std::mutex m_playerMutex;
 
     // Mutex for thread-safe singleton initialization
-    static std::mutex s_InstanceMutex;
-    static OpenALContext* s_Instance;
+    static std::mutex s_instanceMutex;
+    static OpenALContext* s_instance;
 };
 }

@@ -33,11 +33,11 @@ class MPE_API SoundPlayer
     virtual bool LoadSoundFile(const std::string &filename) = 0;
 
   protected:
-    ALuint m_BufferID;
-    ALuint m_SourceID;
-    std::atomic<bool> m_IsPlaying;
-    std::thread m_SoundThread;
-    std::mutex m_Mutex;
+    ALuint m_bufferId;
+    ALuint m_sourceId;
+    std::atomic<bool> m_isPlaying;
+    std::thread m_soundThread;
+    std::mutex m_mutex;
 
   private:
     void PlaySound();

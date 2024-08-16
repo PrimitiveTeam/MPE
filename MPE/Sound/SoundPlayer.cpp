@@ -6,10 +6,10 @@
 
 namespace MPE
 {
-SoundPlayer::SoundPlayer() : m_BufferID(0), m_SourceID(0), m_IsPlaying(false)
+SoundPlayer::SoundPlayer() : m_bufferId(0), m_sourceId(0), m_isPlaying(false)
 {
-    alGenBuffers(1, &m_BufferID);
-    alGenSources(1, &m_SourceID);
+    alGenBuffers(1, &m_bufferId);
+    alGenSources(1, &m_sourceId);
 
     // Register this player with the OpenALContext
     App::GetApp().GetOpenALContext().AddPlayer(this);
@@ -19,14 +19,14 @@ SoundPlayer::~SoundPlayer()
 {
     this->Stop();
 
-    if (m_SoundThread.joinable())
+    if (m_soundThread.joinable())
     {
-        m_SoundThread.join();
+        m_soundThread.join();
     }
 
-    alSourceStop(m_SourceID);
-    alDeleteSources(1, &m_SourceID);
-    alDeleteBuffers(1, &m_BufferID);
+    alSourceStop(m_sourceId);
+    alDeleteSources(1, &m_sourceId);
+    alDeleteBuffers(1, &m_bufferId);
 
     // Unregister this player from the OpenALContext
     App::GetApp().GetOpenALContext().RemovePlayer(this);
@@ -34,34 +34,34 @@ SoundPlayer::~SoundPlayer()
 
 void SoundPlayer::Play()
 {
-    std::lock_guard<std::mutex> lock(m_Mutex);
+    std::lock_guard<std::mutex> lock(m_mutex);
 
-    if (m_IsPlaying) return;
+    if (m_isPlaying) return;
 
     // Ensure any previous thread has been joined before creating a new one, otherwise crash
-    if (m_SoundThread.joinable())
+    if (m_soundThread.joinable())
     {
-        m_SoundThread.join();
+        m_soundThread.join();
     }
 
-    m_IsPlaying = true;
-    m_SoundThread = std::thread(&SoundPlayer::PlaySound, this);
+    m_isPlaying = true;
+    m_soundThread = std::thread(&SoundPlayer::PlaySound, this);
 }
 
 void SoundPlayer::Stop()
 {
     {
-        std::lock_guard<std::mutex> lock(m_Mutex);
-        if (!m_IsPlaying) return;
-        m_IsPlaying = false;
+        std::lock_guard<std::mutex> lock(m_mutex);
+        if (!m_isPlaying) return;
+        m_isPlaying = false;
     }
 
-    if (m_IsPlaying)
+    if (m_isPlaying)
     {
-        m_IsPlaying = false;
-        if (m_SoundThread.joinable())
+        m_isPlaying = false;
+        if (m_soundThread.joinable())
         {
-            m_SoundThread.join();
+            m_soundThread.join();
         }
     }
 }
@@ -70,24 +70,24 @@ std::string SoundPlayer::GetInfo()
 {
     std::string info;
     info += "SoundPlayer Info:\n";
-    info += "\tBuffer ID: " + std::to_string(m_BufferID) + "\n";
-    info += "\tSource ID: " + std::to_string(m_SourceID) + "\n";
+    info += "\tBuffer ID: " + std::to_string(m_bufferId) + "\n";
+    info += "\tSource ID: " + std::to_string(m_sourceId) + "\n";
     info += "\tDevice: " + std::to_string(reinterpret_cast<uintptr_t>(App::GetApp().GetOpenALContext().GetDevice())) + "\n";
     info += "\tContext: " + std::to_string(reinterpret_cast<uintptr_t>(App::GetApp().GetOpenALContext().GetContext())) + "\n";
-    info += "\tIs Playing: " + std::to_string(m_IsPlaying);
+    info += "\tIs Playing: " + std::to_string(m_isPlaying);
     return info;
 }
 
 void SoundPlayer::PlaySound()
 {
-    alSourcePlay(m_SourceID);
+    alSourcePlay(m_sourceId);
 
     ALint state = AL_PLAYING;
-    while (state == AL_PLAYING && m_IsPlaying)
+    while (state == AL_PLAYING && m_isPlaying)
     {
-        alGetSourcei(m_SourceID, AL_SOURCE_STATE, &state);
+        alGetSourcei(m_sourceId, AL_SOURCE_STATE, &state);
 
-        if (!m_IsPlaying)
+        if (!m_isPlaying)
         {
             break;
         }
@@ -96,12 +96,12 @@ void SoundPlayer::PlaySound()
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
-    alSourceStop(m_SourceID);
+    alSourceStop(m_sourceId);
 
     {
         // Lock the mutex
-        std::lock_guard<std::mutex> lock(m_Mutex);
-        m_IsPlaying = false;
+        std::lock_guard<std::mutex> lock(m_mutex);
+        m_isPlaying = false;
     }
 }
 }

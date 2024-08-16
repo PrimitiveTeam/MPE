@@ -4,7 +4,7 @@
 
 namespace MPE
 {
-WavSoundPlayer::WavSoundPlayer( const std::string &filename)
+WavSoundPlayer::WavSoundPlayer(const std::string &filename)
 {
     if (!LoadSoundFile(filename))
     {
@@ -22,8 +22,8 @@ bool WavSoundPlayer::LoadSoundFile(const std::string &filename)
     ALsizei freq;
     if (!LoadWavFile(filename, bufferData, format, freq)) return false;
 
-    alBufferData(m_BufferID, format, bufferData.data(), static_cast<ALsizei>(bufferData.size()), freq);
-    alSourcei(m_SourceID, AL_BUFFER, m_BufferID);
+    alBufferData(m_bufferId, format, bufferData.data(), static_cast<ALsizei>(bufferData.size()), freq);
+    alSourcei(m_sourceId, AL_BUFFER, m_bufferId);
 
     return true;
 }
