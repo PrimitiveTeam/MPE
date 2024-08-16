@@ -24,18 +24,18 @@ class MPE_API OpenGLGrid : Grid
 
     virtual void DrawGrid() override;
 
-    virtual float GetGridSize() override { return gridSize; }
+    virtual float GetGridSize() override { return m_size; }
 
-    virtual float GetGridSpacing() override { return gridSpacing; }
+    virtual float GetGridSpacing() override { return m_spacing; }
 
   private:
     // These cannot be 0 or less than 0, otherwise the grid will not be drawn and cause a freeze.
-    float gridSize;
-    float gridSpacing;
+    float m_size;
+    float m_spacing;
 
-    MPE::REF<MPE::Shader> gridShader;
-    MPE::REF<MPE::VertexArray> vertexArray;
+    MPE::REF<MPE::Shader> m_shader;
+    MPE::REF<MPE::VertexArray> m_vertexArray;
 
-    MPE::OrthographicCamera* mainCamera;
+    MPE::OrthographicCamera* m_mainCamera;
 };
 }
