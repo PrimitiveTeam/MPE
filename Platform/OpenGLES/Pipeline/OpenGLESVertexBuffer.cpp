@@ -6,19 +6,19 @@
 
 namespace MPE
 {
-OpenGLESVertexBuffer::OpenGLESVertexBuffer(float* vertices, uint32_t size) : m_Size(size)
+OpenGLESVertexBuffer::OpenGLESVertexBuffer(float* vertices, uint32_t size) : m_size(size)
 {
     // TODO: Add a check for OpenGLES version using compiler defines.
-    glGenBuffers(1, &SYS_Renderer_ID);
-    glBindBuffer(GL_ARRAY_BUFFER, SYS_Renderer_ID);
+    glGenBuffers(1, &m_vertexBufferId);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
     glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }
 
-OpenGLESVertexBuffer::OpenGLESVertexBuffer(uint32_t size) : m_Size(size)
+OpenGLESVertexBuffer::OpenGLESVertexBuffer(uint32_t size) : m_size(size)
 {
     // TODO: Add a check for OpenGLES version using compiler defines.
-    glGenBuffers(1, &SYS_Renderer_ID);
-    glBindBuffer(GL_ARRAY_BUFFER, SYS_Renderer_ID);
+    glGenBuffers(1, &m_vertexBufferId);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
     glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 
     glCheckError();
@@ -26,12 +26,12 @@ OpenGLESVertexBuffer::OpenGLESVertexBuffer(uint32_t size) : m_Size(size)
 
 OpenGLESVertexBuffer::~OpenGLESVertexBuffer()
 {
-    glDeleteBuffers(1, &SYS_Renderer_ID);
+    glDeleteBuffers(1, &m_vertexBufferId);
 }
 
 void OpenGLESVertexBuffer::Bind() const
 {
-    glBindBuffer(GL_ARRAY_BUFFER, SYS_Renderer_ID);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
 }
 
 void OpenGLESVertexBuffer::Unbind() const
@@ -42,9 +42,9 @@ void OpenGLESVertexBuffer::Unbind() const
 void OpenGLESVertexBuffer::SetData(const void* data, uint32_t size)
 {
     // TODO: Add a way to check if already bound
-    // glBindBuffer(GL_ARRAY_BUFFER, SYS_Renderer_ID);
+    // glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
     // glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
-    glBindBuffer(GL_ARRAY_BUFFER, SYS_Renderer_ID);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
     glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 
     glCheckError();

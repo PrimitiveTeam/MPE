@@ -64,10 +64,10 @@ class MPE_API OpenGLESSettings : public RenderSettings
 
   private:
     // Store settings in a map. For basic settings that are binary store in a string/bool pair.
-    std::map<std::string, std::pair<std::string, int>> _SETTINGS;
+    std::map<std::string, std::pair<std::string, int>> m_settings;
 
-    bool _BLEND;
-    bool _DEPTH_TEST;
-    bool _POLYGON_MODE;
+    bool m_blend;
+    bool m_depthTest;
+    bool m_polygonMode;
 };
 }

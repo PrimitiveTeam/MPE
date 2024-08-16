@@ -44,17 +44,17 @@ static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
 
 OpenGLESVertexArray::OpenGLESVertexArray()
 {
-    glGenVertexArrays(1, &SYS_Renderer_ID);
+    glGenVertexArrays(1, &m_vertexArrayId);
 }
 
 OpenGLESVertexArray::~OpenGLESVertexArray()
 {
-    glDeleteVertexArrays(1, &SYS_Renderer_ID);
+    glDeleteVertexArrays(1, &m_vertexArrayId);
 }
 
 void OpenGLESVertexArray::Bind() const
 {
-    glBindVertexArray(SYS_Renderer_ID);
+    glBindVertexArray(m_vertexArrayId);
 }
 
 void OpenGLESVertexArray::Unbind() const
@@ -66,7 +66,7 @@ void OpenGLESVertexArray::AddVertexBuffer(const REF<VertexBuffer> &vertexBuffer)
 {
     MPE_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "VERTEX BUFFER HAS NO LAYOUT.");
 
-    glBindVertexArray(SYS_Renderer_ID);
+    glBindVertexArray(m_vertexArrayId);
     vertexBuffer->Bind();
 
     uint32_t index = 0;
@@ -74,21 +74,21 @@ void OpenGLESVertexArray::AddVertexBuffer(const REF<VertexBuffer> &vertexBuffer)
     for (const auto &element : layout)
     {
         glEnableVertexAttribArray(index);
-        glVertexAttribPointer(index, element.GetComponentCount(), ShaderDataTypeToOpenGLBaseType(element.Type), element.Normalized ? GL_TRUE : GL_FALSE,
-                              layout.GetStride(), (const void *) (intptr_t) element.Offset);
+        glVertexAttribPointer(index, element.GetComponentCount(), ShaderDataTypeToOpenGLBaseType(element.m_type), element.m_normalized ? GL_TRUE : GL_FALSE,
+                              layout.GetStride(), (const void *) (intptr_t) element.m_offset);
         index++;
 
         glCheckError();
     }
-    SYS_VERTEXBUFFERS.push_back(vertexBuffer);
+    m_vertexBuffers.push_back(vertexBuffer);
 }
 
 void OpenGLESVertexArray::SetIndexBuffer(const REF<IndexBuffer> &indexBuffer)
 {
-    glBindVertexArray(SYS_Renderer_ID);
+    glBindVertexArray(m_vertexArrayId);
     indexBuffer->Bind();
 
-    SYS_INDEXBUFFER = indexBuffer;
-    // SYS_INDEXBUFFERS.push_back(indexBuffer);
+    m_indexBuffer = indexBuffer;
+    // m_indexBufferS.push_back(indexBuffer);
 }
 }

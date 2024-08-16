@@ -15,27 +15,27 @@ namespace MPE
 OpenGLESSettings::OpenGLESSettings()
 {
     // Compatibility issues, so setting to false by default to not mislead the users.
-    _POLYGON_MODE = false;
-    _DEBUG_OUTPUT = false;
+    m_polygonMode = false;
+    m_debugOutput = false;
 
 #if MPE_PLATFORM_LINUX
-    _SETTINGS.insert(std::make_pair("VSYNC", std::make_pair("VSYNC", _VSYNC)));
-    _SETTINGS.insert(std::make_pair("LIMIT_FPS", std::make_pair("LIMIT_FPS", _LIMIT_FPS)));
-    _SETTINGS.insert(std::make_pair("MAX_FPS", std::make_pair("MAX_FPS", _MAX_FPS)));
-    _SETTINGS.insert(std::make_pair("BLEND", std::make_pair("BLEND", _BLEND)));
-    _SETTINGS.insert(std::make_pair("DEPTH_TEST", std::make_pair("DEPTH_TEST", _DEPTH_TEST)));
-    _SETTINGS.insert(std::make_pair("POLYGON_MODE", std::make_pair("POLYGON_MODE", _POLYGON_MODE)));
-    _SETTINGS.insert(std::make_pair("FACE_CULLING", std::make_pair("FACE_CULLING", _FACE_CULLING)));
-    _SETTINGS.insert(std::make_pair("DEBUG_OUTPUT", std::make_pair("DEBUG_OUTPUT", _DEBUG_OUTPUT)));
+    m_settings.insert(std::make_pair("VSYNC", std::make_pair("VSYNC", m_vsync)));
+    m_settings.insert(std::make_pair("LIMIT_FPS", std::make_pair("LIMIT_FPS", m_limitFps)));
+    m_settings.insert(std::make_pair("MAX_FPS", std::make_pair("MAX_FPS", m_maxFps)));
+    m_settings.insert(std::make_pair("BLEND", std::make_pair("BLEND", m_blend)));
+    m_settings.insert(std::make_pair("DEPTH_TEST", std::make_pair("DEPTH_TEST", m_depthTest)));
+    m_settings.insert(std::make_pair("POLYGON_MODE", std::make_pair("POLYGON_MODE", m_polygonMode)));
+    m_settings.insert(std::make_pair("FACE_CULLING", std::make_pair("FACE_CULLING", m_faceCulling)));
+    m_settings.insert(std::make_pair("DEBUG_OUTPUT", std::make_pair("DEBUG_OUTPUT", m_debugOutput)));
 #else
-    _SETTINGS["VSYNC"] = std::make_pair("VSYNC", _VSYNC);
-    _SETTINGS["LIMIT_FPS"] = std::make_pair("LIMIT_FPS", _LIMIT_FPS);
-    _SETTINGS["MAX_FPS"] = std::make_pair("MAX_FPS", _MAX_FPS);
-    _SETTINGS["BLEND"] = std::make_pair("BLEND", _BLEND);
-    _SETTINGS["DEPTH_TEST"] = std::make_pair("DEPTH_TEST", _DEPTH_TEST);
-    _SETTINGS["POLYGON_MODE"] = std::make_pair("POLYGON_MODE", _POLYGON_MODE);
-    _SETTINGS["FACE_CULLING"] = std::make_pair("FACE_CULLING", _FACE_CULLING);
-    _SETTINGS["DEBUG_OUTPUT"] = std::make_pair("DEBUG_OUTPUT", _DEBUG_OUTPUT);
+    m_settings["VSYNC"] = std::make_pair("VSYNC", m_vsync);
+    m_settings["LIMIT_FPS"] = std::make_pair("LIMIT_FPS", m_limitFps);
+    m_settings["MAX_FPS"] = std::make_pair("MAX_FPS", m_maxFps);
+    m_settings["BLEND"] = std::make_pair("BLEND", m_blend);
+    m_settings["DEPTH_TEST"] = std::make_pair("DEPTH_TEST", m_depthTest);
+    m_settings["POLYGON_MODE"] = std::make_pair("POLYGON_MODE", m_polygonMode);
+    m_settings["FACE_CULLING"] = std::make_pair("FACE_CULLING", m_faceCulling);
+    m_settings["DEBUG_OUTPUT"] = std::make_pair("DEBUG_OUTPUT", m_debugOutput);
 #endif
 }
 
@@ -45,10 +45,10 @@ std::string OpenGLESSettings::GetGraphicalContextPropsAsString()
 {
     std::string OpenGLESInfo = "OpenGLES Info:\n";
     OpenGLESInfo +=
-        "\tVersion: " + std::to_string(_GRAPHICAL_CONTEXT_PROPS->MajorVersion) + "." + std::to_string(_GRAPHICAL_CONTEXT_PROPS->MinorVersion) + "\n";
-    OpenGLESInfo += "\tVendor: " + _GRAPHICAL_CONTEXT_PROPS->Vendor + "\n";
-    OpenGLESInfo += "\tRenderer: " + _GRAPHICAL_CONTEXT_PROPS->Renderer + "\n";
-    OpenGLESInfo += "\tHardcode shader type limit: " + std::to_string(_GRAPHICAL_CONTEXT_PROPS->ShaderTypeAmount);
+        "\tVersion: " + std::to_string(m_graphicalContextProps->m_majorVersion) + "." + std::to_string(m_graphicalContextProps->m_minorVersion) + "\n";
+    OpenGLESInfo += "\tVendor: " + m_graphicalContextProps->m_vendor + "\n";
+    OpenGLESInfo += "\tRenderer: " + m_graphicalContextProps->m_renderer + "\n";
+    OpenGLESInfo += "\tHardcode shader type limit: " + std::to_string(m_graphicalContextProps->m_shaderTypeAmount);
 
     return OpenGLESInfo;
 }
@@ -57,29 +57,29 @@ std::string OpenGLESSettings::GetGraphicalContextPropsAsString()
 
 void OpenGLESSettings::ToggleVsync()
 {
-    this->SetVsync(!_VSYNC);
+    this->SetVsync(!m_vsync);
 }
 
 bool OpenGLESSettings::GetVsync() const
 {
-    return _VSYNC;
+    return m_vsync;
 }
 
 void OpenGLESSettings::SetVsync(bool vsync)
 {
-    _VSYNC = vsync;
+    m_vsync = vsync;
 
     auto eglDisplay = reinterpret_cast<OpenGLESContext*>(MPE::App::GetApp().GetWindow()->GetNativeGLESContext())->GetEGLDisplay();
 
-    if (_VSYNC)
+    if (m_vsync)
         eglSwapInterval(eglDisplay, 1);
     else
         eglSwapInterval(eglDisplay, 0);
 
 #if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("VSYNC", _VSYNC);
+    UpdateSettingsAndSendEvent("VSYNC", m_vsync);
 #else
-    UpdateSettingsAndSendEvent(_SETTINGS["VSYNC"].first, _VSYNC);
+    UpdateSettingsAndSendEvent(m_settings["VSYNC"].first, m_vsync);
 #endif
 }
 
@@ -87,22 +87,22 @@ void OpenGLESSettings::SetVsync(bool vsync)
 
 void OpenGLESSettings::ToggleLimitFPS()
 {
-    this->SetLimitFPS(!_LIMIT_FPS);
+    this->SetLimitFPS(!m_limitFps);
 }
 
 bool OpenGLESSettings::GetLimitFPS() const
 {
-    return _LIMIT_FPS;
+    return m_limitFps;
 }
 
 void OpenGLESSettings::SetLimitFPS(bool limitFPS)
 {
-    _LIMIT_FPS = limitFPS;
+    m_limitFps = limitFPS;
 
 #if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("LIMIT_FPS", _LIMIT_FPS);
+    UpdateSettingsAndSendEvent("LIMIT_FPS", m_limitFps);
 #else
-    UpdateSettingsAndSendEvent(_SETTINGS["LIMIT_FPS"].first, _LIMIT_FPS);
+    UpdateSettingsAndSendEvent(m_settings["LIMIT_FPS"].first, m_limitFps);
 #endif
 }
 
@@ -110,45 +110,45 @@ void OpenGLESSettings::SetLimitFPS(bool limitFPS)
 
 void OpenGLESSettings::SetMaxFPS(uint8_t maxFPS)
 {
-    _MAX_FPS = maxFPS;
+    m_maxFps = maxFPS;
 
 #if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("MAX_FPS", _MAX_FPS);
+    UpdateSettingsAndSendEvent("MAX_FPS", m_maxFps);
 #else
-    UpdateSettingsAndSendEvent(_SETTINGS["MAX_FPS"].first, _MAX_FPS);
+    UpdateSettingsAndSendEvent(m_settings["MAX_FPS"].first, m_maxFps);
 #endif
 }
 
 uint8_t OpenGLESSettings::GetMaxFPS() const
 {
-    return _MAX_FPS;
+    return m_maxFps;
 }
 
 // BLEND
 
 void OpenGLESSettings::ToggleBlend()
 {
-    this->SetBlend(!_BLEND);
+    this->SetBlend(!m_blend);
 }
 
 bool OpenGLESSettings::GetBlend() const
 {
-    return _BLEND;
+    return m_blend;
 }
 
 void OpenGLESSettings::SetBlend(bool blend)
 {
-    _BLEND = blend;
+    m_blend = blend;
 
-    if (_BLEND)
+    if (m_blend)
         glEnable(GL_BLEND);
     else
         glDisable(GL_BLEND);
 
 #if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("BLEND", _BLEND);
+    UpdateSettingsAndSendEvent("BLEND", m_blend);
 #else
-    UpdateSettingsAndSendEvent(_SETTINGS["BLEND"].first, _BLEND);
+    UpdateSettingsAndSendEvent(m_settings["BLEND"].first, m_blend);
 #endif
 }
 
@@ -156,27 +156,27 @@ void OpenGLESSettings::SetBlend(bool blend)
 
 void OpenGLESSettings::ToggleDepthTest()
 {
-    this->SetDepthTest(!_DEPTH_TEST);
+    this->SetDepthTest(!m_depthTest);
 }
 
 bool OpenGLESSettings::GetDepthTest() const
 {
-    return _DEPTH_TEST;
+    return m_depthTest;
 }
 
 void OpenGLESSettings::SetDepthTest(bool depthTest)
 {
-    _DEPTH_TEST = depthTest;
+    m_depthTest = depthTest;
 
-    if (_DEPTH_TEST)
+    if (m_depthTest)
         glEnable(GL_DEPTH_TEST);
     else
         glDisable(GL_DEPTH_TEST);
 
 #if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("DEPTH_TEST", _DEPTH_TEST);
+    UpdateSettingsAndSendEvent("DEPTH_TEST", m_depthTest);
 #else
-    UpdateSettingsAndSendEvent(_SETTINGS["DEPTH_TEST"].first, _DEPTH_TEST);
+    UpdateSettingsAndSendEvent(m_settings["DEPTH_TEST"].first, m_depthTest);
 #endif
 }
 
@@ -184,12 +184,12 @@ void OpenGLESSettings::SetDepthTest(bool depthTest)
 
 void OpenGLESSettings::TogglePolygonMode()
 {
-    this->SetPolygonMode(!_POLYGON_MODE);
+    this->SetPolygonMode(!m_polygonMode);
 }
 
 bool OpenGLESSettings::GetPolygonMode() const
 {
-    return _POLYGON_MODE;
+    return m_polygonMode;
 }
 
 void OpenGLESSettings::SetPolygonMode(bool polygonMode)
@@ -197,17 +197,17 @@ void OpenGLESSettings::SetPolygonMode(bool polygonMode)
     MPE_WARN("'glPolygonMode' NOT AVAILABLE ON OpenGLES.");
     return;
 
-    //     _POLYGON_MODE = polygonMode;
+    //     m_polygonMode = polygonMode;
 
-    //     if (_POLYGON_MODE)
+    //     if (m_polygonMode)
     //         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     //     else
     //         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     // #if MPE_PLATFORM_LINUX
-    //     UpdateSettingsAndSendEvent("POLYGON_MODE", _POLYGON_MODE);
+    //     UpdateSettingsAndSendEvent("POLYGON_MODE", m_polygonMode);
     // #else
-    //     UpdateSettingsAndSendEvent(_SETTINGS["POLYGON_MODE"].first, _POLYGON_MODE);
+    //     UpdateSettingsAndSendEvent(m_settings["POLYGON_MODE"].first, m_polygonMode);
     // #endif
 }
 
@@ -215,27 +215,27 @@ void OpenGLESSettings::SetPolygonMode(bool polygonMode)
 
 void OpenGLESSettings::ToggleFaceCulling()
 {
-    this->SetFaceCulling(!_FACE_CULLING);
+    this->SetFaceCulling(!m_faceCulling);
 }
 
 bool OpenGLESSettings::GetFaceCulling() const
 {
-    return _FACE_CULLING;
+    return m_faceCulling;
 }
 
 void OpenGLESSettings::SetFaceCulling(bool faceCulling)
 {
-    _FACE_CULLING = faceCulling;
+    m_faceCulling = faceCulling;
 
-    if (_FACE_CULLING)
+    if (m_faceCulling)
         glEnable(GL_CULL_FACE);
     else
         glDisable(GL_CULL_FACE);
 
 #if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("FACE_CULLING", _FACE_CULLING);
+    UpdateSettingsAndSendEvent("FACE_CULLING", m_faceCulling);
 #else
-    UpdateSettingsAndSendEvent(_SETTINGS["FACE_CULLING"].first, _FACE_CULLING);
+    UpdateSettingsAndSendEvent(m_settings["FACE_CULLING"].first, m_faceCulling);
 #endif
 }
 
@@ -243,12 +243,12 @@ void OpenGLESSettings::SetFaceCulling(bool faceCulling)
 
 void OpenGLESSettings::ToggleDebugOutput()
 {
-    this->SetDebugOutput(!_DEBUG_OUTPUT);
+    this->SetDebugOutput(!m_debugOutput);
 }
 
 bool OpenGLESSettings::GetDebugOutput() const
 {
-    return _DEBUG_OUTPUT;
+    return m_debugOutput;
 }
 
 void OpenGLESSettings::SetDebugOutput(bool debugOutput)
@@ -260,24 +260,24 @@ void OpenGLESSettings::SetDebugOutput(bool debugOutput)
         return;
     }
 
-//     _DEBUG_OUTPUT = debugOutput;
+    //     m_debugOutput = debugOutput;
 
-//     if (_DEBUG_OUTPUT)
-//     {
-//         glEnable(GL_DEBUG_OUTPUT);
-//         glDebugMessageCallback((GLDEBUGPROC) OpenGLESUtilities::LogOpenGLDebugOutput, nullptr);
-//     }
-//     else
-//     {
-//         glDisable(GL_DEBUG_OUTPUT);
-//         glDebugMessageCallback(nullptr, nullptr);
-//     }
+    //     if (m_debugOutput)
+    //     {
+    //         glEnable(GLm_debugOutput);
+    //         glDebugMessageCallback((GLDEBUGPROC) OpenGLESUtilities::LogOpenGLDebugOutput, nullptr);
+    //     }
+    //     else
+    //     {
+    //         glDisable(GLm_debugOutput);
+    //         glDebugMessageCallback(nullptr, nullptr);
+    //     }
 
-// #if MPE_PLATFORM_LINUX
-//     UpdateSettingsAndSendEvent("DEBUG_OUTPUT", _DEBUG_OUTPUT);
-// #else
-//     UpdateSettingsAndSendEvent(_SETTINGS["DEBUG_OUTPUT"].first, _DEBUG_OUTPUT);
-// #endif
+    // #if MPE_PLATFORM_LINUX
+    //     UpdateSettingsAndSendEvent("DEBUG_OUTPUT", m_debugOutput);
+    // #else
+    //     UpdateSettingsAndSendEvent(m_settings["DEBUG_OUTPUT"].first, m_debugOutput);
+    // #endif
 }
 
 // SETTINGS
@@ -285,7 +285,7 @@ void OpenGLESSettings::SetDebugOutput(bool debugOutput)
 std::string OpenGLESSettings::GetSettings() const
 {
     std::string settings = "";
-    for (auto setting : _SETTINGS)
+    for (auto setting : m_settings)
     {
         settings += setting.second.first + ": " + (setting.second.second ? "ON" : "OFF") + "\n";
     }
@@ -295,38 +295,38 @@ std::string OpenGLESSettings::GetSettings() const
 void OpenGLESSettings::UpdateSettings()
 {
 #if MPE_PLATFORM_LINUX
-    auto vsyncIt = _SETTINGS.find("VSYNC");
-    if (vsyncIt != _SETTINGS.end()) vsyncIt->second.second = _VSYNC;
+    auto vsyncIt = m_settings.find("VSYNC");
+    if (vsyncIt != m_settings.end()) vsyncIt->second.second = m_vsync;
 
-    auto limitFPSIt = _SETTINGS.find("LIMIT_FPS");
-    if (limitFPSIt != _SETTINGS.end()) limitFPSIt->second.second = _LIMIT_FPS;
+    auto limitFPSIt = m_settings.find("LIMIT_FPS");
+    if (limitFPSIt != m_settings.end()) limitFPSIt->second.second = m_limitFps;
 
-    auto maxFPSIt = _SETTINGS.find("MAX_FPS");
-    if (maxFPSIt != _SETTINGS.end()) maxFPSIt->second.second = _MAX_FPS;
+    auto maxFPSIt = m_settings.find("MAX_FPS");
+    if (maxFPSIt != m_settings.end()) maxFPSIt->second.second = m_maxFps;
 
-    auto blendIt = _SETTINGS.find("BLEND");
-    if (blendIt != _SETTINGS.end()) blendIt->second.second = _BLEND;
+    auto blendIt = m_settings.find("BLEND");
+    if (blendIt != m_settings.end()) blendIt->second.second = m_blend;
 
-    auto depthTestIt = _SETTINGS.find("DEPTH_TEST");
-    if (depthTestIt != _SETTINGS.end()) depthTestIt->second.second = _DEPTH_TEST;
+    auto depthTestIt = m_settings.find("DEPTH_TEST");
+    if (depthTestIt != m_settings.end()) depthTestIt->second.second = m_depthTest;
 
-    auto polygonModeIt = _SETTINGS.find("POLYGON_MODE");
-    if (polygonModeIt != _SETTINGS.end()) polygonModeIt->second.second = _POLYGON_MODE;
+    auto polygonModeIt = m_settings.find("POLYGON_MODE");
+    if (polygonModeIt != m_settings.end()) polygonModeIt->second.second = m_polygonMode;
 
-    auto faceCullingIt = _SETTINGS.find("FACE_CULLING");
-    if (faceCullingIt != _SETTINGS.end()) faceCullingIt->second.second = _FACE_CULLING;
+    auto faceCullingIt = m_settings.find("FACE_CULLING");
+    if (faceCullingIt != m_settings.end()) faceCullingIt->second.second = m_faceCulling;
 
-    auto debugOutputIt = _SETTINGS.find("DEBUG_OUTPUT");
-    if (debugOutputIt != _SETTINGS.end()) debugOutputIt->second.second = _DEBUG_OUTPUT;
+    auto debugOutputIt = m_settings.find("DEBUG_OUTPUT");
+    if (debugOutputIt != m_settings.end()) debugOutputIt->second.second = m_debugOutput;
 #else
-    _SETTINGS["VSYNC"].second = _VSYNC;
-    _SETTINGS["LIMIT_FPS"].second = _LIMIT_FPS;
-    _SETTINGS["MAX_FPS"].second = _MAX_FPS;
-    _SETTINGS["BLEND"].second = _BLEND;
-    _SETTINGS["DEPTH_TEST"].second = _DEPTH_TEST;
-    _SETTINGS["POLYGON_MODE"].second = _POLYGON_MODE;
-    _SETTINGS["FACE_CULLING"].second = _FACE_CULLING;
-    _SETTINGS["DEBUG_OUTPUT"].second = _DEBUG_OUTPUT;
+    m_settings["VSYNC"].second = m_vsync;
+    m_settings["LIMIT_FPS"].second = m_limitFps;
+    m_settings["MAX_FPS"].second = m_maxFps;
+    m_settings["BLEND"].second = m_blend;
+    m_settings["DEPTH_TEST"].second = m_depthTest;
+    m_settings["POLYGON_MODE"].second = m_polygonMode;
+    m_settings["FACE_CULLING"].second = m_faceCulling;
+    m_settings["DEBUG_OUTPUT"].second = m_debugOutput;
 #endif
 }
 

@@ -9,20 +9,20 @@
 
 namespace MPE
 {
-OpenGLESTexture2D::OpenGLESTexture2D(uint32_t width, uint32_t height) : WIDTH(width), HEIGHT(height)
+OpenGLESTexture2D::OpenGLESTexture2D(uint32_t width, uint32_t height) : m_width(width), m_height(height)
 {
-    INTERNAL_FORMAT = GL_RGBA8;
-    DATA_FORMAT = GL_RGBA;
+    m_internalFormat = GL_RGBA8;
+    m_dataFormat = GL_RGBA;
 
-    glGenTextures(1, &SYS_RENDERER_ID);
-
-    glCheckError();
-
-    glBindTexture(GL_TEXTURE_2D, SYS_RENDERER_ID);
+    glGenTextures(1, &m_textTextureId);
 
     glCheckError();
 
-    glTexImage2D(GL_TEXTURE_2D, 0, INTERNAL_FORMAT, WIDTH, HEIGHT, 0, DATA_FORMAT, GL_UNSIGNED_BYTE, nullptr);
+    glBindTexture(GL_TEXTURE_2D, m_textTextureId);
+
+    glCheckError();
+
+    glTexImage2D(GL_TEXTURE_2D, 0, m_internalFormat, m_width, m_height, 0, m_dataFormat, GL_UNSIGNED_BYTE, nullptr);
 
     glCheckError();
 
@@ -35,14 +35,14 @@ OpenGLESTexture2D::OpenGLESTexture2D(uint32_t width, uint32_t height) : WIDTH(wi
     glCheckError();
 }
 
-OpenGLESTexture2D::OpenGLESTexture2D(const std::string &filepath) : FILEPATH(filepath)
+OpenGLESTexture2D::OpenGLESTexture2D(const std::string &filepath) : m_filepath(filepath)
 {
-    int width, height, channels;
+    int m_width, m_height, channels;
     stbi_set_flip_vertically_on_load(1);
-    stbi_uc *data = stbi_load(filepath.c_str(), &width, &height, &channels, 0);
+    stbi_uc *data = stbi_load(filepath.c_str(), &m_width, &m_height, &channels, 0);
     MPE_CORE_ASSERT(data, "FAILED TO LOAD IMAGE AS TEXTURE");
-    WIDTH = width;
-    HEIGHT = height;
+    m_width = m_width;
+    m_height = m_height;
 
     GLenum OpenGLInternalFormat = 0, OpenGLDataFormat = 0;
     switch (channels)
@@ -63,20 +63,20 @@ OpenGLESTexture2D::OpenGLESTexture2D(const std::string &filepath) : FILEPATH(fil
             return;
     }
 
-    INTERNAL_FORMAT = OpenGLInternalFormat;
-    DATA_FORMAT = OpenGLDataFormat;
+    m_internalFormat = OpenGLInternalFormat;
+    m_dataFormat = OpenGLDataFormat;
 
-    glGenTextures(1, &SYS_RENDERER_ID);
+    glGenTextures(1, &m_textTextureId);
 
     glCheckError();
 
-    glBindTexture(GL_TEXTURE_2D, SYS_RENDERER_ID);
+    glBindTexture(GL_TEXTURE_2D, m_textTextureId);
 
     glCheckError();
 
     // TODO: Investigate if this is needed
-    // glBindTexture(GL_TEXTURE_2D, SYS_RENDERER_ID);
-    glTexImage2D(GL_TEXTURE_2D, 0, INTERNAL_FORMAT, WIDTH, HEIGHT, 0, DATA_FORMAT, GL_UNSIGNED_BYTE, data);
+    // glBindTexture(GL_TEXTURE_2D, m_textTextureId);
+    glTexImage2D(GL_TEXTURE_2D, 0, m_internalFormat, m_width, m_height, 0, m_dataFormat, GL_UNSIGNED_BYTE, data);
 
     glCheckError();
 
@@ -93,20 +93,20 @@ OpenGLESTexture2D::OpenGLESTexture2D(const std::string &filepath) : FILEPATH(fil
 
 OpenGLESTexture2D::~OpenGLESTexture2D()
 {
-    MPE_CORE_WARN("DELETING TEXTURE: {0}x{1} | ID: {2}", WIDTH, HEIGHT, SYS_RENDERER_ID);
-    glDeleteTextures(1, &SYS_RENDERER_ID);
+    MPE_CORE_WARN("DELETING TEXTURE: {0}x{1} | ID: {2}", m_width, m_height, m_textTextureId);
+    glDeleteTextures(1, &m_textTextureId);
 }
 
 void OpenGLESTexture2D::SetData(void *data, uint32_t size)
 {
-    uint32_t bpp = DATA_FORMAT == GL_RGBA ? 4 : 3;
-    std::string dataErrStr = "DATA IS NOT SET TO ENTIRE TEXTURE: " + std::to_string(size) + " | " + std::to_string(WIDTH * HEIGHT * bpp) +
-                             " == " + std::to_string(WIDTH * HEIGHT * bpp);
-    MPE_CORE_ASSERT(size == WIDTH * HEIGHT * bpp, dataErrStr);
+    uint32_t bpp = m_dataFormat == GL_RGBA ? 4 : 3;
+    std::string dataErrStr = "DATA IS NOT SET TO ENTIRE TEXTURE: " + std::to_string(size) + " | " + std::to_string(m_width * m_height * bpp) +
+                             " == " + std::to_string(m_width * m_height * bpp);
+    MPE_CORE_ASSERT(size == m_width * m_height * bpp, dataErrStr);
 
-    glBindTexture(GL_TEXTURE_2D, SYS_RENDERER_ID);
+    glBindTexture(GL_TEXTURE_2D, m_textTextureId);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, INTERNAL_FORMAT, WIDTH, HEIGHT, 0, DATA_FORMAT, GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, m_internalFormat, m_width, m_height, 0, m_dataFormat, GL_UNSIGNED_BYTE, data);
 
     glCheckError();
 }
@@ -114,7 +114,7 @@ void OpenGLESTexture2D::SetData(void *data, uint32_t size)
 void OpenGLESTexture2D::Bind(uint32_t slot) const
 {
     glActiveTexture(GL_TEXTURE0 + slot);
-    glBindTexture(GL_TEXTURE_2D, SYS_RENDERER_ID);
+    glBindTexture(GL_TEXTURE_2D, m_textTextureId);
 }
 
 void OpenGLESTexture2D::Unbind(uint32_t slot) const
