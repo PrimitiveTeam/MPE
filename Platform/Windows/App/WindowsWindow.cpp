@@ -39,13 +39,13 @@ WindowsWindow::~WindowsWindow()
 
 void WindowsWindow::Init(const WindowProps &props)
 {
-    SYS_Monitors = WindowMonitors();
+    m_monitors = WindowMonitors();
 
-    SYS_Data.Title = props.m_title;
-    SYS_Data.Width = props.m_width;
-    SYS_Data.Height = props.m_height;
-    SYS_Data.WindowPositionX = props.m_windowPositionX;
-    SYS_Data.WindowPositionY = props.m_windowPositionY;
+    m_data.m_title = props.m_title;
+    m_data.m_width = props.m_width;
+    m_data.m_height = props.m_height;
+    m_data.m_windowPositionX = props.m_windowPositionX;
+    m_data.m_windowPositionY = props.m_windowPositionY;
 
     MPE_CORE_INFO("Creating window {0} ({1}, {2})", props.m_title, props.m_width, props.m_height);
 
@@ -77,23 +77,23 @@ void WindowsWindow::Init(const WindowProps &props)
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
 #endif
 
-    SYS_Window = glfwCreateWindow((int) props.m_width, (int) props.m_height, SYS_Data.Title.c_str(), nullptr, nullptr);
+    m_window = glfwCreateWindow((int) props.m_width, (int) props.m_height, m_data.m_title.c_str(), nullptr, nullptr);
     SaveWindowSizeAndPosition();
 
     switch (api)
     {
         case RendererAPI::API::OpenGL:
 #ifdef MPE_OPENGL
-            SYS_Context = new OpenGLContext(SYS_Window);
-            SYS_Context->Init();
+            m_GLcontext = new OpenGLContext(m_window);
+            m_GLcontext->Init();
             break;
 #else
             MPE_CORE_ASSERT(false, "OPENGL IS NOT SUPPORTED.");
 #endif
         case RendererAPI::API::OpenGLES:
 #ifdef MPE_OPENGLES
-            SYS_ESContext = new OpenGLESContext(SYS_Window);
-            SYS_ESContext->Init();
+            m_EScontext = new OpenGLESContext(m_window);
+            m_EScontext->Init();
             break;
 #else
             MPE_CORE_ASSERT(false, "OPENGLES IS NOT SUPPORTED.");
@@ -102,41 +102,41 @@ void WindowsWindow::Init(const WindowProps &props)
             MPE_CORE_ASSERT(false, "NO RENDERER API SELECTED.");
     }
 
-    glfwSetWindowUserPointer(SYS_Window, &SYS_Data);
+    glfwSetWindowUserPointer(m_window, &m_data);
 
     // SET GLFW CALLBACKS
     // Window moved
-    glfwSetWindowPosCallback(SYS_Window,
+    glfwSetWindowPosCallback(m_window,
                              [](GLFWwindow *window, int xPos, int yPos)
                              {
                                  WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
-                                 data.WindowPositionX = xPos;
-                                 data.WindowPositionY = yPos;
+                                 data.m_windowPositionX = xPos;
+                                 data.m_windowPositionY = yPos;
 
                                  WindowMovedEvent event(xPos, yPos);
-                                 data.EventCallback(event);
+                                 data.m_eventCallback(event);
                              });
 
-    glfwSetWindowSizeCallback(SYS_Window,
+    glfwSetWindowSizeCallback(m_window,
                               [](GLFWwindow *window, int width, int height)
                               {
                                   WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
-                                  data.Width = width;
-                                  data.Height = height;
+                                  data.m_width = width;
+                                  data.m_height = height;
 
                                   WindowResizeEvent event(width, height);
-                                  data.EventCallback(event);
+                                  data.m_eventCallback(event);
                               });
 
-    glfwSetWindowCloseCallback(SYS_Window,
+    glfwSetWindowCloseCallback(m_window,
                                [](GLFWwindow *window)
                                {
                                    WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
                                    WindowCloseEvent event;
-                                   data.EventCallback(event);
+                                   data.m_eventCallback(event);
                                });
 
-    glfwSetKeyCallback(SYS_Window,
+    glfwSetKeyCallback(m_window,
                        [](GLFWwindow *window, int key, int scancode, int action, int mods)
                        {
                            WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
@@ -146,34 +146,34 @@ void WindowsWindow::Init(const WindowProps &props)
                                case GLFW_PRESS:
                                {
                                    KeyPressedEvent event(key, 0);
-                                   data.EventCallback(event);
+                                   data.m_eventCallback(event);
                                    break;
                                }
                                case GLFW_RELEASE:
                                {
                                    KeyReleasedEvent event(key);
-                                   data.EventCallback(event);
+                                   data.m_eventCallback(event);
                                    break;
                                }
                                case GLFW_REPEAT:
                                {
                                    KeyPressedEvent event(key, 1);
-                                   data.EventCallback(event);
+                                   data.m_eventCallback(event);
                                    break;
                                }
                            }
                        });
 
-    glfwSetCharCallback(SYS_Window,
+    glfwSetCharCallback(m_window,
                         [](GLFWwindow *window, unsigned int keycode)
                         {
                             WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
 
                             KeyTypedEvent event(keycode);
-                            data.EventCallback(event);
+                            data.m_eventCallback(event);
                         });
 
-    glfwSetMouseButtonCallback(SYS_Window,
+    glfwSetMouseButtonCallback(m_window,
                                [](GLFWwindow *window, int button, int action, int mods)
                                {
                                    WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
@@ -183,40 +183,40 @@ void WindowsWindow::Init(const WindowProps &props)
                                        case GLFW_PRESS:
                                        {
                                            MouseButtonPressedEvent event(button);
-                                           data.EventCallback(event);
+                                           data.m_eventCallback(event);
                                            break;
                                        }
                                        case GLFW_RELEASE:
                                        {
                                            MouseButtonReleasedEvent event(button);
-                                           data.EventCallback(event);
+                                           data.m_eventCallback(event);
                                            break;
                                        }
                                    }
                                });
 
-    glfwSetScrollCallback(SYS_Window,
+    glfwSetScrollCallback(m_window,
                           [](GLFWwindow *window, double xOffset, double yOffset)
                           {
                               WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
 
                               MouseScrolledEvent event((float) xOffset, (float) yOffset);
-                              data.EventCallback(event);
+                              data.m_eventCallback(event);
                           });
 
-    glfwSetCursorPosCallback(SYS_Window,
+    glfwSetCursorPosCallback(m_window,
                              [](GLFWwindow *window, double xPos, double yPos)
                              {
                                  WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
 
                                  MouseMovedEvent event((float) xPos, (float) yPos);
-                                 data.EventCallback(event);
+                                 data.m_eventCallback(event);
                              });
 }
 
 void WindowsWindow::Shutdown()
 {
-    glfwDestroyWindow(SYS_Window);
+    glfwDestroyWindow(m_window);
 }
 
 void WindowsWindow::OnUpdate()
@@ -228,14 +228,14 @@ void WindowsWindow::OnUpdate()
     {
         case RendererAPI::API::OpenGL:
 #ifdef MPE_OPENGL
-            SYS_Context->SwapBuffers();
+            m_GLcontext->SwapBuffers();
             break;
 #else
             MPE_CORE_ASSERT(false, "OPENGL IS NOT SUPPORTED.");
 #endif
         case RendererAPI::API::OpenGLES:
 #ifdef MPE_OPENGLES
-            SYS_ESContext->SwapBuffers();
+            m_EScontext->SwapBuffers();
             break;
 #else
             MPE_CORE_ASSERT(false, "OPENGLES IS NOT SUPPORTED.");
@@ -243,14 +243,14 @@ void WindowsWindow::OnUpdate()
         default:
             MPE_CORE_ASSERT(false, "NO RENDERER API SELECTED.");
     }
-    // glfwSwapBuffers(SYS_Window);
+    // glfwSwapBuffers(m_window);
 }
 
 void WindowsWindow::ToggleFullScreen()
 {
-    SYS_Monitors.UpdateMonitors();
+    m_monitors.UpdateMonitors();
 
-    if (glfwGetWindowMonitor(SYS_Window))
+    if (glfwGetWindowMonitor(m_window))
     {
         GoWindowed();
     }
@@ -264,46 +264,46 @@ void WindowsWindow::GoFullScreen()
 {
     SaveWindowSizeAndPosition();
 
-    glfwSetWindowMonitor(SYS_Window, SYS_Monitors.GetMonitors().at(0).monitor, 0, 0, SYS_Monitors.GetMonitors().at(0).mode->width,
-                         SYS_Monitors.GetMonitors().at(0).mode->height, SYS_Monitors.GetMonitors().at(0).mode->refreshRate);
+    glfwSetWindowMonitor(m_window, m_monitors.GetMonitors().at(0).m_monitor, 0, 0, m_monitors.GetMonitors().at(0).m_mode->width,
+                         m_monitors.GetMonitors().at(0).m_mode->height, m_monitors.GetMonitors().at(0).m_mode->refreshRate);
 }
 
 void WindowsWindow::GoWindowed()
 {
-    glfwSetWindowMonitor(SYS_Window, nullptr, SYS_Data.PrevWindowPositionX, SYS_Data.PrevWindowPositionY, SYS_Data.PrevWidth, SYS_Data.PrevHeight, 0);
+    glfwSetWindowMonitor(m_window, nullptr, m_data.m_prevWindowPositionX, m_data.m_prevWindowPositionY, m_data.m_prevWidth, m_data.m_prevHeight, 0);
 }
 
 void WindowsWindow::SetLastWindowSize(int width, int height)
 {
-    SYS_Data.PrevWidth = width;
-    SYS_Data.PrevHeight = height;
+    m_data.m_prevWidth = width;
+    m_data.m_prevHeight = height;
 }
 
 void WindowsWindow::SaveWindowSizeAndPosition()
 {
-    glfwGetWindowSize(SYS_Window, &SYS_Data.PrevWidth, &SYS_Data.PrevHeight);
-    glfwGetWindowPos(SYS_Window, &SYS_Data.PrevWindowPositionX, &SYS_Data.PrevWindowPositionY);
+    glfwGetWindowSize(m_window, &m_data.m_prevWidth, &m_data.m_prevHeight);
+    glfwGetWindowPos(m_window, &m_data.m_prevWindowPositionX, &m_data.m_prevWindowPositionY);
 }
 
 void WindowsWindow::RestoreWindowSizeAndPosition()
 {
-    glfwSetWindowSize(SYS_Window, SYS_Data.PrevWidth, SYS_Data.PrevHeight);
-    glfwSetWindowPos(SYS_Window, SYS_Data.PrevWindowPositionX, SYS_Data.PrevWindowPositionY);
+    glfwSetWindowSize(m_window, m_data.m_prevWidth, m_data.m_prevHeight);
+    glfwSetWindowPos(m_window, m_data.m_prevWindowPositionX, m_data.m_prevWindowPositionY);
 }
 
 void WindowsWindow::SetLastWindowPosition(int x, int y)
 {
-    SYS_Data.PrevWindowPositionX = x;
-    SYS_Data.PrevWindowPositionY = y;
+    m_data.m_prevWindowPositionX = x;
+    m_data.m_prevWindowPositionY = y;
 }
 
 void WindowsWindow::SaveWindowPosition()
 {
-    glfwGetWindowPos(SYS_Window, &SYS_Data.PrevWindowPositionX, &SYS_Data.PrevWindowPositionY);
+    glfwGetWindowPos(m_window, &m_data.m_prevWindowPositionX, &m_data.m_prevWindowPositionY);
 }
 
 void WindowsWindow::RestoreWindowPosition()
 {
-    glfwSetWindowPos(SYS_Window, SYS_Data.PrevWindowPositionX, SYS_Data.PrevWindowPositionY);
+    glfwSetWindowPos(m_window, m_data.m_prevWindowPositionX, m_data.m_prevWindowPositionY);
 }
 }
