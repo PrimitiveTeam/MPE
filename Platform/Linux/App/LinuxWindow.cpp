@@ -43,7 +43,7 @@ void LinuxWindow::Init(const WindowProps &props)
     m_data.m_windowPositionX = props.m_windowPositionX;
     m_data.m_windowPositionY = props.m_windowPositionY;
 
-    MPE_CORE_INFO("Creating window {0} ({1}, {2})", props.m_title, props.m_width);
+    MPE_CORE_INFO("Creating window {0} ({1}, {2})", props.m_title, props.m_width, props.m_height);
 
     if (!g_glfwInitialized)
     {
