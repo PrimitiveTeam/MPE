@@ -6,12 +6,14 @@
 
 namespace MPE
 {
-class MPE_API OrthographicCamera
+class MPE_API PerspectiveCamera
 {
   public:
     // float near, float far
-    OrthographicCamera(float left, float right, float bottom, float top);
-    void SetProjection(float left, float right, float bottom, float top);
+    PerspectiveCamera(float fov, float aspectRatio, float nearClip, float farClip);
+    PerspectiveCamera(float fov, float width, float height, float nearClip, float farClip);
+    void SetProjection(float fov, float aspectRatio, float nearClip, float farClip);
+    void SetProjection(float fov, float width, float height, float nearClip, float farClip);
 
     void SetPosition(const glm::vec3 &position);
     void SetRotation(float rotation);
@@ -25,10 +27,28 @@ class MPE_API OrthographicCamera
     const glm::mat4 &GetViewMatrix() const { return m_viewMatrix; }
     const glm::mat4 &GetProjectionViewMatrix() const { return m_projectionViewMatrix; }
 
+    float GetFov() const { return m_fov; }
+    void SetFov(float fov);
+
+    float GetAspectRatio() const { return m_aspectRatio; }
+    void SetAspectRatio(float aspectRatio);
+    void SetAspectRatio(float width, float height);
+
+    float GetNear() const { return m_near; }
+    void SetNear(float nearClip);
+
+    float GetFar() const { return m_far; }
+    void SetFar(float farClip);
+
   private:
     void ComputeViewMatrix();
 
   private:
+    float m_fov;
+    float m_aspectRatio;
+    float m_near;
+    float m_far;
+
     glm::mat4 m_projectionMatrix;
     glm::mat4 m_viewMatrix;
     glm::mat4 m_projectionViewMatrix;

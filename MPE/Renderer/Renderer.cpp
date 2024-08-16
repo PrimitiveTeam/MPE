@@ -32,6 +32,11 @@ void Renderer::BeginScene(OrthographicCamera &camera)
     m_scene->m_projectionViewMatrix = camera.GetProjectionViewMatrix();
 }
 
+void Renderer::BeginScene(PerspectiveCamera &camera)
+{
+    m_scene->m_projectionViewMatrix = camera.GetProjectionViewMatrix();
+}
+
 void Renderer::EndScene() {}
 
 void Renderer::Submit(const REF<Shader> &shader, const REF<VertexArray> &vertexArray, const glm::mat4 &transform)

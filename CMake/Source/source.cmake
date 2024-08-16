@@ -47,6 +47,7 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderSettings.cpp"
 
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCamera.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/PerspectiveCamera.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCameraController.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/StaticOrthographicCamera.cpp"
 
@@ -153,6 +154,7 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderSettings.h"
 
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCamera.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/PerspectiveCamera.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCameraController.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/StaticOrthographicCamera.h"
 

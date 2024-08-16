@@ -34,6 +34,9 @@
 
 #include "Tests/SimpleAudioTest.h"
 
+#include "Tests/SimplePerspectiveCameraTest.h"
+#include "Tests/SimpleLightingTest.h"
+
 class ProjectPickerGuiLayer : public MPE::Layer
 {
   public:
@@ -167,6 +170,20 @@ class ProjectPickerGuiLayer : public MPE::Layer
                 MPE::App::GetApp().PushLayer(m_LayerRefs[11]);
             }
 
+            if (ImGui::Button("Open Simple Perspective Camera Test"))
+            {
+                m_Layers[12] = true;
+                m_LayerRefs[12] = MPE::NEWREF<SimplePerspectiveCameraTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[12]);
+            }
+
+            if (ImGui::Button("Open Simple Lighting Test"))
+            {
+                m_Layers[13] = true;
+                m_LayerRefs[13] = MPE::NEWREF<SimpleLightingTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[13]);
+            }
+
             // if (ImGui::Button("Open General Layer"))
             // {
             //     m_Layers[1] = true;
@@ -199,7 +216,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
     }
 
   private:
-    static const size_t MAX_LAYERS = 12;
+    static const size_t MAX_LAYERS = 14;
     std::array<bool, MAX_LAYERS> m_Layers = {false};
     MPE::REF<MPE::Layer> m_LayerRefs[MAX_LAYERS];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();
