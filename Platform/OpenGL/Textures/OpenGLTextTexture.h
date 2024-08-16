@@ -15,9 +15,9 @@ class MPE_API OpenGLTextTexture : public TextTexture
     OpenGLTextTexture(const std::string& filepath);
     virtual ~OpenGLTextTexture();
 
-    virtual uint32_t GetWidth() const override { return WIDTH; };
-    virtual uint32_t GetHeight() const override { return HEIGHT; };
-    virtual uint32_t GetID() const override { return SYS_RENDERER_ID; };
+    virtual uint32_t GetWidth() const override { return m_width; };
+    virtual uint32_t GetHeight() const override { return m_height; };
+    virtual uint32_t GetID() const override { return m_textTextureId; };
 
     virtual void SetData(void* data, uint32_t size) override;
 
@@ -25,12 +25,12 @@ class MPE_API OpenGLTextTexture : public TextTexture
     virtual void Unbind(uint32_t slot = 0) const override;
 
   private:
-    std::string FILEPATH;
-    uint32_t WIDTH;
-    uint32_t HEIGHT;
-    uint32_t SYS_RENDERER_ID;
+    std::string m_filepath;
+    uint32_t m_width;
+    uint32_t m_height;
+    uint32_t m_textTextureId;
 
-    GLenum INTERNAL_FORMAT;
-    GLenum DATA_FORMAT;
+    GLenum m_internalFormat;
+    GLenum m_dataFormat;
 };
 }

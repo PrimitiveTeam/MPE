@@ -139,51 +139,51 @@ GLenum OpenGLUtilities::glCheckError_(const char *file, int line)
 
 bool OpenGLUtilities::IsOpenGLVersionHigherThan(int major, int minor)
 {
-    int OpenGLVersionMajor;
-    int OpenGLVersionMinor;
-    glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
-    glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersionMinor);
+    int openGLVersionMajor;
+    int openGLVersionMinor;
+    glGetIntegerv(GL_MAJOR_VERSION, &openGLVersionMajor);
+    glGetIntegerv(GL_MINOR_VERSION, &openGLVersionMinor);
 
-    return OpenGLVersionMajor > major || (OpenGLVersionMajor == major && OpenGLVersionMinor > minor);
+    return openGLVersionMajor > major || (openGLVersionMajor == major && openGLVersionMinor > minor);
 }
 
 bool OpenGLUtilities::IsOpenGLVersionLowerThan(int major, int minor)
 {
-    int OpenGLVersionMajor;
-    int OpenGLVersionMinor;
-    glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
-    glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersionMinor);
+    int openGLVersionMajor;
+    int openGLVersionMinor;
+    glGetIntegerv(GL_MAJOR_VERSION, &openGLVersionMajor);
+    glGetIntegerv(GL_MINOR_VERSION, &openGLVersionMinor);
 
-    return OpenGLVersionMajor < major || (OpenGLVersionMajor == major && OpenGLVersionMinor < minor);
+    return openGLVersionMajor < major || (openGLVersionMajor == major && openGLVersionMinor < minor);
 }
 
 bool OpenGLUtilities::IsOpenGLVersionEqualTo(int major, int minor)
 {
-    int OpenGLVersionMajor;
-    int OpenGLVersionMinor;
-    glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
-    glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersionMinor);
+    int openGLVersionMajor;
+    int openGLVersionMinor;
+    glGetIntegerv(GL_MAJOR_VERSION, &openGLVersionMajor);
+    glGetIntegerv(GL_MINOR_VERSION, &openGLVersionMinor);
 
-    return OpenGLVersionMajor == major && OpenGLVersionMinor == minor;
+    return openGLVersionMajor == major && openGLVersionMinor == minor;
 }
 
 bool OpenGLUtilities::IsOpenGLVersionHigherOrEqualTo(int major, int minor)
 {
-    int OpenGLVersionMajor;
-    int OpenGLVersionMinor;
-    glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
-    glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersionMinor);
+    int openGLVersionMajor;
+    int openGLVersionMinor;
+    glGetIntegerv(GL_MAJOR_VERSION, &openGLVersionMajor);
+    glGetIntegerv(GL_MINOR_VERSION, &openGLVersionMinor);
 
-    return OpenGLVersionMajor > major || (OpenGLVersionMajor == major && OpenGLVersionMinor >= minor);
+    return openGLVersionMajor > major || (openGLVersionMajor == major && openGLVersionMinor >= minor);
 }
 
 bool OpenGLUtilities::IsOpenGLVersionLowerOrEqualTo(int major, int minor)
 {
-    int OpenGLVersionMajor;
-    int OpenGLVersionMinor;
-    glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
-    glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersionMinor);
+    int openGLVersionMajor;
+    int openGLVersionMinor;
+    glGetIntegerv(GL_MAJOR_VERSION, &openGLVersionMajor);
+    glGetIntegerv(GL_MINOR_VERSION, &openGLVersionMinor);
 
-    return OpenGLVersionMajor < major || (OpenGLVersionMajor == major && OpenGLVersionMinor <= minor);
+    return openGLVersionMajor < major || (openGLVersionMajor == major && openGLVersionMinor <= minor);
 }
 }

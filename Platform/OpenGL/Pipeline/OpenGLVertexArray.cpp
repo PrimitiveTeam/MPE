@@ -45,20 +45,20 @@ static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
 OpenGLVertexArray::OpenGLVertexArray()
 {
 #ifdef MPE_PLATFORM_OSX
-    glGenVertexArrays(1, &SYS_Renderer_ID);
+    glGenVertexArrays(1, &m_vertexArrayId);
 #else
-    glCreateVertexArrays(1, &SYS_Renderer_ID);
+    glCreateVertexArrays(1, &m_vertexArrayId);
 #endif
 }
 
 OpenGLVertexArray::~OpenGLVertexArray()
 {
-    glDeleteVertexArrays(1, &SYS_Renderer_ID);
+    glDeleteVertexArrays(1, &m_vertexArrayId);
 }
 
 void OpenGLVertexArray::Bind() const
 {
-    glBindVertexArray(SYS_Renderer_ID);
+    glBindVertexArray(m_vertexArrayId);
 }
 
 void OpenGLVertexArray::Unbind() const
@@ -70,7 +70,7 @@ void OpenGLVertexArray::AddVertexBuffer(const REF<VertexBuffer> &vertexBuffer)
 {
     MPE_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "VERTEX BUFFER HAS NO LAYOUT.");
 
-    glBindVertexArray(SYS_Renderer_ID);
+    glBindVertexArray(m_vertexArrayId);
     vertexBuffer->Bind();
 
     uint32_t index = 0;
@@ -84,15 +84,15 @@ void OpenGLVertexArray::AddVertexBuffer(const REF<VertexBuffer> &vertexBuffer)
 
         glCheckError();
     }
-    SYS_VERTEXBUFFERS.push_back(vertexBuffer);
+    m_vertexBuffers.push_back(vertexBuffer);
 }
 
 void OpenGLVertexArray::SetIndexBuffer(const REF<IndexBuffer> &indexBuffer)
 {
-    glBindVertexArray(SYS_Renderer_ID);
+    glBindVertexArray(m_vertexArrayId);
     indexBuffer->Bind();
 
-    SYS_INDEXBUFFER = indexBuffer;
+    m_indexBuffer = indexBuffer;
     // SYS_INDEXBUFFERS.push_back(indexBuffer);
 }
 }

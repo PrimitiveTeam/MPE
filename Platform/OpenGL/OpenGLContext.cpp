@@ -9,14 +9,14 @@
 
 namespace MPE
 {
-OpenGLContext::OpenGLContext(GLFWwindow *window) : SYS_Window(window)
+OpenGLContext::OpenGLContext(GLFWwindow *window) : m_window(window)
 {
-    MPE_CORE_ASSERT(SYS_Window, "WINDOW IS NULL.");
+    MPE_CORE_ASSERT(m_window, "WINDOW IS NULL.");
 }
 
 void OpenGLContext::Init()
 {
-    glfwMakeContextCurrent(SYS_Window);
+    glfwMakeContextCurrent(m_window);
 
     int status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
     MPE_CORE_ASSERT(status, "FAILED TO INITIALIZE GLAD.");
@@ -24,6 +24,6 @@ void OpenGLContext::Init()
 
 void OpenGLContext::SwapBuffers()
 {
-    glfwSwapBuffers(SYS_Window);
+    glfwSwapBuffers(m_window);
 }
 }

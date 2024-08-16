@@ -16,6 +16,6 @@ class MPE_API OpenGLContext : public GraphicalContext
     virtual void SwapBuffers() override;
 
   private:
-    GLFWwindow *SYS_Window;
+    GLFWwindow *m_window;
 };
 }

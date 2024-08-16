@@ -9,11 +9,11 @@ namespace MPE
 {
 void OpenGLRendererAPI::Init()
 {
-    SYS_Settings = new OpenGLSettings();
+    m_settings = new OpenGLSettings();
 
     // std::string OpenGL_INFO = "\nOpenGL Info:\n";
 
-    auto graphicalContextProps = SYS_Settings->GetGraphicalContextProps();
+    auto graphicalContextProps = m_settings->GetGraphicalContextProps();
     int OpenGLVersionMajor;
     int OpenGLVersionMinor;
     glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
@@ -35,23 +35,23 @@ void OpenGLRendererAPI::Init()
     graphicalContextProps->m_renderer = std::string(reinterpret_cast<const char *>(glGetString(GL_RENDERER)));
     graphicalContextProps->m_shaderTypeAmount = OPENGL_SHADER_TYPE_AMOUNT;
 
-    MPE_CORE_INFO('\n' + SYS_Settings->GetGraphicalContextPropsAsString());
+    MPE_CORE_INFO('\n' + m_settings->GetGraphicalContextPropsAsString());
 
-    SYS_Settings->SetVsync(false);
-    SYS_Settings->SetBlend(true);
+    m_settings->SetVsync(false);
+    m_settings->SetBlend(true);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    SYS_Settings->SetDepthTest(true);
-    SYS_Settings->SetPolygonMode(false);
-    SYS_Settings->SetLimitFPS(false);
-    SYS_Settings->SetMaxFPS(60);
-    SYS_Settings->SetFaceCulling(false);
-    SYS_Settings->SetDebugOutput(true);
+    m_settings->SetDepthTest(true);
+    m_settings->SetPolygonMode(false);
+    m_settings->SetLimitFPS(false);
+    m_settings->SetMaxFPS(60);
+    m_settings->SetFaceCulling(false);
+    m_settings->SetDebugOutput(true);
 
     MPE_CORE_WARN("Checking for any errors caused by settings...");
     glCheckError();
     MPE_CORE_WARN("Causing OpenGL errors to test error handling...");
 
-    if (SYS_Settings->GetDebugOutput())
+    if (m_settings->GetDebugOutput())
         glDebugMessageInsert(GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_MARKER, 1, GL_DEBUG_SEVERITY_NOTIFICATION, -1, "This is a debug test.");
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_INVALID_ENUM);
@@ -88,6 +88,6 @@ void OpenGLRendererAPI::DrawLines(const REF<VertexArray> &vertexArray, uint32_t 
 
 RenderSettings *OpenGLRendererAPI::GetSettings()
 {
-    return SYS_Settings;
+    return m_settings;
 }
 }

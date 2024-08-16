@@ -16,10 +16,10 @@ class MPE_API OpenGLIndexBuffer : public IndexBuffer
     virtual void Bind() const override;
     virtual void Unbind() const override;
 
-    virtual uint32_t GetCount() const override { return SYS_COUNT; }
+    virtual uint32_t GetCount() const override { return m_count; }
 
   private:
-    uint32_t SYS_Renderer_ID;
-    uint32_t SYS_COUNT;
+    uint32_t m_indexBufferId;
+    uint32_t m_count;
 };
 }
