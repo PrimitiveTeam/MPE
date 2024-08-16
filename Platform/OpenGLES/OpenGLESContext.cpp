@@ -1,3 +1,8 @@
+// Apple does not want us to use older OpenGL functions, so we need to silence the deprecation warnings.
+#ifdef MPE_PLATFORM_OSX
+#define GL_SILENCE_DEPRECATION
+#endif
+
 #include "OpenGLESContext.h"
 #include "MPE/MPEPCH.h"
 
@@ -24,37 +29,37 @@
 
 namespace MPE
 {
-OpenGLESContext::OpenGLESContext(GLFWwindow *window) : SYS_Window(window)
+OpenGLESContext::OpenGLESContext(GLFWwindow *window) : m_window(window)
 {
-    MPE_CORE_ASSERT(SYS_Window, "WINDOW IS NULL.");
+    MPE_CORE_ASSERT(m_window, "WINDOW IS NULL.");
 }
 
 void OpenGLESContext::Init()
 {
 #ifdef MPE_PLATFORM_WINDOWS
-    eglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+    m_eglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 #elif MPE_PLATFORM_LINUX
     Display *nativeDisplay = glfwGetX11Display();
-    eglDisplay = eglGetDisplay(nativeDisplay);
+    m_eglDisplay = eglGetDisplay(nativeDisplay);
 #elif MPE_PLATFORM_OSX
-    EGLNativeWindowType nativeWindow = macOSContext::GetNativeWindow(SYS_Window);
-    eglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+    EGLNativeWindowType nativeWindow = macOSContext::GetNativeWindow(m_window);
+    m_eglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 #else
     MPE_ASSERT(false, "PLATFORM NOT SUPPORTED.");
 #endif
-    if (eglDisplay == EGL_NO_DISPLAY)
+    if (m_eglDisplay == EGL_NO_DISPLAY)
     {
         std::cerr << "Failed to get EGL display: " << eglGetError() << std::endl;
-        glfwDestroyWindow(SYS_Window);
+        glfwDestroyWindow(m_window);
         glfwTerminate();
         MPE_ASSERT(false, "Failed to get EGL display.");
         return;
     }
 
-    if (!eglInitialize(eglDisplay, nullptr, nullptr))
+    if (!eglInitialize(m_eglDisplay, nullptr, nullptr))
     {
         std::cerr << "Failed to initialize EGL: " << eglGetError() << std::endl;
-        glfwDestroyWindow(SYS_Window);
+        glfwDestroyWindow(m_window);
         glfwTerminate();
         MPE_ASSERT(false, "Failed to initialize EGL.");
         return;
@@ -64,26 +69,26 @@ void OpenGLESContext::Init()
 
     // List all available configurations for debugging
     EGLint numConfigsAvailable;
-    eglGetConfigs(eglDisplay, nullptr, 0, &numConfigsAvailable);
+    eglGetConfigs(m_eglDisplay, nullptr, 0, &numConfigsAvailable);
     std::cout << "Number of available configurations: " << numConfigsAvailable << std::endl;
 
     EGLConfig allConfigs[numConfigsAvailable];
-    eglGetConfigs(eglDisplay, allConfigs, numConfigsAvailable, &numConfigsAvailable);
+    eglGetConfigs(m_eglDisplay, allConfigs, numConfigsAvailable, &numConfigsAvailable);
 
     for (int i = 0; i < numConfigsAvailable; ++i)
     {
         EGLint redSize, greenSize, blueSize, alphaSize, depthSize, renderableType;
-        eglGetConfigAttrib(eglDisplay, allConfigs[i], EGL_RED_SIZE, &redSize);
-        eglGetConfigAttrib(eglDisplay, allConfigs[i], EGL_GREEN_SIZE, &greenSize);
-        eglGetConfigAttrib(eglDisplay, allConfigs[i], EGL_BLUE_SIZE, &blueSize);
-        eglGetConfigAttrib(eglDisplay, allConfigs[i], EGL_ALPHA_SIZE, &alphaSize);
-        eglGetConfigAttrib(eglDisplay, allConfigs[i], EGL_DEPTH_SIZE, &depthSize);
-        eglGetConfigAttrib(eglDisplay, allConfigs[i], EGL_RENDERABLE_TYPE, &renderableType);
+        eglGetConfigAttrib(m_eglDisplay, allConfigs[i], EGL_RED_SIZE, &redSize);
+        eglGetConfigAttrib(m_eglDisplay, allConfigs[i], EGL_GREEN_SIZE, &greenSize);
+        eglGetConfigAttrib(m_eglDisplay, allConfigs[i], EGL_BLUE_SIZE, &blueSize);
+        eglGetConfigAttrib(m_eglDisplay, allConfigs[i], EGL_ALPHA_SIZE, &alphaSize);
+        eglGetConfigAttrib(m_eglDisplay, allConfigs[i], EGL_DEPTH_SIZE, &depthSize);
+        eglGetConfigAttrib(m_eglDisplay, allConfigs[i], EGL_RENDERABLE_TYPE, &renderableType);
 
         MPE_INFO("Config {0}: R={1} G={2} B={3} A={4} Depth={5} Type={6}", i, redSize, greenSize, blueSize, alphaSize, depthSize, renderableType);
     }
 
-    const char *eglExtensions = eglQueryString(eglDisplay, EGL_EXTENSIONS);
+    const char *eglExtensions = eglQueryString(m_eglDisplay, EGL_EXTENSIONS);
     MPE_INFO("EGL Extensions: {0}", eglExtensions);
 
 #endif
@@ -106,30 +111,30 @@ void OpenGLESContext::Init()
 
     EGLConfig eglConfig;
     EGLint numConfigs;
-    if (!eglChooseConfig(eglDisplay, configAttribs, &eglConfig, 1, &numConfigs) || numConfigs == 0)
+    if (!eglChooseConfig(m_eglDisplay, configAttribs, &eglConfig, 1, &numConfigs) || numConfigs == 0)
     {
         std::cerr << "Failed to choose EGL config: " << eglGetError() << std::endl;
-        eglTerminate(eglDisplay);
-        glfwDestroyWindow(SYS_Window);
+        eglTerminate(m_eglDisplay);
+        glfwDestroyWindow(m_window);
         glfwTerminate();
         MPE_ASSERT(false, "Failed to choose EGL config.");
         return;
     }
 
 #ifdef MPE_PLATFORM_WINDOWS
-    eglSurface = eglCreateWindowSurface(eglDisplay, eglConfig, glfwGetWin32Window(SYS_Window), nullptr);
+    m_eglSurface = eglCreateWindowSurface(m_eglDisplay, eglConfig, glfwGetWin32Window(m_window), nullptr);
 #elif MPE_PLATFORM_LINUX
-    eglSurface = eglCreateWindowSurface(eglDisplay, eglConfig, (EGLNativeWindowType) glfwGetX11Window(SYS_Window), nullptr);
+    m_eglSurface = eglCreateWindowSurface(m_eglDisplay, eglConfig, (EGLNativeWindowType) glfwGetX11Window(m_window), nullptr);
 #elif MPE_PLATFORM_OSX
-    eglSurface = eglCreateWindowSurface(eglDisplay, eglConfig, nativeWindow, nullptr);
+    m_eglSurface = eglCreateWindowSurface(m_eglDisplay, eglConfig, nativeWindow, nullptr);
 #elif MPE_PLATFORM_RPI4
-    eglSurface = eglCreateWindowSurface(eglDisplay, eglConfig, glfwGetEGLDisplay(SYS_Window), nullptr);
+    m_eglSurface = eglCreateWindowSurface(m_eglDisplay, eglConfig, glfwGetm_eglDisplay(m_window), nullptr);
 #endif
-    if (eglSurface == EGL_NO_SURFACE)
+    if (m_eglSurface == EGL_NO_SURFACE)
     {
         std::cerr << "Failed to create EGL window surface: " << eglGetError() << std::endl;
-        eglTerminate(eglDisplay);
-        glfwDestroyWindow(SYS_Window);
+        eglTerminate(m_eglDisplay);
+        glfwDestroyWindow(m_window);
         glfwTerminate();
         return;
     }
@@ -140,25 +145,25 @@ void OpenGLESContext::Init()
 #else
     EGLint contextAttribs[] = {EGL_CONTEXT_CLIENT_VERSION, 3, EGL_CONTEXT_MINOR_VERSION, 1, EGL_NONE};
 #endif
-    eglContext = eglCreateContext(eglDisplay, eglConfig, EGL_NO_CONTEXT, contextAttribs);
-    if (eglContext == EGL_NO_CONTEXT)
+    m_eglContext = eglCreateContext(m_eglDisplay, eglConfig, EGL_NO_CONTEXT, contextAttribs);
+    if (m_eglContext == EGL_NO_CONTEXT)
     {
         std::cerr << "Failed to create EGL context: " << eglGetError() << std::endl;
-        eglDestroySurface(eglDisplay, eglSurface);
-        eglTerminate(eglDisplay);
-        glfwDestroyWindow(SYS_Window);
+        eglDestroySurface(m_eglDisplay, m_eglSurface);
+        eglTerminate(m_eglDisplay);
+        glfwDestroyWindow(m_window);
         glfwTerminate();
         MPE_ASSERT(false, "Failed to create EGL context.");
         return;
     }
 
-    if (!eglMakeCurrent(eglDisplay, eglSurface, eglSurface, eglContext))
+    if (!eglMakeCurrent(m_eglDisplay, m_eglSurface, m_eglSurface, m_eglContext))
     {
         std::cerr << "Failed to make EGL context current: " << eglGetError() << std::endl;
-        eglDestroyContext(eglDisplay, eglContext);
-        eglDestroySurface(eglDisplay, eglSurface);
-        eglTerminate(eglDisplay);
-        glfwDestroyWindow(SYS_Window);
+        eglDestroyContext(m_eglDisplay, m_eglContext);
+        eglDestroySurface(m_eglDisplay, m_eglSurface);
+        eglTerminate(m_eglDisplay);
+        glfwDestroyWindow(m_window);
         glfwTerminate();
         MPE_ASSERT(false, "Failed to make EGL context current.");
         return;
@@ -172,6 +177,6 @@ void OpenGLESContext::Init()
 
 void OpenGLESContext::SwapBuffers()
 {
-    eglSwapBuffers(eglDisplay, eglSurface);
+    eglSwapBuffers(m_eglDisplay, m_eglSurface);
 }
 }

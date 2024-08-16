@@ -8,10 +8,10 @@
 namespace MPE
 {
 // KeyEvent
-KeyEvent::KeyEvent(int keycode) : KeyCode(keycode) {}
+KeyEvent::KeyEvent(int keycode) : m_keyCode(keycode) {}
 
 // KeyPressedEvent
-KeyPressedEvent::KeyPressedEvent(int keycode, int repeatCount) : KeyEvent(keycode), RepeatCount(repeatCount)
+KeyPressedEvent::KeyPressedEvent(int keycode, int repeatCount) : KeyEvent(keycode), m_repeatCount(repeatCount)
 {
     MPE::KeyState::SetKeyPressed(keycode, true);
 }
@@ -19,7 +19,7 @@ KeyPressedEvent::KeyPressedEvent(int keycode, int repeatCount) : KeyEvent(keycod
 std::string KeyPressedEvent::ToString() const
 {
     std::stringstream ss;
-    ss << "KeyPressedEvent: " << KeyCode << " (" << RepeatCount << " repeats)";
+    ss << "KeyPressedEvent: " << m_keyCode << " (" << m_repeatCount << " repeats)";
     return ss.str();
 }
 
@@ -32,7 +32,7 @@ KeyReleasedEvent::KeyReleasedEvent(int keycode) : KeyEvent(keycode)
 std::string KeyReleasedEvent::ToString() const
 {
     std::stringstream ss;
-    ss << "KeyReleasedEvent: " << KeyCode;
+    ss << "KeyReleasedEvent: " << m_keyCode;
     return ss.str();
 }
 
@@ -42,7 +42,7 @@ KeyTypedEvent::KeyTypedEvent(int keycode) : KeyEvent(keycode) {}
 std::string KeyTypedEvent::ToString() const
 {
     std::stringstream ss;
-    ss << "KeyTypedEvent: " << KeyCode;
+    ss << "KeyTypedEvent: " << m_keyCode;
     return ss.str();
 }
 }

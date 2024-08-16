@@ -3,7 +3,7 @@
 
 namespace MPE
 {
-Layer::Layer(const std::string &debugName) : SYS_DebugName(debugName) {}
+Layer::Layer(const std::string &layerName) : m_layerName(layerName) {}
 
 Layer::~Layer() {}
 }

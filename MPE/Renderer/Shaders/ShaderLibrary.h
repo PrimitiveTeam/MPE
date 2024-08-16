@@ -19,6 +19,6 @@ class MPE_API ShaderLibrary
     bool Exists(const std::string &name) const;
 
   private:
-    std::unordered_map<std::string, REF<Shader>> SHADERS;
+    std::unordered_map<std::string, REF<Shader>> m_shaders;
 };
 }

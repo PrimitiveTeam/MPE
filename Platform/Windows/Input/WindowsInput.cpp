@@ -9,7 +9,7 @@
 
 namespace MPE
 {
-REF<Input> Input::SYS_Input_Instance = NEWREF<WindowsInput>();
+REF<Input> Input::m_inputInstance = NEWREF<WindowsInput>();
 
 bool WindowsInput::IsKeyPressedImpl(int keycode)
 {

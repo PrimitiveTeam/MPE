@@ -22,6 +22,6 @@ class MPE_API OpenGLRendererAPI : public RendererAPI
     virtual RenderSettings *GetSettings() override;
 
   private:
-    OpenGLSettings *SYS_Settings;
+    OpenGLSettings *m_settings;
 };
 }

@@ -29,19 +29,19 @@ class SimpleDialog
             NO = 4
         };
 
-        int response;
+        int m_response;
 
-        DialogResponse(int response) : response(response) {}
+        DialogResponse(int response) : m_response(response) {}
 
-        operator bool() const { return response == OK || response == YES; }
+        operator bool() const { return m_response == OK || m_response == YES; }
 
-        bool operator==(int value) const { return response == value; }
-        bool operator!=(int value) const { return response != value; }
+        bool operator==(int value) const { return m_response == value; }
+        bool operator!=(int value) const { return m_response != value; }
 
-        bool isOK() const { return response == OK; }
-        bool isCancel() const { return response == CANCEL; }
-        bool isYes() const { return response == YES; }
-        bool isNo() const { return response == NO; }
+        bool isOK() const { return m_response == OK; }
+        bool isCancel() const { return m_response == CANCEL; }
+        bool isYes() const { return m_response == YES; }
+        bool isNo() const { return m_response == NO; }
     };
 
   public:
@@ -54,8 +54,8 @@ class SimpleDialog
     DialogResponse Show();
 
   private:
-    std::string m_Title;
-    std::string m_Message;
-    DialogType m_Type;
+    std::string m_title;
+    std::string m_message;
+    DialogType m_type;
 };
 }

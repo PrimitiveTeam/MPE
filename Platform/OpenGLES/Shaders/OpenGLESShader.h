@@ -39,7 +39,7 @@ class MPE_API OpenGLESShader : public Shader
     virtual void SetMat3(const std::string &name, const glm::mat3 &matrix) override;
     virtual void SetMat4(const std::string &name, const glm::mat4 &matrix) override;
 
-    virtual const std::string &GetName() const override { return SHADER_NAME; };
+    virtual const std::string &GetName() const override { return m_name; };
 
     void InjectUniformInt1(const std::string &name, int value);
     void InjectUniformInt2(const std::string &name, int values[2]);
@@ -60,8 +60,8 @@ class MPE_API OpenGLESShader : public Shader
     // std::string ParseEditorResourcePath(const std::string &filepath) override;
 
   private:
-    uint32_t SYS_Renderer_ID;
-    std::string SHADER_NAME;
+    uint32_t m_shaderId;
+    std::string m_name;
 
     std::string ValidateFile(const std::string &filepath);
     std::unordered_map<GLenum, std::string> PreProcess(const std::string &source);

@@ -23,12 +23,12 @@ class MPE_API WindowsWindow : public Window
 
     virtual void OnUpdate() override;
 
-    virtual inline int GetWidth() const override { return SYS_Data.Width; }
-    virtual inline int GetHeight() const override { return SYS_Data.Height; }
-    virtual inline int GetWindowPositionX() const override { return SYS_Data.WindowPositionX; }
-    virtual inline int GetWindowPositionY() const override { return SYS_Data.WindowPositionY; }
+    virtual inline int GetWidth() const override { return m_data.m_width; }
+    virtual inline int GetHeight() const override { return m_data.m_height; }
+    virtual inline int GetWindowPositionX() const override { return m_data.m_windowPositionX; }
+    virtual inline int GetWindowPositionY() const override { return m_data.m_windowPositionY; }
 
-    virtual inline void SetEventCallback(const EventCallbackFn &callback) override { SYS_Data.EventCallback = callback; }
+    virtual inline void SetEventCallback(const EventCallbackFn &callback) override { m_data.m_eventCallback = callback; }
 
     virtual void ToggleFullScreen() override;
     virtual void GoFullScreen() override;
@@ -42,14 +42,14 @@ class MPE_API WindowsWindow : public Window
     virtual void SaveWindowPosition() override;
     virtual void RestoreWindowPosition() override;
 
-    inline virtual void *GetNativeWindow() const override { return SYS_Window; }
+    inline virtual void *GetNativeWindow() const override { return m_window; }
 
 #ifdef MPE_OPENGL
-    inline virtual GraphicalContext *GetNativeGLContext() const override { return SYS_Context; }
+    inline virtual GraphicalContext *GetNativeGLContext() const override { return m_GLcontext; }
 #endif
 
 #ifdef MPE_OPENGLES
-    inline virtual GraphicalContext *GetNativeGLESContext() const override { return SYS_ESContext; }
+    inline virtual GraphicalContext *GetNativeGLESContext() const override { return m_EScontext; }
 #endif
 
   private:
@@ -57,27 +57,27 @@ class MPE_API WindowsWindow : public Window
     virtual void Shutdown();
 
   private:
-    GLFWwindow *SYS_Window;
+    GLFWwindow *m_window;
 #ifdef MPE_OPENGL
-    OpenGLContext *SYS_Context;
+    OpenGLContext *m_GLcontext;
 #endif
 #ifdef MPE_OPENGLES
-    OpenGLESContext *SYS_ESContext;
+    OpenGLESContext *m_EScontext;
 #endif
 
     struct WindowData
     {
-        std::string Title;
-        int Width, Height;
-        int WindowPositionX, WindowPositionY;
-        int PrevWidth, PrevHeight;
-        int PrevWindowPositionX, PrevWindowPositionY;
+        std::string m_title;
+        int m_width, m_height;
+        int m_windowPositionX, m_windowPositionY;
+        int m_prevWidth, m_prevHeight;
+        int m_prevWindowPositionX, m_prevWindowPositionY;
 
-        EventCallbackFn EventCallback;
+        EventCallbackFn m_eventCallback;
     };
 
-    WindowData SYS_Data;
+    WindowData m_data;
 
-    WindowMonitors SYS_Monitors;
+    WindowMonitors m_monitors;
 };
 }

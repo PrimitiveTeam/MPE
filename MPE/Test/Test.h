@@ -12,10 +12,10 @@ class MPE_API Test
     Test();
     ~Test();
 
-    std::string GetName() const { return m_Name; }
-    void SetName(const std::string &name) { m_Name = name; }
+    std::string GetName() const { return m_name; }
+    void SetName(const std::string &name) { m_name = name; }
 
   private:
-    std::string m_Name;
+    std::string m_name;
 };
 }

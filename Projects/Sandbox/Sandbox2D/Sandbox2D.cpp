@@ -15,13 +15,13 @@ void Sandbox2D::OnAttach()
 
 void Sandbox2D::OnDetach() {}
 
-void Sandbox2D::OnUpdate(MPE::Time deltatime)
+void Sandbox2D::OnUpdate(MPE::Time deltaTime)
 {
     MPE_PROFILE_FUNCTION();
 
     {
         MPE_PROFILE_SCOPE("SYS_CAMERA_CONTROLLER.OnUpdate()");
-        SYS_CAMERA_CONTROLLER.OnUpdate(deltatime);
+        SYS_CAMERA_CONTROLLER.OnUpdate(deltaTime);
     }
 
     MPE::RenderPrimitive::SetClearColor(CLEAR_COLOR);

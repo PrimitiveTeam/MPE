@@ -5,26 +5,25 @@
 
 namespace MPE
 {
-// Initialize static members
-std::mutex OpenALContext::s_InstanceMutex;
-OpenALContext* OpenALContext::s_Instance = nullptr;
+std::mutex OpenALContext::s_instanceMutex;
+OpenALContext* OpenALContext::s_instance = nullptr;
 
-OpenALContext::OpenALContext() : m_Device(nullptr), m_Context(nullptr)
+OpenALContext::OpenALContext() : m_device(nullptr), m_context(nullptr)
 {
-    m_Device = alcOpenDevice(nullptr);
-    if (!m_Device)
+    m_device = alcOpenDevice(nullptr);
+    if (!m_device)
     {
         MPE_CORE_ERROR("Failed to open an OpenAL device.");
         return;
     }
 
-    m_Context = alcCreateContext(m_Device, nullptr);
-    if (!alcMakeContextCurrent(m_Context))
+    m_context = alcCreateContext(m_device, nullptr);
+    if (!alcMakeContextCurrent(m_context))
     {
         MPE_CORE_ERROR("Failed to create an OpenAL context.");
-        alcCloseDevice(m_Device);
-        m_Device = nullptr;
-        m_Context = nullptr;
+        alcCloseDevice(m_device);
+        m_device = nullptr;
+        m_context = nullptr;
         return;
     }
 
@@ -34,29 +33,29 @@ OpenALContext::OpenALContext() : m_Device(nullptr), m_Context(nullptr)
 OpenALContext::~OpenALContext()
 {
     {
-        std::lock_guard<std::mutex> lock(m_PlayerMutex);
-        for (SoundPlayer* player : m_Players)
+        std::lock_guard<std::mutex> lock(m_playerMutex);
+        for (SoundPlayer* player : m_players)
         {
             // Assumes ownership; otherwise, call a destroy function.
             delete player;
         }
-        m_Players.clear();
+        m_players.clear();
     }
-    MPE_WARN("OpenAL: Errors: {0} | Device: {1}", alGetError(), alcGetError(m_Device));
+    MPE_WARN("OpenAL: Errors: {0} | Device: {1}", alGetError(), alcGetError(m_device));
     alcMakeContextCurrent(nullptr);
 
-    if (m_Context)
+    if (m_context)
     {
-        // delete m_Context;
-        alcDestroyContext(m_Context);
-        m_Context = nullptr;
+        // delete m_context;
+        alcDestroyContext(m_context);
+        m_context = nullptr;
     }
 
-    if (m_Device)
+    if (m_device)
     {
-        // delete m_Device;
-        alcCloseDevice(m_Device);
-        m_Device = nullptr;
+        // delete m_device;
+        alcCloseDevice(m_device);
+        m_device = nullptr;
     }
 
     MPE_CORE_INFO("OpenAL context destroyed.");
@@ -66,21 +65,21 @@ OpenALContext::~OpenALContext()
 OpenALContext& OpenALContext::GetInstance()
 {
     // Double-checked locking for thread-safe singleton initialization
-    if (s_Instance == nullptr)
+    if (s_instance == nullptr)
     {
-        std::lock_guard<std::mutex> lock(s_InstanceMutex);
-        if (s_Instance == nullptr)
+        std::lock_guard<std::mutex> lock(s_instanceMutex);
+        if (s_instance == nullptr)
         {
-            s_Instance = new OpenALContext();
+            s_instance = new OpenALContext();
         }
     }
-    return *s_Instance;
+    return *s_instance;
 }
 
 void OpenALContext::AddPlayer(SoundPlayer* player)
 {
-    std::lock_guard<std::mutex> lock(m_PlayerMutex);
-    m_Players.push_back(player);
+    std::lock_guard<std::mutex> lock(m_playerMutex);
+    m_players.push_back(player);
 }
 
 void OpenALContext::RemovePlayer(SoundPlayer* player)
@@ -88,11 +87,11 @@ void OpenALContext::RemovePlayer(SoundPlayer* player)
     if (!player) return;
 
     // TODO: Investigate => when this is used it causes a crash but it might be necessary for thread safety
-    // std::lock_guard<std::mutex> lock(m_PlayerMutex);
-    auto it = std::remove(m_Players.begin(), m_Players.end(), player);
-    if (it != m_Players.end())
+    // std::lock_guard<std::mutex> lock(m_playerMutex);
+    auto it = std::remove(m_players.begin(), m_players.end(), player);
+    if (it != m_players.end())
     {
-        m_Players.erase(it, m_Players.end());
+        m_players.erase(it, m_players.end());
     }
 }
 }

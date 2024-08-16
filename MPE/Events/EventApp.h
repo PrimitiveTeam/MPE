@@ -10,8 +10,8 @@ class MPE_API WindowMovedEvent : public Event
   public:
     WindowMovedEvent(int x, int y);
 
-    inline int GetX() const { return X; }
-    inline int GetY() const { return Y; }
+    inline int GetX() const { return m_x; }
+    inline int GetY() const { return m_y; }
 
     std::string ToString() const override;
 
@@ -19,7 +19,7 @@ class MPE_API WindowMovedEvent : public Event
     EVENT_CLASS_CATEGORY(EventCategoryApp)
 
   private:
-    int X, Y;
+    int m_x, m_y;
 };
 
 class MPE_API WindowResizeEvent : public Event
@@ -27,8 +27,8 @@ class MPE_API WindowResizeEvent : public Event
   public:
     WindowResizeEvent(unsigned int width, unsigned int height);
 
-    inline unsigned int GetWidth() const { return Width; }
-    inline unsigned int GetHeight() const { return Height; }
+    inline unsigned int GetWidth() const { return m_width; }
+    inline unsigned int GetHeight() const { return m_height; }
 
     std::string ToString() const override;
 
@@ -36,7 +36,7 @@ class MPE_API WindowResizeEvent : public Event
     EVENT_CLASS_CATEGORY(EventCategoryApp)
 
   private:
-    unsigned int Width, Height;
+    unsigned int m_width, m_height;
 };
 
 class MPE_API WindowCloseEvent : public Event

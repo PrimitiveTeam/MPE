@@ -13,7 +13,7 @@ SimpleAudioTest::SimpleAudioTest()
     MPE_TRACE("{}", m_OggSoundPlayer->GetInfo());
 }
 
-void SimpleAudioTest::OnUpdate(MPE::Time deltatime)
+void SimpleAudioTest::OnUpdate(MPE::Time deltaTime)
 {
     MPE::RenderPrimitive::SetClearColor(glm::vec4(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]));
     MPE::RenderPrimitive::Clear();

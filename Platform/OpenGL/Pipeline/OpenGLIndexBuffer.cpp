@@ -4,25 +4,25 @@
 
 namespace MPE
 {
-OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t *indices, uint32_t count) : SYS_COUNT(count)
+OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t *indices, uint32_t count) : m_count(count)
 {
 #ifdef MPE_PLATFORM_OSX
-    glGenBuffers(1, &SYS_Renderer_ID);
+    glGenBuffers(1, &m_indexBufferId);
 #else
-    glCreateBuffers(1, &SYS_Renderer_ID);
+    glCreateBuffers(1, &m_indexBufferId);
 #endif
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, SYS_Renderer_ID);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBufferId);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
 }
 
 OpenGLIndexBuffer::~OpenGLIndexBuffer()
 {
-    glDeleteBuffers(1, &SYS_Renderer_ID);
+    glDeleteBuffers(1, &m_indexBufferId);
 }
 
 void OpenGLIndexBuffer::Bind() const
 {
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, SYS_Renderer_ID);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBufferId);
 }
 
 void OpenGLIndexBuffer::Unbind() const

@@ -16,12 +16,12 @@ class MPE_API OpenGLESContext : public GraphicalContext
     virtual void Init() override;
     virtual void SwapBuffers() override;
 
-    EGLDisplay GetEGLDisplay() const { return eglDisplay; }
+    EGLDisplay GetEGLDisplay() const { return m_eglDisplay; }
 
   private:
-    GLFWwindow *SYS_Window;
-    EGLDisplay eglDisplay;
-    EGLSurface eglSurface;
-    EGLContext eglContext;
+    GLFWwindow *m_window;
+    EGLDisplay m_eglDisplay;
+    EGLSurface m_eglSurface;
+    EGLContext m_eglContext;
 };
 }

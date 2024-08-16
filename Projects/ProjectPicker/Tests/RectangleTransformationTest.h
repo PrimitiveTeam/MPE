@@ -14,7 +14,7 @@ class RectangleTransformationTest : public MPE::Layer
 
     virtual ~RectangleTransformationTest() = default;
 
-    virtual void OnUpdate(MPE::Time deltatime) override;
+    virtual void OnUpdate(MPE::Time deltaTime) override;
 
     virtual void OnImGuiRender() override;
 

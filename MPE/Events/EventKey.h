@@ -7,13 +7,13 @@ namespace MPE
 class MPE_API KeyEvent : public Event
 {
   public:
-    inline int GetKeyCode() const { return KeyCode; }
+    inline int GetKeyCode() const { return m_keyCode; }
 
     EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
   protected:
     KeyEvent(int keycode);
-    int KeyCode;
+    int m_keyCode;
 };
 
 class MPE_API KeyPressedEvent : public KeyEvent
@@ -21,14 +21,14 @@ class MPE_API KeyPressedEvent : public KeyEvent
   public:
     KeyPressedEvent(int keycode, int repeatCount);
 
-    inline int GetRepeatCount() const { return RepeatCount; }
+    inline int GetRepeatCount() const { return m_repeatCount; }
 
     std::string ToString() const override;
 
     EVENT_CLASS_TYPE(KeyPressed)
 
   private:
-    int RepeatCount;
+    int m_repeatCount;
 };
 
 class MPE_API KeyReleasedEvent : public KeyEvent

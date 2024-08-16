@@ -69,4 +69,22 @@ cmake -S . -B ./Build -G "Visual Studio 17 2022" -A x64 -D CMAKE_BUILD_TYPE=Debu
 cmake --build ./Build --config Debug --target INSTALL
 cd ..
 
+@REM REM openal-soft
+@REM REM If openal-soft already exists, cancel next step
+@REM if exist "openal-soft" (
+@REM     echo openal-soft already exists. Skipping...
+@REM ) else (
+@REM     echo Cloning openal-soft...
+@REM     git clone https://github.com/kcat/openal-soft.git
+@REM )
+
+@REM cd openal-soft
+@REM echo Generating and building OpenAL-Soft with Visual Studio 2022 - RELEASE
+@REM cmake -S . -B ./Build -G "Visual Studio 17 2022" -A x64 -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=./Install/Release
+@REM cmake --build ./Build --config Release --target INSTALL
+@REM echo Generating and building OpenAL-Soft with Visual Studio 2022 - DEBUG
+@REM cmake -S . -B ./Build -G "Visual Studio 17 2022" -A x64 -D CMAKE_BUILD_TYPE=Debug -D CMAKE_INSTALL_PREFIX=./Install/Debug
+@REM cmake --build ./Build --config Debug --target INSTALL
+@REM cd ..
+
 echo Setup complete.

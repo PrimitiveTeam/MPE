@@ -18,16 +18,16 @@ class MPE_API OpenGLESVertexBuffer : public VertexBuffer
     virtual void Bind() const override;
     virtual void Unbind() const override;
 
-    virtual const BufferLayout &GetLayout() const override { return SYS_LAYOUT; };
-    virtual void SetLayout(const BufferLayout &layout) override { SYS_LAYOUT = layout; };
+    virtual const BufferLayout &GetLayout() const override { return m_layout; };
+    virtual void SetLayout(const BufferLayout &layout) override { m_layout = layout; };
 
-    virtual uint32_t GetSize() const override { return m_Size; }
+    virtual uint32_t GetSize() const override { return m_size; }
 
     virtual void SetData(const void *data, uint32_t size) override;
 
   private:
-    uint32_t SYS_Renderer_ID;
-    BufferLayout SYS_LAYOUT;
-    uint32_t m_Size;
+    uint32_t m_vertexBufferId;
+    BufferLayout m_layout;
+    uint32_t m_size;
 };
 }

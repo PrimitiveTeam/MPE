@@ -9,49 +9,49 @@ namespace MPE
 {
 void OpenGLRendererAPI::Init()
 {
-    SYS_Settings = new OpenGLSettings();
+    m_settings = new OpenGLSettings();
 
     // std::string OpenGL_INFO = "\nOpenGL Info:\n";
 
-    auto graphicalContextProps = SYS_Settings->GetGraphicalContextProps();
-    int OpenGLVersionMajor;
-    int OpenGLVersionMinor;
-    glGetIntegerv(GL_MAJOR_VERSION, &OpenGLVersionMajor);
-    glGetIntegerv(GL_MINOR_VERSION, &OpenGLVersionMinor);
+    auto graphicalContextProps = m_settings->GetGraphicalContextProps();
+    int openGLVersionMajor;
+    int openGLVersionMinor;
+    glGetIntegerv(GL_MAJOR_VERSION, &openGLVersionMajor);
+    glGetIntegerv(GL_MINOR_VERSION, &openGLVersionMinor);
 
-    // OpenGL_INFO += "\tOpenGL Version: " + std::to_string(OpenGLVersionMajor) + "." + std::to_string(OpenGLVersionMinor) + "\n";
-    graphicalContextProps->MajorVersion = OpenGLVersionMajor;
-    graphicalContextProps->MinorVersion = OpenGLVersionMinor;
+    // OpenGL_INFO += "\tOpenGL Version: " + std::to_string(openGLVersionMajor) + "." + std::to_string(openGLVersionMinor) + "\n";
+    graphicalContextProps->m_majorVersion = openGLVersionMajor;
+    graphicalContextProps->m_minorVersion = openGLVersionMinor;
 
 #ifdef MPE_PLATFORM_WINDOWS
-    MPE_CORE_ASSERT(OpenGLVersionMajor > 4 || (OpenGLVersionMajor == 4 && OpenGLVersionMinor >= 6), "MPE REQUIRES OPENGL VERSION 4.6 OR GREATER.");
+    MPE_CORE_ASSERT(openGLVersionMajor > 4 || (openGLVersionMajor == 4 && openGLVersionMinor >= 6), "MPE REQUIRES OPENGL VERSION 4.6 OR GREATER.");
 #elif MPE_PLATFORM_OSX
-    MPE_CORE_ASSERT(OpenGLVersionMajor >= 3 || (OpenGLVersionMajor >= 3 && OpenGLVersionMinor >= 2), "MPE REQUIRES OPENGL VERSION 3.2 FOR macOS.");
+    MPE_CORE_ASSERT(openGLVersionMajor >= 3 || (openGLVersionMajor >= 3 && openGLVersionMinor >= 2), "MPE REQUIRES OPENGL VERSION 3.2 FOR macOS.");
 #else
-    MPE_CORE_ASSERT(OpenGLVersionMajor > 4 || (OpenGLVersionMajor == 4 && OpenGLVersionMinor >= 6), "MPE REQUIRES OPENGL VERSION 4.6 OR GREATER.");
+    MPE_CORE_ASSERT(openGLVersionMajor > 4 || (openGLVersionMajor == 4 && openGLVersionMinor >= 6), "MPE REQUIRES OPENGL VERSION 4.6 OR GREATER.");
 #endif
 
-    graphicalContextProps->Vendor = std::string(reinterpret_cast<const char *>(glGetString(GL_VENDOR)));
-    graphicalContextProps->Renderer = std::string(reinterpret_cast<const char *>(glGetString(GL_RENDERER)));
-    graphicalContextProps->ShaderTypeAmount = OPENGL_SHADER_TYPE_AMOUNT;
+    graphicalContextProps->m_vendor = std::string(reinterpret_cast<const char *>(glGetString(GL_VENDOR)));
+    graphicalContextProps->m_renderer = std::string(reinterpret_cast<const char *>(glGetString(GL_RENDERER)));
+    graphicalContextProps->m_shaderTypeAmount = OPENGL_SHADER_TYPE_AMOUNT;
 
-    MPE_CORE_INFO('\n' + SYS_Settings->GetGraphicalContextPropsAsString());
+    MPE_CORE_INFO('\n' + m_settings->GetGraphicalContextPropsAsString());
 
-    SYS_Settings->SetVsync(false);
-    SYS_Settings->SetBlend(true);
+    m_settings->SetVsync(false);
+    m_settings->SetBlend(true);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    SYS_Settings->SetDepthTest(true);
-    SYS_Settings->SetPolygonMode(false);
-    SYS_Settings->SetLimitFPS(false);
-    SYS_Settings->SetMaxFPS(60);
-    SYS_Settings->SetFaceCulling(false);
-    SYS_Settings->SetDebugOutput(true);
+    m_settings->SetDepthTest(true);
+    m_settings->SetPolygonMode(false);
+    m_settings->SetLimitFPS(false);
+    m_settings->SetMaxFPS(60);
+    m_settings->SetFaceCulling(false);
+    m_settings->SetDebugOutput(true);
 
     MPE_CORE_WARN("Checking for any errors caused by settings...");
     glCheckError();
     MPE_CORE_WARN("Causing OpenGL errors to test error handling...");
 
-    if (SYS_Settings->GetDebugOutput())
+    if (m_settings->GetDebugOutput())
         glDebugMessageInsert(GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_MARKER, 1, GL_DEBUG_SEVERITY_NOTIFICATION, -1, "This is a debug test.");
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_INVALID_ENUM);
@@ -88,6 +88,6 @@ void OpenGLRendererAPI::DrawLines(const REF<VertexArray> &vertexArray, uint32_t 
 
 RenderSettings *OpenGLRendererAPI::GetSettings()
 {
-    return SYS_Settings;
+    return m_settings;
 }
 }

@@ -11,8 +11,8 @@ namespace MPE
 // Create a monitor struct to store available monitors. Also, we will use GLFWMonitor to get the available monitors.
 struct Monitor
 {
-    GLFWmonitor *monitor;
-    const GLFWvidmode *mode;
+    GLFWmonitor *m_monitor;
+    const GLFWvidmode *m_mode;
 };
 
 class MPE_API WindowMonitors
@@ -22,9 +22,9 @@ class MPE_API WindowMonitors
 
     void UpdateMonitors();
 
-    std::vector<Monitor> GetMonitors() { return SYS_Monitors; }
+    std::vector<Monitor> GetMonitors() { return m_monitors; }
 
   private:
-    std::vector<Monitor> SYS_Monitors;
+    std::vector<Monitor> m_monitors;
 };
 }

@@ -7,10 +7,7 @@
 
 namespace MPE
 {
-OpenGLDebugGuiLayer::OpenGLDebugGuiLayer() : Layer("OpenGLDebugGuiLayer")  //,
-// m_OpenGLUtilities(MPE::OpenGLUtilities::getInstance())
-{
-}
+OpenGLDebugGuiLayer::OpenGLDebugGuiLayer() : Layer("OpenGLDebugGuiLayer") {}
 
 void OpenGLDebugGuiLayer::OnAttach() {}
 
@@ -39,9 +36,9 @@ void OpenGLDebugGuiLayer::DebugMenu()
 
     // GetFPS_MS from App/Renderer
     // Display FPS/ms
-    auto fps_ms = MPE::App::GetFPS_MS();
-    ImGui::Text("FPS: %.1f", fps_ms.FPS);
-    ImGui::Text("MS: %.3f", fps_ms.MS);
+    auto fps_ms = MPE::App::GetFpsMs();
+    ImGui::Text("FPS: %.1f", fps_ms.m_fps);
+    ImGui::Text("MS: %.3f", fps_ms.m_ms);
 
     ImGui::Separator();
 }
@@ -64,9 +61,8 @@ void OpenGLDebugGuiLayer::GraphicsSettings()
         default:
             MPE_CORE_ASSERT(false, "NO RENDERER API SELECTED.");
     }
-    // auto settings = dynamic_cast<MPE::OpenGLSettings*>(MPE::RenderPrimitive::GetSettings());
-    auto settings = MPE::RenderPrimitive::GetSettings();
-    // Display RenderSettings (vsync, blend, depthTest)
+
+    auto settings = dynamic_cast<MPE::OpenGLSettings*>(MPE::RenderPrimitive::GetSettings());
 
     ImGui::Text("Current Vsync: %s", settings->GetVsync() ? "Enabled" : "Disabled");
 
@@ -103,7 +99,7 @@ void OpenGLDebugGuiLayer::GraphicsSettings()
     bool polygonMode = dynamic_cast<MPE::OpenGLSettings*>(settings)->GetPolygonMode();
     if (ImGui::Checkbox("Polygon Mode", &polygonMode))
     {
-        dynamic_cast<MPE::OpenGLSettings*>(settings)->SetPolygonMode(polygonMode);
+        settings->SetPolygonMode(polygonMode);
     }
 
     bool faceCulling = settings->GetFaceCulling();
@@ -121,14 +117,14 @@ void OpenGLDebugGuiLayer::GraphicsSettings()
 
 void OpenGLDebugGuiLayer::DisplayRefs()
 {
-    ImGui::Text("Total References: %d", MPE::ReferenceTracker::getInstance().GetTotalReferences());
+    ImGui::Text("Total References: %u", (unsigned int)MPE::ReferenceTracker::getInstance().GetTotalReferences());
 
     if (ImGui::BeginListBox("References"))
     {
         auto refs = MPE::ReferenceTracker::getInstance().GetReferences();
         for (const auto& ref : refs)
         {
-            ImGui::Text(ref.c_str());
+            ImGui::Text("%s", ref.c_str());
         }
         ImGui::EndListBox();
     }
@@ -138,7 +134,7 @@ void OpenGLDebugGuiLayer::DisplayRefs()
         auto refs = MPE::ReferenceTracker::getInstance().GetScopeReferences();
         for (const auto& ref : refs)
         {
-            ImGui::Text(ref.c_str());
+            ImGui::Text("%s", ref.c_str());
         }
         ImGui::EndListBox();
     }

@@ -6,12 +6,12 @@
 namespace MPE
 {
 // GraphicsSettingsChangedEvent
-GraphicsSettingsChangedEvent::GraphicsSettingsChangedEvent(std::string name, int32_t value) : Name(name), Value(value) {}
+GraphicsSettingsChangedEvent::GraphicsSettingsChangedEvent(std::string name, int32_t value) : m_name(name), m_value(value) {}
 
 std::string GraphicsSettingsChangedEvent::ToString() const
 {
     std::stringstream ss;
-    ss << "GraphicsSettingsChangedEvent: " << Name << ", " << Value;
+    ss << "GraphicsSettingsChangedEvent: " << m_name << ", " << m_value;
     return ss.str();
 }
 

@@ -29,22 +29,22 @@ MPE_API uint32_t ShaderDataTypeSize(ShaderDataType type);
 
 struct MPE_API BufferElement
 {
-    std::string Title;
-    ShaderDataType Type;
-    uint32_t Size;
-    uint32_t Offset;
-    bool Normalized;
+    std::string m_title;
+    ShaderDataType m_type;
+    uint32_t m_size;
+    uint32_t m_offset;
+    bool m_normalized;
 
     BufferElement() {}
 
     BufferElement(ShaderDataType type, const std::string &title, bool normalized = false)
-        : Title(title), Type(type), Size(ShaderDataTypeSize(type)), Offset(0), Normalized(normalized)
+        : m_title(title), m_type(type), m_size(ShaderDataTypeSize(type)), m_offset(0), m_normalized(normalized)
     {
     }
 
     uint32_t GetComponentCount() const
     {
-        switch (Type)
+        switch (m_type)
         {
             case ShaderDataType::None:
                 MPE_CORE_ASSERT(0, "SHADER TYPE: NONE");
@@ -81,31 +81,31 @@ class MPE_API BufferLayout
   public:
     BufferLayout() {}
 
-    BufferLayout(const std::initializer_list<BufferElement> &elements) : SYS_ELEMENTS(elements) { CalculateOffsetAndStride(); }
+    BufferLayout(const std::initializer_list<BufferElement> &elements) : m_bufferElements(elements) { CalculateOffsetAndStride(); }
 
-    inline uint32_t GetStride() const { return SYS_STRIDE; }
-    inline const std::vector<BufferElement> &GetElements() const { return SYS_ELEMENTS; }
+    inline uint32_t GetStride() const { return m_bufferStride; }
+    inline const std::vector<BufferElement> &GetElements() const { return m_bufferElements; }
 
-    std::vector<BufferElement>::iterator begin() { return SYS_ELEMENTS.begin(); }
-    std::vector<BufferElement>::iterator end() { return SYS_ELEMENTS.end(); }
-    std::vector<BufferElement>::const_iterator begin() const { return SYS_ELEMENTS.begin(); }
-    std::vector<BufferElement>::const_iterator end() const { return SYS_ELEMENTS.end(); }
+    std::vector<BufferElement>::iterator begin() { return m_bufferElements.begin(); }
+    std::vector<BufferElement>::iterator end() { return m_bufferElements.end(); }
+    std::vector<BufferElement>::const_iterator begin() const { return m_bufferElements.begin(); }
+    std::vector<BufferElement>::const_iterator end() const { return m_bufferElements.end(); }
 
   private:
     void CalculateOffsetAndStride()
     {
         uint32_t offset = 0;
-        SYS_STRIDE = 0;
-        for (auto &element : SYS_ELEMENTS)
+        m_bufferStride = 0;
+        for (auto &element : m_bufferElements)
         {
-            element.Offset = offset;
-            offset += element.Size;
-            SYS_STRIDE += element.Size;
+            element.m_offset = offset;
+            offset += element.m_size;
+            m_bufferStride += element.m_size;
         }
     }
 
   private:
-    std::vector<BufferElement> SYS_ELEMENTS;
-    uint32_t SYS_STRIDE = 0;
+    std::vector<BufferElement> m_bufferElements;
+    uint32_t m_bufferStride = 0;
 };
 }

@@ -5,6 +5,6 @@ namespace MPE
 {
 RenderSettings::RenderSettings()
 {
-    _GRAPHICAL_CONTEXT_PROPS = new GraphicalContextProps();
+    m_graphicalContextProps = new GraphicalContextProps();
 }
 }

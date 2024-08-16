@@ -44,21 +44,21 @@ void Player::SetSize(glm::vec2 size)
     Size = size;
 }
 
-// void Player::OnUpdate(MPE::_TIME deltatime)
+// void Player::OnUpdate(MPE::_TIME deltaTime)
 // {
-//     Movement(deltatime);
+//     Movement(deltaTime);
 //     CheckBounds();
 // }
 
-// void Player::Movement(MPE::_TIME deltatime)
+// void Player::Movement(MPE::_TIME deltaTime)
 // {
 //     if (MPE::Input::IsKeyPressed(Up))
 //     {
-//         Position.y += 5.0f * deltatime;
+//         Position.y += 5.0f * deltaTime;
 //     }
 //     if (MPE::Input::IsKeyPressed(Down))
 //     {
-//         Position.y -= 5.0f * deltatime;
+//         Position.y -= 5.0f * deltaTime;
 //     }
 // }
 

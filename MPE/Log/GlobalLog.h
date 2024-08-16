@@ -43,8 +43,8 @@ class MPE_API GlobalLog
      */
     inline static REF<spdlog::logger> &GetCoreLogger()
     {
-        if (CoreLogger == nullptr) throw std::runtime_error("Core logger is not initialized.");
-        return CoreLogger;
+        if (m_coreLogger == nullptr) throw std::runtime_error("Core logger is not initialized.");
+        return m_coreLogger;
     }
 
     /**
@@ -56,8 +56,8 @@ class MPE_API GlobalLog
 #ifdef MPE_ENABLE_DEBUG_LOG
     inline static REF<spdlog::logger> &GetDebugLogger()
     {
-        if (DebugLogger == nullptr) throw std::runtime_error("Debug logger is not initialized.");
-        return DebugLogger;
+        if (m_debugLogger == nullptr) throw std::runtime_error("Debug logger is not initialized.");
+        return m_debugLogger;
     }
 #endif
 
@@ -69,8 +69,8 @@ class MPE_API GlobalLog
      */
     inline static REF<spdlog::logger> &GetClientLogger()
     {
-        if (ClientLogger == nullptr) throw std::runtime_error("Client logger is not initialized.");
-        return ClientLogger;
+        if (m_clientLogger == nullptr) throw std::runtime_error("Client logger is not initialized.");
+        return m_clientLogger;
     }
 
   private:
@@ -79,7 +79,7 @@ class MPE_API GlobalLog
      * @date 2024-05-05
      * @see GetCoreLogger()
      */
-    static REF<spdlog::logger> CoreLogger;
+    static REF<spdlog::logger> m_coreLogger;
 
     /**
      * @brief The debug logger.
@@ -88,7 +88,7 @@ class MPE_API GlobalLog
      * @see GetDebugLogger()
      */
 #ifdef MPE_ENABLE_DEBUG_LOG
-    static REF<spdlog::logger> DebugLogger;
+    static REF<spdlog::logger> m_debugLogger;
 #endif
 
     /**
@@ -96,7 +96,7 @@ class MPE_API GlobalLog
      * @date 2024-05-05
      * @see GetClientLogger()
      */
-    static REF<spdlog::logger> ClientLogger;
+    static REF<spdlog::logger> m_clientLogger;
 };
 }
 

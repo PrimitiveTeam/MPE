@@ -11,18 +11,18 @@ namespace MPE
 class MPE_API Layer : public std::enable_shared_from_this<Layer>
 {
   protected:
-    std::string SYS_DebugName;
+    std::string m_layerName;
 
   public:
-    Layer(const std::string &name = "Layer");
+    Layer(const std::string &layerName = "Layer");
     virtual ~Layer();
 
     virtual void OnAttach() {}
     virtual void OnDetach() {}
-    virtual void OnUpdate(Time deltatime) {}
+    virtual void OnUpdate(Time deltaTime) {}
     virtual void OnImGuiRender() {}
     virtual void OnEvent(Event &event) {}
 
-    inline const std::string &GetName() const { return SYS_DebugName; }
+    inline const std::string &GetName() const { return m_layerName; }
 };
 }

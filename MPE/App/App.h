@@ -34,35 +34,35 @@ class MPE_API App
   public:
     App();
     virtual ~App();
-    void Initialize();
 
     virtual void Run();
-    void OnEvent(Event &SYS_Event);
 
-    void PushLayer(const REF<Layer> &Layer);
+    void OnEvent(Event &event);
+
+    void PushLayer(const REF<Layer> &layer);
     void PopLayer();
-    void PopLayer(const REF<Layer> &Layer);
+    void PopLayer(const REF<Layer> &layer);
     void PopAllLayers();
 
-    void PushOverlay(const REF<Layer> &Overlay);
+    void PushOverlay(const REF<Layer> &overlay);
     void PopOverlay();
-    void PopOverlay(const REF<Layer> &Overlay);
+    void PopOverlay(const REF<Layer> &overlay);
     void PopAllOverlays();
 
-    inline static App &GetApp() { return *SYS_APP_Instance; }
-    inline REF<Window> GetWindow() { return SYS_APP_Window; }
-    inline OpenALContext& GetOpenALContext() { return SYS_OpenALContext; }
+    inline void Shutdown() { m_isAppRunning = false; }
+
+    inline static App &GetApp() { return *m_appInstance; }
+    inline REF<Window> GetWindow() { return m_appWindow; }
+    inline OpenALContext &GetOpenALContext() { return m_openalContext; }
 
 #ifdef MPE_DYNAMIC_LIBRARY
-    ImGuiContext *GetImGuiContext() { return SYS_ImGuiLayer->GetImGuiContext(); }
+    ImGuiContext *GetImGuiContext() { return m_imguiLayer->GetImGuiContext(); }
 #endif
 
-    inline void Shutdown() { SYS_APP_Running = false; }
+    inline static WindowFpsMs GetFpsMs() { return Renderer::GetFpsMs(); }
 
-    inline static WINDOW_FPS_MS GetFPS_MS() { return Renderer::GetFPS_MS(); }
-
-    inline void ToggleGUI() { SYS_GUI = !SYS_GUI; }
-    inline bool IsGUIEnabled() { return SYS_GUI; }
+    inline void ToggleGUI() { m_isGuiOn = !m_isGuiOn; }
+    inline bool IsGUIEnabled() { return m_isGuiOn; }
 
   private:
     bool OnWindowClose(WindowCloseEvent &e);
@@ -71,25 +71,25 @@ class MPE_API App
     bool OnGraphicsSettingsUpdate(GraphicsSettingsChangedEvent &e);
     void ToggleFullscreen();
     void ToggleDeltaTime();
-    void ChangeTargetFPS(int FPS);
+    void ChangeTargetFPS(int fps);
 
-    static App *SYS_APP_Instance;
-    REF<ImGuiLayer> SYS_ImGuiLayer;
-    REF<Window> SYS_APP_Window;
-    REF<LayerStack> SYS_LayerStack;
-    REF<Log> SYS_Log;
-    OpenALContext& SYS_OpenALContext;
+    static App *m_appInstance;
+    REF<ImGuiLayer> m_imguiLayer;
+    REF<Window> m_appWindow;
+    REF<LayerStack> m_layerStack;
+    REF<Log> m_log;
+    OpenALContext &m_openalContext;
 
-    bool SYS_APP_Running = true;
-    bool SYS_Minimized = false;
-    bool SYS_GUI = true;
+    bool m_isAppRunning = true;
+    bool m_isAppMinimized = false;
+    bool m_isAppPaused = false;
+    bool m_isGuiOn = true;
 
-    float SYS_LAST_FRAME_TIME = 0.0f;
-    bool IsDeltaTimePaused = false;
-    bool SYS_AppPaused = false;
+    float m_lastFrameTime = 0.0f;
+    bool m_isDeltaTimePaused = false;
 
-    int SYS_TargetFPS = -1;
-    int SYS_Frame_Time_MS = 1000 / SYS_TargetFPS;
+    int m_targetFPS = -1;
+    int m_frameTimeMs = 1000 / m_targetFPS;
 };
 
 App *CreateApp();

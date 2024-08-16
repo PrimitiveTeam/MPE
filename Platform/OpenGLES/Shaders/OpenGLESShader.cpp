@@ -58,7 +58,7 @@ static GLenum ShaderTypeFromString(const std::string &type)
     }
 }
 
-OpenGLESShader::OpenGLESShader(const std::string &filepath, bool useEditorResource) : SYS_Renderer_ID(0)
+OpenGLESShader::OpenGLESShader(const std::string &filepath, bool useEditorResource) : m_shaderId(0)
 {
     std::string SHADER_SOURCE = "";
     if (useEditorResource)
@@ -78,11 +78,10 @@ OpenGLESShader::OpenGLESShader(const std::string &filepath, bool useEditorResour
     MPE_CORE_INFO("SHADER FILE {0} LOADED SUCCESSFULLY", filepath);
 
     std::filesystem::path path = filepath;
-    SHADER_NAME = path.stem().string();
+    m_name = path.stem().string();
 }
 
-OpenGLESShader::OpenGLESShader(const std::string &name, const std::string &vertexSource, const std::string &fragmentSource)
-    : SHADER_NAME(name), SYS_Renderer_ID(0)
+OpenGLESShader::OpenGLESShader(const std::string &name, const std::string &vertexSource, const std::string &fragmentSource) : m_name(name), m_shaderId(0)
 {
     std::unordered_map<GLenum, std::string> SHADER_SOURCES;
 
@@ -99,7 +98,7 @@ OpenGLESShader::OpenGLESShader(const std::string &name, const std::string &verte
 
 OpenGLESShader::~OpenGLESShader()
 {
-    glDeleteProgram(SYS_Renderer_ID);
+    glDeleteProgram(m_shaderId);
 }
 
 std::string OpenGLESShader::ValidateFile(const std::string &filepath)
@@ -196,7 +195,7 @@ void OpenGLESShader::Compile(std::unordered_map<GLenum, std::string> &shaders)
         glShaderIDs[GLShaderIDIndex++] = shader;
     }
 
-    SYS_Renderer_ID = program;
+    m_shaderId = program;
 
     glLinkProgram(program);
 
@@ -232,7 +231,7 @@ void OpenGLESShader::Compile(std::unordered_map<GLenum, std::string> &shaders)
 
 void OpenGLESShader::Bind() const
 {
-    glUseProgram(SYS_Renderer_ID);
+    glUseProgram(m_shaderId);
 }
 
 void OpenGLESShader::Unbind() const
@@ -360,7 +359,7 @@ void OpenGLESShader::CheckIfBound(const std::string &name) const
     // Check if the shader program is bound
     GLint currentProgram = 0;
     glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
-    if (currentProgram != SYS_Renderer_ID)
+    if (currentProgram != m_shaderId)
     {
         std::cerr << "ERROR::SHADER::INJECT_UNIFORM::SHADER_PROGRAM_NOT_BOUND" << std::endl;
         return;
@@ -369,7 +368,7 @@ void OpenGLESShader::CheckIfBound(const std::string &name) const
 
 GLint OpenGLESShader::CheckUniform(const std::string &name) const
 {
-    GLint location = glGetUniformLocation(SYS_Renderer_ID, name.c_str());
+    GLint location = glGetUniformLocation(m_shaderId, name.c_str());
     if (location == -1)
     {
         std::cerr << "ERROR::SHADER::INJECT_UNIFORM::UNIFORM_LOCATION_NOT_FOUND: " << name << std::endl;

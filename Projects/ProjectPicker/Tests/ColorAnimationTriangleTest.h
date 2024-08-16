@@ -14,7 +14,7 @@ class ColorAnimationTriangleTest : public MPE::Layer
 
     virtual ~ColorAnimationTriangleTest() = default;
 
-    virtual void OnUpdate(MPE::Time deltatime) override;
+    virtual void OnUpdate(MPE::Time deltaTime) override;
 
     virtual void OnImGuiRender() override;
 

@@ -31,12 +31,12 @@ class MemorySink : public spdlog::sinks::base_sink<Mutex>
         return contents;
     }
 
-    std::string get_contents() { return stream.str(); }
+    std::string get_contents() { return m_stream.str(); }
 
     void clear()
     {
-        stream.str("");
-        stream.clear();
+        m_stream.str("");
+        m_stream.clear();
     }
 
   protected:
@@ -49,12 +49,12 @@ class MemorySink : public spdlog::sinks::base_sink<Mutex>
     {
         spdlog::memory_buf_t formatted;
         spdlog::sinks::base_sink<Mutex>::formatter_->format(msg, formatted);
-        stream << fmt::to_string(formatted);
+        m_stream << fmt::to_string(formatted);
     }
 
-    void flush_() override { stream.flush(); }
+    void flush_() override { m_stream.flush(); }
 
   private:
-    std::stringstream stream;
+    std::stringstream m_stream;
 };
 }

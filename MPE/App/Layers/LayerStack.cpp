@@ -7,7 +7,7 @@ LayerStack::LayerStack() {}
 
 LayerStack::~LayerStack()
 {
-    for (REF<Layer> layer : SYS_Layers)
+    for (REF<Layer> layer : m_layers)
     {
         layer.reset();
     }
@@ -15,54 +15,54 @@ LayerStack::~LayerStack()
 
 void LayerStack::PushLayer(const REF<Layer> &layer)
 {
-    SYS_Layers.emplace(SYS_Layers.begin() + SYS_LayerInsertIndex, layer);
-    SYS_LayerInsertIndex++;
+    m_layers.emplace(m_layers.begin() + m_layerInsertIndex, layer);
+    m_layerInsertIndex++;
 }
 
 void LayerStack::PopLayer()
 {
-    if (SYS_LayerInsertIndex > 0)
+    if (m_layerInsertIndex > 0)
     {
-        auto it = SYS_Layers.begin() + (SYS_LayerInsertIndex - 1);
+        auto it = m_layers.begin() + (m_layerInsertIndex - 1);
         (*it)->OnDetach();
-        SYS_Layers.erase(it);
-        SYS_LayerInsertIndex--;
+        m_layers.erase(it);
+        m_layerInsertIndex--;
     }
 }
 
 void LayerStack::PopLayer(const REF<Layer> &layer)
 {
-    auto it = std::find(SYS_Layers.begin(), SYS_Layers.begin() + SYS_LayerInsertIndex, layer);
-    if (it != SYS_Layers.begin() + SYS_LayerInsertIndex)
+    auto it = std::find(m_layers.begin(), m_layers.begin() + m_layerInsertIndex, layer);
+    if (it != m_layers.begin() + m_layerInsertIndex)
     {
         (*it)->OnDetach();
-        SYS_Layers.erase(it);
-        SYS_LayerInsertIndex--;
+        m_layers.erase(it);
+        m_layerInsertIndex--;
     }
 }
 
 void LayerStack::PushOverlay(const REF<Layer> &overlay)
 {
-    SYS_Layers.emplace_back(overlay);
+    m_layers.emplace_back(overlay);
 }
 
 void LayerStack::PopOverlay()
 {
-    if (!SYS_Layers.empty() && SYS_LayerInsertIndex < SYS_Layers.size())
+    if (!m_layers.empty() && m_layerInsertIndex < m_layers.size())
     {
-        auto it = SYS_Layers.end() - 1;
+        auto it = m_layers.end() - 1;
         (*it)->OnDetach();
-        SYS_Layers.pop_back();
+        m_layers.pop_back();
     }
 }
 
 void LayerStack::PopOverlay(const REF<Layer> &overlay)
 {
-    auto it = std::find(SYS_Layers.begin() + SYS_LayerInsertIndex, SYS_Layers.end(), overlay);
-    if (it != SYS_Layers.end())
+    auto it = std::find(m_layers.begin() + m_layerInsertIndex, m_layers.end(), overlay);
+    if (it != m_layers.end())
     {
         (*it)->OnDetach();
-        SYS_Layers.erase(it);
+        m_layers.erase(it);
     }
 }
 }

@@ -9,8 +9,8 @@ class MPE_API GraphicsSettingsChangedEvent : public Event
   public:
     GraphicsSettingsChangedEvent(std::string name, int32_t value);
 
-    inline std::string GetSettingName() const { return Name; }
-    inline int32_t GetSettingValue() const { return Value; }
+    inline std::string GetSettingName() const { return m_name; }
+    inline int32_t GetSettingValue() const { return m_value; }
 
     std::string ToString() const override;
 
@@ -18,8 +18,8 @@ class MPE_API GraphicsSettingsChangedEvent : public Event
     EVENT_CLASS_CATEGORY(EventCategoryGraphics)
 
   private:
-    std::string Name;
-    int32_t Value;
+    std::string m_name;
+    int32_t m_value;
 };
 
 }

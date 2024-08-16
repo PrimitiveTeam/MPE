@@ -62,9 +62,9 @@ class MPE_API Log
     std::string getOutput();
 
   private:
-    REF<spdlog::logger> logger;
-    std::vector<REF<spdlog::sinks::sink>> sinks;
+    REF<spdlog::logger> m_logger;
+    std::vector<REF<spdlog::sinks::sink>> m_sinks;
     // Store options for logic
-    int options;
+    int m_options;
 };
 }

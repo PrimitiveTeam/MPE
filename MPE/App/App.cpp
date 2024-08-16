@@ -11,16 +11,15 @@
 
 namespace MPE
 {
-MPE_API App *App::SYS_APP_Instance = nullptr;
+MPE_API App *App::m_appInstance = nullptr;
 
-App::App()
-: SYS_OpenALContext(OpenALContext::GetInstance())
+App::App() : m_openalContext(OpenALContext::GetInstance())
 {
-    SYS_Log = MPE::Log::Create("App", MPE::Log::Option::CONSOLE);
-    SYS_LayerStack = NEWREF<LayerStack>();
+    m_log = MPE::Log::Create("App", MPE::Log::Option::CONSOLE);
+    m_layerStack = NEWREF<LayerStack>();
 
-    MPE_CORE_ASSERT(!SYS_APP_Instance, "APP ALREADY EXISTS.");
-    SYS_APP_Instance = this;
+    MPE_CORE_ASSERT(!m_appInstance, "APP ALREADY EXISTS.");
+    m_appInstance = this;
 
 // TODO: Add a dialog to select the graphics API
 // Set RenderAPI before creating window
@@ -42,22 +41,22 @@ App::App()
 
     auto mpeVersion = "MPE v" + std::string(MPE_FULL_VERSION);
 
-    SYS_APP_Window = Window::CreateNativeWindow(WindowProps(mpeVersion, 1280, 720));
-    SYS_APP_Window->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));
+    m_appWindow = Window::CreateNativeWindow(WindowProps(mpeVersion, 1280, 720));
+    m_appWindow->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));
 
-    MPE_CORE_ASSERT(SYS_APP_Window, "NATIVE WINDOW NOT CREATED.");
+    MPE_CORE_ASSERT(m_appWindow, "NATIVE WINDOW NOT CREATED.");
 
     Renderer::Init();
 
-    SYS_ImGuiLayer = NEWREF<ImGuiLayer>();
-    PushOverlay(SYS_ImGuiLayer);
+    m_imguiLayer = NEWREF<ImGuiLayer>();
+    PushOverlay(m_imguiLayer);
 
     MPE_CORE_INFO("App instance initialized.");
 
-    // SYS_APP_Window = Window::CreateNativeWindow(WindowProps("MPE Engine", 1280, 720));
-    // SYS_APP_Window->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));
+    // m_appWindow = Window::CreateNativeWindow(WindowProps("MPE Engine", 1280, 720));
+    // m_appWindow->SetEventCallback(MPE_BIND_EVENT_FUNCTION(MPE::App::OnEvent));
 
-    // MPE_CORE_ASSERT(SYS_APP_Window, "NATIVE WINDOW NOT CREATED.");
+    // MPE_CORE_ASSERT(m_appWindow, "NATIVE WINDOW NOT CREATED.");
 
     // Initialize Renderer
     // Initialize ImGuiLayer and push to overlay layer
@@ -65,80 +64,80 @@ App::App()
 
 App::~App()
 {
-    if (SYS_GUI)
+    if (m_isGuiOn)
     {
-        for (size_t i = 0; i < SYS_LayerStack->size(); ++i)
+        for (size_t i = 0; i < m_layerStack->size(); ++i)
         {
-            REF<Layer> layer = SYS_LayerStack->GetLayers()[i];
+            REF<Layer> layer = m_layerStack->GetLayers()[i];
 
             if (layer) layer->~Layer();
 
             // Recalculate the index bounds in case the stack has been modified
-            if (i >= SYS_LayerStack->GetLayers().size()) break;
+            if (i >= m_layerStack->GetLayers().size()) break;
         }
-        SYS_ImGuiLayer->~ImGuiLayer();
+        m_imguiLayer->~ImGuiLayer();
     }
 
     // Explicitly destroy the OpenAL context before the window
-    SYS_OpenALContext.~OpenALContext();
+    m_openalContext.~OpenALContext();
 
-    SYS_APP_Instance = nullptr;
+    m_appInstance = nullptr;
     MPE_CORE_INFO("App instance destroyed.");
 }
 
 void App::Run()
 {
-    while (SYS_APP_Running)
+    while (m_isAppRunning)
     {
-        if (SYS_AppPaused) continue;
+        if (m_isAppPaused) continue;
 
         auto frameStart = std::chrono::high_resolution_clock::now();
 
         // TODO: Platform::GetTime();
         float time = (float) glfwGetTime();
-        Time deltaTime = time - SYS_LAST_FRAME_TIME;
-        SYS_LAST_FRAME_TIME = time;
+        Time deltaTime = time - m_lastFrameTime;
+        m_lastFrameTime = time;
 
-        Renderer::UpdateFPS_MS(deltaTime);
+        Renderer::UpdateFpsMs(deltaTime);
 
-        if (IsDeltaTimePaused)
+        if (m_isDeltaTimePaused)
         {
             deltaTime = 0.0f;
         }
 
         Input::Update();
 
-        if (!SYS_Minimized)
+        if (!m_isAppMinimized)
         {
             // Using the ref system to iterate through the layers
-            // REF<MPE::LayerStack> SYS_LayerStack;
-            for (REF<Layer> layer : *SYS_LayerStack)
+            // REF<MPE::LayerStack> m_layerStack;
+            for (REF<Layer> layer : *m_layerStack)
             {
                 layer->OnUpdate(deltaTime);
             }
         }
 
         // TODO: If ImGui window is outside of the main window bounds it will be rendered but not interactable. Fix this.
-        if (SYS_GUI)
+        if (m_isGuiOn)
         {
-            SYS_ImGuiLayer->Begin();
-            for (size_t i = 0; i < SYS_LayerStack->size(); ++i)
+            m_imguiLayer->Begin();
+            for (size_t i = 0; i < m_layerStack->size(); ++i)
             {
-                REF<Layer> layer = SYS_LayerStack->GetLayers()[i];
+                REF<Layer> layer = m_layerStack->GetLayers()[i];
 
                 if (layer) layer->OnImGuiRender();
 
                 // Recalculate the index bounds in case the stack has been modified
-                if (i >= SYS_LayerStack->GetLayers().size()) break;
+                if (i >= m_layerStack->GetLayers().size()) break;
             }
-            SYS_ImGuiLayer->End();
+            m_imguiLayer->End();
         }
 
         // EVENT POLLING
         // auto[x, y] = Input::GetMousePosition();
         // MPE_CORE_ERROR("{0}, {1}", x, y);
 
-        SYS_APP_Window->OnUpdate();
+        m_appWindow->OnUpdate();
 
         if (Input::IsKeyJustPressed(MPE_KEY_ESCAPE)) Shutdown();
 
@@ -153,88 +152,88 @@ void App::Run()
         std::chrono::duration<double, std::milli> frameDuration = frameEnd - frameStart;
 
         // If frame completed too fast, delay to maintain target frame time
-        if (SYS_TargetFPS != -1 && (frameDuration.count() < SYS_Frame_Time_MS))
+        if (m_targetFPS != -1 && (frameDuration.count() < m_frameTimeMs))
         {
-            std::this_thread::sleep_for(std::chrono::milliseconds(SYS_Frame_Time_MS) - frameDuration);
+            std::this_thread::sleep_for(std::chrono::milliseconds(m_frameTimeMs) - frameDuration);
         }
     }
 }
 
-void App::OnEvent(Event &SYS_Event)
+void App::OnEvent(Event &event)
 {
-    EventDispatcher dispatcher(SYS_Event);
+    EventDispatcher dispatcher(event);
     dispatcher.Dispatch<WindowCloseEvent>(MPE_BIND_EVENT_FUNCTION(App::OnWindowClose));
     dispatcher.Dispatch<WindowResizeEvent>(MPE_BIND_EVENT_FUNCTION(App::OnWindowResize));
     dispatcher.Dispatch<WindowMovedEvent>(MPE_BIND_EVENT_FUNCTION(App::OnWindowMoved));
     dispatcher.Dispatch<GraphicsSettingsChangedEvent>(MPE_BIND_EVENT_FUNCTION(App::OnGraphicsSettingsUpdate));
 
-    for (auto it = SYS_LayerStack->end(); it != SYS_LayerStack->begin();)
+    for (auto it = m_layerStack->end(); it != m_layerStack->begin();)
     {
-        (*--it)->OnEvent(SYS_Event);
-        if (SYS_Event.SYS_Handled)
+        (*--it)->OnEvent(event);
+        if (event.IsHandled())
         {
             break;
         }
     }
 }
 
-void App::PushLayer(const REF<Layer> &Layer)
+void App::PushLayer(const REF<Layer> &layer)
 {
-    SYS_LayerStack->PushLayer(Layer);
-    Layer->OnAttach();
+    m_layerStack->PushLayer(layer);
+    layer->OnAttach();
 }
 
 void App::PopLayer()
 {
-    if (!SYS_LayerStack->empty())
+    if (!m_layerStack->empty())
     {
-        SYS_LayerStack->PopLayer();
+        m_layerStack->PopLayer();
     }
 }
 
-void App::PopLayer(const REF<Layer> &Layer)
+void App::PopLayer(const REF<Layer> &layer)
 {
-    if (!SYS_LayerStack->empty())
+    if (!m_layerStack->empty())
     {
-        SYS_LayerStack->PopLayer(Layer);
+        m_layerStack->PopLayer(layer);
     }
 }
 
 void App::PopAllLayers()
 {
-    while (!SYS_LayerStack->empty())
+    while (!m_layerStack->empty())
     {
-        SYS_LayerStack->PopLayer();
+        m_layerStack->PopLayer();
     }
 }
 
-void App::PushOverlay(const REF<Layer> &Overlay)
+void App::PushOverlay(const REF<Layer> &overlay)
 {
-    SYS_LayerStack->PushOverlay(Overlay);
-    Overlay->OnAttach();
+    m_layerStack->PushOverlay(overlay);
+    overlay->OnAttach();
 }
 
 void App::PopOverlay()
 {
-    if (!SYS_LayerStack->empty())
+    if (!m_layerStack->empty())
     {
-        SYS_LayerStack->PopOverlay();
+        m_layerStack->PopOverlay();
     }
 }
 
-void App::PopOverlay(const REF<Layer> &Overlay)
+void App::PopOverlay(const REF<Layer> &overlay)
 {
-    if (!SYS_LayerStack->empty())
+    if (!m_layerStack->empty())
     {
-        SYS_LayerStack->PopOverlay(Overlay);
+        m_layerStack->PopOverlay(overlay);
     }
 }
 
 void App::PopAllOverlays()
 {
-    while (!SYS_LayerStack->empty())
+    while (!m_layerStack->empty())
     {
-        SYS_LayerStack->PopOverlay();
+        m_layerStack->PopOverlay();
     }
 }
 
@@ -248,45 +247,45 @@ bool App::OnWindowResize(WindowResizeEvent &e)
 {
     if (e.GetWidth() == 0 || e.GetHeight() == 0)
     {
-        SYS_Minimized = true;
+        m_isAppMinimized = true;
         return false;
     }
-    SYS_Minimized = false;
+    m_isAppMinimized = false;
 
     Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
-    SYS_APP_Window->SetLastWindowSize(e.GetWidth(), e.GetHeight());
+    m_appWindow->SetLastWindowSize(e.GetWidth(), e.GetHeight());
 
     return false;
 }
 
 bool App::OnWindowMoved(WindowMovedEvent &e)
 {
-    // While window is moved SYS_AppPaused = true;
+    // While window is moved m_isAppPaused = true;
 
-    if (e.GetX() == SYS_APP_Window->GetWindowPositionX() && e.GetY() == SYS_APP_Window->GetWindowPositionY())
+    if (e.GetX() == m_appWindow->GetWindowPositionX() && e.GetY() == m_appWindow->GetWindowPositionY())
     {
-        SYS_AppPaused = false;
+        m_isAppPaused = false;
     }
     else
     {
-        SYS_AppPaused = true;
+        m_isAppPaused = true;
     }
-    SYS_APP_Window->SetLastWindowPosition(e.GetX(), e.GetY());
+    m_appWindow->SetLastWindowPosition(e.GetX(), e.GetY());
 
     return false;
 }
 
 void App::ToggleFullscreen()
 {
-    if (SYS_APP_Window != nullptr)
+    if (m_appWindow != nullptr)
     {
-        SYS_APP_Window->ToggleFullScreen();
+        m_appWindow->ToggleFullScreen();
     }
 }
 
 void App::ToggleDeltaTime()
 {
-    IsDeltaTimePaused = !IsDeltaTimePaused;
+    m_isDeltaTimePaused = !m_isDeltaTimePaused;
 }
 
 bool App::OnGraphicsSettingsUpdate(GraphicsSettingsChangedEvent &e)
@@ -299,12 +298,12 @@ bool App::OnGraphicsSettingsUpdate(GraphicsSettingsChangedEvent &e)
     {
         if (rendererSettings->GetLimitFPS())
         {
-            SYS_TargetFPS = rendererSettings->GetMaxFPS();
-            SYS_Frame_Time_MS = 1000.0f / SYS_TargetFPS;
+            m_targetFPS = rendererSettings->GetMaxFPS();
+            m_frameTimeMs = 1000.0f / m_targetFPS;
         }
         else
         {
-            SYS_TargetFPS = -1;
+            m_targetFPS = -1;
         }
     }
 

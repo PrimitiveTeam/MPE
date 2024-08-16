@@ -31,15 +31,15 @@ namespace MPE
 {
 OpenGLTextRenderer::OpenGLTextRenderer(const std::string& shaderPath, const std::string& fontPath, int fontSize, OrthographicCamera* camera)
 {
-    m_ShaderPath = shaderPath;
-    m_FontPath = fontPath;
-    m_FontSize = fontSize;
-    m_MainCamera = camera;
+    m_shaderPath = shaderPath;
+    m_fontPath = fontPath;
+    m_fontSize = fontSize;
+    m_mainCamera = camera;
 
     // Enable pixel alignment by default
-    m_PixelAlign = true;
+    m_pixelAlign = true;
 
-    m_Shader = Shader::Create(m_ShaderPath, true);
+    m_shader = Shader::Create(m_shaderPath, true);
 
     this->InitializeFont();
 }
@@ -66,20 +66,20 @@ void OpenGLTextRenderer::InitializeFont()
     }
 
     // Check if path to font exists using io
-    if (!std::filesystem::exists(m_FontPath))
+    if (!std::filesystem::exists(m_fontPath))
     {
         MPE_CORE_ASSERT(false, "Font file does not exist");
         return;
     }
 
     // Load font
-    if (FT_New_Face(m_FT, m_FontPath.c_str(), 0, &m_Face))
+    if (FT_New_Face(m_FT, m_fontPath.c_str(), 0, &m_Face))
     {
         MPE_CORE_ASSERT(false, "Failed to load font");
         return;
     }
 
-    FT_Set_Pixel_Sizes(m_Face, 0, m_FontSize);
+    FT_Set_Pixel_Sizes(m_Face, 0, m_fontSize);
 
     LoadCharacters();
 
@@ -125,12 +125,12 @@ void OpenGLTextRenderer::InitializeFont()
 
 void OpenGLTextRenderer::UnInitializeFont()
 {
-    m_Shader->Unbind();
+    m_shader->Unbind();
     FT_Done_Face(m_Face);
     FT_Done_FreeType(m_FT);
 
     // Make sure to remove all references to the textures and characters
-    m_Characters.clear();
+    m_characters.clear();
 }
 
 void OpenGLTextRenderer::UpdateProjection(float screenWidth, float screenHeight)
@@ -153,8 +153,8 @@ void OpenGLTextRenderer::UpdateProjection(float screenWidth, float screenHeight)
 
     // printf("Final Projection: %s\n\n", glm::to_string(projection).c_str());
     // glUniformMatrix4fv(1, 1, GL_FALSE, glm::value_ptr(projection));
-    m_Shader->Bind();
-    std::dynamic_pointer_cast<MPE::OpenGLShader>(m_Shader)->InjectUniformMat4("UNI_PROJECTION_MATRIX", projection);
+    m_shader->Bind();
+    std::dynamic_pointer_cast<MPE::OpenGLShader>(m_shader)->InjectUniformMat4("UNI_PROJECTION_MATRIX", projection);
 }
 
 void OpenGLTextRenderer::LoadCharacters()
@@ -178,7 +178,7 @@ void OpenGLTextRenderer::LoadCharacters()
 
             // Handle glyphs with no bitmap, like space, using advance.x for spacing
             Character character = {nullptr, glm::ivec2(0, 0), glm::ivec2(0, 0), static_cast<unsigned int>(m_Face->glyph->advance.x)};
-            m_Characters.insert(std::pair<GLchar, Character>(c, character));
+            m_characters.insert(std::pair<GLchar, Character>(c, character));
             continue;
         }
 
@@ -210,7 +210,7 @@ void OpenGLTextRenderer::LoadCharacters()
 
             Character character = {texture, glm::ivec2(m_Face->glyph->bitmap.width, m_Face->glyph->bitmap.rows),
                                    glm::ivec2(m_Face->glyph->bitmap_left, m_Face->glyph->bitmap_top), (GLuint) m_Face->glyph->advance.x};
-            m_Characters.insert(std::pair<GLchar, Character>(c, character));
+            m_characters.insert(std::pair<GLchar, Character>(c, character));
 
             texture->Unbind();
         }
@@ -219,8 +219,8 @@ void OpenGLTextRenderer::LoadCharacters()
 
 void OpenGLTextRenderer::RenderText(const std::string& text, float x, float y, float scale, const glm::vec4& color)
 {
-    m_Shader->Bind();
-    std::dynamic_pointer_cast<MPE::OpenGLShader>(m_Shader)->InjectUniformFloat4("UNI_TEXT_COLOR", color);
+    m_shader->Bind();
+    std::dynamic_pointer_cast<MPE::OpenGLShader>(m_shader)->InjectUniformFloat4("UNI_TEXT_COLOR", color);
 
     float internal_x = x;
     float internal_y = y;
@@ -234,27 +234,27 @@ void OpenGLTextRenderer::RenderText(const std::string& text, float x, float y, f
     std::string::const_iterator c;
     for (c = text.begin(); c != text.end(); c++)
     {
-        Character ch = m_Characters[*c];
+        Character ch = m_characters[*c];
         float xpos, ypos, h, w;
 
-        if (m_PixelAlign)
+        if (m_pixelAlign)
         {
-            xpos = round(internal_x + ch.Bearing.x * internal_scale);
-            ypos = round(internal_y - (ch.Size.y - ch.Bearing.y) * internal_scale);
+            xpos = round(internal_x + ch.m_bearing.x * internal_scale);
+            ypos = round(internal_y - (ch.m_size.y - ch.m_bearing.y) * internal_scale);
             // h = round(ch.Size.y * internal_scale);
             // w = round(ch.Size.x * internal_scale);
         }
         else
         {
-            xpos = internal_x + ch.Bearing.x * internal_scale;
-            ypos = internal_y - (ch.Size.y - ch.Bearing.y) * internal_scale;
+            xpos = internal_x + ch.m_bearing.x * internal_scale;
+            ypos = internal_y - (ch.m_size.y - ch.m_bearing.y) * internal_scale;
             // w = ch.Size.x * internal_scale;
             // h = ch.Size.y * internal_scale;
         }
 
         // Scaling still has artifacting issues
-        w = ch.Size.x * internal_scale;
-        h = ch.Size.y * internal_scale;
+        w = ch.m_size.x * internal_scale;
+        h = ch.m_size.y * internal_scale;
 
         // Update VBO for each character
         float vertices[6 * 4] = {xpos, ypos + h, 0.0f, 0.0f, xpos,     ypos, 0.0f, 1.0f, xpos + w, ypos,     1.0f, 1.0f,
@@ -273,12 +273,12 @@ void OpenGLTextRenderer::RenderText(const std::string& text, float x, float y, f
             m_VBO->SetData(vertices, sizeof(vertices));
 
             // There are characters with no bitmaps, so a nullptr is passed, we don't want to accidentally dereference a nullptr
-            if (ch.Texture != nullptr) ch.Texture->Bind(0);
+            if (ch.m_texture != nullptr) ch.m_texture->Bind(0);
         }
 
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
-        internal_x += (ch.Advance >> 6) * internal_scale;
+        internal_x += (ch.m_advance >> 6) * internal_scale;
 
         glCheckError();
     }
@@ -291,9 +291,9 @@ void OpenGLTextRenderer::RenderText(const std::string& text, float x, float y, f
 void OpenGLTextRenderer::SetFontSize(float fontSize)
 {
     // If provided font size is the same as the current font size, do nothing
-    if (m_FontSize == fontSize) return;
+    if (m_fontSize == fontSize) return;
 
-    m_FontSize = fontSize;
+    m_fontSize = fontSize;
 
     this->UnInitializeFont();
 

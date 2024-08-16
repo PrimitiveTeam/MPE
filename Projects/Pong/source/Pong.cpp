@@ -38,13 +38,13 @@ void Pong::OnAttach() {}
 
 void Pong::OnDetach() {}
 
-void Pong::OnUpdate(MPE::Time deltatime)
+void Pong::OnUpdate(MPE::Time deltaTime)
 {
-    SYS_CAMERA_CONTROLLER.OnUpdate(deltatime);
-    PongGame->OnUpdate(deltatime);
-    // LEFT_PLAYER->OnUpdate(deltatime);
-    // RIGHT_PLAYER->OnUpdate(deltatime);
-    // SYS_CAMERA_CONTROLLER.OnUpdate(deltatime);
+    SYS_CAMERA_CONTROLLER.OnUpdate(deltaTime);
+    PongGame->OnUpdate(deltaTime);
+    // LEFT_PLAYER->OnUpdate(deltaTime);
+    // RIGHT_PLAYER->OnUpdate(deltaTime);
+    // SYS_CAMERA_CONTROLLER.OnUpdate(deltaTime);
 
     TEXT_PLAYER_1 = std::to_string(LEFT_PLAYER->GetScore());
     TEXT_PLAYER_2 = std::to_string(RIGHT_PLAYER->GetScore());

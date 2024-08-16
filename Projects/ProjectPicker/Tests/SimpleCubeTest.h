@@ -14,7 +14,7 @@ class SimpleCubeTest : public MPE::Layer
 
     virtual ~SimpleCubeTest() = default;
 
-    virtual void OnUpdate(MPE::Time deltatime) override;
+    virtual void OnUpdate(MPE::Time deltaTime) override;
 
     virtual void OnImGuiRender() override;
 

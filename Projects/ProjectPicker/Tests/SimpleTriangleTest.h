@@ -14,7 +14,7 @@ class SimpleTriangleTest : public MPE::Layer
 
     virtual ~SimpleTriangleTest() = default;
 
-    virtual void OnUpdate(MPE::Time deltatime) override;
+    virtual void OnUpdate(MPE::Time deltaTime) override;
 
     virtual void OnImGuiRender() override;
 

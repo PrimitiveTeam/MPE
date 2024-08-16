@@ -21,17 +21,17 @@ class MPE_API Time
   public:
     Time(float time = 0.0f);
 
-    float GetSeconds() const;
-    float GetMilliSeconds() const;
+    float GetSeconds() const { return m_time; }
+    float GetMilliSeconds() const { return m_time * 1000.0f; }
 
     /**
      * @brief Conversion operator to float.
      * @details This operator is used to convert the Time object to a float.
      * @return The time in seconds.
      */
-    operator float() const;
+    operator float() const { return m_time; }
 
   private:
-    float SYS_TIME;
+    float m_time;
 };
 }

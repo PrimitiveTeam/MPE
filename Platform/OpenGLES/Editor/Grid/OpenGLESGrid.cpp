@@ -14,9 +14,9 @@ void OpenGLESGrid::Init(float gridSize, float gridSpacing, MPE::OrthographicCame
 {
     Resize(gridSize, gridSpacing);
 
-    mainCamera = &camera;
+    m_mainCamera = &camera;
 
-    gridShader = MPE::OpenGLESShader::Create("Data/Shaders/Editor/Grid/GridShader.glsl", true);
+    m_shader = MPE::OpenGLESShader::Create("Data/Shaders/Editor/Grid/GridShader.glsl", true);
 }
 
 void OpenGLESGrid::Resize(float gridSize, float gridSpacing)
@@ -32,8 +32,8 @@ void OpenGLESGrid::Resize(float gridSize, float gridSpacing)
         return;
     }
 
-    this->gridSize = gridSize;
-    this->gridSpacing = gridSpacing;
+    m_size = gridSize;
+    m_spacing = gridSpacing;
 
     // Create vertices for the grid
     std::vector<float> vertices;
@@ -58,19 +58,19 @@ void OpenGLESGrid::Resize(float gridSize, float gridSpacing)
         vertices.push_back(0.0f);
     }
 
-    vertexArray = MPE::OpenGLESVertexArray::Create();
+    m_vertexArray = MPE::OpenGLESVertexArray::Create();
     MPE::REF<MPE::VertexBuffer> vertexBuffer;
     vertexBuffer = MPE::VertexBuffer::Create(vertices.data(), vertices.size() * sizeof(float));
     vertexBuffer->SetLayout({{MPE::ShaderDataType::Vec3, "ATTR_POS"}});
-    vertexArray->AddVertexBuffer(vertexBuffer);
+    m_vertexArray->AddVertexBuffer(vertexBuffer);
 }
 
 void OpenGLESGrid::DrawGrid()
 {
-    gridShader->Bind();
-    std::dynamic_pointer_cast<MPE::OpenGLESShader>(gridShader)->InjectUniformMat4("UNI_VPM", mainCamera->GetProjectionViewMatrix());
+    m_shader->Bind();
+    std::dynamic_pointer_cast<MPE::OpenGLESShader>(m_shader)->InjectUniformMat4("UNI_VPM", m_mainCamera->GetProjectionViewMatrix());
 
-    vertexArray->Bind();
-    MPE::RenderPrimitive::DrawLines(vertexArray, 3);
+    m_vertexArray->Bind();
+    MPE::RenderPrimitive::DrawLines(m_vertexArray, 3);
 }
 }
