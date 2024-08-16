@@ -7,10 +7,7 @@
 
 namespace MPE
 {
-OpenGLDebugGuiLayer::OpenGLDebugGuiLayer() : Layer("OpenGLDebugGuiLayer")  //,
-// m_OpenGLUtilities(MPE::OpenGLUtilities::getInstance())
-{
-}
+OpenGLDebugGuiLayer::OpenGLDebugGuiLayer() : Layer("OpenGLDebugGuiLayer") {}
 
 void OpenGLDebugGuiLayer::OnAttach() {}
 
@@ -64,9 +61,8 @@ void OpenGLDebugGuiLayer::GraphicsSettings()
         default:
             MPE_CORE_ASSERT(false, "NO RENDERER API SELECTED.");
     }
-    // auto settings = dynamic_cast<MPE::OpenGLSettings*>(MPE::RenderPrimitive::GetSettings());
-    auto settings = MPE::RenderPrimitive::GetSettings();
-    // Display RenderSettings (vsync, blend, depthTest)
+
+    auto settings = dynamic_cast<MPE::OpenGLSettings*>(MPE::RenderPrimitive::GetSettings());
 
     ImGui::Text("Current Vsync: %s", settings->GetVsync() ? "Enabled" : "Disabled");
 
@@ -103,7 +99,7 @@ void OpenGLDebugGuiLayer::GraphicsSettings()
     bool polygonMode = dynamic_cast<MPE::OpenGLSettings*>(settings)->GetPolygonMode();
     if (ImGui::Checkbox("Polygon Mode", &polygonMode))
     {
-        dynamic_cast<MPE::OpenGLSettings*>(settings)->SetPolygonMode(polygonMode);
+        settings->SetPolygonMode(polygonMode);
     }
 
     bool faceCulling = settings->GetFaceCulling();
