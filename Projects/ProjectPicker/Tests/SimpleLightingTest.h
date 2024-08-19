@@ -37,8 +37,7 @@ class SimpleLightingTest : public MPE::Layer
     // float m_near;
     // float m_far;
 
-    // Rectangle
-    MPE::REF<MPE::Shader> m_shader;
+    // Rectangle 1
     MPE::REF<MPE::VertexArray> m_vertexArray;
 
     glm::vec3 m_rectanglePosition;
@@ -47,11 +46,30 @@ class SimpleLightingTest : public MPE::Layer
     glm::mat4 m_rectangleScale;
     float m_rectangleColor[4];
 
+    // Rectangle 1
+    MPE::REF<MPE::VertexArray> m_vertexArray2;
+
+    glm::vec3 m_rectanglePosition2;
+    float m_rectangleScaleFactor2;
+    glm::vec3 m_rectangleVectorScale2;
+    glm::mat4 m_rectangleScale2;
+    float m_rectangleColor2[4];
+
     // Shader Library
     MPE::ShaderLibrary m_shaderLibrary;
 
-    // Rotation Animation
+    // Rotation Animation Rectangle 1
     bool m_autoRotate;
     int m_rotateSpeed;
     float m_angleX, m_angleY, m_angleZ;
+
+    // Rotation Animation Rectangle 2
+    bool m_autoRotate2;
+    int m_rotateSpeed2;
+    float m_angleX2, m_angleY2, m_angleZ2;
+
+    // Lighting
+    MPE::REF<MPE::VertexArray> m_lightVertexArray;
+    glm::vec3 m_lightPosition;
+    float m_lightColor[4];
 };
