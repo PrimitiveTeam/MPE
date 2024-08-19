@@ -142,5 +142,6 @@
     "__node_handle": "cpp",
     "*.in": "c",
     "*.rh": "cpp"
-  }
+  },
+  "C_Cpp.errorSquiggles": "disabled"
 }
