@@ -12,12 +12,12 @@ namespace MPE
 {
 struct MPE_API GraphicalContextProps
 {
-    int m_majorVersion;
-    int m_minorVersion;
+    int majorVersion;
+    int minorVersion;
 
-    std::string m_vendor;
-    std::string m_renderer;
-    int m_shaderTypeAmount;
+    std::string vendor;
+    std::string renderer;
+    int shaderTypeAmount;
 
     // virtual std::string ToString() const;
 };

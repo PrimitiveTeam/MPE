@@ -239,22 +239,22 @@ void OpenGLESTextRenderer::RenderText(const std::string& text, float x, float y,
 
         if (m_pixelAlign)
         {
-            xpos = round(internal_x + ch.m_bearing.x * internal_scale);
-            ypos = round(internal_y - (ch.m_size.y - ch.m_bearing.y) * internal_scale);
+            xpos = round(internal_x + ch.bearing.x * internal_scale);
+            ypos = round(internal_y - (ch.size.y - ch.bearing.y) * internal_scale);
             // h = round(ch.Size.y * internal_scale);
             // w = round(ch.Size.x * internal_scale);
         }
         else
         {
-            xpos = internal_x + ch.m_bearing.x * internal_scale;
-            ypos = internal_y - (ch.m_size.y - ch.m_bearing.y) * internal_scale;
+            xpos = internal_x + ch.bearing.x * internal_scale;
+            ypos = internal_y - (ch.size.y - ch.bearing.y) * internal_scale;
             // w = ch.Size.x * internal_scale;
             // h = ch.Size.y * internal_scale;
         }
 
         // Scaling still has artifacting issues
-        w = ch.m_size.x * internal_scale;
-        h = ch.m_size.y * internal_scale;
+        w = ch.size.x * internal_scale;
+        h = ch.size.y * internal_scale;
 
         // Update VBO for each character
         float vertices[6 * 4] = {xpos, ypos + h, 0.0f, 0.0f, xpos,     ypos, 0.0f, 1.0f, xpos + w, ypos,     1.0f, 1.0f,
@@ -273,12 +273,12 @@ void OpenGLESTextRenderer::RenderText(const std::string& text, float x, float y,
             m_VBO->SetData(vertices, sizeof(vertices));
 
             // There are characters with no bitmaps, so a nullptr is passed, we don't want to accidentally dereference a nullptr
-            if (ch.m_texture != nullptr) ch.m_texture->Bind(0);
+            if (ch.texture != nullptr) ch.texture->Bind(0);
         }
 
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
-        internal_x += (ch.m_advance >> 6) * internal_scale;
+        internal_x += (ch.advance >> 6) * internal_scale;
 
         glCheckError();
     }

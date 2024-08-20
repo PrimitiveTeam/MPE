@@ -28,6 +28,10 @@ class MPE_API OrthographicCameraController
     glm::vec4 GetBounds() const { return glm::vec4(-m_aspectRatio * m_zoomLevel, m_aspectRatio * m_zoomLevel, -m_zoomLevel, m_zoomLevel); }
 
   private:
+    bool OnMouseScrolled(MouseScrolledEvent &e);
+    bool OnWindowResized(WindowResizeEvent &e);
+
+  private:
     float m_aspectRatio;
     float m_zoomLevel = 1.0f;
     float m_maxZoomLevel = 0.25f;
@@ -45,8 +49,5 @@ class MPE_API OrthographicCameraController
     float m_cameraMovementSpeed = 0.0f;
     float m_cameraRotationSpeed = 0.0f;
     float m_cameraZoomSpeed = 0.25f;
-
-    bool OnMouseScrolled(MouseScrolledEvent &e);
-    bool OnWindowResized(WindowResizeEvent &e);
 };
 }

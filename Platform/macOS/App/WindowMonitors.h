@@ -12,8 +12,8 @@ namespace MPE
 // Create a monitor struct to store available monitors. Also, we will use GLFWMonitor to get the available monitors.
 struct Monitor
 {
-    GLFWmonitor *m_monitor;
-    const GLFWvidmode *m_mode;
+    GLFWmonitor *monitor;
+    const GLFWvidmode *mode;
 };
 
 class MPE_API WindowMonitors

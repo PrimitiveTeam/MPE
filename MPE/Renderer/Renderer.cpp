@@ -29,7 +29,12 @@ REF<WindowFpsMs> Renderer::m_windowFpsMs = NEWREF<WindowFpsMs>();
 
 void Renderer::BeginScene(OrthographicCamera &camera)
 {
-    m_scene->m_projectionViewMatrix = camera.GetProjectionViewMatrix();
+    m_scene->projectionViewMatrix = camera.GetProjectionViewMatrix();
+}
+
+void Renderer::BeginScene(PerspectiveCamera &camera)
+{
+    m_scene->projectionViewMatrix = camera.GetProjectionViewMatrix();
 }
 
 void Renderer::EndScene() {}
@@ -44,7 +49,7 @@ void Renderer::Submit(const REF<Shader> &shader, const REF<VertexArray> &vertexA
     {
         case RendererAPI::API::OpenGL:
 #ifdef MPE_OPENGL
-            std::dynamic_pointer_cast<OpenGLShader>(shader)->InjectUniformMat4("UNI_VPM", m_scene->m_projectionViewMatrix);
+            std::dynamic_pointer_cast<OpenGLShader>(shader)->InjectUniformMat4("UNI_VPM", m_scene->projectionViewMatrix);
             std::dynamic_pointer_cast<OpenGLShader>(shader)->InjectUniformMat4("UNI_MODELMAT", transform);
             break;
 #else
@@ -53,7 +58,7 @@ void Renderer::Submit(const REF<Shader> &shader, const REF<VertexArray> &vertexA
 #endif
         case RendererAPI::API::OpenGLES:
 #ifdef MPE_OPENGLES
-            std::dynamic_pointer_cast<OpenGLESShader>(shader)->InjectUniformMat4("UNI_VPM", m_scene->m_projectionViewMatrix);
+            std::dynamic_pointer_cast<OpenGLESShader>(shader)->InjectUniformMat4("UNI_VPM", m_scene->projectionViewMatrix);
             std::dynamic_pointer_cast<OpenGLESShader>(shader)->InjectUniformMat4("UNI_MODELMAT", transform);
             break;
 #else

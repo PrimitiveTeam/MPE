@@ -20,8 +20,8 @@ void OpenGLESRendererAPI::Init()
     glGetIntegerv(GL_MINOR_VERSION, &openGLVersionMinor);
 
     // OpenGL_INFO += "\tOpenGL Version: " + std::to_string(openGLVersionMajor) + "." + std::to_string(openGLVersionMinor) + "\n";
-    graphicalContextProps->m_majorVersion = openGLVersionMajor;
-    graphicalContextProps->m_minorVersion = openGLVersionMinor;
+    graphicalContextProps->majorVersion = openGLVersionMajor;
+    graphicalContextProps->minorVersion = openGLVersionMinor;
 
 #ifdef MPE_PLATFORM_WINDOWS
     MPE_CORE_ASSERT(openGLVersionMajor > 3 || (openGLVersionMajor == 3 && openGLVersionMinor >= 1), "MPE REQUIRES OPENGLES VERSION 3.1 OR GREATER.");
@@ -31,9 +31,9 @@ void OpenGLESRendererAPI::Init()
     MPE_CORE_ASSERT(openGLVersionMajor > 3 || (openGLVersionMajor == 3 && openGLVersionMinor >= 1), "MPE REQUIRES OPENGLES VERSION 3.1 OR GREATER.");
 #endif
 
-    graphicalContextProps->m_vendor = std::string(reinterpret_cast<const char *>(glGetString(GL_VENDOR)));
-    graphicalContextProps->m_renderer = std::string(reinterpret_cast<const char *>(glGetString(GL_RENDERER)));
-    graphicalContextProps->m_shaderTypeAmount = OPENGL_SHADER_TYPE_AMOUNT;
+    graphicalContextProps->vendor = std::string(reinterpret_cast<const char *>(glGetString(GL_VENDOR)));
+    graphicalContextProps->renderer = std::string(reinterpret_cast<const char *>(glGetString(GL_RENDERER)));
+    graphicalContextProps->shaderTypeAmount = OPENGL_SHADER_TYPE_AMOUNT;
 
     MPE_CORE_INFO('\n' + m_settings->GetGraphicalContextPropsAsString());
 

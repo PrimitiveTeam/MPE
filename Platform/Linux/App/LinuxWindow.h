@@ -24,12 +24,12 @@ class MPE_API LinuxWindow : public Window
 
     void OnUpdate() override;
 
-    virtual inline int GetWidth() const override { return m_data.m_width; }
-    virtual inline int GetHeight() const override { return m_data.m_height; }
-    virtual inline int GetWindowPositionX() const override { return m_data.m_windowPositionX; }
-    virtual inline int GetWindowPositionY() const override { return m_data.m_windowPositionY; }
+    virtual inline int GetWidth() const override { return data.m_width; }
+    virtual inline int GetHeight() const override { return data.m_height; }
+    virtual inline int GetWindowPositionX() const override { return data.m_windowPositionX; }
+    virtual inline int GetWindowPositionY() const override { return data.m_windowPositionY; }
 
-    virtual inline void SetEventCallback(const EventCallbackFn &callback) override { m_data.m_eventCallback = callback; }
+    virtual inline void SetEventCallback(const EventCallbackFn &callback) override { m_data.eventCallback = callback; }
 
     virtual void ToggleFullScreen() override;
     virtual void GoFullScreen() override;
@@ -68,13 +68,13 @@ class MPE_API LinuxWindow : public Window
 
     struct WindowData
     {
-        std::string m_title;
-        int m_width, m_height;
-        int m_windowPositionX, m_windowPositionY;
-        int m_prevWidth, m_prevHeight;
-        int m_prevWindowPositionX, m_prevWindowPositionY;
+        std::string title;
+        int width, height;
+        int windowPositionX, windowPositionY;
+        int prevWidth, prevHeight;
+        int prevWindowPositionX, prevWindowPositionY;
 
-        EventCallbackFn m_eventCallback;
+        EventCallbackFn eventCallback;
     };
 
     WindowData m_data;

@@ -29,22 +29,22 @@ MPE_API uint32_t ShaderDataTypeSize(ShaderDataType type);
 
 struct MPE_API BufferElement
 {
-    std::string m_title;
-    ShaderDataType m_type;
-    uint32_t m_size;
-    uint32_t m_offset;
-    bool m_normalized;
+    std::string title;
+    ShaderDataType type;
+    uint32_t size;
+    uint32_t offset;
+    bool normalized;
 
     BufferElement() {}
 
     BufferElement(ShaderDataType type, const std::string &title, bool normalized = false)
-        : m_title(title), m_type(type), m_size(ShaderDataTypeSize(type)), m_offset(0), m_normalized(normalized)
+        : title(title), type(type), size(ShaderDataTypeSize(type)), offset(0), normalized(normalized)
     {
     }
 
     uint32_t GetComponentCount() const
     {
-        switch (m_type)
+        switch (type)
         {
             case ShaderDataType::None:
                 MPE_CORE_ASSERT(0, "SHADER TYPE: NONE");
@@ -98,9 +98,9 @@ class MPE_API BufferLayout
         m_bufferStride = 0;
         for (auto &element : m_bufferElements)
         {
-            element.m_offset = offset;
-            offset += element.m_size;
-            m_bufferStride += element.m_size;
+            element.offset = offset;
+            offset += element.size;
+            m_bufferStride += element.size;
         }
     }
 

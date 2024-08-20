@@ -9,12 +9,12 @@ namespace MPE
 struct Character
 {
     // Reference to the texture
-    REF<TextTexture> m_texture;
+    REF<TextTexture> texture;
     // Size of glyph
-    glm::ivec2 m_size;
+    glm::ivec2 size;
     // Offset from baseline to left/top of glyph
-    glm::ivec2 m_bearing;
+    glm::ivec2 bearing;
     // Offset to advance to next glyph
-    unsigned int m_advance;
+    unsigned int advance;
 };
 }

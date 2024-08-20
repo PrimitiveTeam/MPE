@@ -39,10 +39,10 @@ std::string OpenGLSettings::GetGraphicalContextPropsAsString()
 {
     std::string OpenGLInfo = "OpenGL Info:\n";
     OpenGLInfo +=
-        "\tVersion: " + std::to_string(m_graphicalContextProps->m_majorVersion) + "." + std::to_string(m_graphicalContextProps->m_minorVersion) + "\n";
-    OpenGLInfo += "\tVendor: " + m_graphicalContextProps->m_vendor + "\n";
-    OpenGLInfo += "\tRenderer: " + m_graphicalContextProps->m_renderer + "\n";
-    OpenGLInfo += "\tHardcode shader type limit: " + std::to_string(m_graphicalContextProps->m_shaderTypeAmount);
+        "\tVersion: " + std::to_string(m_graphicalContextProps->majorVersion) + "." + std::to_string(m_graphicalContextProps->minorVersion) + "\n";
+    OpenGLInfo += "\tVendor: " + m_graphicalContextProps->vendor + "\n";
+    OpenGLInfo += "\tRenderer: " + m_graphicalContextProps->renderer + "\n";
+    OpenGLInfo += "\tHardcode shader type limit: " + std::to_string(m_graphicalContextProps->shaderTypeAmount);
 
     return OpenGLInfo;
 }
@@ -153,7 +153,7 @@ void OpenGLSettings::ToggleDepthTest()
 
 bool OpenGLSettings::GetDepthTest() const
 {
-    return m_blend;
+    return m_depthTest;
 }
 
 void OpenGLSettings::SetDepthTest(bool depthTest)
