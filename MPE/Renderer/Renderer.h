@@ -35,7 +35,7 @@ class MPE_API Renderer
   private:
     struct SceneData
     {
-        glm::mat4 m_projectionViewMatrix;
+        glm::mat4 projectionViewMatrix;
     };
 
     static SceneData *m_scene;

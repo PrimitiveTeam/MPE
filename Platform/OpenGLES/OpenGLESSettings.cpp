@@ -50,10 +50,10 @@ std::string OpenGLESSettings::GetGraphicalContextPropsAsString()
 {
     std::string OpenGLESInfo = "OpenGLES Info:\n";
     OpenGLESInfo +=
-        "\tVersion: " + std::to_string(m_graphicalContextProps->m_majorVersion) + "." + std::to_string(m_graphicalContextProps->m_minorVersion) + "\n";
-    OpenGLESInfo += "\tVendor: " + m_graphicalContextProps->m_vendor + "\n";
-    OpenGLESInfo += "\tRenderer: " + m_graphicalContextProps->m_renderer + "\n";
-    OpenGLESInfo += "\tHardcode shader type limit: " + std::to_string(m_graphicalContextProps->m_shaderTypeAmount);
+        "\tVersion: " + std::to_string(m_graphicalContextProps->majorVersion) + "." + std::to_string(m_graphicalContextProps->minorVersion) + "\n";
+    OpenGLESInfo += "\tVendor: " + m_graphicalContextProps->vendor + "\n";
+    OpenGLESInfo += "\tRenderer: " + m_graphicalContextProps->renderer + "\n";
+    OpenGLESInfo += "\tHardcode shader type limit: " + std::to_string(m_graphicalContextProps->shaderTypeAmount);
 
     return OpenGLESInfo;
 }

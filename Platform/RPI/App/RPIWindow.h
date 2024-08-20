@@ -68,13 +68,13 @@ class MPE_API RPIWindow : public Window
 
     struct WindowData
     {
-        std::string m_title;
-        int m_width, m_height;
-        int m_windowPositionX, m_windowPositionY;
-        int m_prevWidth, m_prevHeight;
-        int m_prevWindowPositionX, m_prevWindowPositionY;
+        std::string title;
+        int width, height;
+        int windowPositionX, windowPositionY;
+        int prevWidth, prevHeight;
+        int prevWindowPositionX, prevWindowPositionY;
 
-        EventCallbackFn m_eventCallback;
+        EventCallbackFn eventCallback;
     };
 
     WindowData m_data;

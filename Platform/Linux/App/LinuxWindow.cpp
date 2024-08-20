@@ -37,13 +37,13 @@ LinuxWindow::~LinuxWindow()
 
 void LinuxWindow::Init(const WindowProps &props)
 {
-    m_data.m_title = props.m_title;
-    m_data.m_width = props.m_width;
-    m_data.m_height = props.m_height;
-    m_data.m_windowPositionX = props.m_windowPositionX;
-    m_data.m_windowPositionY = props.m_windowPositionY;
+    m_data.title = props.title;
+    m_data.width = props.width;
+    m_data.height = props.height;
+    m_data.windowPositionX = props.windowPositionX;
+    m_data.windowPositionY = props.windowPositionY;
 
-    MPE_CORE_INFO("Creating window {0} ({1}, {2})", props.m_title, props.m_width, props.m_height);
+    MPE_CORE_INFO("Creating window {0} ({1}, {2})", props.title, props.width, props.height);
 
     if (!g_glfwInitialized)
     {
@@ -92,7 +92,7 @@ void LinuxWindow::Init(const WindowProps &props)
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
 #endif
 
-    m_window = glfwCreateWindow((int) props.m_width, (int) props.m_height, m_data.m_title.c_str(), nullptr, nullptr);
+    m_window = glfwCreateWindow((int) props.width, (int) props.height, m_data.title.c_str(), nullptr, nullptr);
     SaveWindowSizeAndPosition();
 
     switch (api)
@@ -124,22 +124,22 @@ void LinuxWindow::Init(const WindowProps &props)
                              [](GLFWwindow *window, int xPos, int yPos)
                              {
                                  WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
-                                 data.m_windowPositionX = xPos;
-                                 data.m_windowPositionY = yPos;
+                                 data.windowPositionX = xPos;
+                                 data.windowPositionY = yPos;
 
                                  WindowMovedEvent event(xPos, yPos);
-                                 data.m_eventCallback(event);
+                                 data.eventCallback(event);
                              });
 
     glfwSetWindowSizeCallback(m_window,
                               [](GLFWwindow *window, int width, int height)
                               {
                                   WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
-                                  data.m_width = width;
-                                  data.m_height = height;
+                                  data.width = width;
+                                  data.height = height;
 
                                   WindowResizeEvent event(width, height);
-                                  data.m_eventCallback(event);
+                                  data.eventCallback(event);
                               });
 
     glfwSetWindowCloseCallback(m_window,
@@ -147,7 +147,7 @@ void LinuxWindow::Init(const WindowProps &props)
                                {
                                    WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
                                    WindowCloseEvent event;
-                                   data.m_eventCallback(event);
+                                   data.eventCallback(event);
                                });
 
     glfwSetKeyCallback(m_window,
@@ -160,19 +160,19 @@ void LinuxWindow::Init(const WindowProps &props)
                                case GLFW_PRESS:
                                {
                                    KeyPressedEvent event(key, 0);
-                                   data.m_eventCallback(event);
+                                   data.eventCallback(event);
                                    break;
                                }
                                case GLFW_RELEASE:
                                {
                                    KeyReleasedEvent event(key);
-                                   data.m_eventCallback(event);
+                                   data.eventCallback(event);
                                    break;
                                }
                                case GLFW_REPEAT:
                                {
                                    KeyPressedEvent event(key, 1);
-                                   data.m_eventCallback(event);
+                                   data.eventCallback(event);
                                    break;
                                }
                            }
@@ -184,7 +184,7 @@ void LinuxWindow::Init(const WindowProps &props)
                             WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
 
                             KeyTypedEvent event(keycode);
-                            data.m_eventCallback(event);
+                            data.eventCallback(event);
                         });
 
     glfwSetMouseButtonCallback(m_window,
@@ -197,13 +197,13 @@ void LinuxWindow::Init(const WindowProps &props)
                                        case GLFW_PRESS:
                                        {
                                            MouseButtonPressedEvent event(button);
-                                           data.m_eventCallback(event);
+                                           data.eventCallback(event);
                                            break;
                                        }
                                        case GLFW_RELEASE:
                                        {
                                            MouseButtonReleasedEvent event(button);
-                                           data.m_eventCallback(event);
+                                           data.eventCallback(event);
                                            break;
                                        }
                                    }
@@ -215,7 +215,7 @@ void LinuxWindow::Init(const WindowProps &props)
                               WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
 
                               MouseScrolledEvent event((float) xOffset, (float) yOffset);
-                              data.m_eventCallback(event);
+                              data.eventCallback(event);
                           });
 
     glfwSetCursorPosCallback(m_window,
@@ -224,7 +224,7 @@ void LinuxWindow::Init(const WindowProps &props)
                                  WindowData &data = *(WindowData *) glfwGetWindowUserPointer(window);
 
                                  MouseMovedEvent event((float) xPos, (float) yPos);
-                                 data.m_eventCallback(event);
+                                 data.eventCallback(event);
                              });
 }
 
@@ -278,46 +278,46 @@ void LinuxWindow::GoFullScreen()
 {
     SaveWindowSizeAndPosition();
 
-    glfwSetWindowMonitor(m_window, m_monitors.GetMonitors().at(0).m_monitor, 0, 0, m_monitors.GetMonitors().at(0).m_mode->width,
-                         m_monitors.GetMonitors().at(0).m_mode->height, m_monitors.GetMonitors().at(0).m_mode->refreshRate);
+    glfwSetWindowMonitor(m_window, m_monitors.GetMonitors().at(0).monitor, 0, 0, m_monitors.GetMonitors().at(0).mode->width,
+                         m_monitors.GetMonitors().at(0).mode->height, m_monitors.GetMonitors().at(0).mode->refreshRate);
 }
 
 void LinuxWindow::GoWindowed()
 {
-    glfwSetWindowMonitor(m_window, nullptr, m_data.m_prevWindowPositionX, m_data.m_prevWindowPositionY, m_data.m_prevWidth, m_data.m_prevHeight, 0);
+    glfwSetWindowMonitor(m_window, nullptr, m_data.prevWindowPositionX, m_data.prevWindowPositionY, m_data.prevWidth, m_data.prevHeight, 0);
 }
 
 void LinuxWindow::SetLastWindowSize(int width, int height)
 {
-    m_data.m_prevWidth = width;
-    m_data.m_prevHeight = height;
+    m_data.prevWidth = width;
+    m_data.prevHeight = height;
 }
 
 void LinuxWindow::SaveWindowSizeAndPosition()
 {
-    glfwGetWindowSize(m_window, &m_data.m_prevWidth, &m_data.m_prevHeight);
-    glfwGetWindowPos(m_window, &m_data.m_prevWindowPositionX, &m_data.m_prevWindowPositionY);
+    glfwGetWindowSize(m_window, &m_data.prevWidth, &m_data.prevHeight);
+    glfwGetWindowPos(m_window, &m_data.prevWindowPositionX, &m_data.prevWindowPositionY);
 }
 
 void LinuxWindow::RestoreWindowSizeAndPosition()
 {
-    glfwSetWindowSize(m_window, m_data.m_prevWidth, m_data.m_prevHeight);
-    glfwSetWindowPos(m_window, m_data.m_prevWindowPositionX, m_data.m_prevWindowPositionY);
+    glfwSetWindowSize(m_window, m_data.prevWidth, m_data.prevHeight);
+    glfwSetWindowPos(m_window, m_data.prevWindowPositionX, m_data.prevWindowPositionY);
 }
 
 void LinuxWindow::SetLastWindowPosition(int x, int y)
 {
-    m_data.m_prevWindowPositionX = x;
-    m_data.m_prevWindowPositionY = y;
+    m_data.prevWindowPositionX = x;
+    m_data.prevWindowPositionY = y;
 }
 
 void LinuxWindow::SaveWindowPosition()
 {
-    glfwGetWindowPos(m_window, &m_data.m_prevWindowPositionX, &m_data.m_prevWindowPositionY);
+    glfwGetWindowPos(m_window, &m_data.prevWindowPositionX, &m_data.prevWindowPositionY);
 }
 
 void LinuxWindow::RestoreWindowPosition()
 {
-    glfwSetWindowPos(m_window, m_data.m_prevWindowPositionX, m_data.m_prevWindowPositionY);
+    glfwSetWindowPos(m_window, m_data.prevWindowPositionX, m_data.prevWindowPositionY);
 }
 }

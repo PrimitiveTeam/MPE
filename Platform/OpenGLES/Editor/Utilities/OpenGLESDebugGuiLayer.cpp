@@ -37,8 +37,8 @@ void OpenGLESDebugGuiLayer::DebugMenu()
     // GetFPS_MS from App/Renderer
     // Display FPS/ms
     auto fps_ms = MPE::App::GetFpsMs();
-    ImGui::Text("FPS: %.1f", fps_ms.m_fps);
-    ImGui::Text("MS: %.3f", fps_ms.m_ms);
+    ImGui::Text("FPS: %.1f", fps_ms.fps);
+    ImGui::Text("MS: %.3f", fps_ms.ms);
 
     ImGui::Separator();
 }

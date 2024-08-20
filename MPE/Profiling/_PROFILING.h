@@ -33,17 +33,17 @@ struct MPE_API ProfileResult
      * @brief The name of the profile.
      * @date 2024-05-05
      */
-    std::string m_name;
+    std::string name;
     /**
      * @brief The start time of the profile.
      * @date 2024-05-05
      */
-    long long m_start, m_end;
+    long long start, end;
     /**
      * @brief The thread ID of the profile.
      * @date 2024-05-05
      */
-    uint32_t m_threadId;
+    uint32_t threadId;
 };
 
 /**
@@ -56,7 +56,7 @@ struct MPE_API ProfilerSession
      * @brief The name of the session.
      * @date 2024-05-05
      */
-    std::string m_name;
+    std::string name;
 };
 
 /**
@@ -118,12 +118,12 @@ class MPE_API Profiler
          * @brief The profiler instance.
          * @date 2024-05-05
          */
-        static Profiler m_instance;
+        static Profiler instance;
         /**
          * @brief The profiler instance.
          * @date 2024-05-05
          */
-        return m_instance;
+        return instance;
     }
 
   private:
@@ -131,17 +131,17 @@ class MPE_API Profiler
      * @brief The current profiler session.
      * @date 2024-05-05
      */
-    ProfilerSession *m_currentSession;
+    ProfilerSession *currentSession;
     /**
      * @brief The output file stream.
      * @date 2024-05-05
      */
-    std::ofstream m_output;
+    std::ofstream output;
     /**
      * @brief The profile count.
      * @date 2024-05-05
      */
-    int m_profileCount;
+    int profileCount;
 };
 
 /**
@@ -175,17 +175,17 @@ class MPE_API InstrumentationTimer
      * @brief The name of the timer.
      * @date 2024-05-05
      */
-    const char *m_name;
+    const char *name;
     /**
      * @brief The starting point of the timer.
      * @date 2024-05-05
      */
-    std::chrono::time_point<std::chrono::high_resolution_clock> m_startPoint;
+    std::chrono::time_point<std::chrono::high_resolution_clock> startPoint;
     /**
      * @brief The stopping flag of the timer.
      * @date 2024-05-05
      */
-    bool m_isStopped;
+    bool isStopped;
 };
 }
 
