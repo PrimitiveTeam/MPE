@@ -74,6 +74,16 @@ file(
 
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Dialog/SimpleDialog.cpp"
 
+    # /Editor/ECS/Base
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/ComponentTypeIDGenerator.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/EntityManager.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/ComponentManager.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/SystemManager.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Components/Components.cpp"
+
+    # ECS SYSTEMS
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/TranslationSystem.cpp"
+
     # /Sound
     "${PROJECT_SOURCE_DIR}/MPE/Sound/OpenALContext.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Sound/SoundPlayer.cpp"
@@ -97,6 +107,7 @@ file(
     # /
     "${PROJECT_SOURCE_DIR}/MPE/EntryPoint.h"
     "${PROJECT_SOURCE_DIR}/MPE/MPE.h"
+    "${PROJECT_SOURCE_DIR}/MPE/MPEECS.h"
     "${PROJECT_SOURCE_DIR}/MPE/MPEPCH.h"
     "${PROJECT_SOURCE_DIR}/MPE/MPEPLAT.h"
 
@@ -181,6 +192,25 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Grid/Grid.h"
 
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Dialog/SimpleDialog.h"
+
+    # /Editor/ECS
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/ECS.h"
+
+    # /Editor/ECS/Base
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/IComponentArray.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/ComponentArray.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/ComponentTypeIDGenerator.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/ComponentManager.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/EntityManager.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/SystemManager.h"
+
+    # /Editor/ECS/Components
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Components/TransformComponent.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Components/VelocityComponent.h"
+
+    # /Editor/ECS/Systems
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/System.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/TranslationSystem.h"
 
     # /Sound
     "${PROJECT_SOURCE_DIR}/MPE/Sound/OpenALContext.h"

@@ -24,18 +24,14 @@
 #include "Tests/TriangleTransformationTest.h"
 #include "Tests/RectangleTransformationTest.h"
 #include "Tests/SimpleCubeTest.h"
-
 #include "Tests/TexturesTest.h"
 #include "Tests/GeneralTest.h"
-
 #include "Tests/GridTest.h"
-
 #include "Tests/NativeTextTest.h"
-
 #include "Tests/SimpleAudioTest.h"
-
 #include "Tests/SimplePerspectiveCameraTest.h"
 #include "Tests/SimpleLightingTest.h"
+#include "Tests/SimpleEcsTest.h"
 
 class ProjectPickerGuiLayer : public MPE::Layer
 {
@@ -184,6 +180,13 @@ class ProjectPickerGuiLayer : public MPE::Layer
                 MPE::App::GetApp().PushLayer(m_LayerRefs[13]);
             }
 
+            if (ImGui::Button("Open Simple ECS Test"))
+            {
+                m_Layers[14] = true;
+                m_LayerRefs[14] = MPE::NEWREF<SimpleEcsTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[14]);
+            }
+
             // if (ImGui::Button("Open General Layer"))
             // {
             //     m_Layers[1] = true;
@@ -216,7 +219,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
     }
 
   private:
-    static const size_t MAX_LAYERS = 14;
+    static const size_t MAX_LAYERS = 15;
     std::array<bool, MAX_LAYERS> m_Layers = {false};
     MPE::REF<MPE::Layer> m_LayerRefs[MAX_LAYERS];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();
