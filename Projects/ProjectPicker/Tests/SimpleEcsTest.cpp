@@ -7,7 +7,6 @@ SimpleEcsTest::SimpleEcsTest()
     : Layer("Test"),
       CLEAR_COLOR{0.5f, 0.25f, 0.5f},
       SYS_CAMERA_CONTROLLER(1280.0f / 720.0f, true),
-      RECTANGLE_POSITION(0.0f),
       RECTANGLE_SCALE_FACTOR(1.0f),
       RECTANGLE_VECTOR_SCALE{1.0f, 1.0f, 1.0f},
       RECTANGLE_SCALE(glm::scale(glm::mat4(1.0f), glm::vec3(RECTANGLE_VECTOR_SCALE) * RECTANGLE_SCALE_FACTOR)),
@@ -17,11 +16,10 @@ SimpleEcsTest::SimpleEcsTest()
       angleY(0.0f),
       angleZ(0.0f)
 {
-    m_entity = m_entityManager.CreateEntity();
+    m_entity = m_ecs.CreateEntity();
+    auto &transform = m_ecs.AddComponentToEntity<MPE::ECS::TransformComponent>(m_entity, glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
 
-    m_componentManager.AddComponent(m_entity, MPE::ECS::TransformComponent{glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(1.0f)});
-
-    m_translationSystem = m_systemManager.RegisterSystem<MPE::ECS::TranslationSystem>();
+    RECTANGLE_POSITION = &m_ecs.GetComponent<MPE::ECS::TransformComponent>(m_entity).position;
 
     // CUBE
     SYS_VertexArray = MPE::VertexArray::Create();
@@ -121,9 +119,9 @@ void SimpleEcsTest::OnUpdate(MPE::Time deltaTime)
 
     auto VERTEX_BASED_COLOR_SHADER = SYS_SHADER_LIBRARY.Get("VertexBasedColor");
 
-    auto &transform = m_componentManager.GetComponent<MPE::ECS::TransformComponent>(m_entity);
+    m_ecs.RunSystems();
 
-    glm::mat4 RECTANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), transform.position);
+    glm::mat4 RECTANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), *RECTANGLE_POSITION);
     RECTANGLE_TRANSFORM = glm::rotate(RECTANGLE_TRANSFORM, glm::radians(angleX), glm::vec3(1.0f, 0.0f, 0.0f));
     RECTANGLE_TRANSFORM = glm::rotate(RECTANGLE_TRANSFORM, glm::radians(angleY), glm::vec3(0.0f, 1.0f, 0.0f));
     RECTANGLE_TRANSFORM = glm::rotate(RECTANGLE_TRANSFORM, glm::radians(angleZ), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -144,6 +142,9 @@ void SimpleEcsTest::OnImGuiRender()
 
     ImGui::Separator();
     ImGui::Text("CUBE VARIABLES");
+
+    ImGui::SliderFloat3("Position", &RECTANGLE_POSITION->x, -3.0f, 3.0f);
+
     ImGui::Checkbox("Auto Rotate", &autorotate);
 
     ImGui::SliderFloat("Rotate X", &angleX, -360.0f, 360.0f);

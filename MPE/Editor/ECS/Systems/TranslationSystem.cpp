@@ -1,22 +1,21 @@
 #include "TranslationSystem.h"
 
+#include "MPE/Log/GlobalLog.h"
+
 namespace MPE
 {
 namespace ECS
 {
-TranslationSystem::TranslationSystem() {};
-TranslationSystem::~TranslationSystem() {};
+TranslationSystem::TranslationSystem(glm::vec3& deltaPosition) : m_deltaPosition(deltaPosition) {}
 
-void TranslationSystem::Update(ComponentManager& componentManager, float deltaTime)
+void TranslationSystem::operator()(entt::registry& registry) const
 {
-    for (auto entity : m_entities)
-    {
-        auto& translation = componentManager.GetComponentArray<TransformComponent>()->GetData(entity);
-        // auto& translation = componentManager.GetComponent<TransformComponent>(entity);
-        // auto& velocity = componentManager.GetComponent<VelocityComponent>(entity);
+    auto view = registry.view<TransformComponent>();
 
-        // translation.position += velocity.velocity * deltaTime;
-        translation.position += deltaTime;
+    for (auto entity : view)
+    {
+        auto& transform = view.get<TransformComponent>(entity);
+        transform.position += m_deltaPosition;
     }
 }
 }

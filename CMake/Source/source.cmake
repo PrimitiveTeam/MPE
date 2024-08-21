@@ -75,11 +75,7 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Dialog/SimpleDialog.cpp"
 
     # /Editor/ECS/Base
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/ComponentTypeIDGenerator.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/EntityManager.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/ComponentManager.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/SystemManager.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Components/Components.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/ECS.cpp"
 
     # ECS SYSTEMS
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/TranslationSystem.cpp"
@@ -196,20 +192,10 @@ file(
     # /Editor/ECS
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/ECS.h"
 
-    # /Editor/ECS/Base
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/IComponentArray.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/ComponentArray.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/ComponentTypeIDGenerator.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/ComponentManager.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/EntityManager.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Base/SystemManager.h"
-
-    # /Editor/ECS/Components
+    # ECS COMPONENETS
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Components/TransformComponent.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Components/VelocityComponent.h"
 
-    # /Editor/ECS/Systems
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/System.h"
+    # ECS SYSTEMS
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/TranslationSystem.h"
 
     # /Sound

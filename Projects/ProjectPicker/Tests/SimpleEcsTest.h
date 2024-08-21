@@ -30,11 +30,9 @@ class SimpleEcsTest : public MPE::Layer
     MPE::SCOPE<std::string> m_LayerName;
 
     // ECS
-    MPE::ECS::EntityManager m_entityManager;
-    MPE::ECS::ComponentManager m_componentManager;
-    MPE::ECS::SystemManager m_systemManager;
+    MPE::ECS::ECS m_ecs;
+    MPE::ECS::Entity m_ecs_list[100];
     MPE::ECS::Entity m_entity;
-    std::shared_ptr<MPE::ECS::TranslationSystem> m_translationSystem;
 
     // Scene
     float CLEAR_COLOR[4];
@@ -46,7 +44,7 @@ class SimpleEcsTest : public MPE::Layer
     MPE::REF<MPE::Shader> SYS_Shader;
     MPE::REF<MPE::VertexArray> SYS_VertexArray;
 
-    glm::vec3 RECTANGLE_POSITION;
+    glm::vec3* RECTANGLE_POSITION;
     float RECTANGLE_SCALE_FACTOR;
     glm::vec3 RECTANGLE_VECTOR_SCALE;
     glm::mat4 RECTANGLE_SCALE;
