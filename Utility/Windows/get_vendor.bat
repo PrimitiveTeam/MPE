@@ -39,6 +39,15 @@ if exist "stb" (
     git clone https://github.com/nothings/stb.git
 )
 
+REM entt
+REM If entt already exists, cancel next step
+if exist "entt" (
+    echo entt already exists. Skipping...
+) else (
+    echo Cloning entt...
+    git clone https://github.com/skypjack/entt.git
+)
+
 cd ../WIN32
 
 REM renderdoc

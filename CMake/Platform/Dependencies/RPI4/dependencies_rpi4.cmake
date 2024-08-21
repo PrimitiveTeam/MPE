@@ -158,6 +158,10 @@ target_include_directories(spdlog
     PUBLIC "${spdlog_DIR}/include"
 )
 
+# ENTT
+set(entt_DIR ${UNIVERSAL_VENDOR_DIR}/entt)
+add_subdirectory(${entt_DIR})
+
 message(STATUS "spdlog_DIR: ${spdlog_DIR}")
 message(STATUS "SPDLOG_S: ${SPDLOG_S}")
 message(STATUS "spdlog include directories: ${spdlog_DIR}/include")

@@ -9,6 +9,7 @@ target_link_libraries(
   PUBLIC ${GLM_LIBRARIES}
   PUBLIC Stb
   PUBLIC ${GTK3_LIBRARIES}
+  PUBLIC EnTT::EnTT
 
   # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
 )

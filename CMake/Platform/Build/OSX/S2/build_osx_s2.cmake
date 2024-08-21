@@ -10,9 +10,11 @@ target_link_libraries(
   PUBLIC imgui
   PUBLIC glm::glm
   PUBLIC Stb
+
   # PUBLIC freetype
   PUBLIC ${FREETYPE_LIBRARIES}
   PUBLIC OpenAL::OpenAL
+  PUBLIC EnTT::EnTT
 
   # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
 )
@@ -35,8 +37,8 @@ if(MPE_ANGLE)
 
   # Set RPATH for the MPE target
   # set_target_properties(MPE PROPERTIES
-  #   INSTALL_RPATH "@executable_path"
-  #   BUILD_WITH_INSTALL_RPATH TRUE
+  # INSTALL_RPATH "@executable_path"
+  # BUILD_WITH_INSTALL_RPATH TRUE
   # )
 endif(MPE_ANGLE)
 

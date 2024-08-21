@@ -51,6 +51,10 @@ target_include_directories(Stb INTERFACE
 # OpenAL
 set(CMAKE_PREFIX_PATH "/usr/local/opt/openal-soft" ${CMAKE_PREFIX_PATH})
 
+# ENTT
+set(entt_DIR ${UNIVERSAL_VENDOR_DIR}/entt)
+add_subdirectory(${entt_DIR})
+
 if(${VERBOSE})
     message(STATUS "glad_DIR: ${glad_DIR}")
     message(STATUS "imgui_DIR: ${imgui_DIR}")
@@ -79,6 +83,7 @@ if(MPE_ANGLE)
 
     if(MPE_ANDROID_BUILD)
         set(ANGLE_DLLS
+
             # ${angle_Lib}/libGLESv2.dll
             # ${angle_Lib}/libEGL.dll
             # ${angle_Lib}/libc++.dll
@@ -92,6 +97,7 @@ if(MPE_ANGLE)
         set(ANGLE_DLLS
             ${angle_Lib}/libGLESv2.dylib
             ${angle_Lib}/libEGL.dylib
+
             # ${angle_Lib}/libc++.dll
             # ${angle_Lib}/third_party_zlib.dll
             # ${angle_Lib}/third_party_abseil-cpp_absl.dll
