@@ -18,6 +18,8 @@ void ECS::DestroyEntity(Entity entity)
 
 void ECS::RunSystems()
 {
+    // MPE_INFO("Running systems...");
+
     for (auto& system : m_systems)
     {
         system(m_registry);

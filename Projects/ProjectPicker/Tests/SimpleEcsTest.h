@@ -44,7 +44,7 @@ class SimpleEcsTest : public MPE::Layer
     MPE::REF<MPE::Shader> SYS_Shader;
     MPE::REF<MPE::VertexArray> SYS_VertexArray;
 
-    glm::vec3* RECTANGLE_POSITION;
+    glm::vec3 *RECTANGLE_POSITION;
     float RECTANGLE_SCALE_FACTOR;
     glm::vec3 RECTANGLE_VECTOR_SCALE;
     glm::mat4 RECTANGLE_SCALE;
@@ -56,4 +56,5 @@ class SimpleEcsTest : public MPE::Layer
     bool autorotate;
     int rotatespeed;
     float angleX, angleY, angleZ;
+    glm::vec3 *deltaPosition;
 };

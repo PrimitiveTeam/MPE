@@ -22,7 +22,8 @@ SimpleEcsTest::SimpleEcsTest()
     // RECTANGLE_POSITION = &m_ecs.GetComponent<MPE::ECS::TransformComponent>(m_entity).position;
     RECTANGLE_POSITION = &transform.position;
 
-    MPE::ECS::TranslationSystem translationSystem(glm::vec3(0.001f, 0.0f, 0.0f));
+    deltaPosition = new glm::vec3(0.001f, 0.0f, 0.0f);
+    MPE::ECS::TranslationSystem translationSystem(deltaPosition);
     m_ecs.RegisterSystem(translationSystem);
 
     // CUBE
