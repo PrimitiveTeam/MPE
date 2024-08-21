@@ -80,6 +80,9 @@ file(
     # ECS SYSTEMS
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/TranslationSystem.cpp"
 
+    # /Editor/Objects
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/Objects/Cube.cpp"
+
     # /Sound
     "${PROJECT_SOURCE_DIR}/MPE/Sound/OpenALContext.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Sound/SoundPlayer.cpp"
@@ -104,6 +107,7 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/EntryPoint.h"
     "${PROJECT_SOURCE_DIR}/MPE/MPE.h"
     "${PROJECT_SOURCE_DIR}/MPE/MPEECS.h"
+    "${PROJECT_SOURCE_DIR}/MPE/MPEEDITOR.h"
     "${PROJECT_SOURCE_DIR}/MPE/MPEPCH.h"
     "${PROJECT_SOURCE_DIR}/MPE/MPEPLAT.h"
 
@@ -197,6 +201,9 @@ file(
 
     # ECS SYSTEMS
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/TranslationSystem.h"
+
+    # /Editor/Objects
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/Objects/Cube.h"
 
     # /Sound
     "${PROJECT_SOURCE_DIR}/MPE/Sound/OpenALContext.h"

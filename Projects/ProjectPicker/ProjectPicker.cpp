@@ -32,6 +32,7 @@
 #include "Tests/SimplePerspectiveCameraTest.h"
 #include "Tests/SimpleLightingTest.h"
 #include "Tests/SimpleEcsTest.h"
+#include "Tests/CubeAbstractionTest.h"
 
 class ProjectPickerGuiLayer : public MPE::Layer
 {
@@ -187,6 +188,13 @@ class ProjectPickerGuiLayer : public MPE::Layer
                 MPE::App::GetApp().PushLayer(m_LayerRefs[14]);
             }
 
+            if (ImGui::Button("Open Cube Abstraction Test"))
+            {
+                m_Layers[15] = true;
+                m_LayerRefs[15] = MPE::NEWREF<CubeAbstractionTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[15]);
+            }
+
             // if (ImGui::Button("Open General Layer"))
             // {
             //     m_Layers[1] = true;
@@ -219,7 +227,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
     }
 
   private:
-    static const size_t MAX_LAYERS = 15;
+    static const size_t MAX_LAYERS = 16;
     std::array<bool, MAX_LAYERS> m_Layers = {false};
     MPE::REF<MPE::Layer> m_LayerRefs[MAX_LAYERS];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();
