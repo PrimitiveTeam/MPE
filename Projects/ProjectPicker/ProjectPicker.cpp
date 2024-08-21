@@ -33,6 +33,7 @@
 #include "Tests/SimpleLightingTest.h"
 #include "Tests/SimpleEcsTest.h"
 #include "Tests/CubeAbstractionTest.h"
+#include "Tests/MultiCubeTest.h"
 
 class ProjectPickerGuiLayer : public MPE::Layer
 {
@@ -195,6 +196,13 @@ class ProjectPickerGuiLayer : public MPE::Layer
                 MPE::App::GetApp().PushLayer(m_LayerRefs[15]);
             }
 
+            if (ImGui::Button("Open Multi Cube Test"))
+            {
+                m_Layers[16] = true;
+                m_LayerRefs[16] = MPE::NEWREF<MultiCubeTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[16]);
+            }
+
             // if (ImGui::Button("Open General Layer"))
             // {
             //     m_Layers[1] = true;
@@ -227,7 +235,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
     }
 
   private:
-    static const size_t MAX_LAYERS = 16;
+    static const size_t MAX_LAYERS = 17;
     std::array<bool, MAX_LAYERS> m_Layers = {false};
     MPE::REF<MPE::Layer> m_LayerRefs[MAX_LAYERS];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();

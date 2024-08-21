@@ -16,7 +16,7 @@ namespace ECS
 {
 TranslationSystem::TranslationSystem(glm::vec3* deltaPosition) : m_deltaPosition(deltaPosition) {}
 
-void TranslationSystem::operator()(entt::registry& registry) const
+void TranslationSystem::operator()(entt::registry& registry, float deltaTime) const
 {
     // MPE_INFO("Running TranslationSystem...");
     auto view = registry.view<TransformComponent>();
@@ -24,7 +24,7 @@ void TranslationSystem::operator()(entt::registry& registry) const
     for (auto entity : view)
     {
         auto& transform = view.get<TransformComponent>(entity);
-        transform.position += *m_deltaPosition;
+        transform.position += *m_deltaPosition * deltaTime;
         // MPE_INFO("Entity {0} moved to {1}", (unsigned int) entity, glm::to_string(transform.position));
     }
 }

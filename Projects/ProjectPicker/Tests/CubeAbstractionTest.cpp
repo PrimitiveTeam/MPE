@@ -24,7 +24,7 @@ void CubeAbstractionTest::OnUpdate(MPE::Time deltaTime)
     MPE::RenderPrimitive::SetClearColor(glm::vec4(m_clearColor[0], m_clearColor[1], m_clearColor[2], m_clearColor[3]));
     MPE::RenderPrimitive::Clear();
 
-    m_ECS->RunSystems();
+    m_ECS->RunSystems(deltaTime);
 
     if (m_isTranslationSystemActive)
     {
@@ -68,7 +68,7 @@ void CubeAbstractionTest::ToggleTranslationSystem()
 {
     if (!m_isTranslationSystemActive)
     {
-        m_cubeDeltaPosition->x = 0.0001f;
+        m_cubeDeltaPosition->x = 1.0f;
         m_isTranslationSystemActive = true;
     }
     else

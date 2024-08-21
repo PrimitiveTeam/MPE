@@ -15,7 +15,7 @@
 namespace MPE
 {
 Cube::Cube(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale)
-    : m_ECS(ecs), m_angleX(0.0f), m_angleY(0.0f), m_angleZ(0.0f), m_autoRotate(true), m_rotateSpeed(10)
+    : m_ECS(ecs), m_angleX(0.0f), m_angleY(0.0f), m_angleZ(0.0f), m_autoRotate(true), m_rotateSpeed(10), m_color{0.5f, 0.5f, 0.0f, 1.0f}
 {
     // Create an entity and add a transform component
     m_entity = m_ECS.CreateEntity();
@@ -143,13 +143,13 @@ void Cube::OnRender(StaticOrthographicCamera& camera)
     transform = glm::scale(transform, m_transform->scale);
 
     m_shader->Bind();
-// m_shader->InjectUniformFloat4("UNI_COLOR", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+// m_shader->InjectUniformFloat4("UNI_COLOR", m_color);
 #ifdef MPE_OPENGL
     // std::dynamic_pointer_cast<MPE::OpenGLShader>(m_shader)->Bind();
-    std::dynamic_pointer_cast<MPE::OpenGLShader>(m_shader)->InjectUniformFloat4("UNI_COLOR", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+    std::dynamic_pointer_cast<MPE::OpenGLShader>(m_shader)->InjectUniformFloat4("UNI_COLOR", m_color);
 #elif MPE_OPENGLES
     // std::dynamic_pointer_cast<MPE::OpenGLESShader>(m_shader)->Bind();
-    std::dynamic_pointer_cast<MPE::OpenGLESShader>(m_shader)->InjectUniformFloat4("UNI_COLOR", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+    std::dynamic_pointer_cast<MPE::OpenGLESShader>(m_shader)->InjectUniformFloat4("UNI_COLOR", m_color);
 #endif
 
     Renderer::BeginScene(camera.GetCamera());
@@ -175,5 +175,15 @@ glm::vec3& Cube::GetPosition()
 void Cube::SetPosition(const glm::vec3& position)
 {
     m_transform->position = position;
+}
+
+glm::vec4& Cube::GetColor()
+{
+    return m_color;
+}
+
+void Cube::SetColor(const glm::vec4& color)
+{
+    m_color = color;
 }
 }

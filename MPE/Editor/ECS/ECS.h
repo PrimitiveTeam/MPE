@@ -38,11 +38,11 @@ class MPE_API ECS
     template <typename Component, typename... Args>
     Component& AddComponentToEntity(Entity entity, Args&&... args);
 
-    void RunSystems();
+    void RunSystems(float deltaTime);
 
   private:
     EntityRegistry m_registry;
-    std::vector<std::function<void(EntityRegistry&)>> m_systems;
+    std::vector<std::function<void(EntityRegistry&, float)>> m_systems;
 };
 
 template <typename Component, typename... Args>
@@ -72,7 +72,7 @@ bool ECS::HasComponent(Entity entity)
 template <typename System>
 void ECS::RegisterSystem(System&& system)
 {
-    m_systems.push_back([system = std::forward<System>(system)](EntityRegistry& reg) { system(reg); });
+    m_systems.push_back([system = std::forward<System>(system)](EntityRegistry& reg, float deltaTime) { system(reg, deltaTime); });
 }
 
 template <typename Component, typename... Args>

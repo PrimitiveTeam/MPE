@@ -27,6 +27,9 @@ class MPE_API Cube
     glm::vec3& GetPosition();
     void SetPosition(const glm::vec3& position);
 
+    glm::vec4& GetColor();
+    void SetColor(const glm::vec4& color);
+
   private:
     void UpdateTransform();
 
@@ -34,6 +37,8 @@ class MPE_API Cube
     ECS::Entity m_entity;
     ECS::ECS& m_ECS;
     ECS::TransformComponent* m_transform;
+
+    glm::vec4 m_color;
 
     float m_angleX, m_angleY, m_angleZ;
     bool m_autoRotate;

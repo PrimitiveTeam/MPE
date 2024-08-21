@@ -16,13 +16,13 @@ void ECS::DestroyEntity(Entity entity)
     m_registry.destroy(entity);
 }
 
-void ECS::RunSystems()
+void ECS::RunSystems(float deltaTime)
 {
     // MPE_INFO("Running systems...");
 
     for (auto& system : m_systems)
     {
-        system(m_registry);
+        system(m_registry, deltaTime);
     }
 }
 }

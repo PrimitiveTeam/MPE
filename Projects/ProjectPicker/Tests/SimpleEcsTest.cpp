@@ -129,7 +129,7 @@ void SimpleEcsTest::OnUpdate(MPE::Time deltaTime)
 
     auto VERTEX_BASED_COLOR_SHADER = SYS_SHADER_LIBRARY.Get("VertexBasedColor");
 
-    m_ecs.RunSystems();
+    m_ecs.RunSystems(deltaTime);
 
     glm::mat4 RECTANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), *RECTANGLE_POSITION);
     RECTANGLE_TRANSFORM = glm::rotate(RECTANGLE_TRANSFORM, glm::radians(angleX), glm::vec3(1.0f, 0.0f, 0.0f));
