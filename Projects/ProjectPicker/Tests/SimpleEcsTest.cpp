@@ -17,9 +17,13 @@ SimpleEcsTest::SimpleEcsTest()
       angleZ(0.0f)
 {
     m_entity = m_ecs.CreateEntity();
-    auto &transform = m_ecs.AddComponentToEntity<MPE::ECS::TransformComponent>(m_entity, glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
+    auto &transform = m_ecs.AddComponentToEntity<MPE::ECS::TransformComponent>(m_entity, glm::vec3(-2.0f, 0.0f, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
 
-    RECTANGLE_POSITION = &m_ecs.GetComponent<MPE::ECS::TransformComponent>(m_entity).position;
+    // RECTANGLE_POSITION = &m_ecs.GetComponent<MPE::ECS::TransformComponent>(m_entity).position;
+    RECTANGLE_POSITION = &transform.position;
+
+    MPE::ECS::TranslationSystem translationSystem(glm::vec3(0.001f, 0.0f, 0.0f));
+    m_ecs.RegisterSystem(translationSystem);
 
     // CUBE
     SYS_VertexArray = MPE::VertexArray::Create();
@@ -112,6 +116,11 @@ void SimpleEcsTest::OnUpdate(MPE::Time deltaTime)
 {
     UpdateRotation(deltaTime);
 
+    if (RECTANGLE_POSITION->x > 2.0f)
+    {
+        RECTANGLE_POSITION->x = -2.0f;
+    }
+
     MPE::RenderPrimitive::SetClearColor(glm::vec4(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]));
     MPE::RenderPrimitive::Clear();
 
@@ -143,7 +152,7 @@ void SimpleEcsTest::OnImGuiRender()
     ImGui::Separator();
     ImGui::Text("CUBE VARIABLES");
 
-    ImGui::SliderFloat3("Position", &RECTANGLE_POSITION->x, -3.0f, 3.0f);
+    ImGui::SliderFloat3("Position", &RECTANGLE_POSITION->x, -2.0f, 2.0f);
 
     ImGui::Checkbox("Auto Rotate", &autorotate);
 
