@@ -7,7 +7,7 @@
 #include "MPE/Renderer/Shaders/Shader.h"
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
 #include "MPE/Editor/ECS/ECS.h"
-#include "MPE/Editor/ECS/Components/TransformComponent.h"
+#include "MPE/Editor/ECS/Components/Core/TransformComponent.h"
 
 #include <glm/glm.hpp>
 

@@ -197,7 +197,7 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/ECS.h"
 
     # ECS COMPONENETS
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Components/TransformComponent.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Components/Core/TransformComponent.h"
 
     # ECS SYSTEMS
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/TranslationSystem.h"

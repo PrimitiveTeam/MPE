@@ -1,7 +1,7 @@
 #pragma once
 
 #include "MPE/Editor/ECS/ECS.h"
-#include "MPE/Editor/ECS/Components/TransformComponent.h"
+#include "MPE/Editor/ECS/Components/Core/TransformComponent.h"
 
 namespace MPE
 {
