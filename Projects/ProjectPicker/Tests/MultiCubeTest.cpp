@@ -71,7 +71,7 @@ void MultiCubeTest::OnImGuiRender()
         ToggleTransformSystem();
     }
 
-    ImGui::SliderFloat("Transition X speed", &m_cubeDeltaPosition->x, 0.0f, 1.0f);
+    if (m_isTransformSystemActive) ImGui::SliderFloat("Transition X speed", &m_cubeDeltaPosition->x, 0.0f, 1.0f);
 
     if (ImGui::Button("Test Query"))
     {
