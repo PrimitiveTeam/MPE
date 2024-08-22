@@ -8,6 +8,7 @@
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
 #include "MPE/Editor/ECS/ECS.h"
 #include "MPE/Editor/ECS/Components/Core/TransformComponent.h"
+#include "MPE/Editor/ECS/Components/Core/TagComponent.h"
 
 #include <glm/glm.hpp>
 
@@ -36,6 +37,7 @@ class MPE_API Cube
   private:
     ECS::Entity m_entity;
     ECS::ECS& m_ECS;
+    ECS::TagComponent* m_tag;
     ECS::TransformComponent* m_transform;
 
     glm::vec4 m_color;

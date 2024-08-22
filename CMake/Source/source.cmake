@@ -76,6 +76,7 @@ file(
 
     # /Editor/ECS/Base
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/ECS.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Utility/TagQuery.cpp"
 
     # ECS SYSTEMS
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/TranslationSystem.cpp"
@@ -198,6 +199,7 @@ file(
 
     # ECS COMPONENETS
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Components/Core/TransformComponent.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Components/Core/TagComponent.h"
 
     # ECS SYSTEMS
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/TranslationSystem.h"

@@ -19,6 +19,7 @@ Cube::Cube(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale)
 {
     // Create an entity and add a transform component
     m_entity = m_ECS.CreateEntity();
+    m_tag = &m_ECS.AddComponentToEntity<ECS::TagComponent>(m_entity, "Cube", "Object");
     m_transform = &m_ECS.AddComponentToEntity<ECS::TransformComponent>(m_entity, position, glm::vec3(0.0f), scale);
 
     // Load shader

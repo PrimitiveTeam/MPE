@@ -73,6 +73,27 @@ void MultiCubeTest::OnImGuiRender()
 
     ImGui::SliderFloat("Transition X speed", &m_cubeDeltaPosition->x, 0.0f, 1.0f);
 
+    if (ImGui::Button("Test Query"))
+    {
+        auto entities = m_ECS->FindEntityByName("Cube");
+        for (auto &entity : entities)
+        {
+            MPE_INFO("Entity: {0}", entity);
+        }
+    }
+
+    // rename entity 0
+    std::string text = m_ECS->GetComponent<MPE::ECS::TagComponent>(0).name;
+    static char buffer[256];
+    strncpy(buffer, text.c_str(), sizeof(buffer));
+    buffer[sizeof(buffer) - 1] = 0;
+
+    if (ImGui::InputText("Entity 0", buffer, sizeof(buffer)))
+    {
+        text = std::string(buffer);
+        m_ECS->GetComponent<MPE::ECS::TagComponent>(0).name = text;
+    }
+
     ImGui::End();
 }
 

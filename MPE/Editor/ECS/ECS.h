@@ -16,6 +16,7 @@ using EntityRegistry = entt::registry;
 
 class MPE_API ECS
 {
+    // Core functionality
   public:
     Entity CreateEntity();
     void DestroyEntity(Entity entity);
@@ -27,10 +28,19 @@ class MPE_API ECS
     void RemoveComponent(Entity entity);
 
     template <typename Component>
+    void RemoveComponent(uint32_t entityId);
+
+    template <typename Component>
     Component& GetComponent(Entity entity);
 
     template <typename Component>
+    Component& GetComponent(uint32_t entityId);
+
+    template <typename Component>
     bool HasComponent(Entity entity);
+
+    template <typename Component>
+    bool HasComponent(uint32_t entityId);
 
     template <typename System>
     void RegisterSystem(System&& system);
@@ -39,6 +49,14 @@ class MPE_API ECS
     Component& AddComponentToEntity(Entity entity, Args&&... args);
 
     void RunSystems(float deltaTime);
+
+    // Utility
+  public:
+    // TagQuery
+    std::vector<Entity> FindEntityByName(const std::string& name);
+    std::vector<Entity> FindEntityByTag(const std::string& tag);
+    std::vector<Entity> FindEntityByNameAndTag(const std::string& name, const std::string& tag);
+    // TagQuery
 
   private:
     EntityRegistry m_registry;
@@ -58,15 +76,33 @@ void ECS::RemoveComponent(Entity entity)
 }
 
 template <typename Component>
+void ECS::RemoveComponent(uint32_t entityId)
+{
+    m_registry.remove<Component>((Entity) entityId);
+}
+
+template <typename Component>
 Component& ECS::GetComponent(Entity entity)
 {
     return m_registry.get<Component>(entity);
 }
 
 template <typename Component>
+Component& ECS::GetComponent(uint32_t entityId)
+{
+    return m_registry.get<Component>((Entity) entityId);
+}
+
+template <typename Component>
 bool ECS::HasComponent(Entity entity)
 {
     return m_registry.any_of<Component>(entity);
+}
+
+template <typename Component>
+bool ECS::HasComponent(uint32_t entityId)
+{
+    return m_registry.any_of<Component>((Entity) entityId);
 }
 
 template <typename System>
@@ -82,3 +118,17 @@ Component& ECS::AddComponentToEntity(Entity entity, Args&&... args)
 }
 }
 }
+
+#include <fmt/core.h>
+// Create an fmt formatter for MPE::ECS::Entity
+template <>
+struct fmt::formatter<MPE::ECS::Entity> : fmt::formatter<std::string>
+{
+    template <typename FormatContext>
+    auto format(MPE::ECS::Entity entity, FormatContext& ctx)
+    {
+        // Cast the entity to its underlying integer type and then convert to string
+        auto entity_id = static_cast<std::underlying_type_t<entt::entity>>(entity);
+        return fmt::formatter<std::string>::format(std::to_string(entity_id), ctx);
+    }
+};
