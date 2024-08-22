@@ -1,7 +1,9 @@
+#define GLM_ENABLE_EXPERIMENTAL
 #include "Cube.h"
 
 #include "MPE/Log/GlobalLog.h"
 #include "MPE/Renderer/Renderer.h"
+#include "MPE/Editor/ECS/Utility/RotationUtilities.h"
 
 #ifdef MPE_OPENGL
 #    include "MPE/MPEGFX_OPEN_GL.h"
@@ -11,11 +13,12 @@
 
 #include <imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/quaternion.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 namespace MPE
 {
-Cube::Cube(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale)
-    : m_ECS(ecs), m_angleX(0.0f), m_angleY(0.0f), m_angleZ(0.0f), m_autoRotate(true), m_rotateSpeed(10), m_color{0.5f, 0.5f, 0.0f, 1.0f}
+Cube::Cube(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale) : m_ECS(ecs), m_color{0.5f, 0.5f, 0.0f, 1.0f}
 {
     // Create an entity and add a transform component
     m_entity = m_ECS.CreateEntity();
@@ -125,22 +128,22 @@ void Cube::OnUpdate(Time deltaTime)
     if (m_autoRotate)
     {
         float deltaAngle = m_rotateSpeed * deltaTime.GetSeconds();
-        m_angleX += deltaAngle;
-        m_angleY += deltaAngle;
-        m_angleZ += deltaAngle;
+        m_eulerRotation.x += deltaAngle;
+        m_eulerRotation.y += deltaAngle;
+        m_eulerRotation.z += deltaAngle;
 
-        m_angleX = fmod(m_angleX, 360.0f);
-        m_angleY = fmod(m_angleY, 360.0f);
-        m_angleZ = fmod(m_angleZ, 360.0f);
+        m_eulerRotation.x = fmod(m_eulerRotation.x, m_maxAngle);
+        m_eulerRotation.y = fmod(m_eulerRotation.y, m_maxAngle);
+        m_eulerRotation.z = fmod(m_eulerRotation.z, m_maxAngle);
+
+        m_transform->rotation = MPE::ECS::RotationUtilities::EulerToQuaternion(m_eulerRotation);
     }
 }
 
 void Cube::OnRender(StaticOrthographicCamera& camera)
 {
     glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_transform->position);
-    transform = glm::rotate(transform, glm::radians(m_angleX), glm::vec3(1.0f, 0.0f, 0.0f));
-    transform = glm::rotate(transform, glm::radians(m_angleY), glm::vec3(0.0f, 1.0f, 0.0f));
-    transform = glm::rotate(transform, glm::radians(m_angleZ), glm::vec3(0.0f, 0.0f, 1.0f));
+    transform *= glm::toMat4(m_transform->rotation);
     transform = glm::scale(transform, m_transform->scale);
 
     m_shader->Bind();
@@ -162,20 +165,13 @@ void Cube::OnImGuiRender()
 {
     ImGui::Text("Cube Controls");
     ImGui::Checkbox("Auto Rotate", &m_autoRotate);
-    ImGui::SliderFloat("Rotate X", &m_angleX, -360.0f, 360.0f);
-    ImGui::SliderFloat("Rotate Y", &m_angleY, -360.0f, 360.0f);
-    ImGui::SliderFloat("Rotate Z", &m_angleZ, -360.0f, 360.0f);
+    if (ImGui::SliderFloat("Rotate X", &m_eulerRotation.x, -m_maxAngle, m_maxAngle) |
+        ImGui::SliderFloat("Rotate Y", &m_eulerRotation.y, -m_maxAngle, m_maxAngle) |
+        ImGui::SliderFloat("Rotate Z", &m_eulerRotation.z, -m_maxAngle, m_maxAngle))
+    {
+        m_transform->rotation = MPE::ECS::RotationUtilities::EulerToQuaternion(m_eulerRotation);
+    }
     ImGui::SliderFloat3("Position", &m_transform->position.x, -10.0f, 10.0f);
-}
-
-glm::vec3& Cube::GetPosition()
-{
-    return m_transform->position;
-}
-
-void Cube::SetPosition(const glm::vec3& position)
-{
-    m_transform->position = position;
 }
 
 glm::vec4& Cube::GetColor()

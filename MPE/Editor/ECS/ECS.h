@@ -45,6 +45,9 @@ class MPE_API ECS
     template <typename System>
     void RegisterSystem(System&& system);
 
+    // template <typename System>
+    // void RegisterSystem(void (*systemFunc)(System&, EntityRegistry&, float), System& system);
+
     template <typename Component, typename... Args>
     Component& AddComponentToEntity(Entity entity, Args&&... args);
 
@@ -59,8 +62,15 @@ class MPE_API ECS
     // TagQuery
 
   private:
+    // struct RegisteredSystem
+    // {
+    //     void (*func)(void*, EntityRegistry&, float);
+    //     void* systemInstance;
+    // };
+
     EntityRegistry m_registry;
     std::vector<std::function<void(EntityRegistry&, float)>> m_systems;
+    // std::vector<RegisteredSystem> m_systems;
 };
 
 template <typename Component, typename... Args>
@@ -110,6 +120,12 @@ void ECS::RegisterSystem(System&& system)
 {
     m_systems.push_back([system = std::forward<System>(system)](EntityRegistry& reg, float deltaTime) { system(reg, deltaTime); });
 }
+
+// template <typename System>
+// void ECS::RegisterSystem(void (*systemFunc)(System&, EntityRegistry&, float), System& system)
+// {
+//     m_systems.push_back({reinterpret_cast<void (*)(void*, EntityRegistry&, float)>(systemFunc), &system});
+// }
 
 template <typename Component, typename... Args>
 Component& ECS::AddComponentToEntity(Entity entity, Args&&... args)

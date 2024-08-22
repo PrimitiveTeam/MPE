@@ -25,6 +25,7 @@ class MultiCubeTest : public MPE::Layer
 
   private:
     void ToggleTransformSystem();
+    void IterativeRotate(MPE::Time deltaTime);
 
   private:
     MPE::SCOPE<std::string> m_LayerName;
@@ -39,6 +40,7 @@ class MultiCubeTest : public MPE::Layer
     MPE::REF<MPE::ECS::ECS> m_ECS;
     std::vector<MPE::REF<MPE::Cube>> m_cubes;
     glm::vec3 *m_cubeDeltaPosition;
+    glm::vec3 *m_cubeDeltaRotation;
 
     // ECS
     MPE::REF<MPE::ECS::TransformSystem> m_transformSystem;

@@ -28,9 +28,10 @@ void CubeAbstractionTest::OnUpdate(MPE::Time deltaTime)
 
     if (m_isTransformSystemActive)
     {
-        if (m_cube->GetPosition().x > 2.0f)
+        auto &position = m_cube->GetTransform().position;
+        if (position.x > 2.0f)
         {
-            m_cube->SetPosition(glm::vec3(-2.0f, 0.0f, 0.0f));
+            position = glm::vec3(-2.0f, 0.0f, 0.0f);
         }
     }
 

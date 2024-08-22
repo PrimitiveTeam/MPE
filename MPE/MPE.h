@@ -9,6 +9,9 @@
  * @date 2024-05-05
  */
 
+// Need this for euler/quaternion conversions
+#define GLM_ENABLE_EXPERIMENTAL
+
 // ----- CORE INTERNAL -----
 // #include "MPE/Core/App.h"
 // #include "MPE/Core/Layers/Layer.h"

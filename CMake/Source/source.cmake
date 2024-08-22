@@ -76,10 +76,13 @@ file(
 
     # /Editor/ECS/Base
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/ECS.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Utility/TagQuery.cpp"
 
     # ECS SYSTEMS
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/TransformSystem.cpp"
+
+    # ECS UTILITY
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Utility/TagQuery.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Utility/RotationUtilities.cpp"
 
     # /Editor/Objects
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Objects/Cube.cpp"
@@ -203,6 +206,9 @@ file(
 
     # ECS SYSTEMS
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/TransformSystem.h"
+
+    # ECS UTILITY
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Utility/RotationUtilities.h"
 
     # /Editor/Objects
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Objects/Cube.h"

@@ -25,8 +25,7 @@ class MPE_API Cube
 
     ECS::Entity GetEntity() const { return m_entity; }
 
-    glm::vec3& GetPosition();
-    void SetPosition(const glm::vec3& position);
+    ECS::TransformComponent& GetTransform() { return *m_transform; }
 
     glm::vec4& GetColor();
     void SetColor(const glm::vec4& color);
@@ -42,9 +41,10 @@ class MPE_API Cube
 
     glm::vec4 m_color;
 
-    float m_angleX, m_angleY, m_angleZ;
-    bool m_autoRotate;
-    int m_rotateSpeed;
+    glm::vec3 m_eulerRotation = {0.0f, 0.0f, 0.0f};
+    float m_maxAngle = 1080.0f;
+    bool m_autoRotate = false;
+    int m_rotateSpeed = 10;
 
     REF<ShaderLibrary> m_shaderLibrary;
     REF<Shader> m_shader;

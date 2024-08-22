@@ -2,12 +2,18 @@
 #include "MPE/MPEPCH.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 #ifdef MPE_OPENGL
 #    include "MPE/MPEGFX_OPEN_GL.h"
 #elif MPE_OPENGLES
 #    include "MPE/MPEGFX_OPEN_GL_ES.h"
 #endif
+
+// void TransformSystemUpdate(MPE::ECS::TransformSystem &system, MPE::ECS::EntityRegistry &registry, float deltaTime)
+// {
+//     system(registry, deltaTime);
+// }
 
 MultiCubeTest::MultiCubeTest() : Layer("Test"), m_clearColor{0.5f, 0.25f, 0.5f}, m_mainCamera(1280.0f / 720.0f, true)
 {
@@ -23,13 +29,23 @@ MultiCubeTest::MultiCubeTest() : Layer("Test"), m_clearColor{0.5f, 0.25f, 0.5f},
         xDiff += 0.05f;
         yDiff += 0.001f;
         m_cubes[i]->SetColor(glm::vec4(1.0f - colorDiff, 0.0f + colorDiff, 0.0f + colorDiff / 2.0f, 1.0f));
-        colorDiff += 0.05f;
+        colorDiff += 0.03f;
     }
 
     m_cubeDeltaPosition = new glm::vec3(0.0f);
+    m_cubeDeltaRotation = new glm::vec3(0.0f);
 
-    m_transformSystem = MPE::NEWREF<MPE::ECS::TransformSystem>(m_cubeDeltaPosition);
+    // m_transformSystem = MPE::NEWREF<MPE::ECS::TransformSystem>(m_cubeDeltaPosition, nullptr);
+    m_transformSystem = MPE::NEWREF<MPE::ECS::TransformSystem>(m_cubeDeltaPosition, m_cubeDeltaRotation);
+    // m_ECS->RegisterSystem(TransformSystemUpdate, *m_transformSystem);
     m_ECS->RegisterSystem(*m_transformSystem);
+
+    // m_cubeDeltaRotation->x = 50.0f;
+    // m_cubeDeltaRotation->y = 25.0f;
+    // m_cubeDeltaRotation->z = 30.0f;
+    // m_isTransformSystemActive = true;
+
+    ToggleTransformSystem();
 }
 
 void MultiCubeTest::OnUpdate(MPE::Time deltaTime)
@@ -43,12 +59,15 @@ void MultiCubeTest::OnUpdate(MPE::Time deltaTime)
     {
         for (auto &cube : m_cubes)
         {
-            if (cube->GetPosition().x > 2.0f)
+            auto &position = cube->GetTransform().position;
+            if (position.x > 2.0f)
             {
-                cube->SetPosition(glm::vec3(-2.0f, 0.0f, 0.0f));
+                position = glm::vec3(-2.0f, 0.0f, 0.0f);
             }
         }
     }
+
+    // IterativeRotate(deltaTime);
 
     for (auto &cube : m_cubes)
     {
@@ -59,10 +78,7 @@ void MultiCubeTest::OnUpdate(MPE::Time deltaTime)
 
 void MultiCubeTest::OnImGuiRender()
 {
-    for (auto &cube : m_cubes)
-    {
-        cube->OnImGuiRender();
-    }
+    m_cubes[0]->OnImGuiRender();
 
     ImGui::Begin("Toggle System");
 
@@ -71,7 +87,13 @@ void MultiCubeTest::OnImGuiRender()
         ToggleTransformSystem();
     }
 
-    if (m_isTransformSystemActive) ImGui::SliderFloat("Transition X speed", &m_cubeDeltaPosition->x, 0.0f, 1.0f);
+    if (m_isTransformSystemActive)
+    {
+        ImGui::SliderFloat("Transition X speed", &m_cubeDeltaPosition->x, 0.0f, 1.0f);
+        ImGui::SliderFloat("Rotation X speed", &m_cubeDeltaRotation->x, 0.0f, 100.0f);
+        ImGui::SliderFloat("Rotation Y speed", &m_cubeDeltaRotation->y, 0.0f, 100.0f);
+        ImGui::SliderFloat("Rotation Z speed", &m_cubeDeltaRotation->z, 0.0f, 100.0f);
+    }
 
     if (ImGui::Button("Test Query"))
     {
@@ -113,12 +135,42 @@ void MultiCubeTest::ToggleTransformSystem()
 {
     if (!m_isTransformSystemActive)
     {
-        m_cubeDeltaPosition->x = 0.0001f;
+        m_cubeDeltaPosition->x = 0.5f;
+        m_cubeDeltaRotation->x = 50.0f;
+        m_cubeDeltaRotation->y = 25.0f;
+        m_cubeDeltaRotation->z = 30.0f;
         m_isTransformSystemActive = true;
     }
     else
     {
         m_cubeDeltaPosition->x = 0.0f;
+        m_cubeDeltaRotation->x = 0.0f;
+        m_cubeDeltaRotation->y = 0.0f;
+        m_cubeDeltaRotation->z = 0.0f;
         m_isTransformSystemActive = false;
+    }
+}
+
+// For profiling ECS system vs stack run
+#include "MPE/Profiling/_PROFILING.h"
+void MultiCubeTest::IterativeRotate(MPE::Time deltaTime)
+{
+    MPE_PROFILE_FUNCTION();
+
+    float deltaSeconds = deltaTime.GetSeconds();
+
+    // rotate all cubes iteratively
+    for (auto &cube : m_cubes)
+    {
+        auto &transform = cube->GetTransform();
+
+        // do the calc
+        // MPE_TRACE("[BEFORE] Rotation: {0}", glm::to_string(transform.rotation));
+        // MPE_TRACE("CALC: {0}", glm::to_string((*m_cubeDeltaRotation) * (float) deltaTime));
+        glm::quat deltaRotationQuat = MPE::ECS::RotationUtilities::EulerToQuaternion((*m_cubeDeltaRotation) * deltaSeconds);
+        // MPE_TRACE("DELTA: {0}", glm::to_string(deltaRotationQuat));
+        transform.rotation = deltaRotationQuat * transform.rotation;
+        transform.rotation = glm::normalize(transform.rotation);
+        // MPE_TRACE("[AFTER] Rotation: {0}", glm::to_string(transform.rotation));
     }
 }
