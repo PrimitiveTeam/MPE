@@ -5,6 +5,7 @@
 #include "MPE/App/Layers/LayerStack.h"
 #include "MPE/Input/Input.h"
 // #include "MPE/Platform/Windows/Input/WindowsInput.h"
+#include "MPE/Profiling/_PROFILING.h"
 
 // TEMP
 #include <GLFW/glfw3.h>
@@ -87,6 +88,7 @@ App::~App()
 
 void App::Run()
 {
+    MPE_PROFILE_START("AppLoop", "app_loop.json");
     while (m_isAppRunning)
     {
         if (m_isAppPaused) continue;
@@ -157,6 +159,7 @@ void App::Run()
             std::this_thread::sleep_for(std::chrono::milliseconds(m_frameTimeMs) - frameDuration);
         }
     }
+    MPE_PROFILE_END();
 }
 
 void App::OnEvent(Event &event)
