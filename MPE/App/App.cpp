@@ -141,11 +141,11 @@ void App::Run()
 
         if (Input::IsKeyJustPressed(MPE_KEY_ESCAPE)) Shutdown();
 
-        if (Input::IsKeyJustPressed(MPE_KEY_F11)) ToggleGUI();
+        if (Input::IsKeyJustPressed(MPE_KEY_F10)) ToggleGUI();
 
-        if (Input::IsKeyJustPressed(MPE_KEY_F)) ToggleFullscreen();
+        if (Input::IsKeyJustPressed(MPE_KEY_F11)) ToggleFullscreen();
 
-        if (Input::IsKeyJustPressed(MPE_KEY_SPACE)) ToggleDeltaTime();
+        if (Input::IsKeyJustPressed(MPE_KEY_F12)) ToggleDeltaTime();
 
         // Calculate frame time
         auto frameEnd = std::chrono::high_resolution_clock::now();
