@@ -7,10 +7,10 @@ namespace MPE
 {
 namespace ECS
 {
-class MPE_API TranslationSystem
+class MPE_API TransformSystem
 {
   public:
-    TranslationSystem(glm::vec3* deltaPosition);
+    TransformSystem(glm::vec3* deltaPosition);
 
     void operator()(entt::registry& registry, float deltaTime) const;
 

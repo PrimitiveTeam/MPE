@@ -28,8 +28,8 @@ MultiCubeTest::MultiCubeTest() : Layer("Test"), m_clearColor{0.5f, 0.25f, 0.5f},
 
     m_cubeDeltaPosition = new glm::vec3(0.0f);
 
-    m_translationSystem = MPE::NEWREF<MPE::ECS::TranslationSystem>(m_cubeDeltaPosition);
-    m_ECS->RegisterSystem(*m_translationSystem);
+    m_transformSystem = MPE::NEWREF<MPE::ECS::TransformSystem>(m_cubeDeltaPosition);
+    m_ECS->RegisterSystem(*m_transformSystem);
 }
 
 void MultiCubeTest::OnUpdate(MPE::Time deltaTime)
@@ -39,7 +39,7 @@ void MultiCubeTest::OnUpdate(MPE::Time deltaTime)
 
     m_ECS->RunSystems(deltaTime);
 
-    if (m_isTranslationSystemActive)
+    if (m_isTransformSystemActive)
     {
         for (auto &cube : m_cubes)
         {
@@ -68,7 +68,7 @@ void MultiCubeTest::OnImGuiRender()
 
     if (ImGui::Button("Toggle Translation System"))
     {
-        ToggleTranslationSystem();
+        ToggleTransformSystem();
     }
 
     ImGui::SliderFloat("Transition X speed", &m_cubeDeltaPosition->x, 0.0f, 1.0f);
@@ -109,16 +109,16 @@ bool MultiCubeTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)
     return false;
 }
 
-void MultiCubeTest::ToggleTranslationSystem()
+void MultiCubeTest::ToggleTransformSystem()
 {
-    if (!m_isTranslationSystemActive)
+    if (!m_isTransformSystemActive)
     {
         m_cubeDeltaPosition->x = 0.0001f;
-        m_isTranslationSystemActive = true;
+        m_isTransformSystemActive = true;
     }
     else
     {
         m_cubeDeltaPosition->x = 0.0f;
-        m_isTranslationSystemActive = false;
+        m_isTransformSystemActive = false;
     }
 }

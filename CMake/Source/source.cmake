@@ -79,7 +79,7 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Utility/TagQuery.cpp"
 
     # ECS SYSTEMS
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/TranslationSystem.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/TransformSystem.cpp"
 
     # /Editor/Objects
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Objects/Cube.cpp"
@@ -202,7 +202,7 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Components/Core/TagComponent.h"
 
     # ECS SYSTEMS
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/TranslationSystem.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ECS/Systems/TransformSystem.h"
 
     # /Editor/Objects
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Objects/Cube.h"

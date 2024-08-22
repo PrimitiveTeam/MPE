@@ -23,7 +23,7 @@ class CubeAbstractionTest : public MPE::Layer
     bool OnKeyPressedEvent(MPE::KeyPressedEvent &event);
 
   private:
-    void ToggleTranslationSystem();
+    void ToggleTransformSystem();
 
   private:
     MPE::SCOPE<std::string> m_LayerName;
@@ -40,6 +40,6 @@ class CubeAbstractionTest : public MPE::Layer
     glm::vec3 *m_cubeDeltaPosition;
 
     // ECS
-    MPE::REF<MPE::ECS::TranslationSystem> m_translationSystem;
-    bool m_isTranslationSystemActive = false;
+    MPE::REF<MPE::ECS::TransformSystem> m_transformSystem;
+    bool m_isTransformSystemActive = false;
 };

@@ -23,8 +23,8 @@ SimpleEcsTest::SimpleEcsTest()
     RECTANGLE_POSITION = &transform.position;
 
     deltaPosition = new glm::vec3(0.001f, 0.0f, 0.0f);
-    MPE::ECS::TranslationSystem translationSystem(deltaPosition);
-    m_ecs.RegisterSystem(translationSystem);
+    MPE::ECS::TransformSystem transformSystem(deltaPosition);
+    m_ecs.RegisterSystem(transformSystem);
 
     // CUBE
     SYS_VertexArray = MPE::VertexArray::Create();

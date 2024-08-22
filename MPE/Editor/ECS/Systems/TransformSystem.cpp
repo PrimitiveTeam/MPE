@@ -6,7 +6,7 @@
 // #include <glm/mat4x4.hpp>
 // #include <glm/ext.hpp>
 
-#include "TranslationSystem.h"
+#include "TransformSystem.h"
 
 #include "MPE/Log/GlobalLog.h"
 
@@ -14,11 +14,11 @@ namespace MPE
 {
 namespace ECS
 {
-TranslationSystem::TranslationSystem(glm::vec3* deltaPosition) : m_deltaPosition(deltaPosition) {}
+TransformSystem::TransformSystem(glm::vec3* deltaPosition) : m_deltaPosition(deltaPosition) {}
 
-void TranslationSystem::operator()(entt::registry& registry, float deltaTime) const
+void TransformSystem::operator()(entt::registry& registry, float deltaTime) const
 {
-    // MPE_INFO("Running TranslationSystem...");
+    // MPE_INFO("Running TransformSystem...");
     auto view = registry.view<TransformComponent>();
 
     for (auto entity : view)

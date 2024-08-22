@@ -15,8 +15,8 @@ CubeAbstractionTest::CubeAbstractionTest() : Layer("Test"), m_clearColor{0.5f, 0
     m_cube = MPE::NEWREF<MPE::Cube>(*m_ECS, glm::vec3(0.0f), glm::vec3(1.0f));
     m_cubeDeltaPosition = new glm::vec3(0.0f);
 
-    m_translationSystem = MPE::NEWREF<MPE::ECS::TranslationSystem>(m_cubeDeltaPosition);
-    m_ECS->RegisterSystem(*m_translationSystem);
+    m_transformSystem = MPE::NEWREF<MPE::ECS::TransformSystem>(m_cubeDeltaPosition);
+    m_ECS->RegisterSystem(*m_transformSystem);
 }
 
 void CubeAbstractionTest::OnUpdate(MPE::Time deltaTime)
@@ -26,7 +26,7 @@ void CubeAbstractionTest::OnUpdate(MPE::Time deltaTime)
 
     m_ECS->RunSystems(deltaTime);
 
-    if (m_isTranslationSystemActive)
+    if (m_isTransformSystemActive)
     {
         if (m_cube->GetPosition().x > 2.0f)
         {
@@ -46,7 +46,7 @@ void CubeAbstractionTest::OnImGuiRender()
 
     if (ImGui::Button("Toggle Translation System"))
     {
-        ToggleTranslationSystem();
+        ToggleTransformSystem();
     }
 
     ImGui::End();
@@ -64,16 +64,16 @@ bool CubeAbstractionTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)
     return false;
 }
 
-void CubeAbstractionTest::ToggleTranslationSystem()
+void CubeAbstractionTest::ToggleTransformSystem()
 {
-    if (!m_isTranslationSystemActive)
+    if (!m_isTransformSystemActive)
     {
         m_cubeDeltaPosition->x = 1.0f;
-        m_isTranslationSystemActive = true;
+        m_isTransformSystemActive = true;
     }
     else
     {
         m_cubeDeltaPosition->x = 0.0f;
-        m_isTranslationSystemActive = false;
+        m_isTransformSystemActive = false;
     }
 }
