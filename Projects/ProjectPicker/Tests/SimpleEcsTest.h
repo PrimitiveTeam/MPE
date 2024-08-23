@@ -30,7 +30,6 @@ class SimpleEcsTest : public MPE::Layer
     MPE::SCOPE<std::string> m_LayerName;
 
     // ECS
-    MPE::ECS::ECS m_ecs;
     MPE::ECS::Entity m_ecs_list[100];
     MPE::ECS::Entity m_entity;
 

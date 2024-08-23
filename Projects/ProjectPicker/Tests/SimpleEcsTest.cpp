@@ -16,15 +16,16 @@ SimpleEcsTest::SimpleEcsTest()
       angleY(0.0f),
       angleZ(0.0f)
 {
-    m_entity = m_ecs.CreateEntity();
-    auto &transform = m_ecs.AddComponentToEntity<MPE::ECS::TransformComponent>(m_entity, glm::vec3(-2.0f, 0.0f, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
+    auto &ECS = MPE::ECS::ECS::GetInstance();
+    m_entity = ECS.CreateEntity();
+    auto &transform = ECS.AddComponentToEntity<MPE::ECS::TransformComponent>(m_entity, glm::vec3(-2.0f, 0.0f, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
 
-    // RECTANGLE_POSITION = &m_ecs.GetComponent<MPE::ECS::TransformComponent>(m_entity).position;
+    // RECTANGLE_POSITION = &ECS.GetComponent<MPE::ECS::TransformComponent>(m_entity).position;
     RECTANGLE_POSITION = &transform.position;
 
     deltaPosition = new glm::vec3(0.001f, 0.0f, 0.0f);
     MPE::ECS::TransformSystem transformSystem(deltaPosition);
-    m_ecs.RegisterSystem(transformSystem);
+    ECS.RegisterSystem(transformSystem);
 
     // CUBE
     SYS_VertexArray = MPE::VertexArray::Create();
@@ -129,7 +130,8 @@ void SimpleEcsTest::OnUpdate(MPE::Time deltaTime)
 
     auto VERTEX_BASED_COLOR_SHADER = SYS_SHADER_LIBRARY.Get("VertexBasedColor");
 
-    m_ecs.RunSystems(deltaTime);
+    // ECS.RunSystems(deltaTime);
+    MPE::ECS::ECS::GetInstance().RunSystems(deltaTime);
 
     glm::mat4 RECTANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), *RECTANGLE_POSITION);
     RECTANGLE_TRANSFORM = glm::rotate(RECTANGLE_TRANSFORM, glm::radians(angleX), glm::vec3(1.0f, 0.0f, 0.0f));

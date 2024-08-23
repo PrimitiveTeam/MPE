@@ -18,12 +18,13 @@
 
 namespace MPE
 {
-Cube::Cube(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale) : m_ECS(ecs), m_color{0.5f, 0.5f, 0.0f, 1.0f}
+Cube::Cube(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale) : m_color{0.5f, 0.5f, 0.0f, 1.0f}
 {
+    auto& ECS = ECS::ECS::GetInstance();
     // Create an entity and add a transform component
-    m_entity = m_ECS.CreateEntity();
-    m_tag = &m_ECS.AddComponentToEntity<ECS::TagComponent>(m_entity, "Cube", "Object");
-    m_transform = &m_ECS.AddComponentToEntity<ECS::TransformComponent>(m_entity, position, glm::vec3(0.0f), scale);
+    m_entity = ECS.CreateEntity();
+    m_tag = &ECS.AddComponentToEntity<ECS::TagComponent>(m_entity, "Cube", "Object");
+    m_transform = &ECS.AddComponentToEntity<ECS::TransformComponent>(m_entity, position, glm::vec3(0.0f), scale);
 
     // Load shader
     m_shaderLibrary = NEWREF<ShaderLibrary>();

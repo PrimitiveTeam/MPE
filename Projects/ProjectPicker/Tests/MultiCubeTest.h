@@ -37,7 +37,6 @@ class MultiCubeTest : public MPE::Layer
     MPE::StaticOrthographicCamera m_mainCamera;
 
     // Cube
-    MPE::REF<MPE::ECS::ECS> m_ECS;
     std::vector<MPE::REF<MPE::Cube>> m_cubes;
     glm::vec3 *m_cubeDeltaPosition;
     glm::vec3 *m_cubeDeltaRotation;

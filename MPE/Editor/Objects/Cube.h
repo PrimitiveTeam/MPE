@@ -35,7 +35,6 @@ class MPE_API Cube
 
   private:
     ECS::Entity m_entity;
-    ECS::ECS& m_ECS;
     ECS::TagComponent* m_tag;
     ECS::TransformComponent* m_transform;
 

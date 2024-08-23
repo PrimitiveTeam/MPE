@@ -17,15 +17,15 @@
 
 MultiCubeTest::MultiCubeTest() : Layer("Test"), m_clearColor{0.5f, 0.25f, 0.5f}, m_mainCamera(1280.0f / 720.0f, true)
 {
-    m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
-    // m_cube = MPE::NEWREF<MPE::Cube>(*m_ECS, glm::vec3(0.0f), glm::vec3(1.0f));
+    auto& ECS = MPE::ECS::ECS::GetInstance();
+    // m_cube = MPE::NEWREF<MPE::Cube>(*ECS, glm::vec3(0.0f), glm::vec3(1.0f));
 
     float xDiff = 0.00f;
     float yDiff = 0.00f;
     float colorDiff = 0.0005f;
     for (int i = 0; i < 50; i++)
     {
-        m_cubes.push_back(MPE::NEWREF<MPE::Cube>(*m_ECS, glm::vec3(0.0f + xDiff, 0.0f + yDiff, 0.0f), glm::vec3(1.0f)));
+        m_cubes.push_back(MPE::NEWREF<MPE::Cube>(ECS, glm::vec3(0.0f + xDiff, 0.0f + yDiff, 0.0f), glm::vec3(1.0f)));
         xDiff += 0.05f;
         yDiff += 0.001f;
         m_cubes[i]->SetColor(glm::vec4(1.0f - colorDiff, 0.0f + colorDiff, 0.0f + colorDiff / 2.0f, 1.0f));
@@ -37,8 +37,8 @@ MultiCubeTest::MultiCubeTest() : Layer("Test"), m_clearColor{0.5f, 0.25f, 0.5f},
 
     // m_transformSystem = MPE::NEWREF<MPE::ECS::TransformSystem>(m_cubeDeltaPosition, nullptr);
     m_transformSystem = MPE::NEWREF<MPE::ECS::TransformSystem>(m_cubeDeltaPosition, m_cubeDeltaRotation);
-    // m_ECS->RegisterSystem(TransformSystemUpdate, *m_transformSystem);
-    m_ECS->RegisterSystem(*m_transformSystem);
+    // ECS->RegisterSystem(TransformSystemUpdate, *m_transformSystem);
+    ECS.RegisterSystem(*m_transformSystem);
 
     // m_cubeDeltaRotation->x = 50.0f;
     // m_cubeDeltaRotation->y = 25.0f;
@@ -53,7 +53,7 @@ void MultiCubeTest::OnUpdate(MPE::Time deltaTime)
     MPE::RenderPrimitive::SetClearColor(glm::vec4(m_clearColor[0], m_clearColor[1], m_clearColor[2], m_clearColor[3]));
     MPE::RenderPrimitive::Clear();
 
-    m_ECS->RunSystems(deltaTime);
+    MPE::ECS::ECS::GetInstance().RunSystems(deltaTime);
 
     if (m_isTransformSystemActive)
     {
@@ -97,7 +97,7 @@ void MultiCubeTest::OnImGuiRender()
 
     if (ImGui::Button("Test Query"))
     {
-        auto entities = m_ECS->FindEntityByName("Cube");
+        auto entities = MPE::ECS::ECS::GetInstance().FindEntityByName("Cube");
         for (auto &entity : entities)
         {
             MPE_INFO("Entity: {0}", entity);
@@ -105,7 +105,7 @@ void MultiCubeTest::OnImGuiRender()
     }
 
     // rename entity 0
-    std::string text = m_ECS->GetComponent<MPE::ECS::TagComponent>(0).name;
+    std::string text = MPE::ECS::ECS::GetInstance().GetComponent<MPE::ECS::TagComponent>(0).name;
     static char buffer[256];
     strncpy(buffer, text.c_str(), sizeof(buffer));
     buffer[sizeof(buffer) - 1] = 0;
@@ -113,7 +113,7 @@ void MultiCubeTest::OnImGuiRender()
     if (ImGui::InputText("Entity 0", buffer, sizeof(buffer)))
     {
         text = std::string(buffer);
-        m_ECS->GetComponent<MPE::ECS::TagComponent>(0).name = text;
+        MPE::ECS::ECS::GetInstance().GetComponent<MPE::ECS::TagComponent>(0).name = text;
     }
 
     ImGui::End();

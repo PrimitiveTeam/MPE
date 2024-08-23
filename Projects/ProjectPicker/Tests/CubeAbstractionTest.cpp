@@ -11,12 +11,12 @@
 
 CubeAbstractionTest::CubeAbstractionTest() : Layer("Test"), m_clearColor{0.5f, 0.25f, 0.5f}, m_mainCamera(1280.0f / 720.0f, true)
 {
-    m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
-    m_cube = MPE::NEWREF<MPE::Cube>(*m_ECS, glm::vec3(0.0f), glm::vec3(1.0f));
+    auto& ECS = MPE::ECS::ECS::GetInstance();
+    m_cube = MPE::NEWREF<MPE::Cube>(ECS, glm::vec3(0.0f), glm::vec3(1.0f));
     m_cubeDeltaPosition = new glm::vec3(0.0f);
 
     m_transformSystem = MPE::NEWREF<MPE::ECS::TransformSystem>(m_cubeDeltaPosition);
-    m_ECS->RegisterSystem(*m_transformSystem);
+    ECS.RegisterSystem(*m_transformSystem);
 }
 
 void CubeAbstractionTest::OnUpdate(MPE::Time deltaTime)
@@ -24,7 +24,7 @@ void CubeAbstractionTest::OnUpdate(MPE::Time deltaTime)
     MPE::RenderPrimitive::SetClearColor(glm::vec4(m_clearColor[0], m_clearColor[1], m_clearColor[2], m_clearColor[3]));
     MPE::RenderPrimitive::Clear();
 
-    m_ECS->RunSystems(deltaTime);
+    MPE::ECS::ECS::GetInstance().RunSystems(deltaTime);
 
     if (m_isTransformSystemActive)
     {
