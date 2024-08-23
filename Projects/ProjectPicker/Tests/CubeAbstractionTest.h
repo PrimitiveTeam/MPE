@@ -35,6 +35,7 @@ class CubeAbstractionTest : public MPE::Layer
     MPE::StaticOrthographicCamera m_mainCamera;
 
     // Cube
+    MPE::REF<MPE::ECS::ECS> m_ECS;
     MPE::REF<MPE::Cube> m_cube;
     glm::vec3 *m_cubeDeltaPosition;
 
