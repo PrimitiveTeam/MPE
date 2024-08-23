@@ -72,7 +72,7 @@ void MultiCubeTest::OnUpdate(MPE::Time deltaTime)
     for (auto &cube : m_cubes)
     {
         cube->OnUpdate(deltaTime);
-        cube->OnRender(m_mainCamera);
+        cube->OnRender(m_mainCamera.GetCamera());
     }
 }
 

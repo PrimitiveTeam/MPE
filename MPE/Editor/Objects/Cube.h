@@ -2,7 +2,7 @@
 
 #include "MPE/Core/_CORE.h"
 #include "MPE/Time/Time.h"
-#include "MPE/Renderer/Cameras/StaticOrthographicCamera.h"
+#include "MPE/Renderer/Cameras/OrthographicCamera.h"
 #include "MPE/Renderer/Pipeline/VertexArray.h"
 #include "MPE/Renderer/Shaders/Shader.h"
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
@@ -19,7 +19,7 @@ class MPE_API Cube : public Object
     Cube(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale);
 
     virtual void OnUpdate(Time deltaTime) override;
-    virtual void OnRender(StaticOrthographicCamera& camera) override;
+    virtual void OnRender(OrthographicCamera& camera) override;
     virtual void OnImGuiRender() override;
 
     ECS::TransformComponent& GetTransform() { return *m_transform; }

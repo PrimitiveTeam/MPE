@@ -36,7 +36,7 @@ void CubeAbstractionTest::OnUpdate(MPE::Time deltaTime)
     }
 
     m_cube->OnUpdate(deltaTime);
-    m_cube->OnRender(m_mainCamera);
+    m_cube->OnRender(m_mainCamera.GetCamera());
 }
 
 void CubeAbstractionTest::OnImGuiRender()

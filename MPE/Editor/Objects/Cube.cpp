@@ -138,7 +138,7 @@ void Cube::OnUpdate(Time deltaTime)
     }
 }
 
-void Cube::OnRender(StaticOrthographicCamera& camera)
+void Cube::OnRender(OrthographicCamera& camera)
 {
     glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_transform->position);
     transform *= glm::toMat4(m_transform->rotation);
@@ -154,7 +154,7 @@ void Cube::OnRender(StaticOrthographicCamera& camera)
     std::dynamic_pointer_cast<MPE::OpenGLESShader>(m_shader)->InjectUniformFloat4("UNI_COLOR", m_color);
 #endif
 
-    Renderer::BeginScene(camera.GetCamera());
+    Renderer::BeginScene(camera);
     Renderer::Submit(m_shader, m_vertexArray, transform);
     Renderer::EndScene();
 }

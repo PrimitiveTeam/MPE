@@ -2,7 +2,7 @@
 
 #include "MPE/Core/_CORE.h"
 #include "MPE/Time/Time.h"
-#include "MPE/Renderer/Cameras/StaticOrthographicCamera.h"
+#include "MPE/Renderer/Cameras/OrthographicCamera.h"
 #include "MPE/Editor/ECS/ECS.h"
 #include "MPE/Editor/ECS/Components/Core/TagComponent.h"
 
@@ -15,7 +15,7 @@ class MPE_API Object
     virtual ~Object() = default;
 
     virtual void OnUpdate(Time deltaTime) = 0;
-    virtual void OnRender(StaticOrthographicCamera& camera) = 0;
+    virtual void OnRender(OrthographicCamera& camera) = 0;
     virtual void OnImGuiRender() = 0;
 
     ECS::Entity GetEntity() const { return m_entity; }
