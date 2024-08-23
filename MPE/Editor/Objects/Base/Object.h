@@ -9,11 +9,15 @@
 
 namespace MPE
 {
+namespace ECS
+{
+struct HierarchyComponent;
+}
 class MPE_API Object
 {
   public:
     Object(ECS::ECS& ecs);
-    virtual ~Object() = default;
+    virtual ~Object();
 
   protected:
     // Force constructors to be less code intensive
@@ -31,6 +35,7 @@ class MPE_API Object
   protected:
     ECS::ECS& m_ECS;
     ECS::Entity m_entity;
+    ECS::HierarchyComponent* m_hierarchy;
     ECS::TagComponent* m_tag;
 };
 }
