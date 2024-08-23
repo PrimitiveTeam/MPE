@@ -6,24 +6,21 @@
 #include "MPE/Renderer/Pipeline/VertexArray.h"
 #include "MPE/Renderer/Shaders/Shader.h"
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
-#include "MPE/Editor/ECS/ECS.h"
+#include "MPE/Editor/Objects/Base/Object.h"
 #include "MPE/Editor/ECS/Components/Core/TransformComponent.h"
-#include "MPE/Editor/ECS/Components/Core/TagComponent.h"
 
 #include <glm/glm.hpp>
 
 namespace MPE
 {
-class MPE_API Cube
+class MPE_API Cube : public Object
 {
   public:
     Cube(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale);
 
-    void OnUpdate(Time deltaTime);
-    void OnRender(StaticOrthographicCamera& camera);
-    void OnImGuiRender();
-
-    ECS::Entity GetEntity() const { return m_entity; }
+    virtual void OnUpdate(Time deltaTime) override;
+    virtual void OnRender(StaticOrthographicCamera& camera) override;
+    virtual void OnImGuiRender() override;
 
     ECS::TransformComponent& GetTransform() { return *m_transform; }
 
@@ -34,8 +31,6 @@ class MPE_API Cube
     void UpdateTransform();
 
   private:
-    ECS::Entity m_entity;
-    ECS::ECS& m_ECS;
     ECS::TagComponent* m_tag;
     ECS::TransformComponent* m_transform;
 
