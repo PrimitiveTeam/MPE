@@ -6,6 +6,7 @@
 #include "MPE/App/Layers/Layer.h"
 #include "MPE/Editor/ECS/ECS.h"
 #include "MPE/Editor/Objects/Base/Object.h"
+#include "MPE/Editor/ObjectHierarchy/ObjectHierarchy.h"
 
 #include <string>
 
@@ -39,8 +40,8 @@ class MPE_API Scene : public Layer
     {
         MPE_ASSERT((std::is_base_of<Object, T>::value), "T must be derived from Object");
         // m_objects.emplace_back(NEWREF<T>(m_ECS));
-        m_objects.emplace_back(NEWREF<T>(*m_ECS));
-        return *static_cast<T*>(m_objects.back().get());
+        m_objects->emplace_back(NEWREF<T>(*m_ECS));
+        return *static_cast<T*>(m_objects->back().get());
     }
 
     void DestroyEntity(ECS::Entity entity);
@@ -59,12 +60,13 @@ class MPE_API Scene : public Layer
     REF<ECS::ECS> GetECS() const { return m_ECS; }
 
     REF<StaticOrthographicCamera> GetMainCamera() const { return m_mainCamera; }
-    void SetMainCamera(REF<StaticOrthographicCamera> camera);
+
+    const REF<std::vector<REF<Object>>>& GetObjects() const { return m_objects; }
 
   private:
     std::string m_sceneName;
     REF<ECS::ECS> m_ECS;
     REF<StaticOrthographicCamera> m_mainCamera;
-    std::vector<REF<Object>> m_objects;
+    REF<std::vector<REF<Object>>> m_objects;
 };
 }
