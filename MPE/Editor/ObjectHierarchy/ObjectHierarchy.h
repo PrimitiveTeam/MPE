@@ -29,7 +29,6 @@ class MPE_API ObjectHierarchy
     void UpdateHierarchyList();
 
   private:
-  private:
     std::vector<REF<Object>>& m_objects;
     std::string m_objectList;
 };
