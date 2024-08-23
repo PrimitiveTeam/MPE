@@ -94,6 +94,9 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Scene/Scene.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Scene/SceneManager.cpp"
 
+    # /Editor/ObjectHierarchy
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ObjectHierarchy/ObjectHierarchy.cpp"
+
     # /Sound
     "${PROJECT_SOURCE_DIR}/MPE/Sound/OpenALContext.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Sound/SoundPlayer.cpp"
@@ -227,6 +230,9 @@ file(
     # /Editor/Scene
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Scene/Scene.h"
     "${PROJECT_SOURCE_DIR}/MPE/Editor/Scene/SceneManager.h"
+
+    # /Editor/ObjectHierarchy
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/ObjectHierarchy/ObjectHierarchy.h"
 
     # /Sound
     "${PROJECT_SOURCE_DIR}/MPE/Sound/OpenALContext.h"

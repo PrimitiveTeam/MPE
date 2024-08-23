@@ -14,4 +14,6 @@
 // SCENES
 #include "MPE/Editor/Scene/Scene.h"
 #include "MPE/Editor/Scene/SceneManager.h"
+// OBJECT HIERARCHY
+#include "MPE/Editor/ObjectHierarchy/ObjectHierarchy.h"
 // ----- EDITOR -----
