@@ -16,11 +16,17 @@ namespace MPE
 class MPE_API Cube : public Object
 {
   public:
+    Cube(ECS::ECS& ecs);
     Cube(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale);
 
+  private:
+    virtual void Init() override;
+
+  public:
     virtual void OnUpdate(Time deltaTime) override;
     virtual void OnRender(OrthographicCamera& camera) override;
     virtual void OnImGuiRender() override;
+    virtual void OnEvent(Event& event) override;
 
     ECS::TransformComponent& GetTransform() { return *m_transform; }
 
@@ -28,10 +34,6 @@ class MPE_API Cube : public Object
     void SetColor(const glm::vec4& color);
 
   private:
-    void UpdateTransform();
-
-  private:
-    ECS::TagComponent* m_tag;
     ECS::TransformComponent* m_transform;
 
     glm::vec4 m_color;

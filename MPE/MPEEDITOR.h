@@ -9,5 +9,9 @@
 // PROMPTS
 #include "MPE/Editor/Prompts/SimpleDialog.h"
 // OBJECTS
+#include "MPE/Editor/Objects/Base/Object.h"
 #include "MPE/Editor/Objects/Cube.h"
+// SCENES
+#include "MPE/Editor/Scene/Scene.h"
+#include "MPE/Editor/Scene/SceneManager.h"
 // ----- EDITOR -----
