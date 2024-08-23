@@ -9,9 +9,10 @@ cpm.sh
 [Aa]rtifacts
 # ------------------------------------------------------------------------------
 # VENDOR / DEPENDENCIES
-# WIN32
+# UNIVERSAL
 [Vv]endor/[Uu][Nn][Ii][Vv][Ee][Rr][Ss][Aa][Ll]/[Ii][Mm][Gg][Uu][Ii]
 [Vv]endor/[Uu][Nn][Ii][Vv][Ee][Rr][Ss][Aa][Ll]/[Ss][Tt][Bb]
+[Vv]endor/[Uu][Nn][Ii][Vv][Ee][Rr][Ss][Aa][Ll]/[Ee][Nn][Tt][Tt]
 # WIN32
 [Vv]endor/[Ww][Ii][Nn]32/[Gg][Ll][Aa][Dd]
 [Vv]endor/[Ww][Ii][Nn]32/[Ii][Mm][Gg][Uu][Ii]

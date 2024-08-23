@@ -35,6 +35,15 @@ else
     git clone https://github.com/nothings/stb.git
 fi
 
+# entt
+# If entt already exists, cancel next step
+if [ -d "entt" ]; then
+    echo "entt already exists. Skipping..."
+else
+    echo "Cloning entt..."
+    git clone https://github.com/skypjack/entt.git
+fi
+
 cd ../OSX
 
 # renderdoc

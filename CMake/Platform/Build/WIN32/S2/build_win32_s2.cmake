@@ -13,6 +13,7 @@ target_link_libraries(
   PUBLIC freetype
   # PUBLIC freetype-gl
   PUBLIC OpenAL::OpenAL
+  PUBLIC EnTT::EnTT
 
   # CURRENTLY NOT IN USE: imguizmo::imguizmo yaml-cpp
 )

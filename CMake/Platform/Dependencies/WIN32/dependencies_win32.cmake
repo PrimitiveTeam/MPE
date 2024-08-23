@@ -147,6 +147,9 @@ if(${VCPKG_CUSTOM_PATHS})
     # SETTING OPENAL
     set(OpenAL_DIR "${VCPKG_ROOT_PATH}\\installed\\x64-windows\\share\\openal-soft")
 
+    # SETTING ENTT
+    set(entt_DIR ${UNIVERSAL_VENDOR_DIR}/entt)
+    add_subdirectory(${entt_DIR})
 
     if(${VERBOSE})
         message("

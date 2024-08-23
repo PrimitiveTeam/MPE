@@ -55,6 +55,10 @@ target_include_directories(Stb INTERFACE
     "${Stb_DIR}"
 )
 
+# ENTT
+set(entt_DIR ${UNIVERSAL_VENDOR_DIR}/entt)
+add_subdirectory(${entt_DIR})
+
 if(${VERBOSE})
     message(STATUS "glad_DIR: ${glad_DIR}")
     message(STATUS "imgui_DIR: ${imgui_DIR}")
@@ -86,6 +90,7 @@ if(MPE_ANGLE)
         )
     else()
         set(ANGLE_DLLS
+
             # ${angle_Lib}/libGLESv2.so
             # ${angle_Lib}/libEGL.so
 
