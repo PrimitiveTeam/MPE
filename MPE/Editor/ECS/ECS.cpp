@@ -20,16 +20,11 @@ void ECS::DestroyEntity(Entity entity)
 void ECS::RunSystems(float deltaTime)
 {
     MPE_PROFILE_FUNCTION();
-    // MPE_INFO("Running systems...");
 
     for (auto& system : m_systems)
     {
         system(m_registry, deltaTime);
     }
-    // for (auto& registeredSystem : m_systems)
-    // {
-    // registeredSystem.func(registeredSystem.systemInstance, m_registry, deltaTime);
-    // }
 }
 }
 }

@@ -38,8 +38,7 @@ OpenGLSettings::OpenGLSettings()
 std::string OpenGLSettings::GetGraphicalContextPropsAsString()
 {
     std::string OpenGLInfo = "OpenGL Info:\n";
-    OpenGLInfo +=
-        "\tVersion: " + std::to_string(m_graphicalContextProps->majorVersion) + "." + std::to_string(m_graphicalContextProps->minorVersion) + "\n";
+    OpenGLInfo += "\tVersion: " + std::to_string(m_graphicalContextProps->majorVersion) + "." + std::to_string(m_graphicalContextProps->minorVersion) + "\n";
     OpenGLInfo += "\tVendor: " + m_graphicalContextProps->vendor + "\n";
     OpenGLInfo += "\tRenderer: " + m_graphicalContextProps->renderer + "\n";
     OpenGLInfo += "\tHardcode shader type limit: " + std::to_string(m_graphicalContextProps->shaderTypeAmount);

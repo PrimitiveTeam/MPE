@@ -18,9 +18,9 @@ class SimpleAudioTest : public MPE::Layer
 
     virtual void OnImGuiRender() override;
 
-    virtual void OnEvent(MPE::Event &event) override;
+    virtual void OnEvent(MPE::Event& event) override;
 
-    bool OnKeyPressedEvent(MPE::KeyPressedEvent &event);
+    bool OnKeyPressedEvent(MPE::KeyPressedEvent& event);
 
   private:
     MPE::SCOPE<std::string> m_LayerName;

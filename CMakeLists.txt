@@ -314,6 +314,9 @@ endif()
 # ADD SOURCE FILES MPE LIBRARY .CPP FILES
 include("${PROJECT_SOURCE_DIR}/CMake/Source/source.cmake")
 
+# ADD MPE EDITOR SOURCE FILES
+include("${PROJECT_SOURCE_DIR}/CMake/Source/editor_source.cmake")
+
 # ADD PLATFORM BASED MPE SOURCE FILES
 include("${PROJECT_SOURCE_DIR}/CMake/Platform/Source/source_platform.cmake")
 

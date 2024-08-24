@@ -1,6 +1,6 @@
 // Apple does not want us to use older OpenGL functions, so we need to silence the deprecation warnings.
 #ifdef MPE_PLATFORM_OSX
-#define GL_SILENCE_DEPRECATION
+#    define GL_SILENCE_DEPRECATION
 #endif
 
 #include "OpenGLESContext.h"

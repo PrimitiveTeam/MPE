@@ -24,10 +24,10 @@ class MPE_API LinuxWindow : public Window
 
     void OnUpdate() override;
 
-    virtual inline int GetWidth() const override { return data.m_width; }
-    virtual inline int GetHeight() const override { return data.m_height; }
-    virtual inline int GetWindowPositionX() const override { return data.m_windowPositionX; }
-    virtual inline int GetWindowPositionY() const override { return data.m_windowPositionY; }
+    virtual inline int GetWidth() const override { return m_data.width; }
+    virtual inline int GetHeight() const override { return m_data.height; }
+    virtual inline int GetWindowPositionX() const override { return m_data.windowPositionX; }
+    virtual inline int GetWindowPositionY() const override { return m_data.windowPositionY; }
 
     virtual inline void SetEventCallback(const EventCallbackFn &callback) override { m_data.eventCallback = callback; }
 

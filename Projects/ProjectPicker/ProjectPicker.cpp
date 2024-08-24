@@ -35,6 +35,8 @@
 #include "Tests/CubeAbstractionTest.h"
 #include "Tests/MultiCubeTest.h"
 #include "Tests/SceneTest.h"
+#include "Tests/ObjectHierarchyTest.h"
+#include "Tests/PropertyViewerTest.h"
 
 class ProjectPickerGuiLayer : public MPE::Layer
 {
@@ -211,6 +213,20 @@ class ProjectPickerGuiLayer : public MPE::Layer
                 MPE::App::GetApp().PushLayer(m_LayerRefs[17]);
             }
 
+            if (ImGui::Button("Open Object Hierarchy Test"))
+            {
+                m_Layers[18] = true;
+                m_LayerRefs[18] = MPE::NEWREF<ObjectHierarchyTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[18]);
+            }
+
+            if (ImGui::Button("Open Property Viewer Test"))
+            {
+                m_Layers[19] = true;
+                m_LayerRefs[19] = MPE::NEWREF<PropertyViewerTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[19]);
+            }
+
             // if (ImGui::Button("Open General Layer"))
             // {
             //     m_Layers[1] = true;
@@ -243,7 +259,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
     }
 
   private:
-    static const size_t MAX_LAYERS = 18;
+    static const size_t MAX_LAYERS = 20;
     std::array<bool, MAX_LAYERS> m_Layers = {false};
     MPE::REF<MPE::Layer> m_LayerRefs[MAX_LAYERS];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();
