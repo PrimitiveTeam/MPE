@@ -16,4 +16,6 @@
 #include "MPE/Editor/Scene/SceneManager.h"
 // OBJECT HIERARCHY
 #include "MPE/Editor/ObjectHierarchy/ObjectHierarchy.h"
+// PROPERTY VIEWER
+#include "MPE/Editor/PropertyViewer/PropertyViewer.h"
 // ----- EDITOR -----

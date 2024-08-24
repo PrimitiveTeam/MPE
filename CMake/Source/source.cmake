@@ -97,6 +97,12 @@ file(
     # /Editor/ObjectHierarchy
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ObjectHierarchy/ObjectHierarchy.cpp"
 
+    # /Editor/PropertyViewer
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/HierarchyProperties.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/TagProperties.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/TransformProperties.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/PropertyViewer.cpp"
+
     # /Sound
     "${PROJECT_SOURCE_DIR}/MPE/Sound/OpenALContext.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Sound/SoundPlayer.cpp"
@@ -233,6 +239,13 @@ file(
 
     # /Editor/ObjectHierarchy
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ObjectHierarchy/ObjectHierarchy.h"
+
+    # /Editor/PropertyViewer
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/TransformProperties.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/TagProperties.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/HierarchyProperties.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/Properties.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/PropertyViewer.h"
 
     # /Sound
     "${PROJECT_SOURCE_DIR}/MPE/Sound/OpenALContext.h"
