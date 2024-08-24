@@ -1,6 +1,6 @@
 // Apple does not want us to use older OpenGL functions, so we need to silence the deprecation warnings.
 #ifdef MPE_PLATFORM_OSX
-#define GL_SILENCE_DEPRECATION
+#    define GL_SILENCE_DEPRECATION
 #endif
 
 #include "OpenGLESSettings.h"
@@ -49,8 +49,7 @@ OpenGLESSettings::OpenGLESSettings()
 std::string OpenGLESSettings::GetGraphicalContextPropsAsString()
 {
     std::string OpenGLESInfo = "OpenGLES Info:\n";
-    OpenGLESInfo +=
-        "\tVersion: " + std::to_string(m_graphicalContextProps->majorVersion) + "." + std::to_string(m_graphicalContextProps->minorVersion) + "\n";
+    OpenGLESInfo += "\tVersion: " + std::to_string(m_graphicalContextProps->majorVersion) + "." + std::to_string(m_graphicalContextProps->minorVersion) + "\n";
     OpenGLESInfo += "\tVendor: " + m_graphicalContextProps->vendor + "\n";
     OpenGLESInfo += "\tRenderer: " + m_graphicalContextProps->renderer + "\n";
     OpenGLESInfo += "\tHardcode shader type limit: " + std::to_string(m_graphicalContextProps->shaderTypeAmount);

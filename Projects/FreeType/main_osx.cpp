@@ -93,17 +93,7 @@ int main(int argc, char* argv[])
 
         glCheckError();
 
-        glTexImage2D(
-            GL_TEXTURE_2D,
-            0,
-            GL_R8,
-            face->glyph->bitmap.width,
-            face->glyph->bitmap.rows,
-            0,
-            GL_RED,
-            GL_UNSIGNED_BYTE,
-            face->glyph->bitmap.buffer
-        );
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_R8, face->glyph->bitmap.width, face->glyph->bitmap.rows, 0, GL_RED, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
 
         glCheckError();
 
@@ -126,7 +116,7 @@ int main(int argc, char* argv[])
     FT_Done_FreeType(ft);
 
     glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
-    
+
     glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
     GLuint vao;
@@ -142,13 +132,12 @@ int main(int argc, char* argv[])
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
 
     // Set vertex attributes pointers
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 4, (GLvoid*)0);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 4, (GLvoid*) 0);
     glEnableVertexAttribArray(0);
 
     // Unbind the VAO and VBO to avoid accidental modifications
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-
 
     // glUniform1i(textSamplerLoc, 0);
 
@@ -207,11 +196,11 @@ GLuint CompileShaders(bool vs_b, bool tcs_b, bool tes_b, bool gs_b, bool fs_b)
         long vs_file_len;
         char* vertex_shader;
 
-        #ifdef MPE_PLATFORM_WINDOWS
+#ifdef MPE_PLATFORM_WINDOWS
         vs_file = fopen("Data//Shaders//vs.glsl", "rb");
-        #elif MPE_PLATFORM_OSX
+#elif MPE_PLATFORM_OSX
         vs_file = fopen("Data//Shaders//3.2//vs.glsl", "rb");
-        #endif
+#endif
 
         fseek(vs_file, 0, SEEK_END);
         vs_file_len = ftell(vs_file);
@@ -375,11 +364,11 @@ GLuint CompileShaders(bool vs_b, bool tcs_b, bool tes_b, bool gs_b, bool fs_b)
         long fs_file_len;
         char* fragment_shader;
 
-        #ifdef MPE_PLATFORM_WINDOWS
+#ifdef MPE_PLATFORM_WINDOWS
         fs_file = fopen("Data//Shaders//fs.glsl", "rb");
-        #elif MPE_PLATFORM_OSX
+#elif MPE_PLATFORM_OSX
         fs_file = fopen("Data//Shaders//3.2//fs.glsl", "rb");
-        #endif
+#endif
 
         fseek(fs_file, 0, SEEK_END);
         fs_file_len = ftell(fs_file);

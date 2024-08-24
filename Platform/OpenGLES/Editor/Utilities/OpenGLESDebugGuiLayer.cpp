@@ -117,7 +117,7 @@ void OpenGLESDebugGuiLayer::GraphicsSettings()
 
 void OpenGLESDebugGuiLayer::DisplayRefs()
 {
-    ImGui::Text("Total References: %u", (unsigned int)MPE::ReferenceTracker::getInstance().GetTotalReferences());
+    ImGui::Text("Total References: %u", (unsigned int) MPE::ReferenceTracker::getInstance().GetTotalReferences());
 
     if (ImGui::BeginListBox("References"))
     {

@@ -4,9 +4,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #ifdef MPE_OPENGL
-#include "MPE/MPEGFX_OPEN_GL.h"
+#    include "MPE/MPEGFX_OPEN_GL.h"
 #elif MPE_OPENGLES
-#include "MPE/MPEGFX_OPEN_GL_ES.h"
+#    include "MPE/MPEGFX_OPEN_GL_ES.h"
 #endif
 
 ColorAnimationTriangleTest::ColorAnimationTriangleTest()

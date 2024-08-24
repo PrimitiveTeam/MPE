@@ -50,15 +50,15 @@ void OpenGLVertexBuffer::Unbind() const
 
 void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
 {
-    // TODO: Add a way to check if already bound
-    // glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
-    // glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
-    #ifdef MPE_PLATFORM_OSX
+// TODO: Add a way to check if already bound
+// glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
+// glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+#ifdef MPE_PLATFORM_OSX
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
     glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
-    #else
+#else
     glNamedBufferSubData(m_vertexBufferId, 0, size, data);
-    #endif
+#endif
 
     glCheckError();
 }
