@@ -23,8 +23,8 @@ class MPE_API macOSWindow : public Window
 
     void OnUpdate() override;
 
-    virtual inline int GetWidth() const override { return data.m_width; }
-    virtual inline int GetHeight() const override { return data.m_height; }
+    virtual inline int GetWidth() const override { return m_data.width; }
+    virtual inline int GetHeight() const override { return m_data.height; }
     virtual inline int GetWindowPositionX() const override { return m_data.windowPositionX; }
     virtual inline int GetWindowPositionY() const override { return m_data.windowPositionY; }
 
@@ -74,7 +74,7 @@ class MPE_API macOSWindow : public Window
         int prevWidth, prevHeight;
         int prevWindowPositionX, prevWindowPositionY;
 
-        EventCallbackFn m_eventCallback;
+        EventCallbackFn eventCallback;
     };
 
     WindowData m_data;
