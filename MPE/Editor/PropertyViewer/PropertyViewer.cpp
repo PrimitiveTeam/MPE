@@ -3,9 +3,9 @@
 #include "MPE/Editor/ECS/ECS.h"
 #include "MPE/Log/GlobalLog.h"
 // Properties
-#include "MPE/Editor/PropertyViewer/ComponentProperties/HierarchyProperties.h"
-#include "MPE/Editor/PropertyViewer/ComponentProperties/TagProperties.h"
-#include "MPE/Editor/PropertyViewer/ComponentProperties/TransformProperties.h"
+#include "MPE/Editor/PropertyViewer/ComponentProperties/HierarchyPropertiesEditor.h"
+#include "MPE/Editor/PropertyViewer/ComponentProperties/TagPropertiesEditor.h"
+#include "MPE/Editor/PropertyViewer/ComponentProperties/TransformPropertiesEditor.h"
 
 #include <imgui.h>
 
@@ -23,19 +23,14 @@ void PropertyViewer::OnImGuiRender()
     }
 
     ImGui::Begin("Properties");
-    if ((m_propertyFlags & Properties::Tag) != Properties::None)
+    for (const auto& editor : m_editors)
     {
-        TagProperties::DrawTagProperties(*m_ECS, m_entity);
-        ImGui::Separator();
-    }
-    if ((m_propertyFlags & Properties::Hierarchy) != Properties::None)
-    {
-        HierarchyProperties::DrawHierarchyProperties(*m_ECS, m_entity);
-        ImGui::Separator();
-    }
-    if ((m_propertyFlags & Properties::Transform) != Properties::None)
-    {
-        TransformProperties::DrawTransformProperties(*m_ECS, m_entity);
+        editor->Draw();
+        if (editor->IsModified())
+        {
+            editor->ApplyChanges();
+            m_entityModified = true;
+        }
         ImGui::Separator();
     }
     ImGui::End();
@@ -55,6 +50,30 @@ void PropertyViewer::UnsetEntity()
 
 void PropertyViewer::CheckEntity()
 {
+    m_propertyFlags = Properties::None;
+    m_editors.clear();
+
+    if (m_entity == entt::null)
+    {
+        return;
+    }
+
+    // Add flags based on what components the entity has and add corresponding editors
+    if (m_ECS->HasComponent<ECS::HierarchyComponent>(m_entity))
+    {
+        m_propertyFlags |= Properties::Hierarchy;
+        m_editors.push_back(NEWREF<HierarchyPropertiesEditor>(*m_ECS, m_entity));
+    }
+    if (m_ECS->HasComponent<ECS::TagComponent>(m_entity))
+    {
+        m_propertyFlags |= Properties::Tag;
+        m_editors.push_back(NEWREF<TagPropertiesEditor>(*m_ECS, m_entity));
+    }
+    if (m_ECS->HasComponent<ECS::TransformComponent>(m_entity))
+    {
+        m_propertyFlags |= Properties::Transform;
+        m_editors.push_back(NEWREF<TransformPropertiesEditor>(*m_ECS, m_entity));
+    }
     if (m_entity == entt::null)
     {
         m_propertyFlags = Properties::None;
@@ -62,9 +81,20 @@ void PropertyViewer::CheckEntity()
     }
 
     // Add flags based on what components the entity has
-    m_ECS->HasComponent<ECS::HierarchyComponent>(m_entity) ? m_propertyFlags |= Properties::Hierarchy : m_propertyFlags &= ~Properties::Hierarchy;
-    m_ECS->HasComponent<ECS::TagComponent>(m_entity) ? m_propertyFlags |= Properties::Tag : m_propertyFlags &= ~Properties::Tag;
-    m_ECS->HasComponent<ECS::TransformComponent>(m_entity) ? m_propertyFlags |= Properties::Transform : m_propertyFlags &= ~Properties::Transform;
+    // m_ECS->HasComponent<ECS::HierarchyComponent>(m_entity) ? m_propertyFlags |= Properties::Hierarchy : m_propertyFlags &= ~Properties::Hierarchy;
+    // m_ECS->HasComponent<ECS::TagComponent>(m_entity) ? m_propertyFlags |= Properties::Tag : m_propertyFlags &= ~Properties::Tag;
+    // m_ECS->HasComponent<ECS::TransformComponent>(m_entity) ? m_propertyFlags |= Properties::Transform : m_propertyFlags &= ~Properties::Transform;
+}
+
+const bool PropertyViewer::EntityModified()
+{
+    if (m_entityModified)
+    {
+        m_entityModified = false;
+        return true;
+    }
+
+    return false;
 }
 
 }

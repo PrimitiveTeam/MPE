@@ -8,9 +8,12 @@
 #include "MPE/Editor/Objects/Base/Object.h"
 
 #include <functional>
+#include <unordered_map>
 
 namespace MPE
 {
+class PropertyViewer;
+
 class MPE_API ObjectHierarchy
 {
   public:
@@ -24,12 +27,14 @@ class MPE_API ObjectHierarchy
     void OnEvent(Event& event);
 
   public:
-    const std::string& GetObjectList() const { return m_objectList; }
+    const std::unordered_map<ECS::Entity, std::string>& GetObjectList() const { return m_objectList; }
+    ECS::Entity GetSelectedEntity() const { return m_selectedEntity; }
 
     void UpdateHierarchyList();
 
   private:
     std::vector<REF<Object>>& m_objects;
-    std::string m_objectList;
+    std::unordered_map<ECS::Entity, std::string> m_objectList;
+    ECS::Entity m_selectedEntity = entt::null;
 };
 }

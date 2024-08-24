@@ -98,9 +98,9 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ObjectHierarchy/ObjectHierarchy.cpp"
 
     # /Editor/PropertyViewer
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/HierarchyProperties.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/TagProperties.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/TransformProperties.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/HierarchyPropertiesEditor.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/TagPropertiesEditor.cpp"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/TransformPropertiesEditor.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/PropertyViewer.cpp"
 
     # /Sound
@@ -241,9 +241,10 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Editor/ObjectHierarchy/ObjectHierarchy.h"
 
     # /Editor/PropertyViewer
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/TransformProperties.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/TagProperties.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/HierarchyProperties.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/IComponentPropertyEditor.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/TransformPropertiesEditor.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/TagPropertiesEditor.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/ComponentProperties/HierarchyPropertiesEditor.h"
     "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/Properties.h"
     "${PROJECT_SOURCE_DIR}/MPE/Editor/PropertyViewer/PropertyViewer.h"
 

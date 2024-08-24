@@ -26,7 +26,6 @@ class PropertyViewerTest : public MPE::Layer
   private:
     void AddObject();
     void RemoveObject();
-    void VoidViewProperties();
 
   private:
     MPE::SCOPE<std::string> m_layerName;

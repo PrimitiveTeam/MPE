@@ -7,6 +7,7 @@
 #include "MPE/Events/Event.h"
 #include "MPE/Editor/Objects/Base/Object.h"
 #include "MPE/Editor/PropertyViewer/Properties.h"
+#include "MPE/Editor/PropertyViewer/ComponentProperties/IComponentPropertyEditor.h"
 
 #include <functional>
 
@@ -27,6 +28,9 @@ class MPE_API PropertyViewer
     void SetEntity(ECS::Entity entity);
     void UnsetEntity();
 
+  public:
+    const bool EntityModified();
+
   private:
     void CheckEntity();
 
@@ -34,5 +38,7 @@ class MPE_API PropertyViewer
     ECS::ECS* m_ECS;
     ECS::Entity m_entity;
     Properties m_propertyFlags;
+    std::vector<REF<IComponentPropertyEditor>> m_editors;
+    bool m_entityModified = false;
 };
 }

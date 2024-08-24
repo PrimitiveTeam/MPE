@@ -35,16 +35,23 @@ void PropertyViewerTest::OnImGuiRender()
 {
     m_sceneManager->OnImGuiRender();
 
-    if (m_viewingProperties)
+    ImGui::Begin("Object Hierarchy Manipulation");
+
+    if (m_objectHierarchy->GetSelectedEntity() != entt::null)
     {
-        m_propertyViewer->OnImGuiRender();
+        ImGui::Text("Selected Entity: %d", m_objectHierarchy->GetSelectedEntity());
+        m_propertyViewer->SetEntity(m_objectHierarchy->GetSelectedEntity());
+    }
+    else
+    {
+        m_propertyViewer->UnsetEntity();
     }
 
-    ImGui::Begin("Object Hierarchy");
+    m_propertyViewer->OnImGuiRender();
 
-    if (ImGui::Button("Toggle Properties (Works when at least one object is present)"))
+    if (m_propertyViewer->EntityModified())
     {
-        VoidViewProperties();
+        m_objectHierarchy->UpdateHierarchyList();
     }
 
     if (ImGui::Button("Add Object"))
@@ -59,9 +66,7 @@ void PropertyViewerTest::OnImGuiRender()
         RemoveObject();
     }
 
-    ImGui::Text("Object Hierarchy");
-    ImGui::Text("Object List:");
-    ImGui::Text("%s", m_objectHierarchy->GetObjectList().c_str());
+    m_objectHierarchy->OnImGuiRender();
 
     ImGui::End();
 }
@@ -96,26 +101,4 @@ void PropertyViewerTest::RemoveObject()
 
     objects->pop_back();
     m_objectHierarchy->UpdateHierarchyList();
-}
-
-void PropertyViewerTest::VoidViewProperties()
-{
-    if (m_scene->GetObjects()->empty())
-    {
-        m_propertyViewer->UnsetEntity();
-        m_viewingProperties = false;
-    }
-
-    auto objectId = m_scene->GetObjects()->back()->GetEntity();
-
-    if (m_viewingProperties)
-    {
-        m_viewingProperties = false;
-        m_propertyViewer->UnsetEntity();
-    }
-    else
-    {
-        m_viewingProperties = true;
-        m_propertyViewer->SetEntity(objectId);
-    }
 }

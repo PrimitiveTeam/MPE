@@ -3,8 +3,10 @@
 #include "MPE/Editor/ECS/ECS.h"
 // #include "MPE/Editor/Scene/Scene.h"
 #include "MPE/Log/GlobalLog.h"
+#include "MPE/Editor/PropertyViewer/PropertyViewer.h"
 
 #include <fmt/format.h>
+#include <imgui.h>
 
 namespace MPE
 {
@@ -17,7 +19,18 @@ void ObjectHierarchy::OnUpdate(Time deltaTime) {}
 
 void ObjectHierarchy::OnRender(OrthographicCamera& camera) {}
 
-void ObjectHierarchy::OnImGuiRender() {}
+void ObjectHierarchy::OnImGuiRender()
+{
+    for (const auto& [entity, name] : m_objectList)
+    {
+        std::string entityLabel = fmt::format("Entity {}: {}", entity, name);
+
+        if (ImGui::Selectable(entityLabel.c_str()))
+        {
+            m_selectedEntity = entity;
+        }
+    }
+}
 
 void ObjectHierarchy::OnEvent(Event& event)
 {
@@ -28,13 +41,9 @@ void ObjectHierarchy::UpdateHierarchyList()
 {
     m_objectList.clear();
 
-    uint32_t count = 0;
-
     for (auto& object : m_objects)
     {
-        // m_objectList += count object->GetTag().name "\n";
-        m_objectList += fmt::format("({}) {} (ID: {})\n", count, object->GetTag().name, object->GetEntity());
-        count++;
+        m_objectList[object->GetEntity()] = object->GetTag().name;
     }
 }
 

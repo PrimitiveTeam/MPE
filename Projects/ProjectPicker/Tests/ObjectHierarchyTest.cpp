@@ -48,9 +48,11 @@ void ObjectHierarchyTest::OnImGuiRender()
         RemoveObject();
     }
 
-    ImGui::Text("Object Hierarchy");
-    ImGui::Text("Object List:");
-    ImGui::Text("%s", m_objectHierarchy->GetObjectList().c_str());
+    // ImGui::Text("Object Hierarchy");
+    // ImGui::Text("Object List:");
+    // ImGui::Text("%s", m_objectHierarchy->GetObjectList().c_str());
+
+    m_objectHierarchy->OnImGuiRender();
 
     ImGui::End();
 }
