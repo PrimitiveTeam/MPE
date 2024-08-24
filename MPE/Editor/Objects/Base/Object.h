@@ -30,6 +30,7 @@ class MPE_API Object
     virtual void OnEvent(Event& event) = 0;
 
     ECS::Entity GetEntity() const { return m_entity; }
+    ECS::HierarchyComponent& GetHierarchy() const { return *m_hierarchy; }
     ECS::TagComponent& GetTag() const { return *m_tag; }
 
   protected:
