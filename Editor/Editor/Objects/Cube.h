@@ -9,16 +9,6 @@
 #include "Editor/Editor/Objects/Base/Object.h"
 #include "Editor/Editor/ECS/Components/Core/TransformComponent.h"
 
-// #define GLM_ENABLE_EXPERIMENTAL
-// #ifdef MPE_OPENGLES
-// #    define GLM_FORCE_CTOR_INIT
-// #    define GLM_FORCE_PURE
-// #endif
-// #include <glm/glm.hpp>
-// #include <glm/gtc/matrix_transform.hpp>
-// #include <glm/gtc/type_ptr.hpp>
-// #include <glm/gtx/quaternion.hpp>
-// #include <glm/gtx/string_cast.hpp>
 #include "MPE/Vendor/GLM/GLM.h"
 
 

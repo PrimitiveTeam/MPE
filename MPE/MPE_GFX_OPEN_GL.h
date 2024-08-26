@@ -1,10 +1,5 @@
 #pragma once
 
-// This will be used to include all core headers for specific platforms.
-
-// Need this for euler/quaternion conversions
-// #define GLM_ENABLE_EXPERIMENTAL
-
 // ----- OPEN GL -----
 #include "Platform/OpenGL/OpenGLContext.h"
 #include "Platform/OpenGL/OpenGLRendererAPI.h"

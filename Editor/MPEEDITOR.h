@@ -1,8 +1,5 @@
 #pragma once
 
-// Need this for euler/quaternion conversions
-// #define GLM_ENABLE_EXPERIMENTAL
-
 // ----- EDITOR -----
 // GRID
 #include "Editor/Editor/Grid/Grid.h"

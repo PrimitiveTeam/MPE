@@ -1,4 +1,3 @@
-// #define GLM_ENABLE_EXPERIMENTAL
 #include "TransformPropertiesEditor.h"
 #include "Editor/Editor/ECS/Utility/RotationUtilities.h"
 

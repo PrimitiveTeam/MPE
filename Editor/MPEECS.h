@@ -1,8 +1,5 @@
 #pragma once
 
-// Need this for euler/quaternion conversions
-// #define GLM_ENABLE_EXPERIMENTAL
-
 // ----- ECS -----
 // Base
 #include "Editor/Editor/ECS/ECS.h"
