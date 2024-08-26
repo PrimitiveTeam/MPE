@@ -1,0 +1,20 @@
+# ADD GRAPHICS APIS FIRST
+if(MPE_OPENGL)
+    include("${PROJECT_SOURCE_DIR}/CMake/Platform/Source/MPE/OpenGL/source_opengl.cmake")
+endif(MPE_OPENGL)
+
+if(MPE_OPENGLES)
+    include("${PROJECT_SOURCE_DIR}/CMake/Platform/Source/MPE/OpenGLES/source_opengles.cmake")
+endif(MPE_OPENGLES)
+
+if(COMPILATION_PLATFORM STREQUAL "WIN32")
+    include("${PROJECT_SOURCE_DIR}/CMake/Platform/Source/MPE/WIN32/source_win32.cmake")
+elseif(COMPILATION_PLATFORM STREQUAL "UNIX")
+    include("${PROJECT_SOURCE_DIR}/CMake/Platform/Source/MPE/UNIX/source_unix.cmake")
+elseif(COMPILATION_PLATFORM STREQUAL "OSX")
+    include("${PROJECT_SOURCE_DIR}/CMake/Platform/Source/MPE/OSX/source_osx.cmake")
+elseif(COMPILATION_PLATFORM STREQUAL "RPI4")
+    include("${PROJECT_SOURCE_DIR}/CMake/Platform/Source/MPE/RPI4/source_rpi4.cmake")
+else()
+    message(FATAL_ERROR "${COMPILATION_PLATFORM} NOT SUPPORTED.")
+endif()

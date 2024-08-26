@@ -95,13 +95,6 @@
 #include "MPE/Renderer/Cameras/StaticOrthographicCamera.h"
 // ----- CAMERAS -----
 
-// ----- EDITOR -----
-// GRID
-#include "MPE/Editor/Grid/Grid.h"
-// PROMPTS
-#include "MPE/Editor/Prompts/SimpleDialog.h"
-// ----- EDITOR -----
-
 // ----- SOUND -----
 #include "MPE/Sound/OpenALContext.h"
 #include "MPE/Sound/SoundPlayer.h"

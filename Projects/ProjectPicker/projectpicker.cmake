@@ -3,8 +3,13 @@ add_executable(ProjectPicker "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Proje
 
 target_link_libraries(ProjectPicker PRIVATE
   MPE
+  MPE_EDITOR
 )
-target_include_directories(ProjectPicker PRIVATE ${MPE_PUBLIC_INCLUDES})
+target_include_directories(
+  ProjectPicker
+  PRIVATE ${MPE_PUBLIC_INCLUDES}
+  PRIVATE ${MPE_EDITOR_PUBLIC_INCLUDES}
+)
 
 # COMPILER DEFINITIONS FOR ProjectPicker
 target_compile_definitions(ProjectPicker PUBLIC ${MPE_PUBLIC_DEFINITIONS})
@@ -33,6 +38,7 @@ add_library(TEST_LAYERS STATIC ${TEST_LAYERS_CPP})
 target_include_directories(TEST_LAYERS PUBLIC
   ${TEST_LAYERS_H}
   ${MPE_PUBLIC_INCLUDES}
+  ${MPE_EDITOR_PUBLIC_INCLUDES}
 )
 
 target_link_libraries(TEST_LAYERS PUBLIC MPE)
