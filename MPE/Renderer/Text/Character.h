@@ -2,7 +2,7 @@
 
 #include "MPE/Renderer/Textures/TextTexture.h"
 
-#include <glm/glm.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 namespace MPE
 {

@@ -10,7 +10,7 @@
  */
 
 // Need this for euler/quaternion conversions
-#define GLM_ENABLE_EXPERIMENTAL
+// #define GLM_ENABLE_EXPERIMENTAL
 
 // ----- CORE INTERNAL -----
 // #include "MPE/Core/App.h"

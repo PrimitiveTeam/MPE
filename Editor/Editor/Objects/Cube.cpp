@@ -1,4 +1,3 @@
-#define GLM_ENABLE_EXPERIMENTAL
 #include "Cube.h"
 
 #include "MPE/Log/GlobalLog.h"
@@ -6,15 +5,13 @@
 #include "Editor/Editor/ECS/Utility/RotationUtilities.h"
 
 #ifdef MPE_OPENGL
-#    include "MPE/MPEGFX_OPEN_GL.h"
+#    include "MPE/MPE_GFX_OPEN_GL.h"
 #elif MPE_OPENGLES
-#    include "MPE/MPEGFX_OPEN_GL_ES.h"
+#    include "MPE/MPE_GFX_OPEN_GLES.h"
 #endif
 
 #include <imgui.h>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/quaternion.hpp>
-#include <glm/gtx/string_cast.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 namespace MPE
 {

@@ -1,7 +1,7 @@
 #include "SimplePerspectiveCameraTest.h"
 #include "MPE/MPEPCH.h"
 
-#include <glm/gtc/matrix_transform.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 SimplePerspectiveCameraTest::SimplePerspectiveCameraTest()
     : Layer("Test"),

@@ -3,7 +3,7 @@
 #include "MPE/Core/_PTRS.h"
 #include "MPE/Core/_CORE.h"
 
-#include <glm/glm.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 #include <string>
 #include <map>

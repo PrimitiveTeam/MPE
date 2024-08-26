@@ -1,7 +1,7 @@
 #include "ClearColorTest.h"
 #include "MPE/MPEPCH.h"
 
-#include <glm/gtc/matrix_transform.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 ClearColorTest::ClearColorTest() : Layer("ClearColorTest"), CLEAR_COLOR{0.5f, 0.25f, 0.5f} {}
 

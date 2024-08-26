@@ -3,8 +3,7 @@
 #include "MPE/Core/_CORE.h"
 #include "Editor/Editor/ECS/ECS.h"
 
-#include <glm/glm.hpp>
-#include <glm/gtc/quaternion.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 namespace MPE
 {

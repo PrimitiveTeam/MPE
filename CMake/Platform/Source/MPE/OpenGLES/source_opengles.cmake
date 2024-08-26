@@ -26,7 +26,7 @@ file(
     GLOB_RECURSE
     MPE_OPENGLES_H
 
-    "${PROJECT_SOURCE_DIR}/MPE/MPEGFX_OPEN_GL_ES.h"
+    "${PROJECT_SOURCE_DIR}/MPE/MPE_GFX_OPEN_GLES.h"
 
     # /Platform/OpenGLES
     "${PROJECT_SOURCE_DIR}/Platform/OpenGLES/OpenGLESContext.h"

@@ -11,6 +11,7 @@ target_link_libraries(
   PUBLIC glm::glm
   PUBLIC Stb
   PUBLIC freetype
+
   # PUBLIC freetype-gl
   PUBLIC OpenAL::OpenAL
   PUBLIC EnTT::EnTT
@@ -50,7 +51,10 @@ target_include_directories(MPE
 
 # ADD MPEPCH.H AS A PRECOMPILED HEADER FILE
 target_precompile_headers(MPE PUBLIC
-  "${PROJECT_SOURCE_DIR}/MPE/MPEPCH.h")
+  "${PROJECT_SOURCE_DIR}/MPE/MPEPCH.h"
+  "${PROJECT_SOURCE_DIR}/MPE/MPEPLAT.h"
+  "${PROJECT_SOURCE_DIR}/MPE/Vendor/GLM/GLM.h"
+)
 
 # ADD INCLUDE DIRECTORIES TO MAKE INCLUDES EASY TO MANAGE
 target_include_directories(MPE

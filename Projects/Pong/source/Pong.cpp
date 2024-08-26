@@ -1,8 +1,7 @@
 #include "Pong.h"
 
 #include <imgui.h>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 namespace PONG
 {

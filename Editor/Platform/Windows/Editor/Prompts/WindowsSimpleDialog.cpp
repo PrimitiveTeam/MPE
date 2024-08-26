@@ -1,4 +1,4 @@
-#include "MPE/Editor/Prompts/SimpleDialog.h"
+#include "Editor/Editor/Prompts/SimpleDialog.h"
 #include "MPE/MPEPCH.h"
 #include "MPE/MPEPLAT.h"
 
@@ -8,7 +8,7 @@ MPE::SimpleDialog::DialogResponse MPE::SimpleDialog::Show()
 {
     // Implement platform-specific dialog creation and showing logic for Windows
     UINT type;
-    switch (m_Type)
+    switch (m_type)
     {
         case DialogType::OK:
             type = MB_OK;
@@ -26,7 +26,7 @@ MPE::SimpleDialog::DialogResponse MPE::SimpleDialog::Show()
             type = MB_OK;
     }
 
-    int response = MessageBox(NULL, m_Message.c_str(), m_Title.c_str(), type);
+    int response = MessageBox(NULL, m_message.c_str(), m_title.c_str(), type);
 
     switch (response)
     {

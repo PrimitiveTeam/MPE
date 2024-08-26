@@ -3,7 +3,7 @@
 #include "MPE/Renderer/Text/TextRenderer.h"
 #include "MPE/Events/EventApp.h"
 
-#include <glm/glm.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 typedef unsigned int GLuint;
 

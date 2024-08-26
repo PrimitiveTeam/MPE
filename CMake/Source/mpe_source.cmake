@@ -182,6 +182,7 @@ file(
     # /Vendor
     "${PROJECT_SOURCE_DIR}/MPE/Vendor/ImGui/ImGuiLayer.h"
     "${PROJECT_SOURCE_DIR}/MPE/Vendor/STB/stb_image.h"
+    "${PROJECT_SOURCE_DIR}/MPE/Vendor/GLM/GLM.h"
 )
 
 # PRINT MPE SOURCE FILES

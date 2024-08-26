@@ -5,7 +5,7 @@
 #include "Editor/Editor/ECS/Components/Core/TransformComponent.h"
 #include "Editor/Editor/ECS/ECS.h"
 
-#include <glm/glm.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 namespace MPE
 {

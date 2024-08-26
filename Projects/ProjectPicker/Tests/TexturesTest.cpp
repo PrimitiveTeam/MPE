@@ -3,8 +3,7 @@
 #include "MPE/App/Window.h"
 
 #include <imgui.h>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 TexturesTest::TexturesTest() : Layer("TexturesTest"), SYS_CAMERA_CONTROLLER(1280.0f / 720.0f, true) {}
 

@@ -1,7 +1,7 @@
 #pragma once
 
 // Need this for euler/quaternion conversions
-#define GLM_ENABLE_EXPERIMENTAL
+// #define GLM_ENABLE_EXPERIMENTAL
 
 // ----- ECS -----
 // Base

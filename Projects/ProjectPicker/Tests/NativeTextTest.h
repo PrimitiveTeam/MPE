@@ -3,9 +3,9 @@
 #include "MPE.h"
 
 #ifdef MPE_OPENGL
-#    include "MPE/MPEGFX_OPEN_GL.h"
+#    include "MPE/MPE_GFX_OPEN_GL.h"
 #elif MPE_OPENGLES
-#    include "MPE/MPEGFX_OPEN_GL_ES.h"
+#    include "MPE/MPE_GFX_OPEN_GLES.h"
 #endif
 
 #include <string>

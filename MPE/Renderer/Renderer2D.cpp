@@ -5,8 +5,7 @@
 #include "MPE/Renderer/Pipeline/VertexArray.h"
 #include "MPE/Renderer/Shaders/Shader.h"
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 // TODO: have a matrix class that has methods to translate, rotate, scale, shear and then you pass the matrix to the draw call.
 

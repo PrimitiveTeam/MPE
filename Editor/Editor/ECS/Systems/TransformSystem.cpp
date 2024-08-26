@@ -1,17 +1,9 @@
-// #if !defined(MPE_PLATFORM_OSX)
-// #    define GLM_ENABLE_EXPERIMENTAL
-// #endif
-
-// #include <glm/ext.hpp>
-#define GLM_ENABLE_EXPERIMENTAL
 #include "TransformSystem.h"
 
 #include "MPE/Log/GlobalLog.h"
 #include "Editor/Editor/ECS/Utility/RotationUtilities.h"
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/euler_angles.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 namespace MPE
 {

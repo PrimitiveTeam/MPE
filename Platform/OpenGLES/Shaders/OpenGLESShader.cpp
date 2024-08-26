@@ -9,7 +9,7 @@
 #if MPE_PLATFORM_LINUX
 #    include <GLES3/gl31.h>
 #endif
-#include <glm/gtc/type_ptr.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 #include <GLFW/glfw3.h>
 

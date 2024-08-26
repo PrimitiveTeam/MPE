@@ -1,9 +1,7 @@
 #include "Game.h"
 #include <random>
 #include <limits>
-#include <glm/glm.hpp>
-#include <glm/gtc/constants.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 #include "MPE/MPE.h"
 
 namespace PONG

@@ -3,7 +3,7 @@
 // This will be used to include all core headers for specific platforms.
 
 // Need this for euler/quaternion conversions
-#define GLM_ENABLE_EXPERIMENTAL
+// #define GLM_ENABLE_EXPERIMENTAL
 
 // ----- OPEN GLES -----
 #include "Platform/OpenGLES/OpenGLESContext.h"
