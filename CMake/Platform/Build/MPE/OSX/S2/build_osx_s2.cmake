@@ -52,7 +52,6 @@ target_include_directories(
 # ADD MPEPCH.H AS A PRECOMPILED HEADER FILE
 target_precompile_headers(MPE PUBLIC
   "${PROJECT_SOURCE_DIR}/MPE/MPEPCH.h"
-  "${PROJECT_SOURCE_DIR}/MPE/MPEPLAT.h"
   "${PROJECT_SOURCE_DIR}/MPE/Vendor/GLM/GLM.h"
 )
 
