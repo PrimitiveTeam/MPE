@@ -3,7 +3,7 @@ file(
   MPE_EDITOR_WIN32_CPP
 
   # /Platform/Windows/Editor/Prompts
-  "${PROJECT_SOURCE_DIR}/Editor/Platform/Windows/Editor/Prompts/WindowSimpleDialog.cpp"
+  "${PROJECT_SOURCE_DIR}/Editor/Platform/Windows/Editor/Prompts/WindowsSimpleDialog.cpp"
 )
 
 file(
