@@ -6,13 +6,13 @@
 
 namespace MPE
 {
-REF<spdlog::logger> GlobalLog::m_coreLogger;
+REF<spdlog::logger> GlobalLog::m_coreLogger = nullptr;
 
 #ifdef MPE_ENABLE_DEBUG_LOG
-REF<spdlog::logger> GlobalLog::m_debugLogger;
+REF<spdlog::logger> GlobalLog::m_debugLogger = nullptr;
 #endif
 
-REF<spdlog::logger> GlobalLog::m_clientLogger;
+REF<spdlog::logger> GlobalLog::m_clientLogger = nullptr;
 
 void GlobalLog::Init()
 {
