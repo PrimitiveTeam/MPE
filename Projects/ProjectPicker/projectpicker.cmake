@@ -91,6 +91,12 @@ install(
 
 install(FILES $<TARGET_RUNTIME_DLLS:ProjectPicker> DESTINATION bin)
 
+if (COMPILATION_PLATFORM STREQUAL "OSX")
+  if (MPE_ANGLE)
+    modify_dylib_paths(ProjectPicker)
+  endif()
+endif()
+
 if(${VERBOSE})
   message(STATUS "MPE-ProjectPicker ADDED.")
 endif()
