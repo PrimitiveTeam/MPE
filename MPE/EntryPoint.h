@@ -42,14 +42,11 @@ int main(int argc, char **argv)
     }
 
     // MPE_PROFILE_START("STARTUP", "MPE-PROFILE-STARTUP.json");
-    auto app = MPE::CreateApp();
+    std::unique_ptr<MPE::App> app(MPE::CreateApp());
     // MPE_PROFILE_END();
     // MPE_PROFILE_START("RUNTIME", "MPE-PROFILE-RUNTIME.json");
     app->Run();
     // MPE_PROFILE_END();
-
-    // Explicitly call the App destructor
-    app->~App();
 
     return 0;
 }
@@ -85,14 +82,11 @@ int main(int argc, char **argv)
     }
 
     // MPE_PROFILE_START("STARTUP", "MPE-PROFILE-STARTUP.json");
-    auto app = MPE::CreateApp();
+    std::unique_ptr<MPE::App> app(MPE::CreateApp());
     // MPE_PROFILE_END();
     // MPE_PROFILE_START("RUNTIME", "MPE-PROFILE-RUNTIME.json");
     app->Run();
     // MPE_PROFILE_END();
-
-    // Explicitly call the App destructor
-    app->~App();
 
     return 0;
 }
@@ -128,14 +122,11 @@ int main(int argc, char **argv)
     }
 
     // MPE_PROFILE_START("STARTUP", "MPE-PROFILE-STARTUP.json");
-    auto app = MPE::CreateApp();
+    std::unique_ptr<MPE::App> app(MPE::CreateApp());
     // MPE_PROFILE_END();
     // MPE_PROFILE_START("RUNTIME", "MPE-PROFILE-RUNTIME.json");
     app->Run();
     // MPE_PROFILE_END();
-
-    // Explicitly call the App destructor
-    app->~App();
 
     return 0;
 }
