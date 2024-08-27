@@ -3,7 +3,6 @@ file(
   MPE_macOS_CPP
 
   # /Platform/macOS/App
-  # "${PROJECT_SOURCE_DIR}/Platform/macOS/App/macOSContext.mm"
   "${PROJECT_SOURCE_DIR}/Platform/macOS/App/macOSWindow.cpp"
   "${PROJECT_SOURCE_DIR}/Platform/macOS/App/WindowMonitors.cpp"
 
@@ -22,7 +21,6 @@ file(
   MPE_macOS_H
 
   # /Platform/macOS/App
-  # "${PROJECT_SOURCE_DIR}/Platform/macOS/App/macOSContext.h"
   "${PROJECT_SOURCE_DIR}/Platform/macOS/App/macOSWindow.h"
   "${PROJECT_SOURCE_DIR}/Platform/macOS/App/WindowMonitors.h"
 
