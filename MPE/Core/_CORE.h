@@ -180,9 +180,8 @@
 #    ifdef MPE_EDITOR_STATIC_LIBRARY
 // define as nothing
 #        define MPE_EDITOR_API
-#    endif
 
-#    ifdef MPE_EDITOR_DYNAMIC_LIBRARY
+#    elif MPE_EDITOR_DYNAMIC_LIBRARY
 
 #        ifdef MPE_EDITOR_BUILD_DLL
 // #            warning "Building DLL is not supported on OSX"
@@ -191,6 +190,9 @@
 #            define MPE_EDITOR_API
 // #            warning "Using Dynamic Libraries is not supported on OSX"
 #        endif
+
+# else
+#        define MPE_EDITOR_API
 
 #    endif
 
