@@ -10,6 +10,7 @@ namespace MPE
 class MPE_EDITOR_API Grid
 {
   public:
+    Grid();
     virtual ~Grid() = default;
 
     virtual void Init(float gridSize, float gridSpacing, MPE::OrthographicCamera& camera) = 0;

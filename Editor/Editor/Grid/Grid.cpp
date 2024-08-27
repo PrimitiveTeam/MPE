@@ -3,4 +3,5 @@
 
 namespace MPE
 {
+Grid::Grid() {}
 }
