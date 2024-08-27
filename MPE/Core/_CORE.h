@@ -93,9 +93,8 @@
 #    ifdef MPE_STATIC_LIBRARY
 // define as nothing
 #        define MPE_API
-#    endif
 
-#    ifdef MPE_DYNAMIC_LIBRARY
+#    elif MPE_DYNAMIC_LIBRARY
 
 #        ifdef MPE_BUILD_DLL
 // #            warning "Building DLL is not supported on Linux"
@@ -104,6 +103,9 @@
 #            define MPE_API
 // #            warning "Using Dynamic Libraries is not supported on Linux"
 #        endif
+
+# else
+#        define MPE_API
 
 #    endif
 
@@ -161,9 +163,8 @@
 #    ifdef MPE_EDITOR_STATIC_LIBRARY
 // define as nothing
 #        define MPE_EDITOR_API
-#    endif
 
-#    ifdef MPE_EDITOR_DYNAMIC_LIBRARY
+#    elif MPE_EDITOR_DYNAMIC_LIBRARY
 
 #        ifdef MPE_EDITOR_BUILD_DLL
 // #            warning "Building DLL is not supported on Linux"
@@ -172,6 +173,9 @@
 #            define MPE_EDITOR_API
 // #            warning "Using Dynamic Libraries is not supported on Linux"
 #        endif
+
+# else
+#        define MPE_EDITOR_API
 
 #    endif
 

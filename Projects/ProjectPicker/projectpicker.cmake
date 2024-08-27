@@ -41,7 +41,10 @@ target_include_directories(TEST_LAYERS PUBLIC
   ${MPE_EDITOR_PUBLIC_INCLUDES}
 )
 
-target_link_libraries(TEST_LAYERS PUBLIC MPE)
+target_link_libraries(TEST_LAYERS PUBLIC
+  MPE
+  MPE_EDITOR
+)
 
 # COMPILER DEFINITIONS FOR TEST_LAYERS
 target_compile_definitions(TEST_LAYERS PUBLIC ${MPE_PUBLIC_DEFINITIONS})
@@ -91,8 +94,8 @@ install(
 
 install(FILES $<TARGET_RUNTIME_DLLS:ProjectPicker> DESTINATION bin)
 
-if (COMPILATION_PLATFORM STREQUAL "OSX")
-  if (MPE_ANGLE)
+if(COMPILATION_PLATFORM STREQUAL "OSX")
+  if(MPE_ANGLE)
     modify_dylib_paths(ProjectPicker)
   endif()
 endif()
