@@ -3,7 +3,7 @@ file(
   MPE_macOS_CPP
 
   # /Platform/macOS/App
-  "${PROJECT_SOURCE_DIR}/Platform/macOS/App/macOSContext.mm"
+  # "${PROJECT_SOURCE_DIR}/Platform/macOS/App/macOSContext.mm"
   "${PROJECT_SOURCE_DIR}/Platform/macOS/App/macOSWindow.cpp"
   "${PROJECT_SOURCE_DIR}/Platform/macOS/App/WindowMonitors.cpp"
 
@@ -22,7 +22,7 @@ file(
   MPE_macOS_H
 
   # /Platform/macOS/App
-  "${PROJECT_SOURCE_DIR}/Platform/macOS/App/macOSContext.h"
+  # "${PROJECT_SOURCE_DIR}/Platform/macOS/App/macOSContext.h"
   "${PROJECT_SOURCE_DIR}/Platform/macOS/App/macOSWindow.h"
   "${PROJECT_SOURCE_DIR}/Platform/macOS/App/WindowMonitors.h"
 
@@ -34,6 +34,12 @@ file(
 list(APPEND MPE_CPP ${MPE_macOS_CPP})
 
 list(APPEND MPE_H ${MPE_macOS_H})
+
+# WHEN ANGLE DEPENDENCIES ARE ENABLED WE NEED TO PROVIDE macOSContext sources
+if (MPE_ANGLE)
+list(APPEND MPE_CPP "${PROJECT_SOURCE_DIR}/Platform/macOS/App/macOSContext.mm")
+list(APPEND MPE_H "${PROJECT_SOURCE_DIR}/Platform/macOS/App/macOSContext.h")
+endif()
 
 # set_source_files_properties(${MPE_OSX_CPP} PROPERTIES COMPILE_FLAGS "-include MPE/MPEPCH.h")
 
