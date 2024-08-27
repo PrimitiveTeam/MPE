@@ -1,7 +1,7 @@
 #pragma once
 
-#include "MPE/Core/_PTRS.h"
 #include "MPE/Core/_CORE.h"
+#include "MPE/Core/_PTRS.h"
 
 #include "Editor/Editor/Grid/Grid.h"
 
@@ -11,7 +11,7 @@
 
 namespace MPE
 {
-class MPE_EDITOR_API OpenGLGrid : Grid
+class MPE_EDITOR_API OpenGLGrid : public Grid
 {
   public:
     OpenGLGrid();

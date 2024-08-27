@@ -11,7 +11,7 @@
 
 namespace MPE
 {
-class MPE_EDITOR_API OpenGLESGrid : Grid
+class MPE_EDITOR_API OpenGLESGrid : public Grid
 {
   public:
     OpenGLESGrid();
