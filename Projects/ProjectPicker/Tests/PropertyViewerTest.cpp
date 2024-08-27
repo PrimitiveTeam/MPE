@@ -38,7 +38,7 @@ void PropertyViewerTest::OnImGuiRender()
 
     if (m_objectHierarchy->GetSelectedEntity() != entt::null)
     {
-        ImGui::Text("Selected Entity: %d", m_objectHierarchy->GetSelectedEntity());
+        ImGui::Text("Selected Entity: %u", (uint32_t) m_objectHierarchy->GetSelectedEntity());
         m_propertyViewer->SetEntity(m_objectHierarchy->GetSelectedEntity());
     }
     else
