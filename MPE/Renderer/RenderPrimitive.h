@@ -22,6 +22,12 @@ class MPE_API RenderPrimitive
 
         m_rendererApi->Init();
     }
+    inline static void Shutdown()
+    {
+        if (!m_isApiSelected) throw std::runtime_error("Graphics API not selected.");
+
+        m_rendererApi->Shutdown();
+    }
 
     inline static void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height) { m_rendererApi->SetViewport(x, y, width, height); }
 
