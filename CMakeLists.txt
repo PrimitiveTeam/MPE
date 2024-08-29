@@ -35,7 +35,7 @@ set(MPE_OPENGL ON)
 set(MPE_OPENGLES OFF)
 
 # ANGLE
-if (MPE_OPENGLES)
+if(MPE_OPENGLES)
   set(MPE_ANGLE ON)
 else()
   set(MPE_ANGLE OFF)
@@ -272,6 +272,9 @@ if(COMPILATION_PLATFORM STREQUAL "RPI4")
   # -----------------------------------------------------------\n")
 
   # set(CMAKE_PREFIX_PATH "/usr/local")
+  if(MPE_OPENGL)
+    message(FATAL_ERROR "OPENGL NOT SUPPORTED ON RPI4.")
+  endif()
 endif(COMPILATION_PLATFORM STREQUAL "RPI4")
 
 # ADDING DEPENDENCIES
