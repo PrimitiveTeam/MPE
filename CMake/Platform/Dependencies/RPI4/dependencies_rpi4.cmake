@@ -104,22 +104,43 @@ else()
     message(FATAL_ERROR "gtk3 library not found")
 endif()
 
+# set(fmt_DIR ${VENDOR_DIR}/fmt)
+
+# file(GLOB_RECURSE FMT_S
+# "${fmt_DIR}/src/fmt.cc"
+# "${fmt_DIR}/src/format.cc"
+# "${fmt_DIR}/src/os.cc"
+# )
+
+# # add_definitions(-DFMT_COMPILED_LIB)
+
+# add_library(fmt STATIC
+# ${FMT_S}
+# )
+# target_include_directories(fmt
+# PUBLIC "${fmt_DIR}/include"
+# )
+
+# message(STATUS "fmt_DIR: ${fmt_DIR}")
+# message(STATUS "FMT_S: ${FMT_S}")
+# message(STATUS "fmt include directories: ${fmt_DIR}/include")
+
 # fmt
-# pkg_check_modules(FMT REQUIRED fmt)
+pkg_check_modules(FMT REQUIRED fmt)
 
-# if(FMT_FOUND)
-# set(FMT_LIBRARY_DIRS "/opt/rpi-sysroot/usr/lib/aarch64-linux-gnu")
+if(FMT_FOUND)
+    set(FMT_LIBRARY_DIRS "/opt/rpi-sysroot/usr/lib/aarch64-linux-gnu")
 
-# # set(GLFW3_LIBRARIES "/usr/lib/x86_64-linux-gnu/libglfw.so")
-# include_directories(${FMT_INCLUDE_DIRS})
-# link_directories(${FMT_LIBRARY_DIRS})
-# add_definitions(${FMT_CFLAGS_OTHER})
-# message(STATUS "Found fmt: ${FMT_LIBRARIES}")
-# message(STATUS "fmt include directories: ${FMT_INCLUDE_DIRS}")
-# message(STATUS "fmt library directories: ${FMT_LIBRARY_DIRS}")
-# else()
-# message(FATAL_ERROR "fmt library not found")
-# endif()
+    # set(GLFW3_LIBRARIES "/usr/lib/x86_64-linux-gnu/libglfw.so")
+    include_directories(${FMT_INCLUDE_DIRS})
+    link_directories(${FMT_LIBRARY_DIRS})
+    add_definitions(${FMT_CFLAGS_OTHER})
+    message(STATUS "Found fmt: ${FMT_LIBRARIES}")
+    message(STATUS "fmt include directories: ${FMT_INCLUDE_DIRS}")
+    message(STATUS "fmt library directories: ${FMT_LIBRARY_DIRS}")
+else()
+    message(FATAL_ERROR "fmt library not found")
+endif()
 
 # spdlog
 # pkg_check_modules(SPDLOG REQUIRED spdlog)
@@ -157,10 +178,6 @@ add_library(spdlog STATIC
 target_include_directories(spdlog
     PUBLIC "${spdlog_DIR}/include"
 )
-
-# ENTT
-set(entt_DIR ${UNIVERSAL_VENDOR_DIR}/entt)
-add_subdirectory(${entt_DIR})
 
 message(STATUS "spdlog_DIR: ${spdlog_DIR}")
 message(STATUS "SPDLOG_S: ${SPDLOG_S}")
@@ -220,3 +237,35 @@ if(MPE_ANGLE)
         )
     endif(MPE_ANDROID_BUILD)
 endif(MPE_ANGLE)
+
+pkg_check_modules(Freetype REQUIRED freetype2)
+
+if(Freetype_FOUND)
+    include_directories(${Freetype_INCLUDE_DIRS})
+    link_directories(${Freetype_LIBRARY_DIRS})
+    add_definitions(${Freetype_CFLAGS_OTHER})
+    message(STATUS "Found freetype: ${Freetype_LIBRARIES}")
+    message(STATUS "freetype include directories: ${Freetype_INCLUDE_DIRS}")
+    message(STATUS "freetype library directories: ${Freetype_LIBRARY_DIRS}")
+else()
+    message(FATAL_ERROR "freetype library not found")
+endif()
+
+pkg_check_modules(OpenAL REQUIRED openal)
+
+if(OpenAL_FOUND)
+    include_directories(${OpenAL_INCLUDE_DIRS})
+    link_directories(${OpenAL_LIBRARY_DIRS})
+    add_definitions(${OpenAL_CFLAGS_OTHER})
+    message(STATUS "Found OpenAL: ${OpenAL_LIBRARIES}")
+    message(STATUS "OpenAL include directories: ${OpenAL_INCLUDE_DIRS}")
+    message(STATUS "OpenAL library directories: ${OpenAL_LIBRARY_DIRS}")
+else()
+    message(FATAL_ERROR "OpenAL library not found")
+endif()
+# set(openal_DIR ${VENDOR_DIR}/openal-soft)
+# add_subdirectory(${openal_DIR})
+
+# ENTT
+set(entt_DIR ${UNIVERSAL_VENDOR_DIR}/entt)
+add_subdirectory(${entt_DIR})
