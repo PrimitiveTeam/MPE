@@ -135,9 +135,8 @@ Component& ECS::AddComponentToEntity(Entity entity, Args&&... args)
 }
 }
 
-#include <fmt/core.h>
-#include <fmt/format.h>
-// Create an fmt formatter for MPE::ECS::Entity
+#include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
 template <>
 struct fmt::formatter<MPE::ECS::Entity> : fmt::formatter<std::string>
 {
