@@ -30,15 +30,59 @@ ProjectPicker COMPILE DEFINITIONS:\n")
 endif()
 
 # ADDING TEST LAYERS
-file(GLOB_RECURSE TEST_LAYERS_CPP
-  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/*.cpp")
-file(GLOB_RECURSE TEST_LAYERS_H
-  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/*.h")
+set(TEST_LAYERS_CPP
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/ClearColorTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/ColorAnimationTriangleTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/ColorTriangleTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/CubeAbstractionTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/GeneralTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/GridTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/MultiCubeTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/NativeTextTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/ObjectHierarchyTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/PropertyViewerTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/RectangleTransformationTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SceneTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SimpleAudioTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SimpleCubeTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SimpleEcsTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SimpleLightingTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SimplePerspectiveCameraTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SimpleRectangleTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SimpleTriangleTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/TextureRectangleTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/TexturesTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/TriangleTransformationTest.cpp"
+)
+set(TEST_LAYERS_H
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/ClearColorTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/ColorAnimationTriangleTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/ColorTriangleTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/CubeAbstractionTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/GeneralTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/GridTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/MultiCubeTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/NativeTextTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/ObjectHierarchyTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/PropertyViewerTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/RectangleTransformationTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SceneTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SimpleAudioTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SimpleCubeTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SimpleEcsTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SimpleLightingTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SimplePerspectiveCameraTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SimpleRectangleTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SimpleTriangleTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/TextureRectangleTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/TexturesTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/TriangleTransformationTest.h"
+)
 add_library(TEST_LAYERS STATIC ${TEST_LAYERS_CPP})
 target_include_directories(TEST_LAYERS PUBLIC
-  ${TEST_LAYERS_H}
   ${MPE_PUBLIC_INCLUDES}
   ${MPE_EDITOR_PUBLIC_INCLUDES}
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests"
 )
 
 target_link_libraries(TEST_LAYERS PUBLIC
