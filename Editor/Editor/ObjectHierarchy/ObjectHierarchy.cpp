@@ -5,7 +5,8 @@
 #include "MPE/Log/GlobalLog.h"
 #include "Editor/Editor/PropertyViewer/PropertyViewer.h"
 
-#include <fmt/format.h>
+#include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
 #include <imgui.h>
 
 namespace MPE
