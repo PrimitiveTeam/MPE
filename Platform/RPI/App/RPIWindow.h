@@ -24,12 +24,12 @@ class MPE_API RPIWindow : public Window
 
     void OnUpdate() override;
 
-    virtual inline int GetWidth() const override { return m_data.m_width; }
-    virtual inline int GetHeight() const override { return m_data.m_height; }
-    virtual inline int GetWindowPositionX() const override { return m_data.m_windowPositionX; }
-    virtual inline int GetWindowPositionY() const override { return m_data.m_windowPositionY; }
+    virtual inline int GetWidth() const override { return m_data.width; }
+    virtual inline int GetHeight() const override { return m_data.height; }
+    virtual inline int GetWindowPositionX() const override { return m_data.windowPositionX; }
+    virtual inline int GetWindowPositionY() const override { return m_data.windowPositionY; }
 
-    virtual inline void SetEventCallback(const EventCallbackFn &callback) override { m_data.m_eventCallback = callback; }
+    virtual inline void SetEventCallback(const EventCallbackFn &callback) override { m_data.eventCallback = callback; }
 
     virtual void ToggleFullScreen() override;
     virtual void GoFullScreen() override;

@@ -1,5 +1,7 @@
 #include "RPIInput.h"
+#include "MPE/MPEPCH.h"
 
+#include "MPE/Core/_PTRS.h"
 #include "MPE/MPEPCH.h"
 #include "MPE/App/App.h"
 
@@ -7,7 +9,7 @@
 
 namespace MPE
 {
-REF<Input> Input::SYS_Input_Instance = NEWREF<RPIInput>();
+REF<Input> Input::m_inputInstance = NEWREF<RPIInput>();
 
 bool RPIInput::IsKeyPressedImpl(int keycode)
 {
