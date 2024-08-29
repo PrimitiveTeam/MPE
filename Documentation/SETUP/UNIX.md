@@ -64,7 +64,8 @@ The following dependencies need to be downloaded and setup:
 1. imgui
 2. stb
 3. renderdoc
-4. [TODO]opencv
+4. opencv
+5. entt
 
 glad is also a requirement but I have included it directly in the repository as the configuration can be finicky.
 

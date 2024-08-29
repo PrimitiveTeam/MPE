@@ -211,7 +211,7 @@ These steps are intended for the RPI - emulated or hardware.
 TODO: Investigate the package section as it looks like the RPI system might not actually need any packages and we instead we can provide local source and the compiler should build it for our target.
 
 1. Start RPI environment (./start_headless)
-2. Get packages: `$ sudo apt-get install -y git cmake pkg-config libfmt9 libspdlog1.10 libglfw3 xorg-dev libglm-dev libgtest-dev libgtk-3-dev`
+2. Get packages: `$ sudo apt-get install -y git cmake pkg-config libfmt9 libspdlog1.10 libglfw3 xorg-dev libglm-dev libgtest-dev libgtk-3-dev libopenal1 libopenal-dev libfreetype-dev libfreetype6 libfreetype6-dev`
 3. Manually download and build GLFW:
     * `$ cd $home`
     * `$ git clone https://github.com/glfw/glfw`
@@ -252,7 +252,7 @@ We need to make sure that our source is setup. Please follow the [Working with s
 4. `$ ./CPM/cpm/target/release/cpm init -f`
 5. `$ ./cpm.sh setup -a`
 6. `$ ./cpm.sh cross-build -c -dg "rpi4/umake" --processor "aarch64" --sysroot "/opt/rpi-sysroot" -b`
-7. Using SCP copy the contents of /build into the RPI machine
+7. Using SCP copy the contents of /build into the RPI machine like `$scp -P 2222 -r ./build pi@localhost:~/` to recursively copy the build folder
 8. Run executable
 
 If you are emulating RPI and need to display graphics or a window follow the [QEMU Display](#qemu-display) section.

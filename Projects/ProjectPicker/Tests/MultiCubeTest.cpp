@@ -1,13 +1,12 @@
 #include "MultiCubeTest.h"
 #include "MPE/MPEPCH.h"
 
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/string_cast.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 #ifdef MPE_OPENGL
-#    include "MPE/MPEGFX_OPEN_GL.h"
+#    include "MPE/MPE_GFX_OPEN_GL.h"
 #elif MPE_OPENGLES
-#    include "MPE/MPEGFX_OPEN_GL_ES.h"
+#    include "MPE/MPE_GFX_OPEN_GLES.h"
 #endif
 
 // void TransformSystemUpdate(MPE::ECS::TransformSystem &system, MPE::ECS::EntityRegistry &registry, float deltaTime)

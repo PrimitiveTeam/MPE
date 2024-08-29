@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glm/glm.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 #include "MPE/Time/Time.h"
 #include "MPE/Events/EventApp.h"
 #include "MPE/Events/EventMouse.h"

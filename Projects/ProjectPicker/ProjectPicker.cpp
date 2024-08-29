@@ -4,16 +4,16 @@
 
 // TEMP
 #ifdef MPE_OPENGL
-#    include "MPE/MPEGFX_OPEN_GL.h"
+#    include "MPE/MPE_GFX_OPEN_GL.h"
 #    include "Platform/OpenGL/Editor/Utilities/OpenGLDebugGuiLayer.h"
 #elif MPE_OPENGLES
-#    include "MPE/MPEGFX_OPEN_GL_ES.h"
+#    include "MPE/MPE_GFX_OPEN_GLES.h"
 #    include "Platform/OpenGLES/Editor/Utilities/OpenGLESDebugGuiLayer.h"
 #endif
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
 
 #include <imgui.h>
-#include <glm/gtc/matrix_transform.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 #include "Tests/ClearColorTest.h"
 #include "Tests/SimpleTriangleTest.h"

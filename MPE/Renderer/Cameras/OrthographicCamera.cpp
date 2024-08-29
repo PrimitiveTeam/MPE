@@ -3,7 +3,7 @@
 
 #include "MPE/Log/GlobalLog.h"
 
-#include <glm/gtc/matrix_transform.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 namespace MPE
 {

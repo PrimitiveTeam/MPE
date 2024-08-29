@@ -93,9 +93,8 @@
 #    ifdef MPE_STATIC_LIBRARY
 // define as nothing
 #        define MPE_API
-#    endif
 
-#    ifdef MPE_DYNAMIC_LIBRARY
+#    elif MPE_DYNAMIC_LIBRARY
 
 #        ifdef MPE_BUILD_DLL
 // #            warning "Building DLL is not supported on Linux"
@@ -104,6 +103,9 @@
 #            define MPE_API
 // #            warning "Using Dynamic Libraries is not supported on Linux"
 #        endif
+
+# else
+#        define MPE_API
 
 #    endif
 
@@ -123,6 +125,78 @@
 #            define MPE_API
 // #            warning "Using Dynamic Libraries is not supported on OSX"
 #        endif
+
+#    endif
+
+#else
+#    error "MPE only supports Windows, Linux and OSX."
+
+#endif
+
+// Editor
+
+#ifdef MPE_PLATFORM_WINDOWS
+// IF A STATIC LIBRARY IS USED THEN DEFINE MPE_EDITOR_API AS NOTHING
+#    ifdef MPE_EDITOR_STATIC_LIBRARY
+// #        pragma message("MPE_STATIC_LIBRARY - DEFINED")
+#        define MPE_EDITOR_API
+#    endif
+// IF A DYNAMIC LIBRARY IS USED THEN DEFINE MPE_EDITOR_API WITHIN MPE AS DLL EXPORT AND
+// MPE_EDITOR_API WITHIN SANDBOX AS DLL IMPORT
+#    ifdef MPE_EDITOR_DYNAMIC_LIBRARY
+#        ifdef MPE_EDITOR_BUILD_DLL
+// #pragma message("Building DLL")
+// #pragma warning(disable : 4005)
+#            define MPE_EDITOR_API __declspec(dllexport)
+#        else
+// #pragma message("Using Dynamic Lib")
+#            define MPE_EDITOR_API __declspec(dllimport)
+// #            pragma message("DYNAMIC LIBRARY IS NOT INTENDED TO BE USED WITH THIS PROJECT AT THE MOMENT.")
+#        endif
+#    else
+// DYNAMIC LIBRARY IS NOT SUPPORTED BY THIS PROJECT, BUT CAN STILL BE ENABLED
+#        define MPE_EDITOR_API
+#    endif
+
+#elif MPE_PLATFORM_LINUX
+
+#    ifdef MPE_EDITOR_STATIC_LIBRARY
+// define as nothing
+#        define MPE_EDITOR_API
+
+#    elif MPE_EDITOR_DYNAMIC_LIBRARY
+
+#        ifdef MPE_EDITOR_BUILD_DLL
+// #            warning "Building DLL is not supported on Linux"
+#            define MPE_EDITOR_API __attribute__((visibility("default")))
+#        else
+#            define MPE_EDITOR_API
+// #            warning "Using Dynamic Libraries is not supported on Linux"
+#        endif
+
+# else
+#        define MPE_EDITOR_API
+
+#    endif
+
+#elif MPE_PLATFORM_OSX
+
+#    ifdef MPE_EDITOR_STATIC_LIBRARY
+// define as nothing
+#        define MPE_EDITOR_API
+
+#    elif MPE_EDITOR_DYNAMIC_LIBRARY
+
+#        ifdef MPE_EDITOR_BUILD_DLL
+// #            warning "Building DLL is not supported on OSX"
+#            define MPE_EDITOR_API __attribute__((visibility("default")))
+#        else
+#            define MPE_EDITOR_API
+// #            warning "Using Dynamic Libraries is not supported on OSX"
+#        endif
+
+# else
+#        define MPE_EDITOR_API
 
 #    endif
 

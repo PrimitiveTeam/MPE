@@ -9,9 +9,6 @@
  * @date 2024-05-05
  */
 
-// Need this for euler/quaternion conversions
-#define GLM_ENABLE_EXPERIMENTAL
-
 // ----- CORE INTERNAL -----
 // #include "MPE/Core/App.h"
 // #include "MPE/Core/Layers/Layer.h"
@@ -94,13 +91,6 @@
 #include "MPE/Renderer/Cameras/OrthographicCameraController.h"
 #include "MPE/Renderer/Cameras/StaticOrthographicCamera.h"
 // ----- CAMERAS -----
-
-// ----- EDITOR -----
-// GRID
-#include "MPE/Editor/Grid/Grid.h"
-// PROMPTS
-#include "MPE/Editor/Prompts/SimpleDialog.h"
-// ----- EDITOR -----
 
 // ----- SOUND -----
 #include "MPE/Sound/OpenALContext.h"

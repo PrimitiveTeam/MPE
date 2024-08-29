@@ -4,7 +4,7 @@
 
 #include <string>
 
-#include <glm/glm.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 namespace PONG
 {

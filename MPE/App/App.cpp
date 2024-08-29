@@ -65,24 +65,28 @@ App::App() : m_openalContext(OpenALContext::GetInstance())
 
 App::~App()
 {
-    if (m_isGuiOn)
-    {
-        for (size_t i = 0; i < m_layerStack->size(); ++i)
-        {
-            REF<Layer> layer = m_layerStack->GetLayers()[i];
+    // for (size_t i = 0; i < m_layerStack->size(); ++i)
+    // {
+    //     REF<Layer> layer = m_layerStack->GetLayers()[i];
 
-            if (layer) layer->~Layer();
+    //     if (layer) layer->~Layer();
 
-            // Recalculate the index bounds in case the stack has been modified
-            if (i >= m_layerStack->GetLayers().size()) break;
-        }
-        m_imguiLayer->~ImGuiLayer();
-    }
+    //     // Recalculate the index bounds in case the stack has been modified
+    //     if (i >= m_layerStack->GetLayers().size()) break;
+    // }
+
+    // m_layerStack->~LayerStack();
+    // m_imguiLayer->~ImGuiLayer();
+    // m_log->~Log();
+
+    // m_appWindow->~Window();
 
     // Explicitly destroy the OpenAL context before the window
     m_openalContext.~OpenALContext();
+    Renderer::Shutdown();
 
-    m_appInstance = nullptr;
+    // Deleting manually causes segfault
+    // delete m_appInstance;
     MPE_CORE_INFO("App instance destroyed.");
 }
 

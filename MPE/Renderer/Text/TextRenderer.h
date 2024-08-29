@@ -10,7 +10,7 @@
 #include <string>
 #include <map>
 
-#include <glm/glm.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 #include <freetype/freetype.h>
 
 namespace MPE

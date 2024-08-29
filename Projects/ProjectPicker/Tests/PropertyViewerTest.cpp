@@ -1,13 +1,12 @@
 #include "PropertyViewerTest.h"
 #include "MPE/MPEPCH.h"
 
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/string_cast.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 #ifdef MPE_OPENGL
-#    include "MPE/MPEGFX_OPEN_GL.h"
+#    include "MPE/MPE_GFX_OPEN_GL.h"
 #elif MPE_OPENGLES
-#    include "MPE/MPEGFX_OPEN_GL_ES.h"
+#    include "MPE/MPE_GFX_OPEN_GLES.h"
 #endif
 
 PropertyViewerTest::PropertyViewerTest() : Layer("Editor")
@@ -39,7 +38,7 @@ void PropertyViewerTest::OnImGuiRender()
 
     if (m_objectHierarchy->GetSelectedEntity() != entt::null)
     {
-        ImGui::Text("Selected Entity: %d", m_objectHierarchy->GetSelectedEntity());
+        ImGui::Text("Selected Entity: %u", (uint32_t) m_objectHierarchy->GetSelectedEntity());
         m_propertyViewer->SetEntity(m_objectHierarchy->GetSelectedEntity());
     }
     else

@@ -8,7 +8,7 @@
 #include "MPE/Renderer/RendererUtilities.h"
 
 #include <imgui.h>
-#include <glm/gtc/matrix_transform.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 #include <opencv2/opencv.hpp>
 
 class OpenCVTestGuiLayer : public MPE::Layer

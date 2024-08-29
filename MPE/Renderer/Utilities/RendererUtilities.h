@@ -2,7 +2,7 @@
 
 #include "MPE/Core/_CORE.h"
 
-#include <glm/glm.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 namespace MPE
 {

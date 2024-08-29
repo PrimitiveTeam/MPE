@@ -3,53 +3,53 @@
 
 #include "MPE/Log/GlobalLog.h"
 
-#include <glm/gtc/matrix_transform.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 namespace MPE
 {
-PerspectiveCamera::PerspectiveCamera(float fov, float aspectRatio, float near, float far)
+PerspectiveCamera::PerspectiveCamera(float fov, float aspectRatio, float nearClip, float farClip)
     : m_fov(fov),
       m_aspectRatio(aspectRatio),
-      m_near(near),
-      m_far(far),
-      m_projectionMatrix(glm::perspective(glm::radians(fov), aspectRatio, near, far)),
+      m_near(nearClip),
+      m_far(farClip),
+      m_projectionMatrix(glm::perspective(glm::radians(fov), aspectRatio, nearClip, farClip)),
       m_viewMatrix(1.0f)
 {
-    MPE_INFO("Perspective Camera Projection set: FOV={0}, AspectRatio={1}, Near={2}, Far={3}", m_fov, m_aspectRatio, m_near, m_far);
+    MPE_INFO("Perspective Camera Projection set: FOV={0}, AspectRatio={1}, Near={2}, Far={3}", fov, aspectRatio, nearClip, farClip);
     m_projectionViewMatrix = m_projectionMatrix * m_viewMatrix;
 }
 
-PerspectiveCamera::PerspectiveCamera(float fov, float width, float height, float near, float far)
+PerspectiveCamera::PerspectiveCamera(float fov, float width, float height, float nearClip, float farClip)
     : m_fov(fov),
       m_aspectRatio(width / height),
-      m_near(near),
-      m_far(far),
-      m_projectionMatrix(glm::perspective(glm::radians(fov), m_aspectRatio, near, far)),
+      m_near(nearClip),
+      m_far(farClip),
+      m_projectionMatrix(glm::perspective(glm::radians(fov), m_aspectRatio, nearClip, farClip)),
       m_viewMatrix(1.0f)
 {
-    MPE_INFO("Perspective Camera Projection set: FOV={0}, AspectRatio={1}, Near={2}, Far={3}", m_fov, m_aspectRatio, m_near, m_far);
+    MPE_INFO("Perspective Camera Projection set: FOV={0}, AspectRatio={1}, Near={2}, Far={3}", fov, m_aspectRatio, nearClip, farClip);
     m_projectionViewMatrix = m_projectionMatrix * m_viewMatrix;
 }
 
-void PerspectiveCamera::SetProjection(float fov, float aspectRatio, float near, float far)
+void PerspectiveCamera::SetProjection(float fov, float aspectRatio, float nearClip, float farClip)
 {
     m_fov = fov;
     m_aspectRatio = aspectRatio;
-    m_near = near;
-    m_far = far;
-    MPE_INFO("Perspective Camera Projection set: FOV={0}, AspectRatio={1}, Near={2}, Far={3}", m_fov, m_aspectRatio, m_near, m_far);
-    m_projectionMatrix = glm::perspective(glm::radians(m_fov), m_aspectRatio, m_near, m_far);
+    m_near = nearClip;
+    m_far = farClip;
+    MPE_INFO("Perspective Camera Projection set: FOV={0}, AspectRatio={1}, Near={2}, Far={3}", fov, aspectRatio, nearClip, farClip);
+    m_projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, nearClip, farClip);
     m_projectionViewMatrix = m_projectionMatrix * m_viewMatrix;
 }
 
-void PerspectiveCamera::SetProjection(float fov, float width, float height, float near, float far)
+void PerspectiveCamera::SetProjection(float fov, float width, float height, float nearClip, float farClip)
 {
     m_fov = fov;
     m_aspectRatio = width / height;
-    m_near = near;
-    m_far = far;
-    MPE_INFO("Perspective Camera Projection set: FOV={0}, AspectRatio={1}, Near={2}, Far={3}", m_fov, m_aspectRatio, m_near, m_far);
-    m_projectionMatrix = glm::perspective(glm::radians(m_fov), m_aspectRatio, m_near, m_far);
+    m_near = nearClip;
+    m_far = farClip;
+    MPE_INFO("Perspective Camera Projection set: FOV={0}, AspectRatio={1}, Near={2}, Far={3}", fov, m_aspectRatio, nearClip, farClip);
+    m_projectionMatrix = glm::perspective(glm::radians(fov), m_aspectRatio, nearClip, farClip);
     m_projectionViewMatrix = m_projectionMatrix * m_viewMatrix;
 }
 
@@ -95,16 +95,16 @@ void PerspectiveCamera::SetAspectRatio(float width, float height)
     m_projectionViewMatrix = m_projectionMatrix * m_viewMatrix;
 }
 
-void PerspectiveCamera::SetNear(float near)
+void PerspectiveCamera::SetNear(float nearClip)
 {
-    m_near = near;
+    m_near = nearClip;
     m_projectionMatrix = glm::perspective(glm::radians(m_fov), m_aspectRatio, m_near, m_far);
     m_projectionViewMatrix = m_projectionMatrix * m_viewMatrix;
 }
 
-void PerspectiveCamera::SetFar(float far)
+void PerspectiveCamera::SetFar(float farClip)
 {
-    m_far = far;
+    m_far = farClip;
     m_projectionMatrix = glm::perspective(glm::radians(m_fov), m_aspectRatio, m_near, m_far);
     m_projectionViewMatrix = m_projectionMatrix * m_viewMatrix;
 }

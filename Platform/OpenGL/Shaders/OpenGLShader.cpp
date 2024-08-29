@@ -9,7 +9,7 @@
 #if MPE_PLATFORM_LINUX
 #    include <glad/glad.h>
 #endif
-#include <glm/gtc/type_ptr.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 /*
 I have different approach to storing few shaders in 1 file, and I belive that my way is better.

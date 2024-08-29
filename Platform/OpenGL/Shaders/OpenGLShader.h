@@ -8,7 +8,7 @@ typedef int GLint;
 #else
 #    include <glad/glad.h>
 #endif
-#include <glm/glm.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 // TEMP
 typedef unsigned int GLenum;

@@ -30,24 +30,29 @@ set(MPE_USE_X11 ON)
 # CURRENTLY NOT SUPPORTED AND NOT USED:
 set(MPE_USE_WAYLAND OFF)
 
-# ANGLE
-set(MPE_ANGLE ON)
-
 # GRAPHICS APIs
 set(MPE_OPENGL ON)
 set(MPE_OPENGLES OFF)
+
+# ANGLE
+if(MPE_OPENGLES)
+  set(MPE_ANGLE ON)
+else()
+  set(MPE_ANGLE OFF)
+endif()
 
 # SHARED OR STATIC LIBRARY
 # ONLY 'STATIC' OR 'SHARED'
 # SPECIFIC PLATFORMS MIGHT FORCE STATIC ONLY OR SHARED ONLY LIBRARIES
 set(MPE_LIBRARY_TYPE SHARED)
+set(MPE_EDITOR_LIBRARY_TYPE SHARED)
 
 # SETTING PROJECT VERSION
 set(PROJECT_VERSION_MAJOR 0)
 set(PROJECT_VERSION_MINOR 0)
 set(PROJECT_VERSION_PATCH 0)
 set(PROJECT_VERSION_TWEAK 1)
-set(PROJECT_VERSION_SUFFIX "A8")
+set(PROJECT_VERSION_SUFFIX "A9")
 set(PROJECT_VERSION
   ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}.${PROJECT_VERSION_TWEAK}
 )
@@ -257,6 +262,7 @@ if(COMPILATION_PLATFORM STREQUAL "UNIX" OR COMPILATION_PLATFORM STREQUAL "RPI4")
 HARD SETTINGS LIBRARY AS STATIC ON UNIX SYSTEMS DUE TO FAILURE OF IMGUI
 -----------------------------------------------------------\n")
   set(MPE_LIBRARY_TYPE STATIC)
+  set(MPE_EDITOR_LIBRARY_TYPE STATIC)
 endif(COMPILATION_PLATFORM STREQUAL "UNIX" OR COMPILATION_PLATFORM STREQUAL "RPI4")
 
 if(COMPILATION_PLATFORM STREQUAL "RPI4")
@@ -266,6 +272,9 @@ if(COMPILATION_PLATFORM STREQUAL "RPI4")
   # -----------------------------------------------------------\n")
 
   # set(CMAKE_PREFIX_PATH "/usr/local")
+  if(MPE_OPENGL)
+    message(FATAL_ERROR "OPENGL NOT SUPPORTED ON RPI4.")
+  endif()
 endif(COMPILATION_PLATFORM STREQUAL "RPI4")
 
 # ADDING DEPENDENCIES
@@ -312,30 +321,19 @@ TESTING ENVIRONMENT ADDED
 endif()
 
 # ADD SOURCE FILES MPE LIBRARY .CPP FILES
-include("${PROJECT_SOURCE_DIR}/CMake/Source/source.cmake")
-
-# ADD MPE EDITOR SOURCE FILES
-include("${PROJECT_SOURCE_DIR}/CMake/Source/editor_source.cmake")
+include("${PROJECT_SOURCE_DIR}/CMake/Source/mpe_source.cmake")
 
 # ADD PLATFORM BASED MPE SOURCE FILES
-include("${PROJECT_SOURCE_DIR}/CMake/Platform/Source/source_platform.cmake")
+include("${PROJECT_SOURCE_DIR}/CMake/Platform/Source/source_platform_mpe.cmake")
 
 # CREATE MPE, LINK LIBRARIES, AND INCLUDE DIRECTORIES, AND INSTALL PROPERTIES
-include("${PROJECT_SOURCE_DIR}/CMake/Platform/Build/build_platform.cmake")
+include("${PROJECT_SOURCE_DIR}/CMake/Platform/Build/build_platform_mpe.cmake")
 
 # PUBLIC INCLUDES
 set(MPE_PUBLIC_INCLUDES
   "${PROJECT_SOURCE_DIR}"
   "${PROJECT_SOURCE_DIR}/MPE"
 )
-
-if(${MAIN_TEST})
-  add_subdirectory("${PROJECT_SOURCE_DIR}/Tests")
-endif()
-
-if(${EXAMPLES})
-  add_subdirectory("${PROJECT_SOURCE_DIR}/Examples")
-endif()
 
 # DOUBLE CHECKS IF THE SYSTEM IS RUNNING ON WINDOWS-X64 SYSTEM
 if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
@@ -372,10 +370,39 @@ endif()
 # ${TEST_CPP} ${TEST_H})
 
 # ##############################################################################
+message(STATUS "MPE/CMAKE SUCCESSFULLY FINISHED.")
+
+# ADD MPE EDITOR SOURCE FILES
+include("${PROJECT_SOURCE_DIR}/CMake/Source/editor_source.cmake")
+
+# ADD PLATFORM BASED MPE SOURCE FILES
+include("${PROJECT_SOURCE_DIR}/CMake/Platform/Source/source_platform_editor.cmake")
+
+# CREATE MPE, LINK LIBRARIES, AND INCLUDE DIRECTORIES, AND INSTALL PROPERTIES
+include("${PROJECT_SOURCE_DIR}/CMake/Platform/Build/build_platform_editor.cmake")
+
+# PUBLIC INCLUDES
+set(MPE_EDITOR_PUBLIC_INCLUDES
+  "${PROJECT_SOURCE_DIR}"
+  "${PROJECT_SOURCE_DIR}/Editor"
+)
+
+message(STATUS "MPE EDITOR/CMAKE SUCCESSFULLY FINISHED.")
+
+# ##############################################################################
+# TESTS AND EXAMPLES
+if(${MAIN_TEST})
+  add_subdirectory("${PROJECT_SOURCE_DIR}/Tests")
+endif()
+
+if(${EXAMPLES})
+  add_subdirectory("${PROJECT_SOURCE_DIR}/Examples")
+endif()
+
+# ##############################################################################
 # PROJECTS
 if(MPE_PROJECTS)
   include("${PROJECT_SOURCE_DIR}/Projects/projects.cmake")
 endif(MPE_PROJECTS)
 
-# ##############################################################################
-message(STATUS "MPE/CMAKE SUCCESSFULLY FINISHED.")
+message(STATUS "MPE PROJECTS/CMAKE SUCCESSFULLY FINISHED.")

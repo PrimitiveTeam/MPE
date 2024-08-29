@@ -1,17 +1,17 @@
 #include "GridTest.h"
 #include "MPE/MPEPCH.h"
 
-#include <glm/gtc/matrix_transform.hpp>
+#include "MPE/Vendor/GLM/GLM.h"
 
 #ifdef MPE_OPENGL
-#    include "MPE/MPEGFX_OPEN_GL.h"
+#    include "MPE/MPE_GFX_OPEN_GL.h"
 #    if MPE_PLATFORM_LINUX
 #    else
 #        include <glad/glad.h>
 #        include <GLFW/glfw3.h>
 #    endif
 #elif MPE_OPENGLES
-#    include "MPE/MPEGFX_OPEN_GL_ES.h"
+#    include "MPE/MPE_GFX_OPEN_GLES.h"
 #endif
 
 GridTest::GridTest()
