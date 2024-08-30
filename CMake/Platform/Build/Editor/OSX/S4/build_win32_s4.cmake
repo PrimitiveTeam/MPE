@@ -58,6 +58,10 @@ install(
 
 install(FILES $<TARGET_RUNTIME_DLLS:Editor> DESTINATION bin)
 
+if(MPE_ANGLE)
+    modify_dylib_paths(Editor)
+endif()
+
 if(${VERBOSE})
     message(STATUS "MPE-Editor EXE ADDED.")
 endif()
