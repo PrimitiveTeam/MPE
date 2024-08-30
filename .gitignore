@@ -20,6 +20,7 @@ cpm.sh
 [Vv]endor/[Ww][Ii][Nn]32/[Rr]ender[Dd]oc
 [Vv]endor/[Ww][Ii][Nn]32/[Oo]pen[Cc][Vv]
 [Vv]endor/[Ww][Ii][Nn]32/[Aa][Nn][Gg][Ll][Ee]
+[Vv]endor/[Ww][Ii][Nn]32/[Oo][Pp][Ee][Nn][Aa][Ll]-[Ss][Oo][Ff][Tt]
 # UNIX
 [Vv]endor/[Uu][Nn][Ii][Xx]/[Gg][Ll][Aa][Dd]
 [Vv]endor/[Uu][Nn][Ii][Xx]/[Ii][Mm][Gg][Uu][Ii]
@@ -27,6 +28,7 @@ cpm.sh
 [Vv]endor/[Uu][Nn][Ii][Xx]/[Rr]ender[Dd]oc
 [Vv]endor/[Uu][Nn][Ii][Xx]/[Oo]pen[Cc][Vv]
 [Vv]endor/[Uu][Nn][Ii][Xx]/[Aa][Nn][Gg][Ll][Ee]
+[Vv]endor/[Uu][Nn][Ii][Xx]/[Oo][Pp][Ee][Nn][Aa][Ll]-[Ss][Oo][Ff][Tt]
 # OSX
 [Vv]endor/[Oo][Ss][Xx]/[Gg][Ll][Aa][Dd]
 [Vv]endor/[Oo][Ss][Xx]/[Ii][Mm][Gg][Uu][Ii]
@@ -34,8 +36,11 @@ cpm.sh
 [Vv]endor/[Oo][Ss][Xx]/[Rr]ender[Dd]oc
 [Vv]endor/[Oo][Ss][Xx]/[Oo]pen[Cc][Vv]
 [Vv]endor/[Oo][Ss][Xx]/[Aa][Nn][Gg][Ll][Ee]
+[Vv]endor/[Oo][Ss][Xx]/[Oo][Pp][Ee][Nn][Aa][Ll]-[Ss][Oo][Ff][Tt]
 # RPI4
 [Vv]endor/[Rr][Pp][Ii][12345]/[Ss][Pp][Dd][Ll][Oo][Gg]
+[Vv]endor/[Rr][Pp][Ii][12345]/[Ff][Mm][Tt]
+[Vv]endor/[Rr][Pp][Ii][12345]/[Oo][Pp][Ee][Nn][Aa][Ll]-[Ss][Oo][Ff][Tt]
 # ------------------------------------------------------------------------------
 # PROJECT FILES
 [Pp]roject[Ff]iles
