@@ -3,8 +3,6 @@
 #include "MPE.h"
 #include "MPEECS.h"
 
-#include "MPE/Renderer/Shaders/ShaderLibrary.h"
-
 #include <imgui.h>
 #include <string>
 
@@ -48,9 +46,6 @@ class SimpleEcsTest : public MPE::Layer
     float RECTANGLE_SCALE_FACTOR;
     glm::vec3 RECTANGLE_VECTOR_SCALE;
     glm::mat4 RECTANGLE_SCALE;
-
-    // Shader Library
-    MPE::ShaderLibrary SYS_SHADER_LIBRARY;
 
     // Rotation Animation
     bool autorotate;

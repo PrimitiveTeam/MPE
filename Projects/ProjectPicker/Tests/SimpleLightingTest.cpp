@@ -1,5 +1,6 @@
 #include "SimpleLightingTest.h"
 #include "MPE/MPEPCH.h"
+#include "MPE/Renderer/Shaders/ShaderLibrary.h"
 
 #include "MPE/Vendor/GLM/GLM.h"
 
@@ -118,7 +119,7 @@ SimpleLightingTest::SimpleLightingTest()
     light_SQIB = MPE::IndexBuffer::Create(light_SQI, sizeof(light_SQI) / sizeof(uint32_t));
     m_lightVertexArray->SetIndexBuffer(light_SQIB);
 
-    auto light_shader = m_shaderLibrary.Load("Data/Shaders/Lighting/Sources/LightSource_DynamicColor.glsl", true);
+    auto light_shader = MPE::ShaderLibrary::Load("Data/Shaders/Lighting/Sources/LightSource_DynamicColor.glsl", true);
 
     // CUBE
     m_vertexArray = MPE::VertexArray::Create();
@@ -218,7 +219,7 @@ SimpleLightingTest::SimpleLightingTest()
     m_vertexArray->SetIndexBuffer(SQIB);
 
     // SHADERS
-    auto VERTEX_BASED_COLOR_SHADER = m_shaderLibrary.Load("Data/Shaders/Lighting/Phong/LitSurface_WorldSpace.glsl", true);
+    auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Load("Data/Shaders/Lighting/Phong/LitSurface_WorldSpace.glsl", true);
 
     // CUBE 2
     m_vertexArray2 = MPE::VertexArray::Create();
@@ -317,7 +318,7 @@ SimpleLightingTest::SimpleLightingTest()
     SQIB2 = MPE::IndexBuffer::Create(SQI2, sizeof(SQI2) / sizeof(uint32_t));
     m_vertexArray2->SetIndexBuffer(SQIB2);
 
-    auto VERTEX_BASED_COLOR_SHADER2 = m_shaderLibrary.Load("Data/Shaders/Lighting/Phong/LitSurface_ViewSpace.glsl", true);
+    auto VERTEX_BASED_COLOR_SHADER2 = MPE::ShaderLibrary::Load("Data/Shaders/Lighting/Phong/LitSurface_ViewSpace.glsl", true);
 }
 
 void SimpleLightingTest::OnUpdate(MPE::Time deltaTime)
@@ -331,7 +332,7 @@ void SimpleLightingTest::OnUpdate(MPE::Time deltaTime)
 
     // LIGHT
     {
-        auto light_shader = m_shaderLibrary.Get("LightSource_DynamicColor");
+        auto light_shader = MPE::ShaderLibrary::Get("LightSource_DynamicColor");
         light_shader->Bind();
         light_shader->SetFloat4("UNI_COLOR", glm::vec4(m_lightColor[0], m_lightColor[1], m_lightColor[2], m_lightColor[3]));
 
@@ -342,7 +343,7 @@ void SimpleLightingTest::OnUpdate(MPE::Time deltaTime)
     }
     // CUBE WORLD SPACE
     {
-        auto VERTEX_BASED_COLOR_SHADER = m_shaderLibrary.Get("LitSurface_WorldSpace");
+        auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Get("LitSurface_WorldSpace");
         VERTEX_BASED_COLOR_SHADER->Bind();
         // VERTEX_BASED_COLOR_SHADER->SetFloat4("UNI_COLOR", glm::vec4(m_rectangleColor[0], m_rectangleColor[1], m_rectangleColor[2], m_rectangleColor[3]));
         VERTEX_BASED_COLOR_SHADER->SetFloat4("UNI_OBJECT_COLOR", glm::vec4(m_rectangleColor[0], m_rectangleColor[1], m_rectangleColor[2], m_rectangleColor[3]));
@@ -361,7 +362,7 @@ void SimpleLightingTest::OnUpdate(MPE::Time deltaTime)
     }
     // CUBE VIEW SPACE
     {
-        auto VERTEX_BASED_COLOR_SHADER = m_shaderLibrary.Get("LitSurface_ViewSpace");
+        auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Get("LitSurface_ViewSpace");
         VERTEX_BASED_COLOR_SHADER->Bind();
         // VERTEX_BASED_COLOR_SHADER->SetFloat4("UNI_COLOR", glm::vec4(m_rectangleColor[0], m_rectangleColor[1], m_rectangleColor[2], m_rectangleColor[3]));
         VERTEX_BASED_COLOR_SHADER->SetFloat4("UNI_OBJECT_COLOR",

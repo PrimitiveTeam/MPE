@@ -2,7 +2,6 @@
 
 #include "MPE.h"
 
-#include "MPE/Renderer/Shaders/ShaderLibrary.h"
 #ifdef MPE_OPENGL
 #    include "Platform/OpenGL/Editor/Grid/OpenGLGrid.h"
 #elif MPE_OPENGLES
@@ -48,9 +47,6 @@ class GridTest : public MPE::Layer
     glm::vec3 TRIANGLE_VECTOR_SCALE;
     glm::mat4 TRIANGLE_SCALE;
     float TRIANGLE_COLOR[4];
-
-    // Shader Library
-    MPE::ShaderLibrary SYS_SHADER_LIBRARY;
 
     // Color Animation
     float incrementValue = 0.5f;

@@ -2,6 +2,7 @@
 #include "MPE/MPEPCH.h"
 
 #include "MPE/Renderer/Renderer2D.h"
+#include "MPE/Renderer/Shaders/ShaderLibrary.h"
 
 #ifdef MPE_OPENGL
 #    include "Platform/OpenGL/Shaders/OpenGLShader.h"
@@ -17,11 +18,13 @@ void Renderer::Init()
 {
     RenderPrimitive::Init();
     Renderer2D::Init();
+    ShaderLibrary::Init();
 }
 
 void Renderer::Shutdown()
 {
     MPE_CORE_INFO("Renderer shutting down...");
+    ShaderLibrary::Shutdown();
     RenderPrimitive::Shutdown();
     Renderer2D::Shutdown();
 }

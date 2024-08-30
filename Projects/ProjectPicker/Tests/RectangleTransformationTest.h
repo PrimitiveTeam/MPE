@@ -2,8 +2,6 @@
 
 #include "MPE.h"
 
-#include "MPE/Renderer/Shaders/ShaderLibrary.h"
-
 #include <imgui.h>
 #include <string>
 
@@ -45,9 +43,6 @@ class RectangleTransformationTest : public MPE::Layer
     glm::vec3 RECTANGLE_VECTOR_SCALE;
     glm::mat4 RECTANGLE_SCALE;
     float RECTANGLE_COLOR[4];
-
-    // Shader Library
-    MPE::ShaderLibrary SYS_SHADER_LIBRARY;
 
     // Color Animation
     float incrementValue = 0.5f;
