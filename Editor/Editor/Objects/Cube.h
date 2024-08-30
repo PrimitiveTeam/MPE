@@ -11,7 +11,6 @@
 
 #include "MPE/Vendor/GLM/GLM.h"
 
-
 namespace MPE
 {
 class MPE_EDITOR_API Cube : public Object

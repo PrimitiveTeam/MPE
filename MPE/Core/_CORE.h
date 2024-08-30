@@ -104,7 +104,7 @@
 // #            warning "Using Dynamic Libraries is not supported on Linux"
 #        endif
 
-# else
+#    else
 #        define MPE_API
 
 #    endif
@@ -174,7 +174,7 @@
 // #            warning "Using Dynamic Libraries is not supported on Linux"
 #        endif
 
-# else
+#    else
 #        define MPE_EDITOR_API
 
 #    endif
@@ -195,7 +195,7 @@
 // #            warning "Using Dynamic Libraries is not supported on OSX"
 #        endif
 
-# else
+#    else
 #        define MPE_EDITOR_API
 
 #    endif
