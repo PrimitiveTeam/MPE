@@ -3,7 +3,7 @@
 #include "Editor/Editor/ECS/ECS.h"
 // #include "MPE/Editor/Scene/Scene.h"
 #include "MPE/Log/GlobalLog.h"
-#include "Editor/Editor/PropertyViewer/PropertyViewer.h"
+#include "Editor/Editor/Windows/PropertyViewer/PropertyViewer.h"
 
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>

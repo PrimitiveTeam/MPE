@@ -6,8 +6,8 @@
 #include "MPE/Renderer/Cameras/OrthographicCamera.h"
 #include "MPE/Events/Event.h"
 #include "Editor/Editor/Objects/Base/Object.h"
-#include "Editor/Editor/PropertyViewer/Properties.h"
-#include "Editor/Editor/PropertyViewer/ComponentProperties/IComponentPropertyEditor.h"
+#include "Editor/Editor/Windows/PropertyViewer/Properties.h"
+#include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/IComponentPropertyEditor.h"
 
 #include <functional>
 

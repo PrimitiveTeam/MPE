@@ -3,9 +3,9 @@
 #include "Editor/Editor/ECS/ECS.h"
 #include "MPE/Log/GlobalLog.h"
 // Properties
-#include "Editor/Editor/PropertyViewer/ComponentProperties/HierarchyPropertiesEditor.h"
-#include "Editor/Editor/PropertyViewer/ComponentProperties/TagPropertiesEditor.h"
-#include "Editor/Editor/PropertyViewer/ComponentProperties/TransformPropertiesEditor.h"
+#include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/HierarchyPropertiesEditor.h"
+#include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/TagPropertiesEditor.h"
+#include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/TransformPropertiesEditor.h"
 
 #include <imgui.h>
 

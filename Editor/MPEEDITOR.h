@@ -11,8 +11,7 @@
 // SCENES
 #include "Editor/Editor/Scene/Scene.h"
 #include "Editor/Editor/Scene/SceneManager.h"
-// OBJECT HIERARCHY
-#include "Editor/Editor/ObjectHierarchy/ObjectHierarchy.h"
-// PROPERTY VIEWER
-#include "Editor/Editor/PropertyViewer/PropertyViewer.h"
+// WINDOWS
+#include "Editor/Editor/Windows/ObjectHierarchy/ObjectHierarchy.h"
+#include "Editor/Editor/Windows/PropertyViewer/PropertyViewer.h"
 // ----- EDITOR -----
