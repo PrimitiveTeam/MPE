@@ -43,6 +43,8 @@ Move to [Cross-Compilation Requirements](#cross-compilation-requirements) sectio
 
 Make sure that [WSL-Ubuntu](https://learn.microsoft.com/en-us/windows/wsl/install) is enabled and is installed.
 
+Follow the [UNIX](./UNIX.md) working with source guide and set up your WSL environment.
+
 The following packages are required for WSL-Ubuntu:
 
 One-liner command:
