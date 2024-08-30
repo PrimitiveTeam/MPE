@@ -20,7 +20,8 @@ The following tools are required to prepare the environment, generate and build 
 7. Execute `$./CPM/cpm/target/release/cpm init -f`
 8. After this 'cpm.sh' will appear in the __repo root__, this will be the entrypoint to the buildsystem
 9. Check if it's working by executing `$./cpm.sh -v` from the __repo root__
-10. Continue to [brew](#brew) section.
+10. If everything is working, execute `./cpm.sh setup -a`
+11. Continue to [brew](#brew) section.
 
 ### BREW
 
