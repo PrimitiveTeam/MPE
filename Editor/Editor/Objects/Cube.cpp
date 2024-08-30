@@ -91,9 +91,10 @@ void Cube::Init()
     m_color = {0.6f, 0.6f, 0.6f, 1.0f};
 
     // Load shader
-    // m_shaderLibrary = NEWREF<ShaderLibrary>();
-    // m_shader = m_shaderLibrary->Load("Data/Shaders/FlatColor.glsl", true);
-    m_shader = ShaderLibrary::Load("Data/Shaders/FlatColor.glsl", true);
+    if (ShaderLibrary::Exists("FlatColor"))
+        m_shader = ShaderLibrary::Get("FlatColor");
+    else
+        m_shader = ShaderLibrary::Load("Data/Shaders/FlatColor.glsl", true);
 
     // Initialize cube vertex array
     m_vertexArray = VertexArray::Create();
