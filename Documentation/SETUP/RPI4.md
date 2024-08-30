@@ -43,6 +43,8 @@ Move to [Cross-Compilation Requirements](#cross-compilation-requirements) sectio
 
 Make sure that [WSL-Ubuntu](https://learn.microsoft.com/en-us/windows/wsl/install) is enabled and is installed.
 
+Follow the [UNIX](./UNIX.md) working with source guide and set up your WSL environment.
+
 The following packages are required for WSL-Ubuntu:
 
 One-liner command:
@@ -204,7 +206,7 @@ Move to the [Setting up the RPI system](#setting-up-the-rpi-system).
 
 ### Setting up the RPI system
 
-If you have downloaded the image from [OneDrive link](#links) this is already done and you can move on to the [Building Source]() section.
+If you have downloaded the image from [OneDrive link](#links) this is already done and you can move on to the [Cross-Compiling MPE](#cross-compiling-mpe) section.
 
 These steps are intended for the RPI - emulated or hardware.
 

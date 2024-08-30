@@ -10,7 +10,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #if !defined(MPE_PLATFORM_OSX)
-#include <glm/ext.hpp>
+#    include <glm/ext.hpp>
 #endif
 
 #include <glm/gtc/type_ptr.hpp>
