@@ -1,4 +1,7 @@
-add_executable(Editor "${PROJECT_SOURCE_DIR}/Editor/Editor.cpp")
+add_executable(Editor
+    "${PROJECT_SOURCE_DIR}/Editor/Editor.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/EditorSource.cpp"
+)
 
 target_link_libraries(Editor PRIVATE
     MPE
