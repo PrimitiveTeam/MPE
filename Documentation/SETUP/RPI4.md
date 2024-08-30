@@ -206,7 +206,7 @@ Move to the [Setting up the RPI system](#setting-up-the-rpi-system).
 
 ### Setting up the RPI system
 
-If you have downloaded the image from [OneDrive link](#links) this is already done and you can move on to the [Building Source]() section.
+If you have downloaded the image from [OneDrive link](#links) this is already done and you can move on to the [Cross-Compiling MPE](#cross-compiling-mpe) section.
 
 These steps are intended for the RPI - emulated or hardware.
 
