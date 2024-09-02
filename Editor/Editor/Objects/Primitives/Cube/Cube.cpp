@@ -3,7 +3,6 @@
 #include "MPE/Log/GlobalLog.h"
 #include "MPE/Renderer/Renderer.h"
 #include "Editor/Editor/ECS/Utility/RotationUtilities.h"
-#include "Editor/Editor/Objects/Primitives/Cube/PredefinedCubeMesh.h"
 
 #ifdef MPE_OPENGL
 #    include "MPE/MPE_GFX_OPEN_GL.h"
@@ -95,13 +94,96 @@ void Cube::Init()
     m_shader = ShaderLibrary::AddOrLoadIfExists("Data/Shaders/FlatColor.glsl", true);
 
     // Initialize cube vertex array
+    // Initialize cube vertex array
     m_vertexArray = VertexArray::Create();
-    auto vertices = PredefinedCubeMesh::CubeVerticesPosNorm;
+    float vertices[6 * 36] = {// I
+                              -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                              //
+                              0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                              //
+                              0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                              //
+                              0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                              //
+                              -0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                              //
+                              -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                              // II
+                              -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                              //
+                              0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                              //
+                              0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                              //
+                              0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                              //
+                              -0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                              //
+                              -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                              // III
+                              -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
+                              //
+                              -0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
+                              //
+                              -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
+                              //
+                              -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
+                              //
+                              -0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
+                              //
+                              -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
+                              // IV
+                              0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
+                              //
+                              0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+                              //
+                              0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+                              //
+                              0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+                              //
+                              0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
+                              //
+                              0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
+                              // V
+                              -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
+                              //
+                              0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
+                              //
+                              0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
+                              //
+                              0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
+                              //
+                              -0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
+                              //
+                              -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
+                              // VI
+                              -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+                              //
+                              0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+                              //
+                              0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+                              //
+                              0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+                              //
+                              -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+                              //
+                              -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f};
     REF<VertexBuffer> vertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
     vertexBuffer->SetLayout({{ShaderDataType::Vec3, "ATTR_POS"}, {ShaderDataType::Vec3, "ATTR_NORMAL"}});
     m_vertexArray->AddVertexBuffer(vertexBuffer);
 
-    auto indices = PredefinedCubeMesh::CubeIndices;
+    uint32_t indices[36] = {// Front face
+                            0, 1, 2, 3, 4, 5,
+                            // Back face
+                            6, 7, 8, 9, 10, 11,
+                            // Left face
+                            12, 13, 14, 15, 16, 17,
+                            // Right face
+                            18, 19, 20, 21, 22, 23,
+                            // Top face
+                            24, 25, 26, 27, 28, 29,
+                            // Bottom face
+                            30, 31, 32, 33, 34, 35};
     REF<IndexBuffer> indexBuffer = IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
     m_vertexArray->SetIndexBuffer(indexBuffer);
 }
