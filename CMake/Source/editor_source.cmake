@@ -21,7 +21,8 @@ file(
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Object.cpp"
 
     # /Editor/Objects
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cube.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/Cube.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/PredefinedCubeMesh.cpp"
 
     # /Editor/Scene
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Scene/Scene.cpp"
@@ -66,7 +67,10 @@ file(
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Object.h"
 
     # /Editor/Objects
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cube.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/Cube.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/CubeIndices.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/CubeVertices.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/PredefinedCubeMesh.h"
 
     # /Editor/Scene
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Scene/Scene.h"
