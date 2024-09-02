@@ -17,6 +17,10 @@ class MPE_API ShaderLibrary
 
     static REF<Shader> Load(const std::string &filepath, bool useEditorResource = false);
     static REF<Shader> Load(const std::string &name, const std::string &filepath, bool useEditorResource = false);
+
+    static REF<Shader> AddOrLoadIfExists(const std::string &filepath, bool useEditorResource = false);
+    static REF<Shader> AddOrLoadIfExists(const std::string &name, const std::string &filepath, bool useEditorResource = false);
+
     static REF<Shader> Get(const std::string &name);
 
     static bool Exists(const std::string &name);

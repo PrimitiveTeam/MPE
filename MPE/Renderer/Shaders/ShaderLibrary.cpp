@@ -64,6 +64,38 @@ REF<Shader> ShaderLibrary::Load(const std::string &name, const std::string &file
     return shader;
 }
 
+REF<Shader> ShaderLibrary::AddOrLoadIfExists(const std::string &filepath, bool useEditorResource)
+{
+    std::string path = filepath;
+    if (useEditorResource)
+    {
+        path = ShaderUtils::ParseEditorResourcePath(filepath);
+    }
+
+    auto shader = Shader::Create(path);
+    if (!Exists(shader->GetName()))
+    {
+        Add(shader);
+    }
+    return shader;
+}
+
+REF<Shader> ShaderLibrary::AddOrLoadIfExists(const std::string &name, const std::string &filepath, bool useEditorResource)
+{
+    std::string path = filepath;
+    if (useEditorResource)
+    {
+        path = ShaderUtils::ParseEditorResourcePath(filepath);
+    }
+
+    auto shader = Shader::Create(path);
+    if (!Exists(name))
+    {
+        Add(name, shader);
+    }
+    return shader;
+}
+
 REF<Shader> ShaderLibrary::Get(const std::string &name)
 {
     MPE_CORE_ASSERT(Exists(name), "SHADER NOT FOUND");
