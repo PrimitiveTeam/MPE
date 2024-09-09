@@ -11,15 +11,16 @@ The following tools are required to prepare the environment, generate and build 
 
 ## Preparing environment
 
-1. Download the repo: `$git clone git@github.com:Durengo/MPE.git --recursive`
-2. Checkout 'dev' branch
-3. Initialize git submodules: `$git submodule init`
-4. CD into the /CPM/cpm: `$cd <repo root>\CPM\cpm`
+1. Download the repo: `$git clone git@github.com:PrimitiveTeam/MPE.git --recursive`
+2. CD into the repo root folder (ie. `$cd MPE`)
+3. Checkout 'dev' branch
+4. Initialize git submodules: `$git submodule init`
+5. CD into /CPM/cpm: `$cd CPM/cpm`
 5. Build CPM: `$cargo build --release`
 6. __Make sure to cd back into repo root__
 7. Execute `$.\CPM\cpm\target\release\cpm.exe init -f`
 8. After this 'cpm.bat' will appear in the __repo root__, this will be the entrypoint to the buildsystem
-9. Check if it's working by executing `$.\cpm -v` from the __repo root__
+9. Check if it's working by executing `$.\cpm -V` from the __repo root__
 10. Continue to [VCPKG](#vcpkg) section.
 
 ### VCPKG
