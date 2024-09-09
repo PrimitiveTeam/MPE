@@ -61,7 +61,8 @@ Continue to [Building source](#building-source) section.
 
 ### Building source
 
-1. Run the setup script to check packages and setup the environment: `$.\cpm setup -a`
+1. Run the setup script to check packages and setup the environment: `$.\cpm setup -a`  
+    NOTE: This may throw errors about missing dependencies, which can be safely ignored for now.
 2. Generate CMake project for windows using MSVC: `$.\cpm build -dg "nt/msvc"`
 3. Build the generated CMake project: `$.\cpm build -db`
 

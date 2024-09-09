@@ -21,9 +21,7 @@ The following tools are required to prepare the environment, generate and build 
 8. Execute `$./CPM/cpm/target/release/cpm init -f`
 9. After this 'cpm.sh' will appear in the __repo root__, this will be the entrypoint to the buildsystem
 10. Check if it's working by executing `$./cpm.sh -V` from the __repo root__
-11. If everything is working, execute `./cpm.sh setup -a`  
-    NOTE: This may throw errors about missing dependencies, which can be safely ignored for now.
-12. Continue to [brew](#brew) section.
+11. Continue to [brew](#brew) section.
 
 ### BREW
 
@@ -62,7 +60,8 @@ Continue to [Building source](#building-source) section.
 
 ### Building source
 
-1. Run the setup script to check packages and setup the environment: (errors will appear but ignore those) `$./cpm.sh setup -a`
+1. Run the setup script to check packages and setup the environment: `$./cpm.sh setup -a`  
+    NOTE: This may throw errors about missing dependencies, which can be safely ignored for now.
 2. Generate CMake project for macOS using clang or gcc: `$./cpm.sh build -dg "make/clang"` or `$./cpm.sh build -dg "make/gcc"`
 3. Build the generated CMake project: `$./cpm.sh build -db`
 
