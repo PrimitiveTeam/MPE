@@ -53,7 +53,7 @@ The following dependencies need to be downloaded and setup:
 4. opencv
 5. entt
 
-glad is also a requirement but I have included it directly in the repository as the configuration can be finicky.
+glad is also a requirement, but it has been added directly to the repository as the configuration can otherwise be finicky.
 
 Use the [Utility\Windows\get_vendor.bat](../../Utility/Windows/get_vendor.bat) batch.
 
