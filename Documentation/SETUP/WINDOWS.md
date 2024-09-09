@@ -45,7 +45,7 @@ Continue to [Manual building](#manual-building) section.
 
 Scripts are provided to automate this step.
 
-The following dependencies need to be downloaded and setup:
+You may use the [Utility\Windows\get_vendor.bat](../../Utility/Windows/get_vendor.bat) batch file to download and setup the following dependencies:
 
 1. imgui
 2. stb
@@ -54,8 +54,6 @@ The following dependencies need to be downloaded and setup:
 5. entt
 
 glad is also a requirement, but it has been added directly to the repository as the configuration can otherwise be finicky.
-
-Use the [Utility\Windows\get_vendor.bat](../../Utility/Windows/get_vendor.bat) batch.
 
 Continue to [Building source](#building-source) section.
 
