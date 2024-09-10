@@ -11,16 +11,17 @@ The following tools are required to prepare the environment, generate and build 
 
 ## Preparing environment
 
-1. Download the repo: `$git clone git@github.com:Durengo/MPE.git --recursive`
-2. Checkout 'dev' branch
-3. Initialize git submodules: `$git submodule init`
-4. CD into the /CPM/cpm: `$cd <repo root>\CPM\cpm`
-5. Build CPM: `$cargo build --release`
-6. __Make sure to cd back into repo root__
-7. Execute `$.\CPM\cpm\target\release\cpm.exe init -f`
-8. After this 'cpm.bat' will appear in the __repo root__, this will be the entrypoint to the buildsystem
-9. Check if it's working by executing `$.\cpm -v` from the __repo root__
-10. Continue to [VCPKG](#vcpkg) section.
+1. Download the repo: `$git clone git@github.com:PrimitiveTeam/MPE.git --recursive`
+2. CD into the repo root folder (ie. `$cd MPE`)
+3. Checkout 'dev' branch
+4. Initialize git submodules: `$git submodule init`
+5. CD into /CPM/cpm: `$cd CPM/cpm`
+6. Build CPM: `$cargo build --release`
+7. __Make sure to cd back into repo root__
+8. Execute `$.\CPM\cpm\target\release\cpm.exe init -f`
+9. After this 'cpm.bat' will appear in the __repo root__, this will be the entrypoint to the buildsystem
+10. Check if it's working by executing `$.\cpm -V` from the __repo root__
+11. Continue to [VCPKG](#vcpkg) section.
 
 ### VCPKG
 
@@ -44,7 +45,7 @@ Continue to [Manual building](#manual-building) section.
 
 Scripts are provided to automate this step.
 
-The following dependencies need to be downloaded and setup:
+You may use the [Utility\Windows\get_vendor.bat](../../Utility/Windows/get_vendor.bat) batch file to download and setup the following dependencies:
 
 1. imgui
 2. stb
@@ -52,15 +53,14 @@ The following dependencies need to be downloaded and setup:
 4. opencv
 5. entt
 
-glad is also a requirement but I have included it directly in the repository as the configuration can be finicky.
-
-Use the [Utility\Windows\get_vendor.bat](../../Utility/Windows/get_vendor.bat) batch.
+glad is also a requirement, but it has been added directly to the repository as the configuration can otherwise be finicky.
 
 Continue to [Building source](#building-source) section.
 
 ### Building source
 
-1. Run the setup script to check packages and setup the environment: `$.\cpm setup -a`
+1. Run the setup script to check packages and setup the environment: `$.\cpm setup -a`  
+    NOTE: This may throw errors about missing dependencies, which can be safely ignored for now.
 2. Generate CMake project for windows using MSVC: `$.\cpm build -dg "nt/msvc"`
 3. Build the generated CMake project: `$.\cpm build -db`
 
