@@ -24,7 +24,11 @@ void ShaderLibrary::Shutdown()
 
 void ShaderLibrary::Add(const std::string &name, const REF<Shader> &shader)
 {
-    MPE_CORE_ASSERT(!Exists(name), "SHADER ALREADY EXISTS");
+    if (Exists(name))
+    {
+        MPE_CORE_INFO("SHADER ALREADY ADDED");
+        return;
+    }
 #if MPE_PLATFORM_LINUX
     m_shaders->insert(std::make_pair(name, shader));
 #else
