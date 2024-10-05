@@ -1,18 +1,28 @@
 #include "EditorSource.h"
 
-EditorCoreLayer::EditorCoreLayer() : Layer("EditorCoreLayer") {}
+EditorCoreLayer::EditorCoreLayer() : Layer("EditorCoreLayer")
+{
+    m_sceneManager = MPE::NEWSCOPE<MPE::SceneManager>();
+    m_scene = MPE::NEWREF<MPE::Scene>();
+    m_sceneManager->PushScene(m_scene);
+}
 
 void EditorCoreLayer::OnAttach() {}
 
 void EditorCoreLayer::OnDetach() {}
 
-void EditorCoreLayer::OnUpdate(MPE::Time deltaTime) {}
+void EditorCoreLayer::OnUpdate(MPE::Time deltaTime)
+{
+    m_sceneManager->OnUpdate(deltaTime);
+    m_sceneManager->OnRender();
+}
 
 void EditorCoreLayer::OnImGuiRender()
 {
-    ImGui::Begin("Editor", nullptr, ImGuiWindowFlags_NoSavedSettings);
-
-    ImGui::End();
+    m_sceneManager->OnImGuiRender();
 }
 
-void EditorCoreLayer::OnEvent(MPE::Event& event) {}
+void EditorCoreLayer::OnEvent(MPE::Event& event)
+{
+    m_sceneManager->OnEvent(event);
+}

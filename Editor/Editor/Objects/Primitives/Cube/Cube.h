@@ -43,7 +43,6 @@ class MPE_EDITOR_API Cube : public Object
     bool m_autoRotate = false;
     int m_rotateSpeed = 10;
 
-    REF<ShaderLibrary> m_shaderLibrary;
     REF<Shader> m_shader;
     REF<VertexArray> m_vertexArray;
 };

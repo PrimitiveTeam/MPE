@@ -1,5 +1,6 @@
 #include "RectangleTransformationTest.h"
 #include "MPE/MPEPCH.h"
+#include "MPE/Renderer/Shaders/ShaderLibrary.h"
 
 #include "MPE/Vendor/GLM/GLM.h"
 
@@ -39,7 +40,7 @@ RectangleTransformationTest::RectangleTransformationTest()
     SYS_VertexArray->SetIndexBuffer(SQIB);
 
     // SHADERS
-    auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/FlatColor.glsl", true);
+    auto FLAT_COLOR_SHADER = MPE::ShaderLibrary::Load("Data/Shaders/FlatColor.glsl", true);
 }
 
 void RectangleTransformationTest::OnUpdate(MPE::Time deltaTime)
@@ -52,7 +53,7 @@ void RectangleTransformationTest::OnUpdate(MPE::Time deltaTime)
 
     MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER.GetCamera());
 
-    auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Get("FlatColor");
+    auto FLAT_COLOR_SHADER = MPE::ShaderLibrary::Get("FlatColor");
 
 #ifdef MPE_OPENGL
     std::dynamic_pointer_cast<MPE::OpenGLShader>(FLAT_COLOR_SHADER)->Bind();

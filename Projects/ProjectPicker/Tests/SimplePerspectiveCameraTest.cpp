@@ -1,5 +1,6 @@
 #include "SimplePerspectiveCameraTest.h"
 #include "MPE/MPEPCH.h"
+#include "MPE/Renderer/Shaders/ShaderLibrary.h"
 
 #include "MPE/Vendor/GLM/GLM.h"
 
@@ -106,7 +107,7 @@ SimplePerspectiveCameraTest::SimplePerspectiveCameraTest()
     m_vertexArray->SetIndexBuffer(SQIB);
 
     // SHADERS
-    auto VERTEX_BASED_COLOR_SHADER = m_shaderLibrary.Load("Data/Shaders/FlatColor.glsl", true);
+    auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Load("Data/Shaders/FlatColor.glsl", true);
 }
 
 void SimplePerspectiveCameraTest::OnUpdate(MPE::Time deltaTime)
@@ -118,7 +119,7 @@ void SimplePerspectiveCameraTest::OnUpdate(MPE::Time deltaTime)
 
     MPE::Renderer::BeginScene(m_perspectiveCamera);
 
-    auto VERTEX_BASED_COLOR_SHADER = m_shaderLibrary.Get("FlatColor");
+    auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Get("FlatColor");
     VERTEX_BASED_COLOR_SHADER->SetFloat4("UNI_COLOR", glm::vec4(m_rectangleColor[0], m_rectangleColor[1], m_rectangleColor[2], m_rectangleColor[3]));
 
     glm::mat4 RECTANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), m_rectanglePosition);

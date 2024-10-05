@@ -2,8 +2,6 @@
 
 #include "MPE.h"
 
-#include "MPE/Renderer/Shaders/ShaderLibrary.h"
-
 #include <imgui.h>
 #include <string>
 
@@ -39,7 +37,4 @@ class SimpleTriangleTest : public MPE::Layer
     float TRIANGLE_SCALE_FACTOR;
     glm::vec3 TRIANGLE_VECTOR_SCALE;
     glm::mat4 TRIANGLE_SCALE;
-
-    // Shader Library
-    MPE::ShaderLibrary SYS_SHADER_LIBRARY;
 };

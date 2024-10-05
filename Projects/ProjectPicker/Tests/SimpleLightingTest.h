@@ -2,8 +2,6 @@
 
 #include "MPE.h"
 
-#include "MPE/Renderer/Shaders/ShaderLibrary.h"
-
 #include <imgui.h>
 #include <string>
 
@@ -54,9 +52,6 @@ class SimpleLightingTest : public MPE::Layer
     glm::vec3 m_rectangleVectorScale2;
     glm::mat4 m_rectangleScale2;
     float m_rectangleColor2[4];
-
-    // Shader Library
-    MPE::ShaderLibrary m_shaderLibrary;
 
     // Rotation Animation Rectangle 1
     bool m_autoRotate;

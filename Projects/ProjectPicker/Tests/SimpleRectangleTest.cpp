@@ -1,5 +1,6 @@
 #include "SimpleRectangleTest.h"
 #include "MPE/MPEPCH.h"
+#include "MPE/Renderer/Shaders/ShaderLibrary.h"
 
 #include "MPE/Vendor/GLM/GLM.h"
 
@@ -27,7 +28,7 @@ SimpleRectangleTest::SimpleRectangleTest()
     SYS_VertexArray->SetIndexBuffer(SQIB);
 
     // SHADERS
-    auto VERTEX_BASED_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/VertexBasedColor.glsl", true);
+    auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Load("Data/Shaders/VertexBasedColor.glsl", true);
 }
 
 void SimpleRectangleTest::OnUpdate(MPE::Time deltaTime)
@@ -37,7 +38,7 @@ void SimpleRectangleTest::OnUpdate(MPE::Time deltaTime)
 
     MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER.GetCamera());
 
-    auto VERTEX_BASED_COLOR_SHADER = SYS_SHADER_LIBRARY.Get("VertexBasedColor");
+    auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Get("VertexBasedColor");
     glm::mat4 RECTANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), RECTANGLE_POSITION) * RECTANGLE_SCALE;
     MPE::Renderer::Submit(VERTEX_BASED_COLOR_SHADER, SYS_VertexArray, RECTANGLE_TRANSFORM);
 

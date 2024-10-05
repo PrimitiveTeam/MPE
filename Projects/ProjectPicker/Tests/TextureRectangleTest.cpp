@@ -1,5 +1,6 @@
 #include "TextureRectangleTest.h"
 #include "MPE/MPEPCH.h"
+#include "MPE/Renderer/Shaders/ShaderLibrary.h"
 
 #include "MPE/Vendor/GLM/GLM.h"
 
@@ -33,7 +34,7 @@ TextureRectangleTest::TextureRectangleTest()
     SYS_VertexArray->SetIndexBuffer(SQIB);
 
     // SHADERS
-    auto TEXTURE_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/Texture.glsl", true);
+    auto TEXTURE_SHADER = MPE::ShaderLibrary::Load("Data/Shaders/Texture.glsl", true);
 
     // TEXTURES
     TEST_TEXTURE = MPE::Texture2D::Create("Data/Textures/TEST_TEXTURE.png");
@@ -54,7 +55,7 @@ void TextureRectangleTest::OnUpdate(MPE::Time deltaTime)
 
     MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER.GetCamera());
 
-    auto TEXTURE_SHADER = SYS_SHADER_LIBRARY.Get("Texture");
+    auto TEXTURE_SHADER = MPE::ShaderLibrary::Get("Texture");
 
     glm::mat4 SQ_TRANSFORM = glm::translate(glm::mat4(1.0f), RECTANGLE_POSITION) * glm::scale(glm::mat4(1.0f), glm::vec3(RECTANGLE_VECTOR_SCALE) * 1.0f);
     TEST_TEXTURE->Bind();

@@ -2,8 +2,6 @@
 
 #include "MPE.h"
 
-#include "MPE/Renderer/Shaders/ShaderLibrary.h"
-
 #include <imgui.h>
 #include <string>
 
@@ -39,9 +37,6 @@ class TextureRectangleTest : public MPE::Layer
     float RECTANGLE_SCALE_FACTOR;
     glm::vec3 RECTANGLE_VECTOR_SCALE;
     glm::mat4 RECTANGLE_SCALE;
-
-    // Shader Library
-    MPE::ShaderLibrary SYS_SHADER_LIBRARY;
 
     // TEXTURES;
     MPE::REF<MPE::Texture2D> TEST_TEXTURE;

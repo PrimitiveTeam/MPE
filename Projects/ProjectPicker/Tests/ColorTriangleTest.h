@@ -2,8 +2,6 @@
 
 #include "MPE.h"
 
-#include "MPE/Renderer/Shaders/ShaderLibrary.h"
-
 #include <imgui.h>
 #include <string>
 
@@ -40,7 +38,4 @@ class ColorTriangleTest : public MPE::Layer
     glm::vec3 TRIANGLE_VECTOR_SCALE;
     glm::mat4 TRIANGLE_SCALE;
     float TRIANGLE_COLOR[4];
-
-    // Shader Library
-    MPE::ShaderLibrary SYS_SHADER_LIBRARY;
 };

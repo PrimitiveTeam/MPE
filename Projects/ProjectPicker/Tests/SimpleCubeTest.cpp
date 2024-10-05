@@ -1,5 +1,6 @@
 #include "SimpleCubeTest.h"
 #include "MPE/MPEPCH.h"
+#include "MPE/Renderer/Shaders/ShaderLibrary.h"
 
 #include "MPE/Vendor/GLM/GLM.h"
 
@@ -101,7 +102,7 @@ SimpleCubeTest::SimpleCubeTest()
     SYS_VertexArray->SetIndexBuffer(SQIB);
 
     // SHADERS
-    auto VERTEX_BASED_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/VertexBasedColor.glsl", true);
+    auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Load("Data/Shaders/VertexBasedColor.glsl", true);
 }
 
 void SimpleCubeTest::OnUpdate(MPE::Time deltaTime)
@@ -113,7 +114,7 @@ void SimpleCubeTest::OnUpdate(MPE::Time deltaTime)
 
     MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER.GetCamera());
 
-    auto VERTEX_BASED_COLOR_SHADER = SYS_SHADER_LIBRARY.Get("VertexBasedColor");
+    auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Get("VertexBasedColor");
 
     glm::mat4 RECTANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), RECTANGLE_POSITION);
     RECTANGLE_TRANSFORM = glm::rotate(RECTANGLE_TRANSFORM, glm::radians(angleX), glm::vec3(1.0f, 0.0f, 0.0f));

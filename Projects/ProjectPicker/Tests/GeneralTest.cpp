@@ -1,5 +1,6 @@
 #include "GeneralTest.h"
 #include "MPE/MPEPCH.h"
+#include "MPE/Renderer/Shaders/ShaderLibrary.h"
 
 #include "MPE/Vendor/GLM/GLM.h"
 
@@ -54,9 +55,9 @@ GeneralTest::GeneralTest()
     SYS_SQVA->SetIndexBuffer(SQIB);
 
     // SHADERS
-    auto TEXTURE_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/Texture.glsl", true);
-    auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/FlatColor.glsl", true);
-    auto VERTEX_BASED_COLOR_SHADER = SYS_SHADER_LIBRARY.Load("Data/Shaders/VertexBasedColor.glsl", true);
+    auto TEXTURE_SHADER = MPE::ShaderLibrary::Load("Data/Shaders/Texture.glsl", true);
+    auto FLAT_COLOR_SHADER = MPE::ShaderLibrary::Load("Data/Shaders/FlatColor.glsl", true);
+    auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Load("Data/Shaders/VertexBasedColor.glsl", true);
 
     // TEXTURES
     TEST_TEXTURE = MPE::Texture2D::Create("Data/Textures/TEST_TEXTURE.png");
@@ -133,7 +134,7 @@ void GeneralTest::OnUpdate(MPE::Time deltaTime)
 
     MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER.GetCamera());
 
-    auto FLAT_COLOR_SHADER = SYS_SHADER_LIBRARY.Get("FlatColor");
+    auto FLAT_COLOR_SHADER = MPE::ShaderLibrary::Get("FlatColor");
 
 #ifdef MPE_OPENGL
     std::dynamic_pointer_cast<MPE::OpenGLShader>(FLAT_COLOR_SHADER)->Bind();
@@ -155,11 +156,11 @@ void GeneralTest::OnUpdate(MPE::Time deltaTime)
         }
     }
 
-    auto VERTEX_BASED_COLOR_SHADER = SYS_SHADER_LIBRARY.Get("VertexBasedColor");
+    auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Get("VertexBasedColor");
     glm::mat4 TRIANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), TRIANGLE_POSITION) * TRIANGLE_SCALE;
     MPE::Renderer::Submit(VERTEX_BASED_COLOR_SHADER, SYS_VertexArray, TRIANGLE_TRANSFORM);
 
-    auto TEXTURE_SHADER = SYS_SHADER_LIBRARY.Get("Texture");
+    auto TEXTURE_SHADER = MPE::ShaderLibrary::Get("Texture");
 
     glm::mat4 SQ_TRANSFORM = glm::translate(glm::mat4(1.0f), SQ_POSITION) * glm::scale(glm::mat4(1.0f), glm::vec3(SQ_VECTOR_SCALE) * 1.0f);
     TEST_TEXTURE->Bind();

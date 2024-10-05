@@ -21,20 +21,19 @@ file(
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Object.cpp"
 
     # /Editor/Objects
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cube.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/Cube.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/PredefinedCubeMesh.cpp"
 
     # /Editor/Scene
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Scene/Scene.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Scene/SceneManager.cpp"
 
-    # /Editor/ObjectHierarchy
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/ObjectHierarchy/ObjectHierarchy.cpp"
-
-    # /Editor/PropertyViewer
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/PropertyViewer/ComponentProperties/HierarchyPropertiesEditor.cpp"
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/PropertyViewer/ComponentProperties/TagPropertiesEditor.cpp"
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/PropertyViewer/ComponentProperties/TransformPropertiesEditor.cpp"
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/PropertyViewer/PropertyViewer.cpp"
+    # /Editor/Windows
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/ObjectHierarchy/ObjectHierarchy.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/HierarchyPropertiesEditor.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/TagPropertiesEditor.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/TransformPropertiesEditor.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/PropertyViewer.cpp"
 )
 
 file(
@@ -68,22 +67,23 @@ file(
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Object.h"
 
     # /Editor/Objects
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cube.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/Cube.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/CubeIndices.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/CubeVertices.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/PredefinedCubeMesh.h"
 
     # /Editor/Scene
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Scene/Scene.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Scene/SceneManager.h"
 
-    # /Editor/ObjectHierarchy
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/ObjectHierarchy/ObjectHierarchy.h"
-
-    # /Editor/PropertyViewer
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/PropertyViewer/ComponentProperties/IComponentPropertyEditor.h"
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/PropertyViewer/ComponentProperties/TransformPropertiesEditor.h"
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/PropertyViewer/ComponentProperties/TagPropertiesEditor.h"
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/PropertyViewer/ComponentProperties/HierarchyPropertiesEditor.h"
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/PropertyViewer/Properties.h"
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/PropertyViewer/PropertyViewer.h"
+    # /Editor/Windows
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/ObjectHierarchy/ObjectHierarchy.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/IComponentPropertyEditor.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/TransformPropertiesEditor.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/TagPropertiesEditor.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/HierarchyPropertiesEditor.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/Properties.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/PropertyViewer.h"
 )
 
 # PRINT MPE EDITOR SOURCE FILES

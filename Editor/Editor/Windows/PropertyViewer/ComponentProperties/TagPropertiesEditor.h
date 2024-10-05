@@ -1,7 +1,7 @@
 #pragma once
 
 #include "MPE/Core/_CORE.h"
-#include "Editor/Editor/PropertyViewer/ComponentProperties/IComponentPropertyEditor.h"
+#include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/IComponentPropertyEditor.h"
 #include "Editor/Editor/ECS/Components/Core/TagComponent.h"
 #include "Editor/Editor/ECS/ECS.h"
 

@@ -2,8 +2,6 @@
 
 #include "MPE.h"
 
-#include "MPE/Renderer/Shaders/ShaderLibrary.h"
-
 #include <imgui.h>
 #include <string>
 
@@ -39,9 +37,6 @@ class GeneralTest : public MPE::Layer
     // TEXTURES;
     MPE::REF<MPE::Texture2D> TEST_TEXTURE;
     MPE::REF<MPE::Texture2D> TEST_TEXTURE2;
-
-    // SHADER LIBRARY
-    MPE::ShaderLibrary SYS_SHADER_LIBRARY;
 
     // SCENE
     float CLEAR_COLOR[4];

@@ -6,7 +6,7 @@
 #include "MPE/App/Layers/Layer.h"
 #include "Editor/Editor/ECS/ECS.h"
 #include "Editor/Editor/Objects/Base/Object.h"
-#include "Editor/Editor/ObjectHierarchy/ObjectHierarchy.h"
+#include "Editor/Editor/Windows/ObjectHierarchy/ObjectHierarchy.h"
 
 #include <string>
 
