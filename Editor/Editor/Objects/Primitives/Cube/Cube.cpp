@@ -94,7 +94,6 @@ void Cube::Init()
     m_shader = ShaderLibrary::AddOrLoadIfExists("Data/Shaders/FlatColor.glsl", true);
 
     // Initialize cube vertex array
-    // Initialize cube vertex array
     m_vertexArray = VertexArray::Create();
     float vertices[6 * 36] = {// I
                               -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
