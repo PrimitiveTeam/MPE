@@ -64,17 +64,19 @@ void Sphere::OnRender(OrthographicCamera& camera)
     transform *= glm::toMat4(m_transform->rotation);
     transform = glm::scale(transform, m_transform->scale);
 
-    m_shader->Bind();
+    // m_shader->Bind();
 
 #ifdef MPE_OPENGL
-    // std::dynamic_pointer_cast<MPE::OpenGLShader>(m_shader)->Bind();
-    std::dynamic_pointer_cast<MPE::OpenGLShader>(m_shader)->InjectUniformFloat4("UNI_COLOR", m_color);
+    std::dynamic_pointer_cast<MPE::OpenGLShader>(m_shader)->Bind();
+    // std::dynamic_pointer_cast<MPE::OpenGLShader>(m_shader)->InjectUniformFloat4("UNI_COLOR", m_color);
+    std::dynamic_pointer_cast<MPE::OpenGLShader>(m_shader)->InjectUniformInt1("UNI_TEXTURE", 0);
 #elif MPE_OPENGLES
     // std::dynamic_pointer_cast<MPE::OpenGLESShader>(m_shader)->Bind();
-    std::dynamic_pointer_cast<MPE::OpenGLESShader>(m_shader)->InjectUniformFloat4("UNI_COLOR", m_color);
+    // std::dynamic_pointer_cast<MPE::OpenGLESShader>(m_shader)->InjectUniformFloat4("UNI_COLOR", m_color);
 #endif
 
     m_vertexArray->Bind();
+    m_texture->Bind();
     Renderer::BeginScene(camera);
     if (m_lineDrawing)
         Renderer::SubmitLines(m_shader, m_vertexArray, transform);
@@ -151,12 +153,19 @@ void Sphere::Init()
 {
     m_color = {0.6f, 0.6f, 0.6f, 1.0f};
 
-    m_shader = ShaderLibrary::AddOrLoadIfExists("Data/Shaders/FlatColor.glsl", true);
+    // m_shader = ShaderLibrary::AddOrLoadIfExists("Data/Shaders/FlatColor.glsl", true);
+    // m_shader = ShaderLibrary::AddOrLoadIfExists("Data/Shaders/Texture.glsl", true);
+    m_shader = ShaderLibrary::AddOrLoadIfExists("Data/Shaders/TextureWithNormals.glsl", true);
+    m_texture = MPE::Texture2D::Create("Data/Textures/earth2048.bmp");
+    // m_texture = MPE::Texture2D::Create("Data/Textures/TEST_TEXTURE.png");
 
     m_vertexArray = VertexArray::Create();
 
-    REF<VertexBuffer> vertexBuffer = VertexBuffer::Create(m_vertices.data(), m_vertices.size() * sizeof(float));
-    vertexBuffer->SetLayout({{ShaderDataType::Vec3, "ATTR_POS"}});
+    // REF<VertexBuffer> vertexBuffer = VertexBuffer::Create(m_vertices.data(), m_vertices.size() * sizeof(float));
+    REF<VertexBuffer> vertexBuffer = VertexBuffer::Create(m_interleavedVertices.data(), m_interleavedVertices.size() * sizeof(float));
+    //  vertexBuffer->SetLayout({{ShaderDataType::Vec3, "ATTR_POS"}});
+    vertexBuffer->SetLayout({{ShaderDataType::Vec3, "ATTR_POS"}, {MPE::ShaderDataType::Vec3, "ATTR_NORMALS"}, {MPE::ShaderDataType::Vec2, "ATTR_TEXCOORD"}});
+    // vertexBuffer->SetLayout({{ShaderDataType::Vec3, "ATTR_POS"}, {MPE::ShaderDataType::Vec2, "ATTR_TEXCOORD"}});
     m_vertexArray->AddVertexBuffer(vertexBuffer);
 
     REF<IndexBuffer> indexBuffer = IndexBuffer::Create(m_indices.data(), m_indices.size());
@@ -636,10 +645,10 @@ std::vector<float> Sphere::GenerateFaceNormal(float x1, float y1, float z1, floa
     float length = sqrtf(nx * nx + ny * ny + nz * nz);
     if (length > EPSILON)
     {
-        float lengthInv = 1.0f / length;
-        normal[0] = nx * lengthInv;
-        normal[1] = ny * lengthInv;
-        normal[2] = nz * lengthInv;
+        float inverseLength = 1.0f / length;
+        normal[0] = nx * inverseLength;
+        normal[1] = ny * inverseLength;
+        normal[2] = nz * inverseLength;
     }
 
     return normal;

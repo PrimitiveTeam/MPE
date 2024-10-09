@@ -6,6 +6,7 @@
 #include "MPE/Renderer/Pipeline/VertexArray.h"
 #include "MPE/Renderer/Shaders/Shader.h"
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
+#include "MPE/Renderer/Textures/Texture2D.h"
 #include "Editor/Editor/Objects/Base/Object.h"
 #include "Editor/Editor/ECS/Components/Core/TransformComponent.h"
 
@@ -100,6 +101,7 @@ class MPE_EDITOR_API Sphere : public Object
     unsigned int m_interleavedStride;
 
     REF<Shader> m_shader;
+    REF<Texture2D> m_texture;
     REF<VertexArray> m_vertexArray;
 };
 }
