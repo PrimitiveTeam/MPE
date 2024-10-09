@@ -41,7 +41,7 @@ void OpenGLRendererAPI::Init()
     m_settings->SetBlend(true);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     m_settings->SetDepthTest(true);
-    m_settings->SetPolygonMode(false);
+    m_settings->SetDrawMode(DrawMode::FILL);
     m_settings->SetLimitFPS(false);
     m_settings->SetMaxFPS(60);
     m_settings->SetFaceCulling(false);
@@ -88,7 +88,9 @@ void OpenGLRendererAPI::DrawIndexed(const REF<VertexArray> &vertexArray)
 
 void OpenGLRendererAPI::DrawLines(const REF<VertexArray> &vertexArray, uint32_t vertexCount)
 {
-    glDrawArrays(GL_LINES, 0, static_cast<uint32_t>(vertexArray->GetVertexBuffers()[0]->GetSize() / sizeof(float) / vertexCount));
+    MPE_CORE_ASSERT(vertexArray->GetVertexBuffers().size() > 0, "VERTEX ARRAY HAS NO VERTEX BUFFER");
+
+    glDrawElements(GL_LINES, vertexCount, GL_UNSIGNED_INT, nullptr);
 }
 
 RenderSettings *OpenGLRendererAPI::GetSettings()

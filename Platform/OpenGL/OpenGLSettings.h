@@ -8,6 +8,13 @@
 
 namespace MPE
 {
+enum DrawMode
+{
+    FILL = 0,
+    LINE = 1,
+    POINT = 2
+};
+
 class MPE_API OpenGLSettings : public RenderSettings
 {
   public:
@@ -41,9 +48,9 @@ class MPE_API OpenGLSettings : public RenderSettings
     virtual void SetDepthTest(bool depthTest) override;
 
     // POLYGON MODE
-    void TogglePolygonMode();
-    bool GetPolygonMode() const;
-    void SetPolygonMode(bool polygonMode);
+    void ToggleDrawMode();
+    DrawMode GetDrawMode() const;
+    void SetDrawMode(DrawMode drawMode);
 
     // FACE CULLING
     virtual void ToggleFaceCulling() override;
@@ -68,6 +75,6 @@ class MPE_API OpenGLSettings : public RenderSettings
 
     bool m_blend;
     bool m_depthTest;
-    bool m_polygonMode;
+    DrawMode m_drawMode;
 };
 }
