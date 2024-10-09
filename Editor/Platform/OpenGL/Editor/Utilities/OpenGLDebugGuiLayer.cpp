@@ -101,10 +101,12 @@ void OpenGLDebugGuiLayer::GraphicsSettings()
         settings->SetDepthTest(depthTest);
     }
 
-    bool polygonMode = dynamic_cast<MPE::OpenGLSettings*>(settings)->GetPolygonMode();
-    if (ImGui::Checkbox("Polygon Mode", &polygonMode))
+    ImGui::Text("Draw Mode");
+    ImGui::SameLine();
+    auto drawMode = settings->GetDrawMode();
+    if (ImGui::Button(drawMode == MPE::DrawMode::FILL ? "Fill" : drawMode == MPE::DrawMode::LINE ? "Line" : "Point"))
     {
-        settings->SetPolygonMode(polygonMode);
+        settings->ToggleDrawMode();
     }
 
     bool faceCulling = settings->GetFaceCulling();
