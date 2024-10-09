@@ -53,6 +53,7 @@ set(TEST_LAYERS_CPP
   "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/TextureRectangleTest.cpp"
   "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/TexturesTest.cpp"
   "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/TriangleTransformationTest.cpp"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SphereTest.cpp"
 )
 set(TEST_LAYERS_H
   "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/ClearColorTest.h"
@@ -77,6 +78,7 @@ set(TEST_LAYERS_H
   "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/TextureRectangleTest.h"
   "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/TexturesTest.h"
   "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/TriangleTransformationTest.h"
+  "${PROJECT_SOURCE_DIR}/Projects/ProjectPicker/Tests/SphereTest.h"
 )
 add_library(TEST_LAYERS STATIC ${TEST_LAYERS_CPP})
 target_include_directories(TEST_LAYERS PUBLIC

@@ -37,6 +37,7 @@
 #include "Tests/SceneTest.h"
 #include "Tests/ObjectHierarchyTest.h"
 #include "Tests/PropertyViewerTest.h"
+#include "Tests/SphereTest.h"
 
 class ProjectPickerGuiLayer : public MPE::Layer
 {
@@ -227,6 +228,13 @@ class ProjectPickerGuiLayer : public MPE::Layer
                 MPE::App::GetApp().PushLayer(m_LayerRefs[19]);
             }
 
+            if (ImGui::Button("Open Sphere Test"))
+            {
+                m_Layers[20] = true;
+                m_LayerRefs[20] = MPE::NEWREF<SphereTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[20]);
+            }
+
             // if (ImGui::Button("Open General Layer"))
             // {
             //     m_Layers[1] = true;
@@ -259,7 +267,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
     }
 
   private:
-    static const size_t MAX_LAYERS = 20;
+    static const size_t MAX_LAYERS = 21;
     std::array<bool, MAX_LAYERS> m_Layers = {false};
     MPE::REF<MPE::Layer> m_LayerRefs[MAX_LAYERS];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();
