@@ -7,12 +7,18 @@ namespace MPE
 Scene::Scene() : m_sceneName("Default Scene"), m_ECS(NEWREF<ECS::ECS>()), m_mainCamera(nullptr), m_objects(NEWREF<std::vector<REF<Object>>>())
 {
     m_mainCamera = NEWREF<StaticOrthographicCamera>(1280.0f / 720.0f, true);
+
+    m_renderSystem = MPE::NEWREF<MPE::ECS::RenderSystem>();
+    m_ECS->RegisterSystem(*m_renderSystem, m_mainCamera->GetCamera());
 }
 
 Scene::Scene(const std::string& sceneName)
     : m_sceneName(sceneName), m_ECS(NEWREF<ECS::ECS>()), m_mainCamera(nullptr), m_objects(NEWREF<std::vector<REF<Object>>>())
 {
     m_mainCamera = NEWREF<StaticOrthographicCamera>(1280.0f / 720.0f, true);
+
+    m_renderSystem = MPE::NEWREF<MPE::ECS::RenderSystem>();
+    m_ECS->RegisterSystem(*m_renderSystem, m_mainCamera->GetCamera());
 }
 
 void Scene::DestroyEntity(ECS::Entity entity)
@@ -35,6 +41,7 @@ void Scene::OnUpdate(Time deltaTime)
 
 void Scene::OnRender()
 {
+    m_ECS->RunSystems(m_mainCamera->GetCamera());
     for (auto& obj : *m_objects)
     {
         obj->OnRender(m_mainCamera->GetCamera());

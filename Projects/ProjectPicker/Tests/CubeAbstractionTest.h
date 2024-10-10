@@ -41,5 +41,6 @@ class CubeAbstractionTest : public MPE::Layer
 
     // ECS
     MPE::REF<MPE::ECS::TransformSystem> m_transformSystem;
+    MPE::REF<MPE::ECS::RenderSystem> m_renderSystem;
     bool m_isTransformSystemActive = false;
 };

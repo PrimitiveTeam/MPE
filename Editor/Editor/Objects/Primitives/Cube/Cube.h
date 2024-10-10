@@ -8,6 +8,7 @@
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
 #include "Editor/Editor/Objects/Base/Object.h"
 #include "Editor/Editor/ECS/Components/Core/TransformComponent.h"
+#include "Editor/Editor/ECS/Components/Meshes/MeshComponent.h"
 
 #include "MPE/Vendor/GLM/GLM.h"
 
@@ -35,6 +36,7 @@ class MPE_EDITOR_API Cube : public Object
 
   private:
     ECS::TransformComponent* m_transform;
+    ECS::MeshComponent* m_meshComponent;
 
     glm::vec4 m_color;
 

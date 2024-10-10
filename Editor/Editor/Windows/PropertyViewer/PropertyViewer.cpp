@@ -6,6 +6,9 @@
 #include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/HierarchyPropertiesEditor.h"
 #include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/TagPropertiesEditor.h"
 #include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/TransformPropertiesEditor.h"
+#include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/MeshPropertiesEditor.h"
+#include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/MaterialPropertiesEditor.h"
+#include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/RenderPropertiesEditor.h"
 
 #include <imgui.h>
 
@@ -73,6 +76,21 @@ void PropertyViewer::CheckEntity()
     {
         m_propertyFlags |= Properties::Transform;
         m_editors.push_back(NEWREF<TransformPropertiesEditor>(*m_ECS, m_entity));
+    }
+    if (m_ECS->HasComponent<ECS::MeshComponent>(m_entity))
+    {
+        m_propertyFlags |= Properties::Mesh;
+        m_editors.push_back(NEWREF<MeshPropertiesEditor>(*m_ECS, m_entity));
+    }
+    if (m_ECS->HasComponent<ECS::MaterialComponent>(m_entity))
+    {
+        m_propertyFlags |= Properties::Material;
+        m_editors.push_back(NEWREF<MaterialPropertiesEditor>(*m_ECS, m_entity));
+    }
+    if (m_ECS->HasComponent<ECS::RenderComponent>(m_entity))
+    {
+        m_propertyFlags |= Properties::Render;
+        m_editors.push_back(NEWREF<RenderPropertiesEditor>(*m_ECS, m_entity));
     }
     if (m_entity == entt::null)
     {

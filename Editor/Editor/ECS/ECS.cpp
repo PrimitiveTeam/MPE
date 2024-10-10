@@ -19,11 +19,17 @@ void ECS::DestroyEntity(Entity entity)
 
 void ECS::RunSystems(float deltaTime)
 {
-    MPE_PROFILE_FUNCTION();
-
-    for (auto& system : m_systems)
+    for (auto& system : m_deltaTimeSystems)
     {
         system(m_registry, deltaTime);
+    }
+}
+
+void ECS::RunSystems(OrthographicCamera& camera)
+{
+    for (auto& system : m_cameraSystems)
+    {
+        system(m_registry, camera);
     }
 }
 }
