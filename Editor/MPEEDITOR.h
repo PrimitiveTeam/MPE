@@ -8,6 +8,7 @@
 // OBJECTS
 #include "Editor/Editor/Objects/Base/Object.h"
 #include "Editor/Editor/Objects/Primitives/Cube/Cube.h"
+#include "Editor/Editor/Objects/Primitives/Sphere/Sphere.h"
 // SCENES
 #include "Editor/Editor/Scene/Scene.h"
 #include "Editor/Editor/Scene/SceneManager.h"

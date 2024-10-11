@@ -17,6 +17,9 @@ CubeAbstractionTest::CubeAbstractionTest() : Layer("Test"), m_clearColor{0.5f, 0
 
     m_transformSystem = MPE::NEWREF<MPE::ECS::TransformSystem>(m_cubeDeltaPosition);
     m_ECS->RegisterSystem(*m_transformSystem);
+
+    m_renderSystem = MPE::NEWREF<MPE::ECS::RenderSystem>();
+    m_ECS->RegisterSystem(*m_renderSystem, m_mainCamera.GetCamera());
 }
 
 void CubeAbstractionTest::OnUpdate(MPE::Time deltaTime)
@@ -36,7 +39,8 @@ void CubeAbstractionTest::OnUpdate(MPE::Time deltaTime)
     }
 
     m_cube->OnUpdate(deltaTime);
-    m_cube->OnRender(m_mainCamera.GetCamera());
+    // m_cube->OnRender(m_mainCamera.GetCamera());
+    m_ECS->RunSystems(m_mainCamera.GetCamera());
 }
 
 void CubeAbstractionTest::OnImGuiRender()

@@ -24,7 +24,8 @@ class PropertyViewerTest : public MPE::Layer
     bool OnKeyPressedEvent(MPE::KeyPressedEvent &event);
 
   private:
-    void AddObject();
+    void AddCubeObject();
+    void AddSphereObject();
     void RemoveObject();
 
   private:

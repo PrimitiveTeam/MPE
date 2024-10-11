@@ -3,10 +3,10 @@
 
 #ifdef MPE_OPENGL
 #    include "MPE/MPE_GFX_OPEN_GL.h"
-#    include "Platform/OpenGL/Editor/Utilities/OpenGLDebugGuiLayer.h"
+#    include "EDITOR/Platform/OpenGL/Editor/Utilities/OpenGLDebugGuiLayer.h"
 #elif MPE_OPENGLES
 #    include "MPE/MPE_GFX_OPEN_GLES.h"
-#    include "Platform/OpenGLES/Editor/Utilities/OpenGLESDebugGuiLayer.h"
+#    include "EDITOR/Platform/OpenGLES/Editor/Utilities/OpenGLESDebugGuiLayer.h"
 #endif
 
 class ProjectSelector : public MPE::App

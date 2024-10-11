@@ -22,6 +22,7 @@ class MPE_API Renderer
     static void BeginScene(PerspectiveCamera &camera);
     static void EndScene();
     static void Submit(const REF<Shader> &shader, const REF<VertexArray> &vertexArray, const glm::mat4 &transform = glm::mat4(1.0f));
+    static void SubmitLines(const REF<Shader> &shader, const REF<VertexArray> &vertexArray, const glm::mat4 &transform = glm::mat4(1.0f));
 
     inline static RendererAPI::API GetCurrentGraphicsAPI() { return RendererAPI::GetGraphicsAPI(); }
 

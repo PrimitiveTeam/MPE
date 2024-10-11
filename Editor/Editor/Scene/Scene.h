@@ -5,6 +5,7 @@
 #include "MPE/Renderer/Cameras/StaticOrthographicCamera.h"
 #include "MPE/App/Layers/Layer.h"
 #include "Editor/Editor/ECS/ECS.h"
+#include "Editor/Editor/ECS/Systems/RenderSystem.h"
 #include "Editor/Editor/Objects/Base/Object.h"
 #include "Editor/Editor/Windows/ObjectHierarchy/ObjectHierarchy.h"
 
@@ -64,9 +65,14 @@ class MPE_EDITOR_API Scene : public Layer
     const REF<std::vector<REF<Object>>>& GetObjects() const { return m_objects; }
 
   private:
+    void CheckIfEntitiesAreDirty();
+
+  private:
     std::string m_sceneName;
     REF<ECS::ECS> m_ECS;
     REF<StaticOrthographicCamera> m_mainCamera;
     REF<std::vector<REF<Object>>> m_objects;
+
+    MPE::REF<MPE::ECS::RenderSystem> m_renderSystem;
 };
 }

@@ -82,6 +82,10 @@ void OpenGLVertexArray::AddVertexBuffer(const REF<VertexBuffer> &vertexBuffer)
                               layout.GetStride(), (const void *) (intptr_t) element.offset);
         index++;
 
+        // #include <typeinfo>
+        // MPE_TRACE("VERTEX BUFFER LAYOUT: {0}, {1}, {2}, {3}, {4}, {5}", element.title, typeid(ShaderDataTypeToOpenGLBaseType(element.type)).name(), element.size, element.offset, element.normalized, layout.GetStride());
+        // MPE_TRACE("GL_FLOAT: {0}, Returned Value: {1}", GL_FLOAT, ShaderDataTypeToOpenGLBaseType(MPE::ShaderDataType::Vec3));
+
         glCheckError();
     }
     m_vertexBuffers.push_back(vertexBuffer);

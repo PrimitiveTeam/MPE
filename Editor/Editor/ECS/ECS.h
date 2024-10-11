@@ -7,6 +7,9 @@
 #include <unordered_map>
 #include <vector>
 
+#include "MPE/Renderer/Cameras/OrthographicCamera.h"
+#include "MPE/Renderer/Cameras/PerspectiveCamera.h"
+
 namespace MPE
 {
 namespace ECS
@@ -45,6 +48,10 @@ class MPE_EDITOR_API ECS
     template <typename System>
     void RegisterSystem(System&& system);
 
+    // TODO: Enhance camera system, by using inheritance, so that we don't need to pass OrthographicCamera specifically.
+    template <typename System>
+    void RegisterSystem(System&& system, OrthographicCamera& camera);
+
     // template <typename System>
     // void RegisterSystem(void (*systemFunc)(System&, EntityRegistry&, float), System& system);
 
@@ -52,6 +59,8 @@ class MPE_EDITOR_API ECS
     Component& AddComponentToEntity(Entity entity, Args&&... args);
 
     void RunSystems(float deltaTime);
+
+    void RunSystems(OrthographicCamera& camera);
 
     // Utility
   public:
@@ -69,7 +78,8 @@ class MPE_EDITOR_API ECS
     // };
 
     EntityRegistry m_registry;
-    std::vector<std::function<void(EntityRegistry&, float)>> m_systems;
+    std::vector<std::function<void(EntityRegistry&, float)>> m_deltaTimeSystems;
+    std::vector<std::function<void(EntityRegistry&, OrthographicCamera&)>> m_cameraSystems;
     // std::vector<RegisteredSystem> m_systems;
 };
 
@@ -118,7 +128,13 @@ bool ECS::HasComponent(uint32_t entityId)
 template <typename System>
 void ECS::RegisterSystem(System&& system)
 {
-    m_systems.push_back([system = std::forward<System>(system)](EntityRegistry& reg, float deltaTime) { system(reg, deltaTime); });
+    m_deltaTimeSystems.push_back([system = std::forward<System>(system)](EntityRegistry& reg, float deltaTime) mutable { system(reg, deltaTime); });
+}
+
+template <typename System>
+void ECS::RegisterSystem(System&& system, OrthographicCamera& camera)
+{
+    m_cameraSystems.push_back([system = std::forward<System>(system)](EntityRegistry& reg, OrthographicCamera& cam) mutable { system(reg, cam); });
 }
 
 // template <typename System>

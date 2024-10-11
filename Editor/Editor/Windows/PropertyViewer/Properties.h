@@ -9,7 +9,11 @@ enum class MPE_EDITOR_API Properties : uint8_t
     None = 0,
     Tag = 1 << 0,
     Transform = 1 << 1,
-    Hierarchy = 1 << 2
+    Hierarchy = 1 << 2,
+    Mesh = 1 << 3,
+    SphereMetadata = 1 << 4,
+    Material = 1 << 4,
+    Render = 1 << 5
 };
 
 inline Properties operator|(Properties lhs, Properties rhs)

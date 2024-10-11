@@ -18,7 +18,7 @@ OpenGLSettings::OpenGLSettings()
     m_settings.insert(std::make_pair("MAX_FPS", std::make_pair("MAX_FPS", m_maxFps)));
     m_settings.insert(std::make_pair("BLEND", std::make_pair("BLEND", m_blend)));
     m_settings.insert(std::make_pair("DEPTH_TEST", std::make_pair("DEPTH_TEST", m_depthTest)));
-    m_settings.insert(std::make_pair("POLYGON_MODE", std::make_pair("POLYGON_MODE", m_polygonMode)));
+    m_settings.insert(std::make_pair("DRAW_MODE", std::make_pair("DRAW_MODE", m_drawMode)));
     m_settings.insert(std::make_pair("FACE_CULLING", std::make_pair("FACE_CULLING", m_faceCulling)));
     m_settings.insert(std::make_pair("DEBUG_OUTPUT", std::make_pair("DEBUG_OUTPUT", m_debugOutput)));
 #else
@@ -27,7 +27,7 @@ OpenGLSettings::OpenGLSettings()
     m_settings["MAX_FPS"] = std::make_pair("MAX_FPS", m_maxFps);
     m_settings["BLEND"] = std::make_pair("BLEND", m_blend);
     m_settings["DEPTH_TEST"] = std::make_pair("DEPTH_TEST", m_depthTest);
-    m_settings["POLYGON_MODE"] = std::make_pair("POLYGON_MODE", m_polygonMode);
+    m_settings["DRAW_MODE"] = std::make_pair("DRAW_MODE", m_drawMode);
     m_settings["FACE_CULLING"] = std::make_pair("FACE_CULLING", m_faceCulling);
     m_settings["DEBUG_OUTPUT"] = std::make_pair("DEBUG_OUTPUT", m_debugOutput);
 #endif
@@ -173,29 +173,37 @@ void OpenGLSettings::SetDepthTest(bool depthTest)
 
 // POLYGON MODE
 
-void OpenGLSettings::TogglePolygonMode()
+void OpenGLSettings::ToggleDrawMode()
 {
-    this->SetPolygonMode(!m_polygonMode);
+    this->SetDrawMode(static_cast<DrawMode>((m_drawMode + 1) % 3));
 }
 
-bool OpenGLSettings::GetPolygonMode() const
+DrawMode OpenGLSettings::GetDrawMode() const
 {
-    return m_polygonMode;
+    return m_drawMode;
 }
 
-void OpenGLSettings::SetPolygonMode(bool polygonMode)
+void OpenGLSettings::SetDrawMode(DrawMode drawMode)
 {
-    m_polygonMode = polygonMode;
+    m_drawMode = drawMode;
 
-    if (m_polygonMode)
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    else
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    switch (m_drawMode)
+    {
+        case FILL:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            break;
+        case LINE:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+            break;
+        case POINT:
+            glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+            break;
+    }
 
 #if MPE_PLATFORM_LINUX
-    UpdateSettingsAndSendEvent("POLYGON_MODE", m_polygonMode);
+    UpdateSettingsAndSendEvent("DRAW_MODE", m_drawMode);
 #else
-    UpdateSettingsAndSendEvent(m_settings["POLYGON_MODE"].first, m_polygonMode);
+    UpdateSettingsAndSendEvent(m_settings["DRAW_MODE"].first, m_drawMode);
 #endif
 }
 
@@ -300,8 +308,8 @@ void OpenGLSettings::UpdateSettings()
     auto depthTestIt = m_settings.find("DEPTH_TEST");
     if (depthTestIt != m_settings.end()) depthTestIt->second.second = m_blend;
 
-    auto polygonModeIt = m_settings.find("POLYGON_MODE");
-    if (polygonModeIt != m_settings.end()) polygonModeIt->second.second = m_polygonMode;
+    auto drawModeIt = m_settings.find("DRAW_MODE");
+    if (drawModeIt != m_settings.end()) drawModeIt->second.second = m_drawMode;
 
     auto faceCullingIt = m_settings.find("FACE_CULLING");
     if (faceCullingIt != m_settings.end()) faceCullingIt->second.second = m_faceCulling;
@@ -314,7 +322,7 @@ void OpenGLSettings::UpdateSettings()
     m_settings["MAX_FPS"].second = m_maxFps;
     m_settings["BLEND"].second = m_blend;
     m_settings["DEPTH_TEST"].second = m_blend;
-    m_settings["POLYGON_MODE"].second = m_polygonMode;
+    m_settings["DRAW_MODE"].second = m_drawMode;
     m_settings["FACE_CULLING"].second = m_faceCulling;
     m_settings["DEBUG_OUTPUT"].second = m_debugOutput;
 #endif

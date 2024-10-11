@@ -15,6 +15,7 @@ add_library(PONG_SRC STATIC ${PONG_CPP})
 target_include_directories(PONG_SRC PUBLIC
   ${PONG_H}
   ${MPE_PUBLIC_INCLUDES}
+  ${MPE_EDITOR_PUBLIC_INCLUDES}
 )
 
 # COMPILER DEFINITIONS FOR PONG_SRC
@@ -35,8 +36,8 @@ PONG_SRC COMPILE DEFINITIONS:\n")
 -----------------------------------------------------------")
 endif()
 
-target_link_libraries(PONG_SRC PUBLIC MPE)
-target_link_libraries(PONG PUBLIC MPE)
+target_link_libraries(PONG_SRC PUBLIC MPE MPE_EDITOR)
+target_link_libraries(PONG PUBLIC MPE MPE_EDITOR)
 target_link_libraries(PONG PUBLIC PONG_SRC)
 
 set_target_properties(PONG PROPERTIES OUTPUT_NAME "MPE-PONG")
