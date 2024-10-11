@@ -65,6 +65,9 @@ class MPE_EDITOR_API Scene : public Layer
     const REF<std::vector<REF<Object>>>& GetObjects() const { return m_objects; }
 
   private:
+    void CheckIfEntitiesAreDirty();
+
+  private:
     std::string m_sceneName;
     REF<ECS::ECS> m_ECS;
     REF<StaticOrthographicCamera> m_mainCamera;

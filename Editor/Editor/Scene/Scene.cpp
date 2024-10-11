@@ -2,6 +2,11 @@
 
 #include "MPE/Renderer/RenderPrimitive.h"
 
+#include "Editor/Editor/ECS/Components/Meshes/MeshRegenerator.h"
+#include "Editor/Editor/ECS/Components/Meshes/MeshComponent.h"
+#include "Editor/Editor/ECS/Components/Meshes/Metadata/SphereMetadataComponent.h"
+#include "Editor/Editor/ECS/Components/Graphical/RenderComponent.h"
+
 namespace MPE
 {
 Scene::Scene() : m_sceneName("Default Scene"), m_ECS(NEWREF<ECS::ECS>()), m_mainCamera(nullptr), m_objects(NEWREF<std::vector<REF<Object>>>())
@@ -30,6 +35,7 @@ void Scene::DestroyEntity(ECS::Entity entity)
 
 void Scene::OnUpdate(Time deltaTime)
 {
+    CheckIfEntitiesAreDirty();
     MPE::RenderPrimitive::Clear();
 
     m_ECS->RunSystems(deltaTime);
@@ -61,6 +67,25 @@ void Scene::OnEvent(Event& event)
     for (auto& obj : *m_objects)
     {
         obj->OnEvent(event);
+    }
+}
+
+void Scene::CheckIfEntitiesAreDirty()
+{
+    for (auto& obj : *m_objects)
+    {
+        auto entity = obj->GetEntity();
+
+        // Check if the entity has the required components
+        if (m_ECS->HasComponent<ECS::MeshComponent>(entity) && m_ECS->HasComponent<ECS::RenderComponent>(entity) &&
+            m_ECS->HasComponent<ECS::SphereMetadataComponent>(entity))
+        {
+            auto& mesh = m_ECS->GetComponent<ECS::MeshComponent>(entity);
+            auto& renderComp = m_ECS->GetComponent<ECS::RenderComponent>(entity);
+            auto& metadata = m_ECS->GetComponent<ECS::SphereMetadataComponent>(entity);
+
+            MPE::ECS::RegenerateMeshIfDirty(mesh, metadata, renderComp);
+        }
     }
 }
 }

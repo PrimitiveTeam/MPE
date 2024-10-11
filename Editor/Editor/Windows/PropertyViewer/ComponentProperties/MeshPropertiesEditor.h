@@ -27,6 +27,7 @@ class MPE_EDITOR_API MeshPropertiesEditor : public IComponentPropertyEditor
     std::vector<unsigned int> m_indices;
     unsigned int m_stride;
     MeshType m_meshType;
+    bool m_lineDrawing;
     bool m_isModified = false;
 };
 // {

@@ -12,11 +12,14 @@
 SphereTest::SphereTest() : Layer("Test"), m_clearColor{0.5f, 0.25f, 0.5f}, m_mainCamera(1280.0f / 720.0f, true)
 {
     m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
-    m_sphere = MPE::NEWREF<MPE::Sphere>(*m_ECS, glm::vec3(0.0f), glm::vec3(1.0f), 1.0f, 36, 18, true, 2);
+    m_sphere = MPE::NEWREF<MPE::Sphere>(*m_ECS);
     m_sphereDeltaPosition = new glm::vec3(0.0f);
 
     m_transformSystem = MPE::NEWREF<MPE::ECS::TransformSystem>(m_sphereDeltaPosition);
     m_ECS->RegisterSystem(*m_transformSystem);
+
+    m_renderSystem = MPE::NEWREF<MPE::ECS::RenderSystem>();
+    m_ECS->RegisterSystem(*m_renderSystem, m_mainCamera.GetCamera());
 }
 
 void SphereTest::OnUpdate(MPE::Time deltaTime)
@@ -36,7 +39,8 @@ void SphereTest::OnUpdate(MPE::Time deltaTime)
     }
 
     m_sphere->OnUpdate(deltaTime);
-    m_sphere->OnRender(m_mainCamera.GetCamera());
+    // m_sphere->OnRender(m_mainCamera.GetCamera());
+    m_ECS->RunSystems(m_mainCamera.GetCamera());
 }
 
 void SphereTest::OnImGuiRender()

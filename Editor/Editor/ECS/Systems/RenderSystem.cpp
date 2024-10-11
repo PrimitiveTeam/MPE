@@ -5,6 +5,7 @@
 #include "Editor/Editor/ECS/Components/Meshes/MeshComponent.h"
 #include "Editor/Editor/ECS/Components/Graphical/MaterialComponent.h"
 #include "Editor/Editor/ECS/Components/Graphical/RenderComponent.h"
+#include "Editor/Editor/ECS/Components/Meshes/MeshRegenerator.h"
 
 #include "MPE/Renderer/Renderer.h"
 #include "MPE/Renderer/Cameras/OrthographicCamera.h"
@@ -32,6 +33,12 @@ void RenderSystem::operator()(entt::registry& registry, OrthographicCamera& came
         auto& material = view.get<MaterialComponent>(entity);
         auto& mesh = view.get<MeshComponent>(entity);
 
+        if (registry.all_of<SphereMetadataComponent>(entity))
+        {
+            auto& metadata = registry.get<SphereMetadataComponent>(entity);
+            MPE::ECS::RegenerateMeshIfDirty(mesh, metadata, renderComp);
+        }
+
         glm::mat4 transformMatrix = glm::translate(glm::mat4(1.0f), transform.position);
         transformMatrix *= glm::toMat4(transform.rotation);
         transformMatrix = glm::scale(transformMatrix, transform.scale);
@@ -41,16 +48,28 @@ void RenderSystem::operator()(entt::registry& registry, OrthographicCamera& came
 
         // MODELMAT and UNI_VPM is set in Renderer::Draw calls
 
-        if (material.texture) material.texture->Bind();
-
+        if (material.texture)
+            material.texture->Bind();
+        else
+        // TODO: Find a better way to handle this
+        {
 #ifdef MPE_OPENGL
-        std::dynamic_pointer_cast<MPE::OpenGLShader>(renderComp.shader)->InjectUniformFloat4("UNI_COLOR", material.color);
+            std::dynamic_pointer_cast<MPE::OpenGLShader>(renderComp.shader)->InjectUniformFloat4("UNI_COLOR", material.color);
 #elif MPE_OPENGLES
-        std::dynamic_pointer_cast<MPE::OpenGLESShader>(renderComp.shader)->InjectUniformFloat4("UNI_COLOR", material.color);
+            std::dynamic_pointer_cast<MPE::OpenGLESShader>(renderComp.shader)->InjectUniformFloat4("UNI_COLOR", material.color);
 #endif
+        }
 
         Renderer::BeginScene(camera);
-        Renderer::Submit(renderComp.shader, renderComp.vertexArray, transformMatrix);
+        if (mesh.lineDrawing)
+        {
+            if (mesh.indicesLines.size() > 0)
+                Renderer::SubmitLines(renderComp.shader, renderComp.vertexArray, transformMatrix);
+            else
+                MPE_ASSERT(false, "Line drawing requested but no lines to draw.");
+        }
+        else
+            Renderer::Submit(renderComp.shader, renderComp.vertexArray, transformMatrix);
         Renderer::EndScene();
     }
 }

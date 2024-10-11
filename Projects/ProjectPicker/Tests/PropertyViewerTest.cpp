@@ -53,9 +53,14 @@ void PropertyViewerTest::OnImGuiRender()
         m_objectHierarchy->UpdateHierarchyList();
     }
 
-    if (ImGui::Button("Add Object"))
+    if (ImGui::Button("Add Cube Object"))
     {
-        AddObject();
+        AddCubeObject();
+    }
+
+    if (ImGui::Button("Add Sphere Object"))
+    {
+        AddSphereObject();
     }
 
     ImGui::SameLine();
@@ -83,9 +88,15 @@ bool PropertyViewerTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)
     return false;
 }
 
-void PropertyViewerTest::AddObject()
+void PropertyViewerTest::AddCubeObject()
 {
     auto &object = m_scene->CreateObject<MPE::Cube>();
+    m_objectHierarchy->UpdateHierarchyList();
+}
+
+void PropertyViewerTest::AddSphereObject()
+{
+    auto &object = m_scene->CreateObject<MPE::Sphere>();
     m_objectHierarchy->UpdateHierarchyList();
 }
 

@@ -12,7 +12,9 @@ file(
 
     # /Editor/ECS/Components
     # Meshes
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/MeshFactory.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/CubeMeshGenerator.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/SphereMeshGenerator.cpp"
 
     # /Editor/ECS/Systems
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Systems/TransformSystem.cpp"
@@ -40,6 +42,7 @@ file(
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/TagPropertiesEditor.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/TransformPropertiesEditor.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/MeshPropertiesEditor.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/SphereMetadataPropertiesEditor.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/MaterialPropertiesEditor.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/RenderPropertiesEditor.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/PropertyViewer.cpp"
@@ -70,7 +73,14 @@ file(
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Graphical/RenderComponent.h"
     # Meshes
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/MeshComponent.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/MeshFactory.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/MeshRegenerator.h"
+    # Mesh Generators
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/CubeMeshGenerator.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/SphereMeshGenerator.h"
+    # Mesh Metadata
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Metadata/MeshMetadata.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Metadata/SphereMetadataComponent.h"
 
     # /Editor/ECS/Systems
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Systems/TransformSystem.h"
@@ -100,6 +110,7 @@ file(
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/TagPropertiesEditor.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/TransformPropertiesEditor.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/MeshPropertiesEditor.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/SphereMetadataPropertiesEditor.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/MaterialPropertiesEditor.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/ComponentProperties/RenderPropertiesEditor.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Windows/PropertyViewer/Properties.h"

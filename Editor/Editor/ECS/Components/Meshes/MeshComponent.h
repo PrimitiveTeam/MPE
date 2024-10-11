@@ -40,27 +40,11 @@ struct MPE_EDITOR_API MeshComponent
     std::vector<float> normals;
     std::vector<float> textureCoords;
     std::vector<float> interleavedVertices;
+    std::vector<float> indicesLines;
     std::vector<unsigned int> indices;
     unsigned int stride;
     MeshType meshType;
-
-    MeshComponent(MeshType type = MeshType::Custom) : meshType(type), stride(0)
-    {
-        switch (type)
-        {
-            case MeshType::Cube:
-                CubeMeshGenerator::GenerateCube(stride, vertices, normals, textureCoords, interleavedVertices, indices);
-                break;
-            case MeshType::Sphere:
-                // SphereMeshGenerator::GenerateSphere(...);
-                break;
-            case MeshType::Custom:
-                MPE_ASSERT(false, "Custom mesh loading not implemented yet.");
-                break;
-        }
-    }
-
-    static MeshComponent CreateCube() { return MeshComponent(MeshType::Cube); }
+    bool lineDrawing = false;
 };
 }
 }

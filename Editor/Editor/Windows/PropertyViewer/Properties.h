@@ -11,6 +11,7 @@ enum class MPE_EDITOR_API Properties : uint8_t
     Transform = 1 << 1,
     Hierarchy = 1 << 2,
     Mesh = 1 << 3,
+    SphereMetadata = 1 << 4,
     Material = 1 << 4,
     Render = 1 << 5
 };

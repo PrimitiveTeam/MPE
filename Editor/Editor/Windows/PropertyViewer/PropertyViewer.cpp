@@ -7,6 +7,7 @@
 #include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/TagPropertiesEditor.h"
 #include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/TransformPropertiesEditor.h"
 #include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/MeshPropertiesEditor.h"
+#include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/SphereMetadataPropertiesEditor.h"
 #include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/MaterialPropertiesEditor.h"
 #include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/RenderPropertiesEditor.h"
 
@@ -81,6 +82,11 @@ void PropertyViewer::CheckEntity()
     {
         m_propertyFlags |= Properties::Mesh;
         m_editors.push_back(NEWREF<MeshPropertiesEditor>(*m_ECS, m_entity));
+    }
+    if (m_ECS->HasComponent<ECS::SphereMetadataComponent>(m_entity))
+    {
+        m_propertyFlags |= Properties::SphereMetadata;
+        m_editors.push_back(NEWREF<SphereMetadataPropertiesEditor>(*m_ECS, m_entity));
     }
     if (m_ECS->HasComponent<ECS::MaterialComponent>(m_entity))
     {

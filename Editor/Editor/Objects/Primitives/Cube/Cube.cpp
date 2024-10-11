@@ -5,6 +5,7 @@
 #include "Editor/Editor/ECS/Utility/RotationUtilities.h"
 #include "Editor/Editor/ECS/Components/Graphical/MaterialComponent.h"
 #include "Editor/Editor/ECS/Components/Graphical/RenderComponent.h"
+#include "Editor/Editor/ECS/Components/Meshes/MeshFactory.h"
 
 #ifdef MPE_OPENGL
 #    include "MPE/MPE_GFX_OPEN_GL.h"
@@ -20,7 +21,9 @@ namespace MPE
 Cube::Cube(ECS::ECS& ecs) : Object(ecs)
 {
     m_transform = &m_ECS.AddComponentToEntity<ECS::TransformComponent>(m_entity, glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
-    m_meshComponent = &m_ECS.AddComponentToEntity<ECS::MeshComponent>(m_entity, MeshType::Cube);
+
+    ECS::MeshComponent cubeMesh = ECS::MeshFactory::CreateCube();
+    m_meshComponent = &m_ECS.AddComponentToEntity<ECS::MeshComponent>(m_entity, std::move(cubeMesh));
 
     Init();
 }
@@ -29,7 +32,9 @@ Cube::Cube(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale) : O
 {
     // Create an entity and add a transform component
     m_transform = &m_ECS.AddComponentToEntity<ECS::TransformComponent>(m_entity, position, glm::vec3(0.0f), scale);
-    m_meshComponent = &m_ECS.AddComponentToEntity<ECS::MeshComponent>(m_entity, MeshType::Cube);
+
+    ECS::MeshComponent cubeMesh = ECS::MeshFactory::CreateCube();
+    m_meshComponent = &m_ECS.AddComponentToEntity<ECS::MeshComponent>(m_entity, std::move(cubeMesh));
 
     Init();
 }
@@ -74,15 +79,15 @@ void Cube::OnRender(OrthographicCamera& camera)
 
 void Cube::OnImGuiRender()
 {
-    ImGui::Text("Cube Controls");
-    ImGui::Checkbox("Auto Rotate", &m_autoRotate);
-    if (ImGui::SliderFloat("Rotate X", &m_eulerRotation.x, -m_maxAngle, m_maxAngle) |
-        ImGui::SliderFloat("Rotate Y", &m_eulerRotation.y, -m_maxAngle, m_maxAngle) |
-        ImGui::SliderFloat("Rotate Z", &m_eulerRotation.z, -m_maxAngle, m_maxAngle))
-    {
-        m_transform->rotation = MPE::ECS::RotationUtilities::EulerToQuaternion(m_eulerRotation);
-    }
-    ImGui::SliderFloat3("Position", &m_transform->position.x, -10.0f, 10.0f);
+    // ImGui::Text("Cube Controls");
+    // ImGui::Checkbox("Auto Rotate", &m_autoRotate);
+    // if (ImGui::SliderFloat("Rotate X", &m_eulerRotation.x, -m_maxAngle, m_maxAngle) |
+    //     ImGui::SliderFloat("Rotate Y", &m_eulerRotation.y, -m_maxAngle, m_maxAngle) |
+    //     ImGui::SliderFloat("Rotate Z", &m_eulerRotation.z, -m_maxAngle, m_maxAngle))
+    // {
+    //     m_transform->rotation = MPE::ECS::RotationUtilities::EulerToQuaternion(m_eulerRotation);
+    // }
+    // ImGui::SliderFloat3("Position", &m_transform->position.x, -10.0f, 10.0f);
 }
 
 void Cube::OnEvent(Event& event)
