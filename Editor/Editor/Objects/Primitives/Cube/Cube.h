@@ -19,6 +19,7 @@ class MPE_EDITOR_API Cube : public Object
   public:
     Cube(ECS::ECS& ecs);
     Cube(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale);
+    ~Cube();
 
   private:
     virtual void Init() override;

@@ -40,6 +40,11 @@ Cube::Cube(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale) : O
     Init();
 }
 
+Cube::~Cube()
+{
+    m_ECS.DestroyEntity(m_entity);
+}
+
 void Cube::OnUpdate(Time deltaTime)
 {
     if (m_autoRotate)

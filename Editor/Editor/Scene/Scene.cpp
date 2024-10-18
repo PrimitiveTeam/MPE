@@ -3,8 +3,8 @@
 #include "MPE/Renderer/RenderPrimitive.h"
 
 #include "Editor/Editor/Objects/Cameras/Camera.h"
-#include "Editor/Editor/Objects/Cameras/OrthographicCamera.h"
-#include "Editor/Editor/Objects/Cameras/PerspectiveCamera.h"
+// #include "Editor/Editor/Objects/Cameras/OrthographicCamera.h"
+// #include "Editor/Editor/Objects/Cameras/PerspectiveCamera.h"
 #include "Editor/Editor/ECS/Components/Meshes/MeshRegenerator.h"
 #include "Editor/Editor/ECS/Components/Meshes/MeshComponent.h"
 #include "Editor/Editor/ECS/Components/Meshes/Metadata/SphereMetadataComponent.h"
@@ -15,7 +15,10 @@ namespace MPE
 Scene::Scene() : m_sceneName("Default Scene"), m_ECS(NEWREF<ECS::ECS>()), m_mainCamera(nullptr), m_objects(NEWREF<std::vector<REF<Object>>>())
 {
     // m_mainCamera = NEWREF<StaticOrthographicCamera>(1280.0f / 720.0f, true);
-    m_mainCamera = NEWREF<OrthographicCamera>(*m_ECS, -1.0f, 1.0f, -1.0f, 1.0f);
+    MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
+    cameraComponent->SetMode(MPE::CameraMode::Orthographic, false);
+    cameraComponent->SetOrthographic(1280.0f / 720.0f, 1.0f, -1.0f, 1.0f);
+    m_mainCamera = NEWREF<Camera>(*m_ECS, cameraComponent);
 
     m_renderSystem = MPE::NEWREF<MPE::ECS::RenderSystem>();
     m_ECS->RegisterSystem(*m_renderSystem, m_mainCamera);
@@ -25,7 +28,10 @@ Scene::Scene(const std::string& sceneName)
     : m_sceneName(sceneName), m_ECS(NEWREF<ECS::ECS>()), m_mainCamera(nullptr), m_objects(NEWREF<std::vector<REF<Object>>>())
 {
     // m_mainCamera = NEWREF<StaticOrthographicCamera>(1280.0f / 720.0f, true);
-    m_mainCamera = NEWREF<OrthographicCamera>(*m_ECS, -1.0f, 1.0f, -1.0f, 1.0f);
+    MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
+    cameraComponent->SetMode(MPE::CameraMode::Orthographic, false);
+    cameraComponent->SetOrthographic(1280.0f / 720.0f, 1.0f, -1.0f, 1.0f);
+    m_mainCamera = NEWREF<Camera>(*m_ECS, cameraComponent);
 
     m_renderSystem = MPE::NEWREF<MPE::ECS::RenderSystem>();
     m_ECS->RegisterSystem(*m_renderSystem, m_mainCamera);

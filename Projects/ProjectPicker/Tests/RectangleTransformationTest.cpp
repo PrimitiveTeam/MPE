@@ -24,7 +24,10 @@ RectangleTransformationTest::RectangleTransformationTest()
       radians(0.0f)
 {
     m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
-    SYS_CAMERA_CONTROLLER = MPE::NEWREF<MPE::OrthographicCameraController>(*m_ECS, 1280.0f / 720.0f);
+    MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
+    cameraComponent->SetMode(MPE::CameraMode::Orthographic, false);
+    cameraComponent->SetOrthographic(1280.0f / 720.0f, 1.0f, -1.0f, 1.0f);
+    SYS_CAMERA_CONTROLLER = MPE::NEWREF<MPE::Camera>(*m_ECS, cameraComponent);
 
     // SQUARE
     SYS_VertexArray = MPE::VertexArray::Create();
@@ -52,7 +55,7 @@ void RectangleTransformationTest::OnUpdate(MPE::Time deltaTime)
     MPE::RenderPrimitive::SetClearColor(glm::vec4(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]));
     MPE::RenderPrimitive::Clear();
 
-    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER->GetOrthographicCamera()->GetCameraComponent()->GetProjectionViewMatrix());
+    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER->GetProjection());
 
     auto FLAT_COLOR_SHADER = MPE::ShaderLibrary::Get("FlatColor");
 
@@ -131,10 +134,10 @@ void RectangleTransformationTest::OnImGuiRender()
 
     ImGui::Separator();
     ImGui::Text("2D CAMERA CONTROLLER");
-    auto CAMERA_POSITION = SYS_CAMERA_CONTROLLER->GetOrthographicCamera()->GetOrthographicCameraComponent()->GetPosition();
+    auto CAMERA_POSITION = SYS_CAMERA_CONTROLLER->GetPosition();
     ImGui::Text("Camera Position: X: %f, Y: %f, Z: %f", CAMERA_POSITION.x, CAMERA_POSITION.y, CAMERA_POSITION.z);
     ImGui::SliderFloat3("Camera Position", &CAMERA_POSITION.x, screen_width * -1.0f, screen_width);
-    SYS_CAMERA_CONTROLLER->GetOrthographicCamera()->GetOrthographicCameraComponent()->SetPosition(CAMERA_POSITION);
+    SYS_CAMERA_CONTROLLER->SetPosition(CAMERA_POSITION);
 
     // if (ImGui::Button("RESET CAMERA"))
     // {

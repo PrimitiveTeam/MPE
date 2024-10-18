@@ -20,10 +20,13 @@ SimplePerspectiveCameraTest::SimplePerspectiveCameraTest()
 {
     // m_perspectiveCamera(90.0f, 1280.0f / 720.0f, 0.1f, 100.0f),
     m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
-    m_perspectiveCamera = MPE::NEWREF<MPE::PerspectiveCamera>(*m_ECS, 90.0f, 1280.0f / 720.0f, 0.1f, 100.0f);
+    MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
+    cameraComponent->SetMode(MPE::CameraMode::Perspective, false);
+    cameraComponent->SetPerspective(90.0f, 1280.0f / 720.0f, 0.1f, 100.0f);
+    m_perspectiveCamera = MPE::NEWREF<MPE::Camera>(*m_ECS, cameraComponent);
 
     // Get the camera a bit further away from the cube to see it
-    m_perspectiveCamera->GetPerspectiveCameraComponent()->ManipulatePosition() = glm::vec3(0.0f, 0.0f, -10.0f);
+    m_perspectiveCamera->SetPosition(glm::vec3(0.0f, 0.0f, -10.0f));
     m_rectanglePosition.z = -1.0f;
 
     // CUBE
@@ -120,7 +123,7 @@ void SimplePerspectiveCameraTest::OnUpdate(MPE::Time deltaTime)
     MPE::RenderPrimitive::SetClearColor(glm::vec4(m_clearColor[0], m_clearColor[1], m_clearColor[2], m_clearColor[3]));
     MPE::RenderPrimitive::Clear();
 
-    MPE::Renderer::BeginScene(m_perspectiveCamera->GetPerspectiveCameraComponent()->GetProjectionViewMatrix());
+    MPE::Renderer::BeginScene(m_perspectiveCamera->GetProjection());
 
     auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Get("FlatColor");
     VERTEX_BASED_COLOR_SHADER->SetFloat4("UNI_COLOR", glm::vec4(m_rectangleColor[0], m_rectangleColor[1], m_rectangleColor[2], m_rectangleColor[3]));
@@ -148,19 +151,17 @@ void SimplePerspectiveCameraTest::OnImGuiRender()
 
     ImGui::Text("CAMERA VARIABLES");
 
-    auto cameraComponent = m_perspectiveCamera->GetPerspectiveCameraComponent();
-
-    float fov = cameraComponent->GetFov();
+    float fov = m_perspectiveCamera->GetFov();
     ImGui::SliderFloat("FOV", &fov, 1.0f, 179.0f);
-    cameraComponent->SetFov(fov);
+    m_perspectiveCamera->SetFov(fov);
 
-    float cNear = cameraComponent->GetNear();
+    float cNear = m_perspectiveCamera->GetNear();
     ImGui::SliderFloat("NEAR", &cNear, 0.1f, 10.0f);
-    cameraComponent->SetNear(cNear);
+    m_perspectiveCamera->SetNear(cNear);
 
-    float cFar = cameraComponent->GetFar();
+    float cFar = m_perspectiveCamera->GetFar();
     ImGui::SliderFloat("FAR", &cFar, 10.0f, 100.0f);
-    cameraComponent->SetFar(cFar);
+    m_perspectiveCamera->SetFar(cFar);
 
     ImGui::Separator();
     ImGui::Text("CUBE VARIABLES");

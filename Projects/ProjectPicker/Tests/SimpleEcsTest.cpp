@@ -16,8 +16,12 @@ SimpleEcsTest::SimpleEcsTest()
       angleY(0.0f),
       angleZ(0.0f)
 {
+    m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
     m_entity = m_ECS->CreateEntity();
-    SYS_CAMERA_CONTROLLER = MPE::NEWREF<MPE::OrthographicCameraController>(*m_ECS, 1280.0f / 720.0f);
+    MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
+    cameraComponent->SetMode(MPE::CameraMode::Orthographic, false);
+    cameraComponent->SetOrthographic(1280.0f / 720.0f, 1.0f, -1.0f, 1.0f);
+    SYS_CAMERA_CONTROLLER = MPE::NEWREF<MPE::Camera>(*m_ECS, cameraComponent);
 
     auto &transform = m_ECS->AddComponentToEntity<MPE::ECS::TransformComponent>(m_entity, glm::vec3(-2.0f, 0.0f, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
 
@@ -127,7 +131,7 @@ void SimpleEcsTest::OnUpdate(MPE::Time deltaTime)
     MPE::RenderPrimitive::SetClearColor(glm::vec4(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]));
     MPE::RenderPrimitive::Clear();
 
-    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER->GetOrthographicCamera()->GetCameraComponent()->GetProjectionViewMatrix());
+    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER->GetProjection());
 
     auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Get("VertexBasedColor");
 

@@ -23,6 +23,7 @@ class MPE_EDITOR_API Sphere : public Object
     Sphere(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale);
     Sphere(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale, float radius, uint32_t sectors, uint32_t stacks, bool smooth = true,
            int upAxis = 3);
+    ~Sphere();
 
   private:
     virtual void Init() override;

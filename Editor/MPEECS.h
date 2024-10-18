@@ -9,11 +9,6 @@
 #include "Editor/Editor/ECS/Components/Core/TransformComponent.h"
 // Components/Cameras
 #include "Editor/Editor/ECS/Components/Cameras/CameraComponent.h"
-#include "Editor/Editor/ECS/Components/Cameras/OrthographicCameraComponent.h"
-#include "Editor/Editor/ECS/Components/Cameras/PerspectiveCameraComponent.h"
-// Components/Cameras/Controller
-#include "Editor/Editor/ECS/Components/Cameras/Controller/CameraControllerComponent.h"
-#include "Editor/Editor/ECS/Components/Cameras/Controller/OrthographicCameraControllerComponent.h"
 // Components/Graphical
 #include "Editor/Editor/ECS/Components/Graphical/MaterialComponent.h"
 #include "Editor/Editor/ECS/Components/Graphical/RenderComponent.h"

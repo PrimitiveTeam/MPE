@@ -32,10 +32,14 @@ PBRTest::PBRTest()
 {
     // m_perspectiveCamera(90.0f, 1280.0f / 720.0f, 0.1f, 100.0f),
     m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
-    m_perspectiveCamera = MPE::NEWREF<MPE::PerspectiveCamera>(*m_ECS, 90.0f, 1280.0f / 720.0f, 0.1f, 100.0f);
+    MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
+    cameraComponent->SetMode(MPE::CameraMode::Perspective, false);
+    cameraComponent->SetPerspective(90.0f, 1280.0f / 720.0f, 0.1f, 100.0f);
+    m_perspectiveCamera = MPE::NEWREF<MPE::Camera>(*m_ECS, cameraComponent);
 
     // Get the camera a bit further away from the cube to see it
-    m_perspectiveCamera->GetPerspectiveCameraComponent()->ManipulatePosition() = glm::vec3(0.0f, 0.0f, -10.0f);
+    // m_perspectiveCamera->GetPerspectiveCameraComponent()->ManipulatePosition() = glm::vec3(0.0f, 0.0f, -10.0f);
+    m_perspectiveCamera->SetPosition(glm::vec3(0.0f, 0.0f, -10.0f));
     m_rectanglePosition.z = -1.0f;
 
     m_rectanglePosition2.x = -0.75f;
@@ -331,7 +335,7 @@ void PBRTest::OnUpdate(MPE::Time deltaTime)
     MPE::RenderPrimitive::SetClearColor(glm::vec4(m_clearColor[0], m_clearColor[1], m_clearColor[2], m_clearColor[3]));
     MPE::RenderPrimitive::Clear();
 
-    MPE::Renderer::BeginScene(m_perspectiveCamera->GetPerspectiveCameraComponent()->GetProjectionViewMatrix());
+    MPE::Renderer::BeginScene(m_perspectiveCamera->GetProjection());
 
     // LIGHT
     {
@@ -352,7 +356,7 @@ void PBRTest::OnUpdate(MPE::Time deltaTime)
         VERTEX_BASED_COLOR_SHADER->SetFloat4("UNI_OBJECT_COLOR", glm::vec4(m_rectangleColor[0], m_rectangleColor[1], m_rectangleColor[2], m_rectangleColor[3]));
         VERTEX_BASED_COLOR_SHADER->SetFloat4("UNI_LIGHT_COLOR", glm::vec4(m_lightColor[0], m_lightColor[1], m_lightColor[2], m_lightColor[3]));
         VERTEX_BASED_COLOR_SHADER->SetFloat3("UNI_LIGHT_POSITION", m_lightPosition);
-        VERTEX_BASED_COLOR_SHADER->SetFloat3("UNI_VIEW_POSITION", m_perspectiveCamera->GetPerspectiveCameraComponent()->GetPosition());
+        VERTEX_BASED_COLOR_SHADER->SetFloat3("UNI_VIEW_POSITION", m_perspectiveCamera->GetPosition());
         VERTEX_BASED_COLOR_SHADER->Unbind();
 
         glm::mat4 RECTANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), m_rectanglePosition);
@@ -400,17 +404,17 @@ void PBRTest::OnImGuiRender()
 
     ImGui::Text("CAMERA VARIABLES");
 
-    float fov = m_perspectiveCamera->GetPerspectiveCameraComponent()->GetFov();
+    float fov = m_perspectiveCamera->GetFov();
     ImGui::SliderFloat("FOV", &fov, 1.0f, 179.0f);
-    m_perspectiveCamera->GetPerspectiveCameraComponent()->SetFov(fov);
+    m_perspectiveCamera->SetFov(fov);
 
-    float cNear = m_perspectiveCamera->GetPerspectiveCameraComponent()->GetNear();
+    float cNear = m_perspectiveCamera->GetNear();
     ImGui::SliderFloat("NEAR", &cNear, 0.1f, 10.0f);
-    m_perspectiveCamera->GetPerspectiveCameraComponent()->SetNear(cNear);
+    m_perspectiveCamera->SetNear(cNear);
 
-    float cFar = m_perspectiveCamera->GetPerspectiveCameraComponent()->GetFar();
+    float cFar = m_perspectiveCamera->GetFar();
     ImGui::SliderFloat("FAR", &cFar, 10.0f, 100.0f);
-    m_perspectiveCamera->GetPerspectiveCameraComponent()->SetFar(cFar);
+    m_perspectiveCamera->SetFar(cFar);
 
     ImGui::Separator();
 

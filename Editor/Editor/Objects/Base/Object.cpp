@@ -17,6 +17,7 @@ Object::Object(ECS::ECS& ecs)
 Object::~Object()
 {
     // MPE_CORE_INFO("Destroyed entity with ID: {}", m_entity);
-    m_ECS.DestroyEntity(m_entity);
+    // m_ECS.DestroyEntity(m_entity);
+    // WARN: MUST CALL THIS IN THE DERIVED CLASS DESTRUCTOR
 }
 }

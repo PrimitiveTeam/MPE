@@ -8,7 +8,10 @@
 TexturesTest::TexturesTest() : Layer("TexturesTest")
 {
     m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
-    SYS_CAMERA_CONTROLLER = MPE::NEWREF<MPE::OrthographicCameraController>(*m_ECS, 1280.0f / 720.0f);
+    MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
+    cameraComponent->SetMode(MPE::CameraMode::Orthographic, false);
+    cameraComponent->SetOrthographic(1280.0f / 720.0f, 1.0f, -1.0f, 1.0f);
+    SYS_CAMERA_CONTROLLER = MPE::NEWREF<MPE::Camera>(*m_ECS, cameraComponent);
 }
 
 void TexturesTest::OnAttach()
@@ -30,7 +33,7 @@ void TexturesTest::OnUpdate(MPE::Time deltaTime)
     MPE::RenderPrimitive::SetClearColor(CLEAR_COLOR);
     MPE::RenderPrimitive::Clear();
 
-    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER->GetOrthographicCamera()->GetCameraComponent()->GetProjectionViewMatrix());
+    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER->GetProjection());
 
     MPE::Renderer2D::DrawQuad({0.5f, 0.0f}, {0.5f, 0.5f}, SQUARE_COLOR);
     MPE::Renderer2D::DrawQuad({-0.5f, 0.0f}, {0.5f, 0.5f}, {0.0f, 0.0f, 0.0f, 1.0f});

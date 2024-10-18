@@ -34,7 +34,7 @@ class SimplePerspectiveCameraTest : public MPE::Layer
     MPE::REF<MPE::ECS::ECS> m_ECS;
 
     // Camera
-    MPE::REF<MPE::PerspectiveCamera> m_perspectiveCamera;
+    MPE::REF<MPE::Camera> m_perspectiveCamera;
     // float m_fov;
     // float m_near;
     // float m_far;

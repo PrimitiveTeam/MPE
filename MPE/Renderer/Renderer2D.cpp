@@ -7,8 +7,6 @@
 
 #include "MPE/Vendor/GLM/GLM.h"
 
-#include "Editor/Editor/Objects/Cameras/Camera.h"
-
 // TODO: have a matrix class that has methods to translate, rotate, scale, shear and then you pass the matrix to the draw call.
 
 namespace MPE

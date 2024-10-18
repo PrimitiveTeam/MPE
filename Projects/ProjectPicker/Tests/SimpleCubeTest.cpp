@@ -18,7 +18,10 @@ SimpleCubeTest::SimpleCubeTest()
       angleZ(0.0f)
 {
     m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
-    SYS_CAMERA_CONTROLLER = MPE::NEWREF<MPE::OrthographicCameraController>(*m_ECS, 1280.0f / 720.0f);
+    MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
+    cameraComponent->SetMode(MPE::CameraMode::Orthographic, false);
+    cameraComponent->SetOrthographic(1280.0f / 720.0f, 1.0f, -1.0f, 1.0f);
+    SYS_CAMERA_CONTROLLER = MPE::NEWREF<MPE::Camera>(*m_ECS, cameraComponent);
 
     // CUBE
     SYS_VertexArray = MPE::VertexArray::Create();
@@ -114,7 +117,7 @@ void SimpleCubeTest::OnUpdate(MPE::Time deltaTime)
     MPE::RenderPrimitive::SetClearColor(glm::vec4(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]));
     MPE::RenderPrimitive::Clear();
 
-    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER->GetOrthographicCamera()->GetCameraComponent()->GetProjectionViewMatrix());
+    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER->GetProjection());
 
     auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Get("VertexBasedColor");
 

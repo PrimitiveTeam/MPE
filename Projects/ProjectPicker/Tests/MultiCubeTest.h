@@ -34,7 +34,7 @@ class MultiCubeTest : public MPE::Layer
     float m_clearColor[4];
 
     // Camera
-    MPE::REF<MPE::OrthographicCameraController> m_mainCamera;
+    MPE::REF<MPE::Camera> m_mainCamera;
 
     // Cube
     MPE::REF<MPE::ECS::ECS> m_ECS;

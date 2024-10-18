@@ -46,7 +46,7 @@ class GeneralTest : public MPE::Layer
     MPE::REF<MPE::ECS::ECS> m_ECS;
 
     // Camera
-    MPE::REF<MPE::OrthographicCameraController> SYS_CAMERA_CONTROLLER;
+    MPE::REF<MPE::Camera> SYS_CAMERA_CONTROLLER;
 
     // TRANSFORM
     float OBJECT_MOVEMENT_SPEED = 0.75f;

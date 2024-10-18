@@ -60,7 +60,7 @@ void RenderSystem::operator()(entt::registry& registry, Camera& camera) const
 #endif
         }
 
-        Renderer::BeginScene(camera.GetCameraComponent()->GetProjectionViewMatrix());
+        Renderer::BeginScene(camera.GetProjection());
         if (mesh.lineDrawing)
         {
             if (mesh.indicesLines.size() > 0)

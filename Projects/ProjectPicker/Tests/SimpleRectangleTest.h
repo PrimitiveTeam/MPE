@@ -31,7 +31,7 @@ class SimpleRectangleTest : public MPE::Layer
     MPE::REF<MPE::ECS::ECS> m_ECS;
 
     // Camera
-    MPE::REF<MPE::OrthographicCameraController> SYS_CAMERA_CONTROLLER;
+    MPE::REF<MPE::Camera> SYS_CAMERA_CONTROLLER;
 
     // Rectangle
     MPE::REF<MPE::Shader> SYS_Shader;

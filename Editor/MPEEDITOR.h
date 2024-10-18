@@ -13,11 +13,6 @@
 #include "Editor/Editor/Objects/Primitives/Sphere/Sphere.h"
 // OBJECTS/CAMERAS
 #include "Editor/Editor/Objects/Cameras/Camera.h"
-#include "Editor/Editor/Objects/Cameras/OrthographicCamera.h"
-#include "Editor/Editor/Objects/Cameras/PerspectiveCamera.h"
-// OBJECTS/CAMERAS/CONTROLLERS
-#include "Editor/Editor/Objects/Cameras/Controllers/CameraController.h"
-#include "Editor/Editor/Objects/Cameras/Controllers/OrthographicCameraController.h"
 // SCENES
 #include "Editor/Editor/Scene/Scene.h"
 #include "Editor/Editor/Scene/SceneManager.h"

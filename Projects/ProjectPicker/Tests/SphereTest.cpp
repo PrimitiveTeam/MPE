@@ -12,7 +12,10 @@
 SphereTest::SphereTest() : Layer("Test"), m_clearColor{0.5f, 0.25f, 0.5f}
 {
     m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
-    m_mainCamera = MPE::NEWREF<MPE::OrthographicCameraController>(*m_ECS, 1280.0f / 720.0f);
+    MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
+    cameraComponent->SetMode(MPE::CameraMode::Orthographic, false);
+    cameraComponent->SetOrthographic(1280.0f / 720.0f, 1.0f, -1.0f, 1.0f);
+    m_mainCamera = MPE::NEWREF<MPE::Camera>(*m_ECS, cameraComponent);
 
     m_sphere = MPE::NEWREF<MPE::Sphere>(*m_ECS);
     m_sphereDeltaPosition = new glm::vec3(0.0f);
@@ -21,7 +24,7 @@ SphereTest::SphereTest() : Layer("Test"), m_clearColor{0.5f, 0.25f, 0.5f}
     m_ECS->RegisterSystem(*m_transformSystem);
 
     m_renderSystem = MPE::NEWREF<MPE::ECS::RenderSystem>();
-    m_ECS->RegisterSystem(*m_renderSystem, m_mainCamera->GetOrthographicCamera());
+    m_ECS->RegisterSystem(*m_renderSystem, m_mainCamera);
 }
 
 void SphereTest::OnUpdate(MPE::Time deltaTime)
@@ -42,7 +45,7 @@ void SphereTest::OnUpdate(MPE::Time deltaTime)
 
     m_sphere->OnUpdate(deltaTime);
     // m_sphere->OnRender(m_mainCamera.GetCamera());
-    m_ECS->RunSystems(m_mainCamera->GetOrthographicCamera());
+    m_ECS->RunSystems(m_mainCamera);
 }
 
 void SphereTest::OnImGuiRender()

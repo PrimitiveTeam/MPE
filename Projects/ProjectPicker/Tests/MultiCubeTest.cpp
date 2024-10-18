@@ -17,7 +17,10 @@
 MultiCubeTest::MultiCubeTest() : Layer("Test"), m_clearColor{0.5f, 0.25f, 0.5f}
 {
     m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
-    m_mainCamera = MPE::NEWREF<MPE::OrthographicCameraController>(*m_ECS, 1280.0f / 720.0f);
+    MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
+    cameraComponent->SetMode(MPE::CameraMode::Orthographic, false);
+    cameraComponent->SetOrthographic(1280.0f / 720.0f, 1.0f, -1.0f, 1.0f);
+    m_mainCamera = MPE::NEWREF<MPE::Camera>(*m_ECS, cameraComponent);
 
     // m_cube = MPE::NEWREF<MPE::Cube>(*m_ECS, glm::vec3(0.0f), glm::vec3(1.0f));
 

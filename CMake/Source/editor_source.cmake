@@ -12,8 +12,9 @@ file(
 
     # /Editor/ECS/Components
     # Cameras
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/OrthographicCameraComponent.cpp"
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/PerspectiveCameraComponent.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/CameraComponent.cpp"
+    # "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/OrthographicCameraComponent.cpp"
+    # "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/PerspectiveCameraComponent.cpp"
     # Meshes
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/MeshFactory.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/CubeMeshGenerator.cpp"
@@ -31,11 +32,12 @@ file(
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Object.cpp"
 
     # /Editor/Objects/Cameras
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/OrthographicCamera.cpp"
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/PerspectiveCamera.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/Camera.cpp"
+    # "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/OrthographicCamera.cpp"
+    # "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/PerspectiveCamera.cpp"
 
     # /Editor/Objects/Cameras/Controllers
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/Controllers/OrthographicCameraController.cpp"
+    # "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/Controllers/OrthographicCameraController.cpp"
 
     # /Editor/Objects/Primitives
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/Cube.cpp"
@@ -77,11 +79,11 @@ file(
     # /Editor/ECS/Components
     # Cameras
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/CameraComponent.h"
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/OrthographicCameraComponent.h"
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/PerspectiveCameraComponent.h"
+    # "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/OrthographicCameraComponent.h"
+    # "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/PerspectiveCameraComponent.h"
     # Camera Controllers
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/Controller/CameraControllerComponent.h"
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/Controller/OrthographicCameraControllerComponent.h"
+    # "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/Controller/CameraControllerComponent.h"
+    # "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/Controller/OrthographicCameraControllerComponent.h"
     # Core
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Core/TransformComponent.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Core/TagComponent.h"
@@ -111,8 +113,8 @@ file(
 
     # /Editor/Objects/Cameras
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/Camera.h"
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/OrthographicCamera.h"
-    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/PerspectiveCamera.h"
+    # "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/OrthographicCamera.h"
+    # "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/PerspectiveCamera.h"
 
     # /Editor/Objects/Cameras/Controllers
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/Controllers/CameraController.h"
