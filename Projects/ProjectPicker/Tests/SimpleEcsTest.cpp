@@ -7,7 +7,6 @@
 SimpleEcsTest::SimpleEcsTest()
     : Layer("Test"),
       CLEAR_COLOR{0.5f, 0.25f, 0.5f},
-      SYS_CAMERA_CONTROLLER(1280.0f / 720.0f, true),
       RECTANGLE_SCALE_FACTOR(1.0f),
       RECTANGLE_VECTOR_SCALE{1.0f, 1.0f, 1.0f},
       RECTANGLE_SCALE(glm::scale(glm::mat4(1.0f), glm::vec3(RECTANGLE_VECTOR_SCALE) * RECTANGLE_SCALE_FACTOR)),
@@ -17,15 +16,17 @@ SimpleEcsTest::SimpleEcsTest()
       angleY(0.0f),
       angleZ(0.0f)
 {
-    m_entity = m_ecs.CreateEntity();
-    auto &transform = m_ecs.AddComponentToEntity<MPE::ECS::TransformComponent>(m_entity, glm::vec3(-2.0f, 0.0f, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
+    m_entity = m_ECS->CreateEntity();
+    SYS_CAMERA_CONTROLLER = MPE::NEWREF<MPE::OrthographicCameraController>(*m_ECS, 1280.0f / 720.0f);
 
-    // RECTANGLE_POSITION = &m_ecs.GetComponent<MPE::ECS::TransformComponent>(m_entity).position;
+    auto &transform = m_ECS->AddComponentToEntity<MPE::ECS::TransformComponent>(m_entity, glm::vec3(-2.0f, 0.0f, 0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
+
+    // RECTANGLE_POSITION = &m_ECS->GetComponent<MPE::ECS::TransformComponent>(m_entity).position;
     RECTANGLE_POSITION = &transform.position;
 
     deltaPosition = new glm::vec3(0.001f, 0.0f, 0.0f);
     MPE::ECS::TransformSystem transformSystem(deltaPosition);
-    m_ecs.RegisterSystem(transformSystem);
+    m_ECS->RegisterSystem(transformSystem);
 
     // CUBE
     SYS_VertexArray = MPE::VertexArray::Create();
@@ -126,11 +127,11 @@ void SimpleEcsTest::OnUpdate(MPE::Time deltaTime)
     MPE::RenderPrimitive::SetClearColor(glm::vec4(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]));
     MPE::RenderPrimitive::Clear();
 
-    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER.GetCamera());
+    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER->GetOrthographicCamera()->GetCameraComponent()->GetProjectionViewMatrix());
 
     auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Get("VertexBasedColor");
 
-    m_ecs.RunSystems(deltaTime);
+    m_ECS->RunSystems(deltaTime);
 
     glm::mat4 RECTANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), *RECTANGLE_POSITION);
     RECTANGLE_TRANSFORM = glm::rotate(RECTANGLE_TRANSFORM, glm::radians(angleX), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -175,7 +176,7 @@ void SimpleEcsTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(SimpleEcsTest::OnKeyPressedEvent));
-    SYS_CAMERA_CONTROLLER.OnEvent(event);
+    SYS_CAMERA_CONTROLLER->OnEvent(event);
 }
 
 bool SimpleEcsTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)

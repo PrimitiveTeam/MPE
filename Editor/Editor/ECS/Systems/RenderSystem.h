@@ -2,16 +2,15 @@
 
 #include "Editor/Editor/ECS/ECS.h"
 
-#include "MPE/Renderer/Cameras/OrthographicCamera.h"
-
 namespace MPE
 {
+class Camera;
 namespace ECS
 {
 class MPE_EDITOR_API RenderSystem
 {
   public:
-    void operator()(entt::registry& registry, OrthographicCamera& camera) const;
+    void operator()(entt::registry& registry, Camera& camera) const;
 };
 }
 }

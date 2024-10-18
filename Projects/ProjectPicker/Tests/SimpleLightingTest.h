@@ -1,6 +1,8 @@
 #pragma once
 
 #include "MPE.h"
+#include "MPEEDITOR.h"
+#include "MPEECS.h"
 
 #include <imgui.h>
 #include <string>
@@ -29,8 +31,10 @@ class SimpleLightingTest : public MPE::Layer
     // Scene
     float m_clearColor[4];
 
+    MPE::REF<MPE::ECS::ECS> m_ECS;
+
     // Camera
-    MPE::PerspectiveCamera m_perspectiveCamera;
+    MPE::REF<MPE::PerspectiveCamera> m_perspectiveCamera;
     // float m_fov;
     // float m_near;
     // float m_far;

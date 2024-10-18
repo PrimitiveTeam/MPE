@@ -1,6 +1,8 @@
 #pragma once
 
 #include "MPE.h"
+#include "MPEEDITOR.h"
+#include "MPEECS.h"
 
 #include <imgui.h>
 #include <string>
@@ -31,8 +33,10 @@ class RectangleTransformationTest : public MPE::Layer
     // Scene
     float CLEAR_COLOR[4];
 
+    MPE::REF<MPE::ECS::ECS> m_ECS;
+
     // Camera
-    MPE::OrthographicCameraController SYS_CAMERA_CONTROLLER;
+    MPE::REF<MPE::OrthographicCameraController> SYS_CAMERA_CONTROLLER;
 
     // Rectangle
     MPE::REF<MPE::Shader> SYS_Shader;

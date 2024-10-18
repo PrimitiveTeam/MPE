@@ -2,6 +2,7 @@
 
 #include "MPE/Log/GlobalLog.h"
 #include "MPE/Renderer/Renderer.h"
+#include "Editor/Editor/Objects/Cameras/Camera.h"
 #include "Editor/Editor/ECS/Utility/RotationUtilities.h"
 #include "Editor/Editor/ECS/Components/Graphical/MaterialComponent.h"
 #include "Editor/Editor/ECS/Components/Graphical/RenderComponent.h"
@@ -56,7 +57,7 @@ void Cube::OnUpdate(Time deltaTime)
     }
 }
 
-void Cube::OnRender(OrthographicCamera& camera)
+void Cube::OnRender(Camera& camera)
 {
     //     glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_transform->position);
     //     transform *= glm::toMat4(m_transform->rotation);

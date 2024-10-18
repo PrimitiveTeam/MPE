@@ -7,12 +7,14 @@
 SimpleRectangleTest::SimpleRectangleTest()
     : Layer("Test"),
       CLEAR_COLOR{0.5f, 0.25f, 0.5f},
-      SYS_CAMERA_CONTROLLER(1280.0f / 720.0f, true),
       RECTANGLE_POSITION(0.0f),
       RECTANGLE_SCALE_FACTOR(1.0f),
       RECTANGLE_VECTOR_SCALE{1.0f, 1.0f, 1.0f},
       RECTANGLE_SCALE(glm::scale(glm::mat4(1.0f), glm::vec3(RECTANGLE_VECTOR_SCALE) * RECTANGLE_SCALE_FACTOR))
 {
+    m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
+    SYS_CAMERA_CONTROLLER = MPE::NEWREF<MPE::OrthographicCameraController>(*m_ECS, 1280.0f / 720.0f);
+
     // SQUARE
     SYS_VertexArray = MPE::VertexArray::Create();
     float SQV[5 * 4] = {-0.75f, -0.75f, 0.0f, 0.0f, 0.0f, 0.75f, -0.75f, 0.0f, 1.0f, 0.0f, 0.75f, 0.75f, 0.0f, 1.0f, 1.0f, -0.75f, 0.75f, 0.0f, 0.0f, 1.0f};
@@ -36,7 +38,7 @@ void SimpleRectangleTest::OnUpdate(MPE::Time deltaTime)
     MPE::RenderPrimitive::SetClearColor(glm::vec4(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]));
     MPE::RenderPrimitive::Clear();
 
-    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER.GetCamera());
+    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER->GetOrthographicCamera()->GetCameraComponent()->GetProjectionViewMatrix());
 
     auto VERTEX_BASED_COLOR_SHADER = MPE::ShaderLibrary::Get("VertexBasedColor");
     glm::mat4 RECTANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), RECTANGLE_POSITION) * RECTANGLE_SCALE;
@@ -60,7 +62,7 @@ void SimpleRectangleTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(SimpleRectangleTest::OnKeyPressedEvent));
-    SYS_CAMERA_CONTROLLER.OnEvent(event);
+    SYS_CAMERA_CONTROLLER->OnEvent(event);
 }
 
 bool SimpleRectangleTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)

@@ -2,7 +2,7 @@
 
 #include "Character.h"
 
-#include "MPE/Renderer/Cameras/OrthographicCamera.h"
+// #include "MPE/Renderer/Cameras/OrthographicCamera.h"
 #include "MPE/Renderer/Pipeline/VertexArray.h"
 #include "MPE/Renderer/Pipeline/VertexBuffer.h"
 #include "MPE/Renderer/Shaders/Shader.h"
@@ -46,7 +46,7 @@ class MPE_API TextRenderer
     REF<VertexArray> m_VAO;
     REF<VertexBuffer> m_VBO;
     std::map<char, Character> m_characters;
-    OrthographicCamera* m_mainCamera;
+    // OrthographicCamera* m_mainCamera;
 
     // Parameters
     // Font Size

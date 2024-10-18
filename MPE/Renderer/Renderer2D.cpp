@@ -7,6 +7,8 @@
 
 #include "MPE/Vendor/GLM/GLM.h"
 
+#include "Editor/Editor/Objects/Cameras/Camera.h"
+
 // TODO: have a matrix class that has methods to translate, rotate, scale, shear and then you pass the matrix to the draw call.
 
 namespace MPE
@@ -52,10 +54,10 @@ void Renderer2D::Shutdown()
     delete (m_rendererData);
 }
 
-void Renderer2D::BeginScene(const OrthographicCamera &camera)
+void Renderer2D::BeginScene(const glm::mat4 &cameraProjectionViewMatrix)
 {
     m_rendererData->textureShader->Bind();
-    m_rendererData->textureShader->SetMat4("UNI_VPM", camera.GetProjectionViewMatrix());
+    m_rendererData->textureShader->SetMat4("UNI_VPM", cameraProjectionViewMatrix);
 }
 
 void Renderer2D::EndScene() {}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MPE.h"
+#include "MPEEDITOR.h"
 #include "MPEECS.h"
 
 #include <imgui.h>
@@ -28,7 +29,7 @@ class SimpleEcsTest : public MPE::Layer
     MPE::SCOPE<std::string> m_LayerName;
 
     // ECS
-    MPE::ECS::ECS m_ecs;
+    MPE::REF<MPE::ECS::ECS> m_ECS;
     MPE::ECS::Entity m_ecs_list[100];
     MPE::ECS::Entity m_entity;
 
@@ -36,7 +37,7 @@ class SimpleEcsTest : public MPE::Layer
     float CLEAR_COLOR[4];
 
     // Camera
-    MPE::StaticOrthographicCamera SYS_CAMERA_CONTROLLER;
+    MPE::REF<MPE::OrthographicCameraController> SYS_CAMERA_CONTROLLER;
 
     // Rectangle
     MPE::REF<MPE::Shader> SYS_Shader;

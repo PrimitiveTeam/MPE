@@ -11,6 +11,9 @@ file(
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/ECS.cpp"
 
     # /Editor/ECS/Components
+    # Cameras
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/OrthographicCameraComponent.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/PerspectiveCameraComponent.cpp"
     # Meshes
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/MeshFactory.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/CubeMeshGenerator.cpp"
@@ -27,7 +30,14 @@ file(
     # /Editor/Objects/Base
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Object.cpp"
 
-    # /Editor/Objects
+    # /Editor/Objects/Cameras
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/OrthographicCamera.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/PerspectiveCamera.cpp"
+
+    # /Editor/Objects/Cameras/Controllers
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/Controllers/OrthographicCameraController.cpp"
+
+    # /Editor/Objects/Primitives
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/Cube.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/PredefinedCubeMesh.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Sphere/Sphere.cpp"
@@ -65,6 +75,13 @@ file(
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/ECS.h"
 
     # /Editor/ECS/Components
+    # Cameras
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/CameraComponent.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/OrthographicCameraComponent.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/PerspectiveCameraComponent.h"
+    # Camera Controllers
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/Controller/CameraControllerComponent.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/Controller/OrthographicCameraControllerComponent.h"
     # Core
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Core/TransformComponent.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Core/TagComponent.h"
@@ -92,7 +109,16 @@ file(
     # /Editor/Objects/Base
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Object.h"
 
-    # /Editor/Objects
+    # /Editor/Objects/Cameras
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/Camera.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/OrthographicCamera.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/PerspectiveCamera.h"
+
+    # /Editor/Objects/Cameras/Controllers
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/Controllers/CameraController.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/Controllers/OrthographicCameraController.h"
+
+    # /Editor/Objects/Primitives
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/Cube.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/CubeIndices.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/CubeVertices.h"

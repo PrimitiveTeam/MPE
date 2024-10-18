@@ -2,6 +2,7 @@
 
 #include "MPE/Log/GlobalLog.h"
 #include "MPE/Profiling/_PROFILING.h"
+#include "Editor/Editor/Objects/Cameras/Camera.h"
 
 namespace MPE
 {
@@ -25,11 +26,19 @@ void ECS::RunSystems(float deltaTime)
     }
 }
 
-void ECS::RunSystems(OrthographicCamera& camera)
+void ECS::RunSystems(Camera& camera)
 {
     for (auto& system : m_cameraSystems)
     {
         system(m_registry, camera);
+    }
+}
+
+void ECS::RunSystems(REF<Camera> camera)
+{
+    for (auto& system : m_cameraSystems)
+    {
+        system(m_registry, *camera);
     }
 }
 }

@@ -2,13 +2,13 @@
 
 #include "MPE/Core/_CORE.h"
 #include "MPE/Time/Time.h"
-#include "MPE/Renderer/Cameras/OrthographicCamera.h"
 #include "MPE/Events/Event.h"
 #include "Editor/Editor/ECS/ECS.h"
 #include "Editor/Editor/ECS/Components/Core/TagComponent.h"
 
 namespace MPE
 {
+class Camera;
 namespace ECS
 {
 struct HierarchyComponent;
@@ -21,11 +21,11 @@ class MPE_EDITOR_API Object
 
   protected:
     // Force constructors to be less code intensive
-    virtual void Init() = 0;
+    virtual void Init() {}
 
   public:
     virtual void OnUpdate(Time deltaTime) = 0;
-    virtual void OnRender(OrthographicCamera& camera) = 0;
+    virtual void OnRender(Camera& camera) = 0;
     virtual void OnImGuiRender() = 0;
     virtual void OnEvent(Event& event) = 0;
 

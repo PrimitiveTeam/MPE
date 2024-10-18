@@ -38,6 +38,7 @@
 #include "Tests/ObjectHierarchyTest.h"
 #include "Tests/PropertyViewerTest.h"
 #include "Tests/SphereTest.h"
+#include "Tests/PBRTest.h"
 
 class ProjectPickerGuiLayer : public MPE::Layer
 {
@@ -235,6 +236,13 @@ class ProjectPickerGuiLayer : public MPE::Layer
                 MPE::App::GetApp().PushLayer(m_LayerRefs[20]);
             }
 
+            if (ImGui::Button("Open PBR Test"))
+            {
+                m_Layers[21] = true;
+                m_LayerRefs[21] = MPE::NEWREF<PBRTest>();
+                MPE::App::GetApp().PushLayer(m_LayerRefs[21]);
+            }
+
             // if (ImGui::Button("Open General Layer"))
             // {
             //     m_Layers[1] = true;
@@ -267,7 +275,7 @@ class ProjectPickerGuiLayer : public MPE::Layer
     }
 
   private:
-    static const size_t MAX_LAYERS = 21;
+    static const size_t MAX_LAYERS = 22;
     std::array<bool, MAX_LAYERS> m_Layers = {false};
     MPE::REF<MPE::Layer> m_LayerRefs[MAX_LAYERS];
     MPE::RendererUtilities m_RendererUtilities = MPE::RendererUtilities();

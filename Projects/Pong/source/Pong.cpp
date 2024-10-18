@@ -7,15 +7,20 @@ namespace PONG
 {
 Pong::Pong()
     : Layer("Sandbox2D"),
-      SYS_CAMERA_CONTROLLER(1920.0f / 1080.0f, true),
-      SYS_TEXT_RENDERER("Data/Shaders/Text/Text.glsl", "Data/Fonts/Hack_v3_003/Hack-Regular.ttf", 64, &SYS_CAMERA_CONTROLLER.GetCamera()),
+      SYS_TEXT_RENDERER("Data/Shaders/Text/Text.glsl", "Data/Fonts/Hack_v3_003/Hack-Regular.ttf", 64),
       TEXT_COLOR{0.88f, 0.59f, 0.07f, 0.75f},
       TEXT_BOX_LOCATION_PLAYER_1{0.1f, 0.9f},
       TEXT_BOX_LOCATION_PLAYER_2{0.9f, 0.9f}
 {
-    SYS_CAMERA_CONTROLLER.SetZoomLevel(16.0f);
+    m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
 
-    BOUNDS = SYS_CAMERA_CONTROLLER.GetBounds();
+    SYS_CAMERA_CONTROLLER = MPE::NEWREF<MPE::OrthographicCameraController>(*m_ECS, MPE::NEWREF<MPE::OrthographicCamera>(*m_ECS, -30.0f, 30.0f, -30.0f, 30.0f));
+
+    // SYS_CAMERA_CONTROLLER.SetZoomLevel(16.0f);
+    SYS_CAMERA_CONTROLLER->GetOrthographicCameraControllerComponent()->SetZoomLevel(16.0f);
+
+    // BOUNDS = SYS_CAMERA_CONTROLLER.GetBounds();
+    BOUNDS = SYS_CAMERA_CONTROLLER->GetOrthographicCameraControllerComponent()->GetBounds();
 
     PlaceText();
 
@@ -39,7 +44,7 @@ void Pong::OnDetach() {}
 
 void Pong::OnUpdate(MPE::Time deltaTime)
 {
-    SYS_CAMERA_CONTROLLER.OnUpdate(deltaTime);
+    // SYS_CAMERA_CONTROLLER.OnUpdate(deltaTime);
     PongGame->OnUpdate(deltaTime);
     // LEFT_PLAYER->OnUpdate(deltaTime);
     // RIGHT_PLAYER->OnUpdate(deltaTime);
@@ -66,7 +71,7 @@ void Pong::OnUpdate(MPE::Time deltaTime)
         SYS_TEXT_RENDERER.RenderText("F11 - HIDE GUI", 0.0f, 1.0f, 0.3f, glm::vec4(TEXT_COLOR[0], TEXT_COLOR[1], TEXT_COLOR[2], TEXT_COLOR[3]));
     }
 
-    MPE::Renderer2D::BeginScene(SYS_CAMERA_CONTROLLER.GetCamera());
+    MPE::Renderer2D::BeginScene(SYS_CAMERA_CONTROLLER->GetOrthographicCamera()->GetCameraComponent()->GetProjectionViewMatrix());
 
     MPE::Renderer2D::DrawQuad(LEFT_PLAYER->GetPosition(), LEFT_PLAYER->GetSize(), LEFT_PLAYER->GetColor());
     MPE::Renderer2D::DrawQuad(RIGHT_PLAYER->GetPosition(), RIGHT_PLAYER->GetSize(), RIGHT_PLAYER->GetColor());
@@ -159,7 +164,7 @@ void Pong::OnEvent(MPE::Event& event)
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::WindowResizeEvent>(MPE_BIND_EVENT_FUNCTION(Pong::OnWindowResize));
 
-    SYS_CAMERA_CONTROLLER.OnEvent(event);
+    SYS_CAMERA_CONTROLLER->OnEvent(event);
     SYS_TEXT_RENDERER.OnEvent(event);
     // OnWindowResize(event);
 }

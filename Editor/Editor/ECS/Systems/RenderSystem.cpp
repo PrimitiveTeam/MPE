@@ -6,9 +6,9 @@
 #include "Editor/Editor/ECS/Components/Graphical/MaterialComponent.h"
 #include "Editor/Editor/ECS/Components/Graphical/RenderComponent.h"
 #include "Editor/Editor/ECS/Components/Meshes/MeshRegenerator.h"
+#include "Editor/Editor/Objects/Cameras/Camera.h"
 
 #include "MPE/Renderer/Renderer.h"
-#include "MPE/Renderer/Cameras/OrthographicCamera.h"
 
 #ifdef MPE_OPENGL
 #    include "MPE/MPE_GFX_OPEN_GL.h"
@@ -22,7 +22,7 @@ namespace MPE
 {
 namespace ECS
 {
-void RenderSystem::operator()(entt::registry& registry, OrthographicCamera& camera) const
+void RenderSystem::operator()(entt::registry& registry, Camera& camera) const
 {
     auto view = registry.view<TransformComponent, RenderComponent, MeshComponent, MaterialComponent>();
 
@@ -60,7 +60,7 @@ void RenderSystem::operator()(entt::registry& registry, OrthographicCamera& came
 #endif
         }
 
-        Renderer::BeginScene(camera);
+        Renderer::BeginScene(camera.GetCameraComponent()->GetProjectionViewMatrix());
         if (mesh.lineDrawing)
         {
             if (mesh.indicesLines.size() > 0)

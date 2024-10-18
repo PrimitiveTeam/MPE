@@ -1,6 +1,8 @@
 #pragma once
 
 #include "MPE.h"
+#include "MPEEDITOR.h"
+#include "MPEECS.h"
 
 class TexturesTest : public MPE::Layer
 {
@@ -12,7 +14,10 @@ class TexturesTest : public MPE::Layer
 
     MPE::REF<MPE::Texture2D> TEST_TEXTURE;
 
-    MPE::OrthographicCameraController SYS_CAMERA_CONTROLLER;
+    MPE::REF<MPE::ECS::ECS> m_ECS;
+
+    // Camera
+    MPE::REF<MPE::OrthographicCameraController> SYS_CAMERA_CONTROLLER;
 
     glm::vec4 SQUARE_COLOR = {0.2f, 0.4f, 0.2f, 1.0f};
 

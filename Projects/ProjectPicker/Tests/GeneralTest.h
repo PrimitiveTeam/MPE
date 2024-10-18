@@ -1,6 +1,8 @@
 #pragma once
 
 #include "MPE.h"
+#include "MPEEDITOR.h"
+#include "MPEECS.h"
 
 #include <imgui.h>
 #include <string>
@@ -41,8 +43,10 @@ class GeneralTest : public MPE::Layer
     // SCENE
     float CLEAR_COLOR[4];
 
-    // CAMERA
-    MPE::OrthographicCameraController SYS_CAMERA_CONTROLLER;
+    MPE::REF<MPE::ECS::ECS> m_ECS;
+
+    // Camera
+    MPE::REF<MPE::OrthographicCameraController> SYS_CAMERA_CONTROLLER;
 
     // TRANSFORM
     float OBJECT_MOVEMENT_SPEED = 0.75f;

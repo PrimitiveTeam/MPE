@@ -37,15 +37,20 @@ void Renderer::OnWindowResize(uint32_t width, uint32_t height)
 Renderer::SceneData *Renderer::m_scene = new Renderer::SceneData;
 REF<WindowFpsMs> Renderer::m_windowFpsMs = NEWREF<WindowFpsMs>();
 
-void Renderer::BeginScene(OrthographicCamera &camera)
+void Renderer::BeginScene(const glm::mat4 &cameraProjectionViewMatrix)
 {
-    m_scene->projectionViewMatrix = camera.GetProjectionViewMatrix();
+    m_scene->projectionViewMatrix = cameraProjectionViewMatrix;
 }
 
-void Renderer::BeginScene(PerspectiveCamera &camera)
-{
-    m_scene->projectionViewMatrix = camera.GetProjectionViewMatrix();
-}
+// void Renderer::BeginScene(OrthographicCamera &camera)
+// {
+//     m_scene->projectionViewMatrix = camera.GetProjectionViewMatrix();
+// }
+
+// void Renderer::BeginScene(PerspectiveCamera &camera)
+// {
+//     m_scene->projectionViewMatrix = camera.GetProjectionViewMatrix();
+// }
 
 void Renderer::EndScene() {}
 

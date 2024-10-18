@@ -1,6 +1,7 @@
 #include "Object.h"
 
 #include "Editor/Editor/ECS/Components/Core/HierarchyComponent.h"
+#include "Editor/Editor/Objects/Cameras/Camera.h"
 
 namespace MPE
 {

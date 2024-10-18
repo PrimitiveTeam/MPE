@@ -12,7 +12,7 @@ namespace MPE
 class MPE_API OpenGLESTextRenderer : public TextRenderer
 {
   public:
-    OpenGLESTextRenderer(const std::string& shaderPath, const std::string& fontPath, int fontSize, OrthographicCamera* camera);
+    OpenGLESTextRenderer(const std::string& shaderPath, const std::string& fontPath, int fontSize);
     ~OpenGLESTextRenderer();
 
     void OnEvent(Event& e);

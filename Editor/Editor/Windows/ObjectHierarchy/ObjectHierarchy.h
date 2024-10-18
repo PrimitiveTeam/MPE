@@ -3,7 +3,6 @@
 #include "MPE/Core/_CORE.h"
 #include "MPE/Core/_PTRS.h"
 #include "MPE/Time/Time.h"
-#include "MPE/Renderer/Cameras/OrthographicCamera.h"
 #include "MPE/Events/Event.h"
 #include "Editor/Editor/Objects/Base/Object.h"
 
@@ -13,6 +12,7 @@
 namespace MPE
 {
 class PropertyViewer;
+class Camera;
 
 class MPE_EDITOR_API ObjectHierarchy
 {
@@ -22,7 +22,7 @@ class MPE_EDITOR_API ObjectHierarchy
     ~ObjectHierarchy() = default;
 
     void OnUpdate(Time deltaTime);
-    void OnRender(OrthographicCamera& camera);
+    void OnRender(Camera& camera);
     void OnImGuiRender();
     void OnEvent(Event& event);
 

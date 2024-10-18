@@ -5,12 +5,13 @@
 
 #include "Editor/Editor/Grid/Grid.h"
 
-#include "MPE/Renderer/Cameras/OrthographicCamera.h"
 #include "Platform/OpenGLES/Shaders/OpenGLESShader.h"
 #include "Platform/OpenGLES/Pipeline/OpenGLESVertexArray.h"
 
 namespace MPE
 {
+class Camera;
+
 class MPE_EDITOR_API OpenGLESGrid : public Grid
 {
   public:
@@ -18,7 +19,7 @@ class MPE_EDITOR_API OpenGLESGrid : public Grid
 
     virtual ~OpenGLESGrid() = default;
 
-    virtual void Init(float gridSize, float gridSpacing, MPE::OrthographicCamera& camera) override;
+    virtual void Init(float gridSize, float gridSpacing, REF<Camera> camera) override;
 
     virtual void Resize(float gridSize, float gridSpacing) override;
 
@@ -36,6 +37,6 @@ class MPE_EDITOR_API OpenGLESGrid : public Grid
     MPE::REF<MPE::Shader> m_shader;
     MPE::REF<MPE::VertexArray> m_vertexArray;
 
-    MPE::OrthographicCamera* m_mainCamera;
+    REF<Camera> m_mainCamera;
 };
 }

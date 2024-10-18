@@ -3,6 +3,7 @@
 
 #include "MPE/Renderer/RenderPrimitive.h"
 #include "Platform/OpenGL/Shaders/OpenGLShader.h"
+#include "Editor/Editor/Objects/Cameras/Camera.h"
 
 #include <glad/glad.h>
 
@@ -10,11 +11,11 @@ namespace MPE
 {
 OpenGLGrid::OpenGLGrid() {}
 
-void OpenGLGrid::Init(float gridSize, float gridSpacing, MPE::OrthographicCamera& camera)
+void OpenGLGrid::Init(float gridSize, float gridSpacing, REF<Camera> camera)
 {
     Resize(gridSize, gridSpacing);
 
-    m_mainCamera = &camera;
+    m_mainCamera = camera;
 
     m_shader = MPE::OpenGLShader::Create("Data/Shaders/Editor/Grid/GridShader.glsl", true);
 }
@@ -68,7 +69,7 @@ void OpenGLGrid::Resize(float gridSize, float gridSpacing)
 void OpenGLGrid::DrawGrid()
 {
     m_shader->Bind();
-    std::dynamic_pointer_cast<MPE::OpenGLShader>(m_shader)->InjectUniformMat4("UNI_VPM", m_mainCamera->GetProjectionViewMatrix());
+    std::dynamic_pointer_cast<MPE::OpenGLShader>(m_shader)->InjectUniformMat4("UNI_VPM", m_mainCamera->GetCameraComponent()->GetProjectionViewMatrix());
 
     m_vertexArray->Bind();
     MPE::RenderPrimitive::DrawLines(m_vertexArray, 3);

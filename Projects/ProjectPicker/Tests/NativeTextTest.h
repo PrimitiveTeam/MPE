@@ -1,6 +1,8 @@
 #pragma once
 
 #include "MPE.h"
+#include "MPEEDITOR.h"
+#include "MPEECS.h"
 
 #ifdef MPE_OPENGL
 #    include "MPE/MPE_GFX_OPEN_GL.h"
@@ -31,8 +33,10 @@ class NativeTextTest : public MPE::Layer
     // Scene
     float CLEAR_COLOR[4];
 
+    MPE::REF<MPE::ECS::ECS> m_ECS;
+
     // Camera
-    MPE::OrthographicCameraController SYS_CAMERA_CONTROLLER;
+    MPE::REF<MPE::OrthographicCameraController> SYS_CAMERA_CONTROLLER;
 
     // Text
 #ifdef MPE_OPENGL

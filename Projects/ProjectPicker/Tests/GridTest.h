@@ -1,6 +1,8 @@
 #pragma once
 
 #include "MPE.h"
+#include "MPEEDITOR.h"
+#include "MPEECS.h"
 
 #ifdef MPE_OPENGL
 #    include "Platform/OpenGL/Editor/Grid/OpenGLGrid.h"
@@ -35,8 +37,10 @@ class GridTest : public MPE::Layer
     // Scene
     float CLEAR_COLOR[4];
 
+    MPE::REF<MPE::ECS::ECS> m_ECS;
+
     // Camera
-    MPE::StaticOrthographicCamera SYS_CAMERA_CONTROLLER;
+    MPE::REF<MPE::OrthographicCameraController> SYS_CAMERA_CONTROLLER;
 
     // Triangle
     MPE::REF<MPE::Shader> SYS_Shader;

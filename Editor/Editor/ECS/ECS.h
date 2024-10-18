@@ -1,17 +1,16 @@
 #pragma once
 
 #include "MPE/Core/_CORE.h"
+#include "MPE/Core/_PTRS.h"
 
 #include <entt/entt.hpp>
 
 #include <unordered_map>
 #include <vector>
 
-#include "MPE/Renderer/Cameras/OrthographicCamera.h"
-#include "MPE/Renderer/Cameras/PerspectiveCamera.h"
-
 namespace MPE
 {
+class Camera;
 namespace ECS
 {
 using Entity = entt::entity;
@@ -50,7 +49,10 @@ class MPE_EDITOR_API ECS
 
     // TODO: Enhance camera system, by using inheritance, so that we don't need to pass OrthographicCamera specifically.
     template <typename System>
-    void RegisterSystem(System&& system, OrthographicCamera& camera);
+    void RegisterSystem(System&& system, Camera& camera);
+
+    template <typename System>
+    void RegisterSystem(System&& system, REF<Camera> camera);
 
     // template <typename System>
     // void RegisterSystem(void (*systemFunc)(System&, EntityRegistry&, float), System& system);
@@ -58,9 +60,15 @@ class MPE_EDITOR_API ECS
     template <typename Component, typename... Args>
     Component& AddComponentToEntity(Entity entity, Args&&... args);
 
+    // REF type
+    template <typename Component>
+    REF<Component> AddComponentToEntity(Entity entity, REF<Component> component);
+
     void RunSystems(float deltaTime);
 
-    void RunSystems(OrthographicCamera& camera);
+    void RunSystems(Camera& camera);
+
+    void RunSystems(REF<Camera> camera);
 
     // Utility
   public:
@@ -79,7 +87,7 @@ class MPE_EDITOR_API ECS
 
     EntityRegistry m_registry;
     std::vector<std::function<void(EntityRegistry&, float)>> m_deltaTimeSystems;
-    std::vector<std::function<void(EntityRegistry&, OrthographicCamera&)>> m_cameraSystems;
+    std::vector<std::function<void(EntityRegistry&, Camera&)>> m_cameraSystems;
     // std::vector<RegisteredSystem> m_systems;
 };
 
@@ -132,9 +140,15 @@ void ECS::RegisterSystem(System&& system)
 }
 
 template <typename System>
-void ECS::RegisterSystem(System&& system, OrthographicCamera& camera)
+void ECS::RegisterSystem(System&& system, Camera& camera)
 {
-    m_cameraSystems.push_back([system = std::forward<System>(system)](EntityRegistry& reg, OrthographicCamera& cam) mutable { system(reg, cam); });
+    m_cameraSystems.push_back([system = std::forward<System>(system)](EntityRegistry& reg, Camera& cam) mutable { system(reg, cam); });
+}
+
+template <typename System>
+void ECS::RegisterSystem(System&& system, REF<Camera> camera)
+{
+    m_cameraSystems.push_back([system = std::forward<System>(system), camera](EntityRegistry& reg, Camera& cam) mutable { system(reg, *camera); });
 }
 
 // template <typename System>
@@ -148,6 +162,14 @@ Component& ECS::AddComponentToEntity(Entity entity, Args&&... args)
 {
     return m_registry.emplace<Component>(entity, std::forward<Args>(args)...);
 }
+
+// REF type
+template <typename Component>
+REF<Component> ECS::AddComponentToEntity(Entity entity, REF<Component> component)
+{
+    m_registry.emplace<Component>(entity, *component);
+    return component;
+}
 }
 }
 
@@ -157,7 +179,7 @@ template <>
 struct fmt::formatter<MPE::ECS::Entity> : fmt::formatter<std::string>
 {
     template <typename FormatContext>
-    auto format(MPE::ECS::Entity entity, FormatContext& ctx)
+    auto format(MPE::ECS::Entity entity, FormatContext& ctx) const
     {
         // Cast the entity to its underlying integer type and then convert to string
         auto entity_id = static_cast<std::underlying_type_t<entt::entity>>(entity);

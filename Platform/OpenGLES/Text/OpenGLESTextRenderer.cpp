@@ -27,12 +27,12 @@
 
 namespace MPE
 {
-OpenGLESTextRenderer::OpenGLESTextRenderer(const std::string& shaderPath, const std::string& fontPath, int fontSize, OrthographicCamera* camera)
+OpenGLESTextRenderer::OpenGLESTextRenderer(const std::string& shaderPath, const std::string& fontPath, int fontSize)
 {
     m_shaderPath = shaderPath;
     m_fontPath = fontPath;
     m_fontSize = fontSize;
-    m_mainCamera = camera;
+    // m_mainCamera = camera;
 
     // Enable pixel alignment by default
     m_pixelAlign = true;
