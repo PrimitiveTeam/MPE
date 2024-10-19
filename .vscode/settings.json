@@ -142,7 +142,8 @@
     "__node_handle": "cpp",
     "*.in": "c",
     "*.rh": "cpp",
-    "rope": "cpp"
+    "rope": "cpp",
+    "hash_set": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
