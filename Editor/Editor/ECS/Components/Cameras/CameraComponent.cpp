@@ -78,9 +78,10 @@ glm::vec4 CameraComponent::GetBounds() const
     switch (m_mode)
     {
         case CameraMode::Orthographic:
-            MPE_ASSERT(m_orthographic.useAspectRatio, "Attempting to get bounds of Orthographic Camera without using aspect ratio.");
-            return glm::vec4(-m_orthographic.aspectRatio * m_orthographic.zoomLevel, m_orthographic.aspectRatio * m_orthographic.zoomLevel,
-                             -m_orthographic.zoomLevel, m_orthographic.zoomLevel);
+            // MPE_ASSERT(m_orthographic.useAspectRatio, "Attempting to get bounds of Orthographic Camera without using aspect ratio.");
+            // return glm::vec4(-m_orthographic.aspectRatio * m_orthographic.zoomLevel, m_orthographic.aspectRatio * m_orthographic.zoomLevel,
+            //                  -m_orthographic.zoomLevel, m_orthographic.zoomLevel);
+            return glm::vec4(m_orthographic.left, m_orthographic.right, m_orthographic.bottom, m_orthographic.top);
         case CameraMode::Perspective:
             MPE_ASSERT(false, "Perspective Camera Bounds not implemented.");
             return glm::vec4(0.0f);

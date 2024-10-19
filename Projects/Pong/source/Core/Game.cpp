@@ -27,12 +27,12 @@ Game::Game(Player *lplayer, Player *rplayer, Ball *ball, glm::vec4 bounds)
     // log calc
     MPE_WARN("Window Width: {0}, Window Height: {1}", MPE::App::GetApp().GetWindow()->GetWidth(), MPE::App::GetApp().GetWindow()->GetHeight());
     MPE_WARN("Bounds: ({0}, {1}, {2}, {3})", Bounds.x, Bounds.y, Bounds.z, Bounds.w);
-    MPE_WARN("BOUND Y (Window Height / 2): {0}", MPE::App::GetApp().GetWindow()->GetHeight() / 2.0f);
-    bounds.y = MPE::App::GetApp().GetWindow()->GetHeight() / 2.0f;
-    bounds.y = 16.0f;
+    // MPE_WARN("BOUND Y (Window Height / 2): {0}", MPE::App::GetApp().GetWindow()->GetHeight() / 2.0f);
+    // bounds.y = MPE::App::GetApp().GetWindow()->GetHeight() / 2.0f;
+    // bounds.y = 16.0f;
 
-    bounds.z = (-1) * bounds.x;
-    bounds.w = (-1) * bounds.y;
+    // bounds.z = (-1) * bounds.x;
+    // bounds.w = (-1) * bounds.y;
 
     Bounds = bounds;
 
@@ -83,7 +83,7 @@ void Game::OnUpdate(MPE::Time deltaTime)
         }
 
         // Add a bit of a border at the top and bottom
-        const float border = 0.5f;
+        const float border = 0.1f;
 
         // MPE_INFO("BALL POSITION Y: {0} <= BOUNDS Y {1} || {2} >= -BOUNDS Y {3}", ballPosition.y, Bounds.y, ballPosition.y, Bounds.y);
         if (ballPosition.y >= (Bounds.y - border) || ballPosition.y <= -(Bounds.y - border))
