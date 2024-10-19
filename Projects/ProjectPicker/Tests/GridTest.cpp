@@ -47,12 +47,18 @@ GridTest::GridTest()
     auto FLAT_COLOR_SHADER = MPE::ShaderLibrary::Load("Data/Shaders/FlatColor.glsl", true);
 
     // GRID
-    SYS_Grid = MPE::NEWREF<MPE::Grid>(*m_ECS, 10.0f, 0.2f);
     // SYS_Grid.Init(10.0f, 0.2f, SYS_CAMERA_CONTROLLER);
+    // SYS_Grid = MPE::NEWREF<MPE::Grid>(*m_ECS, 10.0f, 0.2f);
+    SYS_Grid = MPE::NEWREF<MPE::Grid>(*m_ECS, 10.0f, 0.2f);
+
+    m_renderSystem = MPE::NEWREF<MPE::ECS::RenderSystem>();
+    m_ECS->RegisterSystem(*m_renderSystem, SYS_CAMERA_CONTROLLER);
 }
 
 void GridTest::OnUpdate(MPE::Time deltaTime)
 {
+    m_ECS->RunSystems(deltaTime);
+
     UpdateColor(deltaTime);
     SYS_CAMERA_CONTROLLER->OnUpdate(deltaTime);
 
@@ -79,6 +85,8 @@ void GridTest::OnUpdate(MPE::Time deltaTime)
     SYS_Grid->OnRender(*SYS_CAMERA_CONTROLLER);
 
     MPE::Renderer::EndScene();
+
+    m_ECS->RunSystems(SYS_CAMERA_CONTROLLER);
 }
 
 void GridTest::OnImGuiRender()
@@ -91,20 +99,22 @@ void GridTest::OnImGuiRender()
 
     ImGui::Separator();
 
-    // Get grid size and spacing, then use imgui sliders to change them
-    float gridSize = SYS_Grid->GetGridSize();
-    float gridSpacing = SYS_Grid->GetGridSpacing();
+    // // Get grid size and spacing, then use imgui sliders to change them
+    // float gridSize = SYS_Grid->GetGridSize();
+    // float gridSpacing = SYS_Grid->GetGridSpacing();
 
-    ImGui::Text("GRID VARIABLES");
-    ImGui::SliderFloat("GRID SIZE", &gridSize, 0.0f, 100.0f);
-    ImGui::SliderFloat("GRID SPACING", &gridSpacing, 0.0f, 10.0f);
+    // ImGui::Text("GRID VARIABLES");
+    // ImGui::SliderFloat("GRID SIZE", &gridSize, 0.0f, 100.0f);
+    // ImGui::SliderFloat("GRID SPACING", &gridSpacing, 0.0f, 10.0f);
 
-    SYS_Grid->Resize(gridSize, gridSpacing);
+    // SYS_Grid->Resize(gridSize, gridSpacing);
 
-    ImGui::Separator();
+    // ImGui::Separator();
 
-    ImGui::Text("TRIANGLE VARIABLES");
-    ImGui::Text("R: %f, G: %f, B: %f", TRIANGLE_COLOR[0], TRIANGLE_COLOR[1], TRIANGLE_COLOR[2]);
+    // ImGui::Text("TRIANGLE VARIABLES");
+    // ImGui::Text("R: %f, G: %f, B: %f", TRIANGLE_COLOR[0], TRIANGLE_COLOR[1], TRIANGLE_COLOR[2]);
+
+    SYS_Grid->OnImGuiRender();
 
     ImGui::End();
 }

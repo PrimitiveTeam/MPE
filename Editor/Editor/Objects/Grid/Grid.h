@@ -8,6 +8,8 @@
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
 #include "Editor/Editor/Objects/Base/Object.h"
 #include "Editor/Editor/ECS/Components/Core/TransformComponent.h"
+#include "Editor/Editor/ECS/Components/Meshes/MeshComponent.h"
+#include "Editor/Editor/ECS/Components/Meshes/Metadata/GridMetadataComponent.h"
 
 namespace MPE
 {
@@ -20,7 +22,7 @@ class MPE_EDITOR_API Grid : public Object
     ~Grid() = default;
 
   private:
-    // virtual void Init() override;
+    virtual void Init() override;
 
   public:
     virtual void OnUpdate(Time deltaTime) override;
@@ -30,16 +32,15 @@ class MPE_EDITOR_API Grid : public Object
 
     ECS::TransformComponent& GetTransform() { return *m_transform; }
 
-    float GetGridSize() const { return m_size; }
-    float GetGridSpacing() const { return m_spacing; }
-
-    void Resize(float gridSize, float gridSpacing);
+    glm::vec4& GetColor();
+    void SetColor(const glm::vec4& color);
 
   private:
     ECS::TransformComponent* m_transform;
+    ECS::MeshComponent* m_meshComponent;
+    ECS::GridMetadataComponent* m_gridMetadata;
 
-    float m_size;
-    float m_spacing;
+    glm::vec4 m_color = {0.75f, 0.75f, 0.75f, 1.0f};
 
     REF<Shader> m_shader;
     REF<VertexArray> m_vertexArray;

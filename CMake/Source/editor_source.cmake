@@ -17,6 +17,7 @@ file(
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/MeshFactory.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/CubeMeshGenerator.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/SphereMeshGenerator.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/GridMeshGenerator.cpp"
 
     # /Editor/ECS/Systems
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Systems/TransformSystem.cpp"
@@ -88,9 +89,11 @@ file(
     # Mesh Generators
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/CubeMeshGenerator.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/SphereMeshGenerator.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/GridMeshGenerator.h"
     # Mesh Metadata
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Metadata/MeshMetadata.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Metadata/SphereMetadataComponent.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Metadata/GridMetadataComponent.h"
 
     # /Editor/ECS/Systems
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Systems/TransformSystem.h"

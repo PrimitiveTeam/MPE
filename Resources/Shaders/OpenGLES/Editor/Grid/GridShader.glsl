@@ -13,7 +13,7 @@ uniform mat4 UNI_MODELMAT;
 
 void main()
 {
-    gl_Position = UNI_VPM * vec4(ATTR_POS, 1.0);
+    gl_Position = UNI_VPM * UNI_MODELMAT * vec4(ATTR_POS, 1.0);
 }
 
 #type fragment
@@ -22,10 +22,13 @@ void main()
 // Fragment Shader
 precision mediump float;
 
-layout(location = 0) out mediump vec4 GRID_LINES_COLOR;
+in highp vec3 VAR_POS;
+
+uniform mediump vec4 UNI_COLOR;
+
+layout(location = 0) out mediump vec4 LOCAL_COLOR;
 
 void main()
 {
-    // Light gray color
-    GRID_LINES_COLOR = vec4(0.75, 0.75, 0.75, 1.0);
+    LOCAL_COLOR = UNI_COLOR;
 }

@@ -1,12 +1,17 @@
+#pragma once
+
 #include "MPE/Core/_CORE.h"
 #include "MeshComponent.h"
 #include "MeshFactory.h"
+#include "Editor/Editor/Ecs/Components/Graphical/RenderComponent.h"
 // Metadata
 #include "Metadata/MeshMetadata.h"
 // Sphere
 #include "Metadata/SphereMetadataComponent.h"
 #include "Generators/SphereMeshGenerator.h"
-#include "Editor/Editor/Ecs/Components/Graphical/RenderComponent.h"
+// Grid
+#include "Metadata/GridMetadataComponent.h"
+#include "Generators/GridMeshGenerator.h"
 
 namespace MPE
 {
@@ -44,6 +49,13 @@ static void RegenerateMeshIfDirty(MeshComponent& mesh, MetadataType& metadata, R
             }
 
             SphereMeshGenerator::RegenerateRenderComponent(mesh, metadata, renderComp);
+        }
+        else if constexpr (std::is_same_v<MetadataType, GridMetadataComponent>)
+        {
+            GridMeshGenerator::GenerateGrid(metadata.GetGridSize(), metadata.GetGridSpacing(), mesh.stride, mesh.vertices, mesh.normals, mesh.textureCoords,
+                                            mesh.interleavedVertices, mesh.indicesLines, mesh.indices);
+
+            GridMeshGenerator::RegenerateRenderComponent(mesh, metadata, renderComp);
         }
 
         metadata.ClearAllDirty();

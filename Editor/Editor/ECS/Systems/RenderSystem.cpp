@@ -38,6 +38,11 @@ void RenderSystem::operator()(entt::registry& registry, Camera& camera) const
             auto& metadata = registry.get<SphereMetadataComponent>(entity);
             MPE::ECS::RegenerateMeshIfDirty(mesh, metadata, renderComp);
         }
+        if (registry.all_of<GridMetadataComponent>(entity))
+        {
+            auto& metadata = registry.get<GridMetadataComponent>(entity);
+            MPE::ECS::RegenerateMeshIfDirty(mesh, metadata, renderComp);
+        }
 
         glm::mat4 transformMatrix = glm::translate(glm::mat4(1.0f), transform.position);
         transformMatrix *= glm::toMat4(transform.rotation);

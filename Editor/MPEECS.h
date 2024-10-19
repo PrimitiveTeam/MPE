@@ -19,6 +19,7 @@
 // Components/Meshes/Metadata
 #include "Editor/Editor/ECS/Components/Meshes/Metadata/MeshMetadata.h"
 #include "Editor/Editor/ECS/Components/Meshes/Metadata/SphereMetadataComponent.h"
+#include "Editor/Editor/ECS/Components/Meshes/Metadata/GridMetadataComponent.h"
 // Systems
 #include "Editor/Editor/ECS/Systems/TransformSystem.h"
 #include "Editor/Editor/ECS/Systems/RenderSystem.h"

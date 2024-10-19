@@ -64,6 +64,7 @@ class GridTest : public MPE::Layer
 
     // Grid
     MPE::REF<MPE::Grid> SYS_Grid;
+    MPE::REF<MPE::ECS::RenderSystem> m_renderSystem;
     // #ifdef MPE_OPENGL
     //     MPE::OpenGLGrid SYS_Grid;
     // #elif MPE_OPENGLES

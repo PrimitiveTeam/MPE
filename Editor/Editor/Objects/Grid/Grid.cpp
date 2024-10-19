@@ -3,6 +3,9 @@
 
 #include "MPE/Renderer/Renderer.h"
 #include "Editor/Editor/Objects/Cameras/Camera.h"
+#include "Editor/Editor/ECS/Components/Graphical/MaterialComponent.h"
+#include "Editor/Editor/ECS/Components/Graphical/RenderComponent.h"
+#include "Editor/Editor/ECS/Components/Meshes/MeshFactory.h"
 
 #ifdef MPE_OPENGL
 #    include "MPE/MPE_GFX_OPEN_GL.h"
@@ -10,19 +13,48 @@
 #    include "MPE/MPE_GFX_OPEN_GLES.h"
 #endif
 
+#include <imgui.h>
+
 namespace MPE
 {
 Grid::Grid(ECS::ECS& ecs) : Object(ecs)
 {
     m_transform = &m_ECS.AddComponentToEntity<ECS::TransformComponent>(m_entity, glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
 
-    this->Resize(10.0f, 1.0f);
+    auto [mesh, metadata] = ECS::MeshFactory::CreateGrid();
+    mesh.lineDrawing = true;
+    m_meshComponent = &m_ECS.AddComponentToEntity<ECS::MeshComponent>(m_entity, mesh);
+    m_gridMetadata = &m_ECS.AddComponentToEntity<ECS::GridMetadataComponent>(m_entity, metadata);
+
+    this->Init();
 }
 Grid::Grid(ECS::ECS& ecs, float gridSize, float gridSpacing) : Object(ecs)
 {
     m_transform = &m_ECS.AddComponentToEntity<ECS::TransformComponent>(m_entity, glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(1.0f));
 
-    this->Resize(gridSize, gridSpacing);
+    auto [mesh, metadata] = ECS::MeshFactory::CreateGrid(gridSize, gridSpacing);
+    mesh.lineDrawing = true;
+    m_meshComponent = &m_ECS.AddComponentToEntity<ECS::MeshComponent>(m_entity, mesh);
+    m_gridMetadata = &m_ECS.AddComponentToEntity<ECS::GridMetadataComponent>(m_entity, metadata);
+
+    this->Init();
+}
+
+void Grid::Init()
+{
+    m_shader = ShaderLibrary::AddOrLoadIfExists("Data/Shaders/Editor/Grid/GridShader.glsl", true);
+
+    m_vertexArray = VertexArray::Create();
+
+    REF<VertexBuffer> vertexBuffer = VertexBuffer::Create(m_meshComponent->vertices.data(), m_meshComponent->vertices.size() * sizeof(float));
+    vertexBuffer->SetLayout({{ShaderDataType::Vec3, "ATTR_POS"}});
+    m_vertexArray->AddVertexBuffer(vertexBuffer);
+
+    REF<IndexBuffer> indexBuffer = IndexBuffer::Create(m_meshComponent->indices.data(), m_meshComponent->indices.size());
+    m_vertexArray->SetIndexBuffer(indexBuffer);
+
+    m_ECS.AddComponentToEntity<ECS::RenderComponent>(m_entity, m_vertexArray, m_shader);
+    m_ECS.AddComponentToEntity<ECS::MaterialComponent>(m_entity, m_color);
 }
 
 void Grid::OnUpdate(Time deltaTime) {}
@@ -36,81 +68,36 @@ void Grid::OnRender(Camera& camera)
     //     std::dynamic_pointer_cast<MPE::OpenGLESShader>(renderComp.shader)->InjectUniformFloat4("UNI_COLOR", material.color);
     // #endif
 
-    glm::mat4 transformMatrix = glm::translate(glm::mat4(1.0f), m_transform->position);
-    transformMatrix *= glm::toMat4(m_transform->rotation);
-    transformMatrix = glm::scale(transformMatrix, m_transform->scale);
+    // glm::mat4 transformMatrix = glm::translate(glm::mat4(1.0f), m_transform->position);
+    // transformMatrix *= glm::toMat4(m_transform->rotation);
+    // transformMatrix = glm::scale(transformMatrix, m_transform->scale);
 
-    m_shader->Bind();
-    m_vertexArray->Bind();
+    // m_shader->Bind();
+    // m_vertexArray->Bind();
 
-    Renderer::BeginScene(camera.GetProjection());
-    // Renderer::Submit(m_shader, m_vertexArray, m_transform);
-    Renderer::SubmitLines(m_shader, m_vertexArray, transformMatrix);
-    Renderer::EndScene();
+    // Renderer::BeginScene(camera.GetProjection());
+    // // Renderer::Submit(m_shader, m_vertexArray, m_transform);
+    // Renderer::SubmitLines(m_shader, m_vertexArray, transformMatrix);
+    // Renderer::EndScene();
 }
 
-void Grid::OnImGuiRender() {}
+void Grid::OnImGuiRender()
+{
+    ImGui::Begin("GRID");
+    float gridSize = m_gridMetadata->GetGridSize();
+    float gridSpacing = m_gridMetadata->GetGridSpacing();
+
+    ImGui::Text("GRID VARIABLES");
+    ImGui::SliderFloat("GRID SIZE", &gridSize, 0.0f, 100.0f);
+    ImGui::SliderFloat("GRID SPACING", &gridSpacing, 0.0f, 10.0f);
+
+    m_gridMetadata->SetGridSize(gridSize);
+    m_gridMetadata->SetGridSpacing(gridSpacing);
+
+    ImGui::ColorEdit4("Color", &m_color[0]);
+
+    ImGui::End();
+}
 
 void Grid::OnEvent(Event& event) {}
-
-void Grid::Resize(float gridSize, float gridSpacing)
-{
-    if (gridSize <= 0)
-    {
-        MPE_CORE_ERROR("Grid size must be greater than 0.");
-        return;
-    }
-    if (gridSpacing <= 0)
-    {
-        MPE_CORE_ERROR("Grid spacing must be greater than 0.");
-        return;
-    }
-    if (gridSize == m_size && gridSpacing == m_spacing) return;
-
-    m_size = gridSize;
-    m_spacing = gridSpacing;
-
-    std::vector<float> vertices;
-    std::vector<unsigned int> indices;
-
-    unsigned int index = 0;
-
-    for (float i = -gridSize; i <= gridSize; i += gridSpacing)
-    {
-        vertices.push_back(i);
-        vertices.push_back(-gridSize);
-        vertices.push_back(0.0f);
-
-        vertices.push_back(i);
-        vertices.push_back(gridSize);
-        vertices.push_back(0.0f);
-
-        indices.push_back(index);
-        indices.push_back(index + 1);
-        index += 2;
-
-        vertices.push_back(-gridSize);
-        vertices.push_back(i);
-        vertices.push_back(0.0f);
-
-        vertices.push_back(gridSize);
-        vertices.push_back(i);
-        vertices.push_back(0.0f);
-
-        indices.push_back(index);
-        indices.push_back(index + 1);
-        index += 2;
-    }
-
-    m_vertexArray = MPE::VertexArray::Create();
-    MPE::REF<MPE::VertexBuffer> vertexBuffer;
-    vertexBuffer = MPE::VertexBuffer::Create(vertices.data(), vertices.size() * sizeof(float));
-    vertexBuffer->SetLayout({{MPE::ShaderDataType::Vec3, "ATTR_POS"}});
-    m_vertexArray->AddVertexBuffer(vertexBuffer);
-
-    MPE::REF<MPE::IndexBuffer> indexBuffer = MPE::IndexBuffer::Create(indices.data(), indices.size());
-    m_vertexArray->SetIndexBuffer(indexBuffer);
-
-    m_shader = ShaderLibrary::AddOrLoadIfExists("Data/Shaders/Editor/Grid/GridShader.glsl", true);
-}
 }
