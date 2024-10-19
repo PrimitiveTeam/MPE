@@ -1,4 +1,6 @@
 #include "MPE/MPE.h"
+#include "Editor/MPEEDITOR.h"
+#include "Editor/MPEECS.h"
 
 #include "Core/_INCLUDE.h"
 #include "MPE/Events/EventApp.h"
@@ -14,7 +16,7 @@ namespace PONG
 class Pong : public MPE::Layer
 {
   private:
-    MPE::StaticOrthographicCamera SYS_CAMERA_CONTROLLER;
+    MPE::REF<MPE::Camera> SYS_CAMERA_CONTROLLER;
     // glm::vec4 CLEAR_COLOR = {0.5f, 0.25f, 0.5f, 1.0f};
     glm::vec4 CLEAR_COLOR = {0.0f, 0.0f, 0.0f, 1.0f};
 
@@ -29,6 +31,8 @@ class Pong : public MPE::Layer
     PONG::Ball *BALL;
 
     PONG::Game *PongGame;
+
+    MPE::REF<MPE::ECS::ECS> m_ECS;
 
     // TEXT
 #ifdef MPE_OPENGL

@@ -14,9 +14,14 @@
 //     system(registry, deltaTime);
 // }
 
-MultiCubeTest::MultiCubeTest() : Layer("Test"), m_clearColor{0.5f, 0.25f, 0.5f}, m_mainCamera(1280.0f / 720.0f, true)
+MultiCubeTest::MultiCubeTest() : Layer("Test"), m_clearColor{0.5f, 0.25f, 0.5f}
 {
     m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
+    MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
+    cameraComponent->SetMode(MPE::CameraMode::Orthographic, false);
+    cameraComponent->SetOrthographic(1280.0f / 720.0f, 1.0f, -1.0f, 1.0f);
+    m_mainCamera = MPE::NEWREF<MPE::Camera>(*m_ECS, cameraComponent);
+
     // m_cube = MPE::NEWREF<MPE::Cube>(*m_ECS, glm::vec3(0.0f), glm::vec3(1.0f));
 
     float xDiff = 0.00f;
@@ -71,7 +76,7 @@ void MultiCubeTest::OnUpdate(MPE::Time deltaTime)
     for (auto &cube : m_cubes)
     {
         cube->OnUpdate(deltaTime);
-        cube->OnRender(m_mainCamera.GetCamera());
+        // cube->OnRender(m_mainCamera.GetCamera());
     }
 }
 
@@ -122,7 +127,7 @@ void MultiCubeTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(MultiCubeTest::OnKeyPressedEvent));
-    m_mainCamera.OnEvent(event);
+    m_mainCamera->OnEvent(event);
 }
 
 bool MultiCubeTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)

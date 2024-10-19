@@ -1,12 +1,14 @@
 #pragma once
 
 #include "MPE.h"
+#include "MPEEDITOR.h"
+#include "MPEECS.h"
 
-#ifdef MPE_OPENGL
-#    include "Platform/OpenGL/Editor/Grid/OpenGLGrid.h"
-#elif MPE_OPENGLES
-#    include "Platform/OpenGLES/Editor/Grid/OpenGLESGrid.h"
-#endif
+// #ifdef MPE_OPENGL
+// #    include "Platform/OpenGL/Editor/Grid/OpenGLGrid.h"
+// #elif MPE_OPENGLES
+// #    include "Platform/OpenGLES/Editor/Grid/OpenGLESGrid.h"
+// #endif
 
 #include <imgui.h>
 #include <string>
@@ -35,8 +37,10 @@ class GridTest : public MPE::Layer
     // Scene
     float CLEAR_COLOR[4];
 
+    MPE::REF<MPE::ECS::ECS> m_ECS;
+
     // Camera
-    MPE::StaticOrthographicCamera SYS_CAMERA_CONTROLLER;
+    MPE::REF<MPE::Camera> SYS_CAMERA_CONTROLLER;
 
     // Triangle
     MPE::REF<MPE::Shader> SYS_Shader;
@@ -58,10 +62,12 @@ class GridTest : public MPE::Layer
     float settime = 0.0f;
     bool istimeset = false;
 
-// Grid
-#ifdef MPE_OPENGL
-    MPE::OpenGLGrid SYS_Grid;
-#elif MPE_OPENGLES
-    MPE::OpenGLESGrid SYS_Grid;
-#endif
+    // Grid
+    MPE::REF<MPE::Grid> SYS_Grid;
+    MPE::REF<MPE::ECS::RenderSystem> m_renderSystem;
+    // #ifdef MPE_OPENGL
+    //     MPE::OpenGLGrid SYS_Grid;
+    // #elif MPE_OPENGLES
+    //     MPE::OpenGLESGrid SYS_Grid;
+    // #endif
 };

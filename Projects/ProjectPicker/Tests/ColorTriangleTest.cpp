@@ -13,13 +13,17 @@
 ColorTriangleTest::ColorTriangleTest()
     : Layer("Test"),
       CLEAR_COLOR{0.5f, 0.25f, 0.5f},
-      SYS_CAMERA_CONTROLLER(1280.0f / 720.0f, true),
       TRIANGLE_POSITION(0.0f),
       TRIANGLE_SCALE_FACTOR(1.0f),
       TRIANGLE_VECTOR_SCALE{1.0f, 1.0f, 1.0f},
       TRIANGLE_SCALE(glm::scale(glm::mat4(1.0f), glm::vec3(TRIANGLE_VECTOR_SCALE) * TRIANGLE_SCALE_FACTOR)),
       TRIANGLE_COLOR{1.0f, 0.2f, 0.2f, 1.0f}
 {
+    m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
+    MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
+    cameraComponent->SetMode(MPE::CameraMode::Orthographic, false);
+    cameraComponent->SetOrthographic(1280.0f / 720.0f, 1.0f, -1.0f, 1.0f);
+    SYS_CAMERA_CONTROLLER = MPE::NEWREF<MPE::Camera>(*m_ECS, cameraComponent);
 
     SYS_VertexArray = MPE::VertexArray::Create();
     float vertices[3 * 7] = {-0.5f, -0.5f, 0.0f, 1.0f, 0.2f, 1.0f, 1.0f, 0.5f, -0.5f, 0.0f, 0.2f, 1.0f, 1.0f, 1.0f, 0.0f, 0.5f, 0.0f, 1.0f, 1.0f, 0.2f, 1.0f};
@@ -43,7 +47,7 @@ void ColorTriangleTest::OnUpdate(MPE::Time deltaTime)
     MPE::RenderPrimitive::SetClearColor(glm::vec4(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]));
     MPE::RenderPrimitive::Clear();
 
-    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER.GetCamera());
+    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER->GetProjection());
 
     auto FLAT_COLOR_SHADER = MPE::ShaderLibrary::Get("FlatColor");
 
@@ -83,7 +87,7 @@ void ColorTriangleTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(ColorTriangleTest::OnKeyPressedEvent));
-    SYS_CAMERA_CONTROLLER.OnEvent(event);
+    SYS_CAMERA_CONTROLLER->OnEvent(event);
 }
 
 bool ColorTriangleTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)

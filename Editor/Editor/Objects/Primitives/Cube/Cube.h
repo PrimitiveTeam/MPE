@@ -2,7 +2,6 @@
 
 #include "MPE/Core/_CORE.h"
 #include "MPE/Time/Time.h"
-#include "MPE/Renderer/Cameras/OrthographicCamera.h"
 #include "MPE/Renderer/Pipeline/VertexArray.h"
 #include "MPE/Renderer/Shaders/Shader.h"
 #include "MPE/Renderer/Shaders/ShaderLibrary.h"
@@ -14,18 +13,20 @@
 
 namespace MPE
 {
+class Camera;
 class MPE_EDITOR_API Cube : public Object
 {
   public:
     Cube(ECS::ECS& ecs);
     Cube(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale);
+    ~Cube();
 
   private:
     virtual void Init() override;
 
   public:
     virtual void OnUpdate(Time deltaTime) override;
-    virtual void OnRender(OrthographicCamera& camera) override;
+    virtual void OnRender(Camera& camera) override;
     virtual void OnImGuiRender() override;
     virtual void OnEvent(Event& event) override;
 

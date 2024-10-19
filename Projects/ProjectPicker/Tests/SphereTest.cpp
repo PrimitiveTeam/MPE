@@ -9,9 +9,14 @@
 #    include "MPE/MPE_GFX_OPEN_GLES.h"
 #endif
 
-SphereTest::SphereTest() : Layer("Test"), m_clearColor{0.5f, 0.25f, 0.5f}, m_mainCamera(1280.0f / 720.0f, true)
+SphereTest::SphereTest() : Layer("Test"), m_clearColor{0.5f, 0.25f, 0.5f}
 {
     m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
+    MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
+    cameraComponent->SetMode(MPE::CameraMode::Orthographic, false);
+    cameraComponent->SetOrthographic(1280.0f / 720.0f, 1.0f, -1.0f, 1.0f);
+    m_mainCamera = MPE::NEWREF<MPE::Camera>(*m_ECS, cameraComponent);
+
     m_sphere = MPE::NEWREF<MPE::Sphere>(*m_ECS);
     m_sphereDeltaPosition = new glm::vec3(0.0f);
 
@@ -19,7 +24,7 @@ SphereTest::SphereTest() : Layer("Test"), m_clearColor{0.5f, 0.25f, 0.5f}, m_mai
     m_ECS->RegisterSystem(*m_transformSystem);
 
     m_renderSystem = MPE::NEWREF<MPE::ECS::RenderSystem>();
-    m_ECS->RegisterSystem(*m_renderSystem, m_mainCamera.GetCamera());
+    m_ECS->RegisterSystem(*m_renderSystem, m_mainCamera);
 }
 
 void SphereTest::OnUpdate(MPE::Time deltaTime)
@@ -40,7 +45,7 @@ void SphereTest::OnUpdate(MPE::Time deltaTime)
 
     m_sphere->OnUpdate(deltaTime);
     // m_sphere->OnRender(m_mainCamera.GetCamera());
-    m_ECS->RunSystems(m_mainCamera.GetCamera());
+    m_ECS->RunSystems(m_mainCamera);
 }
 
 void SphereTest::OnImGuiRender()
@@ -61,7 +66,7 @@ void SphereTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(SphereTest::OnKeyPressedEvent));
-    m_mainCamera.OnEvent(event);
+    m_mainCamera->OnEvent(event);
 }
 
 bool SphereTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)

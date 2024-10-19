@@ -1,6 +1,7 @@
 #include "Object.h"
 
 #include "Editor/Editor/ECS/Components/Core/HierarchyComponent.h"
+#include "Editor/Editor/Objects/Cameras/Camera.h"
 
 namespace MPE
 {
@@ -16,6 +17,7 @@ Object::Object(ECS::ECS& ecs)
 Object::~Object()
 {
     // MPE_CORE_INFO("Destroyed entity with ID: {}", m_entity);
-    m_ECS.DestroyEntity(m_entity);
+    // m_ECS.DestroyEntity(m_entity);
+    // WARN: MUST CALL THIS IN THE DERIVED CLASS DESTRUCTOR
 }
 }

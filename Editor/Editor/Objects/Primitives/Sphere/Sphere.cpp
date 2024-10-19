@@ -2,6 +2,7 @@
 
 #include "MPE/Log/GlobalLog.h"
 #include "MPE/Renderer/Renderer.h"
+#include "Editor/Editor/Objects/Cameras/Camera.h"
 #include "Editor/Editor/ECS/Utility/RotationUtilities.h"
 #include "Editor/Editor/ECS/Components/Graphical/MaterialComponent.h"
 #include "Editor/Editor/ECS/Components/Graphical/RenderComponent.h"
@@ -57,6 +58,11 @@ Sphere::Sphere(ECS::ECS& ecs, const glm::vec3& position, const glm::vec3& scale,
     // RecalculateSphere(radius, sectors, stacks, smooth, upAxis);
 }
 
+Sphere::~Sphere()
+{
+    m_ECS.DestroyEntity(m_entity);
+}
+
 void Sphere::OnUpdate(Time deltaTime)
 {
     if (m_autoRotate)
@@ -74,7 +80,7 @@ void Sphere::OnUpdate(Time deltaTime)
     }
 }
 
-void Sphere::OnRender(OrthographicCamera& camera)
+void Sphere::OnRender(Camera& camera)
 {
     //     glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_transform->position);
     //     transform *= glm::toMat4(m_transform->rotation);

@@ -26,6 +26,7 @@ layout(location = 0) out vec4 LOCAL_COLOR;
 in vec2 VAR_TEXCOORD;
 
 uniform sampler2D UNI_TEXTURE;
+uniform vec4 UNI_COLOR;
 
 void main()
 {

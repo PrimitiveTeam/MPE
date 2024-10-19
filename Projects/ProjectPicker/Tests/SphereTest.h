@@ -32,7 +32,7 @@ class SphereTest : public MPE::Layer
     float m_clearColor[4];
 
     // Camera
-    MPE::StaticOrthographicCamera m_mainCamera;
+    MPE::REF<MPE::Camera> m_mainCamera;
 
     // Sphere
     MPE::REF<MPE::ECS::ECS> m_ECS;

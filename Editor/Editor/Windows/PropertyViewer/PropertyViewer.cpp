@@ -1,6 +1,7 @@
 #include "PropertyViewer.h"
 
 #include "Editor/Editor/ECS/ECS.h"
+#include "Editor/Editor/Objects/Cameras/Camera.h"
 #include "MPE/Log/GlobalLog.h"
 // Properties
 #include "Editor/Editor/Windows/PropertyViewer/ComponentProperties/HierarchyPropertiesEditor.h"
@@ -18,7 +19,7 @@ namespace MPE
 PropertyViewer::PropertyViewer(ECS::ECS& ecs) : m_ECS(&ecs), m_entity(entt::null), m_propertyFlags(Properties::None) {}
 
 void PropertyViewer::OnUpdate(Time deltaTime) {}
-void PropertyViewer::OnRender(OrthographicCamera& camera) {}
+void PropertyViewer::OnRender(Camera& camera) {}
 void PropertyViewer::OnImGuiRender()
 {
     if (m_entity == entt::null)

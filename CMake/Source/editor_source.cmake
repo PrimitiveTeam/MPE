@@ -11,10 +11,13 @@ file(
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/ECS.cpp"
 
     # /Editor/ECS/Components
+    # Cameras
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/CameraComponent.cpp"
     # Meshes
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/MeshFactory.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/CubeMeshGenerator.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/SphereMeshGenerator.cpp"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/GridMeshGenerator.cpp"
 
     # /Editor/ECS/Systems
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Systems/TransformSystem.cpp"
@@ -27,10 +30,16 @@ file(
     # /Editor/Objects/Base
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Object.cpp"
 
-    # /Editor/Objects
+    # /Editor/Objects/Cameras
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/Camera.cpp"
+
+    # /Editor/Objects/Primitives
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/Cube.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/PredefinedCubeMesh.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Sphere/Sphere.cpp"
+
+    # /Editor/Objects/Grid
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Grid/Grid.cpp"
 
     # /Editor/Scene
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Scene/Scene.cpp"
@@ -65,6 +74,8 @@ file(
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/ECS.h"
 
     # /Editor/ECS/Components
+    # Cameras
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Cameras/CameraComponent.h"
     # Core
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Core/TransformComponent.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Core/TagComponent.h"
@@ -78,9 +89,11 @@ file(
     # Mesh Generators
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/CubeMeshGenerator.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/SphereMeshGenerator.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Generators/GridMeshGenerator.h"
     # Mesh Metadata
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Metadata/MeshMetadata.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Metadata/SphereMetadataComponent.h"
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Components/Meshes/Metadata/GridMetadataComponent.h"
 
     # /Editor/ECS/Systems
     "${PROJECT_SOURCE_DIR}/Editor/Editor/ECS/Systems/TransformSystem.h"
@@ -92,12 +105,18 @@ file(
     # /Editor/Objects/Base
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Object.h"
 
-    # /Editor/Objects
+    # /Editor/Objects/Cameras
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Cameras/Camera.h"
+
+    # /Editor/Objects/Primitives
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/Cube.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/CubeIndices.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/CubeVertices.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Cube/PredefinedCubeMesh.h"
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Primitives/Sphere/Sphere.h"
+
+    # /Editor/Objects/Grid
+    "${PROJECT_SOURCE_DIR}/Editor/Editor/Objects/Grid/Grid.h"
 
     # /Editor/Scene
     "${PROJECT_SOURCE_DIR}/Editor/Editor/Scene/Scene.h"

@@ -46,10 +46,10 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderPrimitive.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderSettings.cpp"
 
-    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCamera.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/PerspectiveCamera.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCameraController.cpp"
-    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/StaticOrthographicCamera.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCamera.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/PerspectiveCamera.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCameraController.cpp"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/StaticOrthographicCamera.cpp"
 
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/BufferLayout.cpp"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/IndexBuffer.cpp"
@@ -148,10 +148,10 @@ file(
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderPrimitive.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/RenderSettings.h"
 
-    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCamera.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/PerspectiveCamera.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCameraController.h"
-    "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/StaticOrthographicCamera.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCamera.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/PerspectiveCamera.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/OrthographicCameraController.h"
+    # "${PROJECT_SOURCE_DIR}/MPE/Renderer/Cameras/StaticOrthographicCamera.h"
 
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/BufferLayout.h"
     "${PROJECT_SOURCE_DIR}/MPE/Renderer/Pipeline/IndexBuffer.h"

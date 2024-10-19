@@ -5,7 +5,14 @@
 #include <imgui.h>
 #include "MPE/Vendor/GLM/GLM.h"
 
-TexturesTest::TexturesTest() : Layer("TexturesTest"), SYS_CAMERA_CONTROLLER(1280.0f / 720.0f, true) {}
+TexturesTest::TexturesTest() : Layer("TexturesTest")
+{
+    m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
+    MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
+    cameraComponent->SetMode(MPE::CameraMode::Orthographic, false);
+    cameraComponent->SetOrthographic(1280.0f / 720.0f, 1.0f, -1.0f, 1.0f);
+    SYS_CAMERA_CONTROLLER = MPE::NEWREF<MPE::Camera>(*m_ECS, cameraComponent);
+}
 
 void TexturesTest::OnAttach()
 {
@@ -18,15 +25,15 @@ void TexturesTest::OnUpdate(MPE::Time deltaTime)
 {
     MPE_PROFILE_FUNCTION();
 
-    {
-        MPE_PROFILE_SCOPE("SYS_CAMERA_CONTROLLER.OnUpdate()");
-        SYS_CAMERA_CONTROLLER.OnUpdate(deltaTime);
-    }
+    // {
+    //     MPE_PROFILE_SCOPE("SYS_CAMERA_CONTROLLER.OnUpdate()");
+    //     SYS_CAMERA_CONTROLLER.OnUpdate(deltaTime);
+    // }
 
     MPE::RenderPrimitive::SetClearColor(CLEAR_COLOR);
     MPE::RenderPrimitive::Clear();
 
-    MPE::Renderer2D::BeginScene(SYS_CAMERA_CONTROLLER.GetCamera());
+    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER->GetProjection());
 
     MPE::Renderer2D::DrawQuad({0.5f, 0.0f}, {0.5f, 0.5f}, SQUARE_COLOR);
     MPE::Renderer2D::DrawQuad({-0.5f, 0.0f}, {0.5f, 0.5f}, {0.0f, 0.0f, 0.0f, 1.0f});
@@ -40,15 +47,15 @@ void TexturesTest::OnImGuiRender()
     ImGui::Begin("SANDBOX 2D");
     ImGui::ColorEdit4("CLEAR COLOR", glm::value_ptr(CLEAR_COLOR));
     ImGui::ColorEdit4("COLOR", glm::value_ptr(SQUARE_COLOR));
-    if (ImGui::Button("RESET CAMERA"))
-    {
-        SYS_CAMERA_CONTROLLER.Reset();
-    }
+    // if (ImGui::Button("RESET CAMERA"))
+    // {
+    //     SYS_CAMERA_CONTROLLER.Reset();
+    // }
 
     ImGui::End();
 }
 
 void TexturesTest::OnEvent(MPE::Event &event)
 {
-    SYS_CAMERA_CONTROLLER.OnEvent(event);
+    SYS_CAMERA_CONTROLLER->OnEvent(event);
 }

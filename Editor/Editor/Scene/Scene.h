@@ -2,7 +2,6 @@
 
 #include "MPE/Core/_CORE.h"
 #include "MPE/Core/_PTRS.h"
-#include "MPE/Renderer/Cameras/StaticOrthographicCamera.h"
 #include "MPE/App/Layers/Layer.h"
 #include "Editor/Editor/ECS/ECS.h"
 #include "Editor/Editor/ECS/Systems/RenderSystem.h"
@@ -13,6 +12,7 @@
 
 namespace MPE
 {
+class Camera;
 class MPE_EDITOR_API Scene : public Layer
 {
   public:
@@ -60,7 +60,7 @@ class MPE_EDITOR_API Scene : public Layer
 
     REF<ECS::ECS> GetECS() const { return m_ECS; }
 
-    REF<StaticOrthographicCamera> GetMainCamera() const { return m_mainCamera; }
+    REF<Camera> GetMainCamera() const { return m_mainCamera; }
 
     const REF<std::vector<REF<Object>>>& GetObjects() const { return m_objects; }
 
@@ -70,7 +70,7 @@ class MPE_EDITOR_API Scene : public Layer
   private:
     std::string m_sceneName;
     REF<ECS::ECS> m_ECS;
-    REF<StaticOrthographicCamera> m_mainCamera;
+    REF<Camera> m_mainCamera;
     REF<std::vector<REF<Object>>> m_objects;
 
     MPE::REF<MPE::ECS::RenderSystem> m_renderSystem;

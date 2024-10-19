@@ -12,9 +12,10 @@ void CubeMeshGenerator::GenerateCube(unsigned int& stride, std::vector<float>& v
     normals.clear();
     textureCoordinates.clear();
     interleavedVertices.clear();
+    indices.clear();
+    stride = 0;
 
     // ATTR_POS (VEC3)
-    stride = 0;
     stride += 12;
     vertices = {// I
                 -0.5f, -0.5f, -0.5f,

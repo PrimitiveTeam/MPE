@@ -1,6 +1,7 @@
 #include "ObjectHierarchy.h"
 
 #include "Editor/Editor/ECS/ECS.h"
+#include "Editor/Editor/Objects/Cameras/Camera.h"
 // #include "MPE/Editor/Scene/Scene.h"
 #include "MPE/Log/GlobalLog.h"
 #include "Editor/Editor/Windows/PropertyViewer/PropertyViewer.h"
@@ -18,7 +19,7 @@ ObjectHierarchy::ObjectHierarchy(const std::vector<REF<Object>>& objects) : m_ob
 
 void ObjectHierarchy::OnUpdate(Time deltaTime) {}
 
-void ObjectHierarchy::OnRender(OrthographicCamera& camera) {}
+void ObjectHierarchy::OnRender(Camera& camera) {}
 
 void ObjectHierarchy::OnImGuiRender()
 {

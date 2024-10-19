@@ -18,14 +18,18 @@
 GridTest::GridTest()
     : Layer("Test"),
       CLEAR_COLOR{0.5f, 0.25f, 0.5f},
-      SYS_CAMERA_CONTROLLER(1280.0f / 720.0f, true),
       TRIANGLE_POSITION(0.0f),
       TRIANGLE_SCALE_FACTOR(1.0f),
       TRIANGLE_VECTOR_SCALE{1.0f, 1.0f, 1.0f},
       TRIANGLE_SCALE(glm::scale(glm::mat4(1.0f), glm::vec3(TRIANGLE_VECTOR_SCALE) * TRIANGLE_SCALE_FACTOR)),
-      TRIANGLE_COLOR{1.0f, 0.2f, 0.2f, 1.0f},
-      SYS_Grid()
+      TRIANGLE_COLOR{1.0f, 0.2f, 0.2f, 1.0f}
 {
+    m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
+    MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
+    cameraComponent->SetMode(MPE::CameraMode::Orthographic, false);
+    cameraComponent->SetOrthographic(1280.0f / 720.0f, 1.0f, -1.0f, 1.0f);
+    SYS_CAMERA_CONTROLLER = MPE::NEWREF<MPE::Camera>(*m_ECS, cameraComponent);
+
     SYS_VertexArray = MPE::VertexArray::Create();
     float vertices[3 * 7] = {-0.5f, -0.5f, 0.0f, 1.0f, 0.2f, 1.0f, 1.0f, 0.5f, -0.5f, 0.0f, 0.2f, 1.0f, 1.0f, 1.0f, 0.0f, 0.5f, 0.0f, 1.0f, 1.0f, 0.2f, 1.0f};
 
@@ -43,17 +47,25 @@ GridTest::GridTest()
     auto FLAT_COLOR_SHADER = MPE::ShaderLibrary::Load("Data/Shaders/FlatColor.glsl", true);
 
     // GRID
-    SYS_Grid.Init(10.0f, 0.2f, SYS_CAMERA_CONTROLLER.GetCamera());
+    // SYS_Grid.Init(10.0f, 0.2f, SYS_CAMERA_CONTROLLER);
+    // SYS_Grid = MPE::NEWREF<MPE::Grid>(*m_ECS, 10.0f, 0.2f);
+    SYS_Grid = MPE::NEWREF<MPE::Grid>(*m_ECS, 10.0f, 0.2f);
+
+    m_renderSystem = MPE::NEWREF<MPE::ECS::RenderSystem>();
+    m_ECS->RegisterSystem(*m_renderSystem, SYS_CAMERA_CONTROLLER);
 }
 
 void GridTest::OnUpdate(MPE::Time deltaTime)
 {
+    m_ECS->RunSystems(deltaTime);
+
     UpdateColor(deltaTime);
+    SYS_CAMERA_CONTROLLER->OnUpdate(deltaTime);
 
     MPE::RenderPrimitive::SetClearColor(glm::vec4(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]));
     MPE::RenderPrimitive::Clear();
 
-    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER.GetCamera());
+    MPE::Renderer::BeginScene(SYS_CAMERA_CONTROLLER->GetProjection());
 
     auto FLAT_COLOR_SHADER = MPE::ShaderLibrary::Get("FlatColor");
 
@@ -70,9 +82,11 @@ void GridTest::OnUpdate(MPE::Time deltaTime)
     glm::mat4 TRIANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), TRIANGLE_POSITION) * TRIANGLE_SCALE;
     MPE::Renderer::Submit(FLAT_COLOR_SHADER, SYS_VertexArray, TRIANGLE_TRANSFORM);
 
-    SYS_Grid.DrawGrid();
+    SYS_Grid->OnRender(*SYS_CAMERA_CONTROLLER);
 
     MPE::Renderer::EndScene();
+
+    m_ECS->RunSystems(SYS_CAMERA_CONTROLLER);
 }
 
 void GridTest::OnImGuiRender()
@@ -85,20 +99,22 @@ void GridTest::OnImGuiRender()
 
     ImGui::Separator();
 
-    // Get grid size and spacing, then use imgui sliders to change them
-    float gridSize = SYS_Grid.GetGridSize();
-    float gridSpacing = SYS_Grid.GetGridSpacing();
+    // // Get grid size and spacing, then use imgui sliders to change them
+    // float gridSize = SYS_Grid->GetGridSize();
+    // float gridSpacing = SYS_Grid->GetGridSpacing();
 
-    ImGui::Text("GRID VARIABLES");
-    ImGui::SliderFloat("GRID SIZE", &gridSize, 0.0f, 100.0f);
-    ImGui::SliderFloat("GRID SPACING", &gridSpacing, 0.0f, 10.0f);
+    // ImGui::Text("GRID VARIABLES");
+    // ImGui::SliderFloat("GRID SIZE", &gridSize, 0.0f, 100.0f);
+    // ImGui::SliderFloat("GRID SPACING", &gridSpacing, 0.0f, 10.0f);
 
-    SYS_Grid.Resize(gridSize, gridSpacing);
+    // SYS_Grid->Resize(gridSize, gridSpacing);
 
-    ImGui::Separator();
+    // ImGui::Separator();
 
-    ImGui::Text("TRIANGLE VARIABLES");
-    ImGui::Text("R: %f, G: %f, B: %f", TRIANGLE_COLOR[0], TRIANGLE_COLOR[1], TRIANGLE_COLOR[2]);
+    // ImGui::Text("TRIANGLE VARIABLES");
+    // ImGui::Text("R: %f, G: %f, B: %f", TRIANGLE_COLOR[0], TRIANGLE_COLOR[1], TRIANGLE_COLOR[2]);
+
+    SYS_Grid->OnImGuiRender();
 
     ImGui::End();
 }
@@ -107,7 +123,7 @@ void GridTest::OnEvent(MPE::Event &event)
 {
     MPE::EventDispatcher dispatcher(event);
     dispatcher.Dispatch<MPE::KeyPressedEvent>(MPE_BIND_EVENT_FUNCTION(GridTest::OnKeyPressedEvent));
-    SYS_CAMERA_CONTROLLER.OnEvent(event);
+    SYS_CAMERA_CONTROLLER->OnEvent(event);
 }
 
 bool GridTest::OnKeyPressedEvent(MPE::KeyPressedEvent &event)

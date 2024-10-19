@@ -15,6 +15,7 @@ enum class MPE_EDITOR_API MeshType
 {
     Cube,
     Sphere,
+    Grid,
     Custom
 };
 
@@ -26,6 +27,8 @@ static std::string MeshTypeToString(MeshType type)
             return "Cube";
         case MeshType::Sphere:
             return "Sphere";
+        case MeshType::Grid:
+            return "Grid";
         case MeshType::Custom:
             return "Custom";
     }
