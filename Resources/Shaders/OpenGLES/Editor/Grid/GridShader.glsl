@@ -5,8 +5,11 @@
 
 // Vertex Shader
 layout(location = 0) in vec3 ATTR_POS;
+layout(location = 1) in vec3 ATTR_NORMALS;
+layout(location = 2) in vec2 ATTR_TEXCOORD;
 
 uniform mat4 UNI_VPM;
+uniform mat4 UNI_MODELMAT;
 
 void main()
 {

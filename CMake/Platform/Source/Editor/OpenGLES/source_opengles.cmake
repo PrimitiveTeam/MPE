@@ -3,7 +3,6 @@ file(
     MPE_EDITOR_OPENGLES_CPP
 
     # /Editor/Platform/OpenGL/Editor
-    "${PROJECT_SOURCE_DIR}/Editor/Platform/OpenGLES/Editor/Grid/OpenGLESGrid.cpp"
     "${PROJECT_SOURCE_DIR}/Editor/Platform/OpenGLES/Editor/Utilities/OpenGLESDebugGuiLayer.cpp"
 )
 
@@ -12,7 +11,6 @@ file(
     MPE_EDITOR_OPENGLES_H
 
     # /Editor/Platform/OpenGL/Editor
-    "${PROJECT_SOURCE_DIR}/Editor/Platform/OpenGLES/Editor/Grid/OpenGLESGrid.h"
     "${PROJECT_SOURCE_DIR}/Editor/Platform/OpenGLES/Editor/Utilities/OpenGLESDebugGuiLayer.h"
 )
 

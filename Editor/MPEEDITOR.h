@@ -1,8 +1,6 @@
 #pragma once
 
 // ----- EDITOR -----
-// GRID
-#include "Editor/Editor/Grid/Grid.h"
 // PROMPTS
 #include "Editor/Editor/Prompts/SimpleDialog.h"
 // OBJECTS
@@ -13,6 +11,8 @@
 #include "Editor/Editor/Objects/Primitives/Sphere/Sphere.h"
 // OBJECTS/CAMERAS
 #include "Editor/Editor/Objects/Cameras/Camera.h"
+// OBJECTS/GRID
+#include "Editor/Editor/Objects/Grid/Grid.h"
 // SCENES
 #include "Editor/Editor/Scene/Scene.h"
 #include "Editor/Editor/Scene/SceneManager.h"

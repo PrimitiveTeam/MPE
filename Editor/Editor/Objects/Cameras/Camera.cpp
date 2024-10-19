@@ -29,6 +29,8 @@ Camera::~Camera()
 
 void Camera::OnUpdate(Time deltaTime)
 {
+    if (!m_isControllerEnabled) return;
+
     auto cameraPosition = this->GetPosition();
     auto cameraRotation = this->GetRotation();
 
@@ -37,11 +39,13 @@ void Camera::OnUpdate(Time deltaTime)
     {
         m_currentMovementSpeed = m_defaultMovementSpeed * 2;
         m_currentRotationSpeed = m_defaultRotationSpeed * 2;
+        m_currentZoomSpeed = m_defaultZoomSpeed * 2;
     }
     else
     {
         m_currentMovementSpeed = m_defaultMovementSpeed;
         m_currentRotationSpeed = m_defaultRotationSpeed;
+        m_currentZoomSpeed = m_defaultZoomSpeed;
     }
     // CAMERA MOVEMENT
     if (Input::IsKeyPressed(MPE_KEY_A))
@@ -126,7 +130,7 @@ bool Camera::OnWindowResized(WindowResizeEvent& e)
 
 glm::mat4 Camera::GetProjection() const
 {
-    return m_cameraComponent->GetProjectionMatrix();
+    return m_cameraComponent->GetProjectionViewMatrix();
 }
 
 glm::vec4 Camera::GetBounds() const

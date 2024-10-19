@@ -84,9 +84,10 @@ class MPE_EDITOR_API Camera : public Object
   private:
     REF<ECS::CameraComponent> m_cameraComponent = nullptr;
 
+    bool m_isControllerEnabled = true;
     // Controller properties
     float m_maxZoomInLevel = 0.25f;
-    bool m_isRotationEnabled = false;
+    bool m_isRotationEnabled = true;
     // Default states
     float m_defaultMovementSpeed = 1.0f;
     float m_defaultRotationSpeed = 30.0f;

@@ -22,8 +22,7 @@ GridTest::GridTest()
       TRIANGLE_SCALE_FACTOR(1.0f),
       TRIANGLE_VECTOR_SCALE{1.0f, 1.0f, 1.0f},
       TRIANGLE_SCALE(glm::scale(glm::mat4(1.0f), glm::vec3(TRIANGLE_VECTOR_SCALE) * TRIANGLE_SCALE_FACTOR)),
-      TRIANGLE_COLOR{1.0f, 0.2f, 0.2f, 1.0f},
-      SYS_Grid()
+      TRIANGLE_COLOR{1.0f, 0.2f, 0.2f, 1.0f}
 {
     m_ECS = MPE::NEWREF<MPE::ECS::ECS>();
     MPE::REF<MPE::ECS::CameraComponent> cameraComponent = MPE::NEWREF<MPE::ECS::CameraComponent>();
@@ -48,12 +47,14 @@ GridTest::GridTest()
     auto FLAT_COLOR_SHADER = MPE::ShaderLibrary::Load("Data/Shaders/FlatColor.glsl", true);
 
     // GRID
-    SYS_Grid.Init(10.0f, 0.2f, SYS_CAMERA_CONTROLLER);
+    SYS_Grid = MPE::NEWREF<MPE::Grid>(*m_ECS, 10.0f, 0.2f);
+    // SYS_Grid.Init(10.0f, 0.2f, SYS_CAMERA_CONTROLLER);
 }
 
 void GridTest::OnUpdate(MPE::Time deltaTime)
 {
     UpdateColor(deltaTime);
+    SYS_CAMERA_CONTROLLER->OnUpdate(deltaTime);
 
     MPE::RenderPrimitive::SetClearColor(glm::vec4(CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]));
     MPE::RenderPrimitive::Clear();
@@ -75,7 +76,7 @@ void GridTest::OnUpdate(MPE::Time deltaTime)
     glm::mat4 TRIANGLE_TRANSFORM = glm::translate(glm::mat4(1.0f), TRIANGLE_POSITION) * TRIANGLE_SCALE;
     MPE::Renderer::Submit(FLAT_COLOR_SHADER, SYS_VertexArray, TRIANGLE_TRANSFORM);
 
-    SYS_Grid.DrawGrid();
+    SYS_Grid->OnRender(*SYS_CAMERA_CONTROLLER);
 
     MPE::Renderer::EndScene();
 }
@@ -91,14 +92,14 @@ void GridTest::OnImGuiRender()
     ImGui::Separator();
 
     // Get grid size and spacing, then use imgui sliders to change them
-    float gridSize = SYS_Grid.GetGridSize();
-    float gridSpacing = SYS_Grid.GetGridSpacing();
+    float gridSize = SYS_Grid->GetGridSize();
+    float gridSpacing = SYS_Grid->GetGridSpacing();
 
     ImGui::Text("GRID VARIABLES");
     ImGui::SliderFloat("GRID SIZE", &gridSize, 0.0f, 100.0f);
     ImGui::SliderFloat("GRID SPACING", &gridSpacing, 0.0f, 10.0f);
 
-    SYS_Grid.Resize(gridSize, gridSpacing);
+    SYS_Grid->Resize(gridSize, gridSpacing);
 
     ImGui::Separator();
 
